@@ -449,6 +449,55 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .kpi b{ display:block; font-size:19px; font-variant-numeric:tabular-nums; }
 .kpi span{ font-size:12px; color:var(--muted); }
 
+
+/* ---------- 侧边栏题号地图 ---------- */
+.rail{ position:fixed; right:14px; top:150px; width:172px; z-index:8;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:10px 10px 8px; box-shadow:0 6px 22px rgba(0,0,0,.07);
+  max-height:calc(100vh - 180px); overflow:auto; display:none; }
+.rail.open{ display:block; }
+.rail-head{ display:flex; align-items:center; gap:6px; margin-bottom:8px; }
+.rail-head b{ font-size:14px; margin-right:auto; }
+.rail-head .btn{ padding:2px 8px; font-size:12px; }
+.rp-bar{ height:7px; background:var(--line); border-radius:6px; overflow:hidden; }
+.rp-bar span{ display:block; height:100%; background:var(--accent); border-radius:6px;
+  transition:width .25s; }
+.rp-txt{ font-size:12px; color:var(--muted); margin:4px 0 8px; display:flex; gap:10px; justify-content:space-between; }
+.rail-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+.rail-grid .cell{ position:relative; border:1px solid var(--line); background:var(--bg);
+  color:var(--muted); border-radius:5px; font-size:11.5px; line-height:1;
+  padding:5px 0 4px; text-align:center; cursor:pointer; font-family:inherit;
+  font-variant-numeric:tabular-nums; }
+.rail-grid .cell:hover{ border-color:var(--accent); color:var(--accent); }
+.rail-grid .cell.ok{ background:rgba(46,107,79,.16); border-color:rgba(46,107,79,.45);
+  color:var(--fg); font-weight:700; }
+.rail-grid .cell.bad{ background:rgba(163,63,46,.16); border-color:rgba(163,63,46,.5);
+  color:var(--fg); font-weight:700; }
+.rail-grid .cell.cur{ box-shadow:0 0 0 2px var(--accent); }
+.rail-grid .cell.marked::after{ content:""; position:absolute; top:2px; right:2px;
+  width:5px; height:5px; border-radius:50%; background:var(--warn); }
+.rail-grid .cell.doubt{ opacity:.55; cursor:default; }
+.rail-sep{ grid-column:1/-1; height:1px; background:var(--line); margin:3px 0; }
+.rail-legend{ margin-top:8px; font-size:11.5px; color:var(--muted); line-height:1.7; }
+.rail-legend i{ display:inline-block; width:8px; height:8px; border-radius:2px;
+  margin-right:4px; vertical-align:0; }
+/* ---------- 右侧滚动小地图 ---------- */
+.minimap{ position:fixed; right:2px; top:150px; width:9px; z-index:8;
+  background:var(--line); border-radius:5px; display:none; cursor:pointer; }
+.minimap.open{ display:block; }
+.minimap .band{ position:absolute; left:1px; right:1px; border-radius:1px; opacity:.85; }
+.minimap .vp{ position:absolute; left:-2px; right:-2px; border:1.5px solid var(--accent);
+  border-radius:3px; background:rgba(46,107,79,.10); pointer-events:none; }
+@media (min-width:1180px){
+  body.rail-on .wrap{ max-width:1120px; padding-right:206px; }
+}
+@media (max-width:1179px){
+  .rail{ top:auto; bottom:12px; right:12px; width:min(232px,calc(100vw - 24px));
+    max-height:56vh; }
+  .minimap{ display:none !important; }
+}
+@media print{ .rail,.minimap{ display:none !important; } }
+
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 </style>
 <style id="katex-css">
@@ -520,6 +569,7 @@ function typesetMath(root){
         <button class="btn sm" type="button" id="btnTimerReset">重启</button>
       </div>
       <button class="btn primary" type="button" id="btnSubmit">交卷</button>
+      <button class="btn" type="button" id="btnRail">题号地图</button>
       <button class="btn" type="button" id="btnKp">考点总览</button>
       <button class="btn" type="button" id="btnTheme">主题</button>
       <span class="ctl-label" id="countLine"></span>
@@ -537,6 +587,22 @@ function typesetMath(root){
 
     <section class="kpnav panel" id="kpPanel" aria-label="考点总览"></section>
     <main id="list" aria-label="题目列表"></main>
+    <aside class="rail no-print" id="rail" aria-label="题号地图">
+      <div class="rail-head">
+        <b>题号地图</b>
+        <button class="btn sm" type="button" id="btnRailClose">收起</button>
+      </div>
+      <div class="rp-bar"><span id="rpFill" style="width:0"></span></div>
+      <div class="rp-txt" id="rpTxt"><span>已答 0/54</span><span>0%</span></div>
+      <div class="rail-grid" id="railGrid"></div>
+      <div class="rail-legend">
+        <i style="background:rgba(46,107,79,.5)"></i>答对　
+        <i style="background:rgba(163,63,46,.5)"></i>答错<br>
+        <i style="background:var(--warn);border-radius:50%"></i>已进错题集　
+        <i style="border:2px solid var(--accent);background:none"></i>当前题
+      </div>
+    </aside>
+    <div class="minimap no-print" id="minimap" role="presentation"></div>
   </section>
 
   <section class="view" id="view-wrong">
@@ -2577,6 +2643,7 @@ function setView(v){
   $$('.view').forEach(function(s){ s.classList.toggle('on', s.id === 'view-' + v); });
   if(v === 'wrong') renderWrong();
   if(v === 'stats') renderStats();
+  if(v === 'quiz' && typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
   window.scrollTo(0, 0);
 }
 
@@ -3262,6 +3329,7 @@ function extendHTML(q){
 }
 
 var LASTJUMP = null;
+var SCROLL_LOCK = 0;
 function kpJump(no, viaNo){
   var card = cardOf(no);
   if(card && card.hidden){
@@ -3279,11 +3347,118 @@ function kpJump(no, viaNo){
     back.classList.add('on');
   }
   LASTJUMP = viaNo || null;
+  SCROLL_LOCK = Date.now() + 900;
   $$('.qcard.flash').forEach(function(c){ c.classList.remove('flash'); });
   card.classList.add('flash');
   card.scrollIntoView({ behavior:'smooth', block:'start' });
   typesetMath(card);
   setTimeout(function(){ card.classList.remove('flash'); }, 1800);
+}
+
+
+/* ================= 侧边栏题号地图 + 滚动小地图 ================= */
+var RAIL_ON = false;
+function railStateOf(q){
+  if(isDoubt(q)) return 'doubt';
+  var a = state.answers[q.no];
+  if(a) return a === q.answer ? 'ok' : 'bad';
+  return '';
+}
+function renderRail(){
+  var grid = document.getElementById('railGrid');
+  if(!grid) return;
+  var done = 0, total = 0, html = '';
+  QS.forEach(function(q, i){
+    if(!isDoubt(q)){ total += 1; if(state.answers[q.no]) done += 1; }
+    if(q.no === 26) html += '<span class="rail-sep" aria-hidden="true"></span>';
+    var cls = ['cell', railStateOf(q)];
+    if(isMarked(q.no)) cls.push('marked');
+    if(q.no === state.current) cls.push('cur');
+    html += '<button class="' + cls.filter(Boolean).join(' ') + '" type="button" '
+      + 'data-rail="' + q.no + '" title="第 ' + q.no + ' 题 · ' + esc(q.topic)
+      + (state.answers[q.no] ? ' · 已答' : ' · 未答') + '">' + q.no + '</button>';
+  });
+  grid.innerHTML = html;
+  var fill = document.getElementById('rpFill');
+  var txt = document.getElementById('rpTxt');
+  var pct = total ? Math.round(done * 100 / total) : 0;
+  if(fill) fill.style.width = pct + '%';
+  if(txt) txt.innerHTML = '<span>已答 ' + done + '/' + total + '</span><span>' + pct + '%</span>';
+  renderMinimap();
+}
+
+/* 滚动小地图：整卷 55 段按状态着色 + 视口指示 */
+function renderMinimap(){
+  var mm = document.getElementById('minimap');
+  if(!mm) return;
+  var h = Math.max(240, Math.min(460, window.innerHeight - 220));
+  mm.style.height = h + 'px';
+  var n = QS.length, band = h / n, html = '';
+  QS.forEach(function(q, i){
+    var st = railStateOf(q);
+    var col = st === 'ok' ? 'rgba(46,107,79,.75)'
+            : (st === 'bad' ? 'rgba(163,63,46,.75)'
+            : (st === 'doubt' ? 'rgba(140,140,140,.35)' : 'rgba(0,0,0,0)'));
+    if(col === 'rgba(0,0,0,0)') return;
+    html += '<span class="band" style="top:' + (i * band).toFixed(2) + 'px;height:'
+      + Math.max(1.5, band - 0.6).toFixed(2) + 'px;background:' + col + '"></span>';
+  });
+  html += '<span class="vp" id="mmVp"></span>';
+  mm.innerHTML = html;
+  paintMinimapVp();
+}
+function paintMinimapVp(){
+  var mm = document.getElementById('minimap');
+  var vp = document.getElementById('mmVp');
+  var list = document.getElementById('list');
+  if(!mm || !vp || !list) return;
+  var docH = document.documentElement.scrollHeight;
+  var h = mm.clientHeight;
+  var top = window.scrollY / Math.max(1, docH) * h;
+  var hh = Math.max(12, (window.innerHeight / Math.max(1, docH)) * h);
+  vp.style.top = Math.min(h - hh, top).toFixed(1) + 'px';
+  vp.style.height = hh.toFixed(1) + 'px';
+}
+function setRail(on){
+  RAIL_ON = on;
+  var rail = document.getElementById('rail');
+  var mm = document.getElementById('minimap');
+  if(rail) rail.classList.toggle('open', on);
+  document.body.classList.toggle('rail-on', on);
+  if(mm) mm.classList.toggle('open', on && window.innerWidth >= 1180);
+  try{ localStorage.setItem('kg2026-rail', on ? '1' : '0'); }catch(e){}
+  var b = document.getElementById('btnRail');
+  if(b) b.textContent = on ? '收起地图' : '题号地图';
+}
+
+function initRail(){
+  var rail = document.getElementById('rail');
+  if(!rail) return;
+  var saved = localStorage.getItem('kg2026-rail');
+  setRail(saved === null ? window.innerWidth >= 1180 : saved === '1');
+  renderRail();
+
+  rail.addEventListener('click', function(e){
+    var c = e.target.closest('[data-rail]');
+    if(!c) return;
+    var no = +c.dataset.rail;
+    if(c.classList.contains('doubt')){ kpJump(no, state.current); return; }
+    if(currentView() !== 'quiz') setView('quiz');
+    kpJump(no, state.current);
+    setCurrent(no);
+  });
+
+  var mm = document.getElementById('minimap');
+  if(mm){
+    mm.addEventListener('click', function(e){
+      var r = mm.getBoundingClientRect();
+      var ratio = (e.clientY - r.top) / r.height;
+      var docH = document.documentElement.scrollHeight;
+      window.scrollTo({ top: Math.max(0, ratio * docH - window.innerHeight / 2), behavior:'smooth' });
+    });
+  }
+  window.addEventListener('scroll', paintMinimapVp, { passive:true });
+  window.addEventListener('resize', function(){ renderMinimap(); paintMinimapVp(); });
 }
 
 /* 考点总览 */
@@ -3486,6 +3661,7 @@ function paint(no){
     if(b.dataset.k === q.answer) b.classList.add('is-correct');
     if(b.dataset.k === chosen && chosen !== q.answer) b.classList.add('is-wrong');
   });
+  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
   var mk = $('.mark', card);
   if(mk){
     var on = isMarked(no);
@@ -3563,7 +3739,9 @@ function tick(){
 }
 function setCurrent(no){
   if(!byNo[no]) return;
-  if(timer.no === no){ state.current = no; return; }
+  if(timer.no === no){ state.current = no;
+    if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+    return; }
   stopTimer();
   state.current = no;
   $$('.qcard.current', list).forEach(function(c){ c.classList.remove('current'); });
@@ -3582,6 +3760,7 @@ function setCurrent(no){
       if(el) el.textContent = '跳过档 · 不计时';
     }
   }
+  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
   saveSoon();
 }
 
@@ -3777,6 +3956,11 @@ document.getElementById('btnKp').addEventListener('click', renderKpNav);
 $$('.tabm').forEach(function(b){
   b.addEventListener('click', function(){ setView(b.dataset.view); });
 });
+initRail();
+document.getElementById('btnRail').addEventListener('click', function(){ setRail(!RAIL_ON); });
+var rc = document.getElementById('btnRailClose');
+if(rc) rc.addEventListener('click', function(){ setRail(false); });
+
 document.getElementById('btnTimerToggle').addEventListener('click', function(){
   state.timerRun = !state.timerRun; save(); paintTimer();
 });
@@ -3884,7 +4068,7 @@ if('IntersectionObserver' in window){
     entries.forEach(function(en){
       if(en.isIntersecting && !en.target.hidden) hit = en.target;
     });
-    if(hit) setCurrent(+hit.dataset.no);
+    if(hit && Date.now() > SCROLL_LOCK) setCurrent(+hit.dataset.no);
   }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
   $$('.qcard', list).forEach(function(c){ io.observe(c); });
 }
