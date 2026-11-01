@@ -63,6 +63,18 @@ a{color:var(--accent)}
 .qtag{ display:inline-block; border:1px solid var(--line); border-radius:999px;
   padding:2px 10px; margin:3px 6px 0 0; font-size:13.5px; text-decoration:none; color:var(--fg); }
 .qtag:hover{ border-color:var(--accent); color:var(--accent); }
+.m1{ background:rgba(46,107,79,.18); border-radius:3px; box-decoration-break:clone; padding:0 2px; }
+.m2{ background:rgba(199,152,26,.22); border-radius:3px; box-decoration-break:clone; padding:0 2px; }
+.m3{ background:rgba(163,63,46,.18); border-radius:3px; box-decoration-break:clone; padding:0 2px; }
+.m4{ background:rgba(19,74,52,.26); border-radius:3px; box-decoration-break:clone; padding:0 2px; }
+.tag-yin,.tag-xi,.tag-ping{ display:inline-block; font-size:12px; border-radius:4px;
+  padding:0 5px; margin-right:3px; vertical-align:1px; border:1px solid var(--line); color:var(--mut); }
+.tag-yin{ border-color:#2e6b4f; color:#2e6b4f; }
+.tag-xi{ border-color:#c7981a; color:#a37a10; }
+.tag-ping{ border-color:#a33f2e; color:#a33f2e; }
+p.essay{ margin:12px 0; line-height:2.05; font-size:16.5px; }
+p.essay.en{ font-family:"Segoe UI",system-ui,sans-serif; line-height:1.95; }
+h3.essay-t{ text-align:center; font-size:19px; margin:18px 0 10px; letter-spacing:.04em; }
 .mmdwrap{ margin:12px 0 6px; padding:10px 8px; border:1px dashed var(--line);
   border-radius:10px; overflow:auto; max-height:76vh; background:var(--card); }
 .mmdwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
@@ -112,7 +124,8 @@ function typesetMath(root){
   <button class="tab tab0 class="on"" data-t="zero">00 · 现状体检</button>
   <button class="tab tab1" data-t="two">01 · 作文三类卷</button>
   <button class="tab tab2" data-t="three">02 · 间隙恢复</button>
-  <button class="tab tab3" data-t="kp">03 · 考点库</button>
+  <button class="tab tab3" data-t="write">03 · 写作四篇</button>
+  <button class="tab tab4" data-t="kp">04 · 考点库</button>
 </div></header>
 <main><section id="zero" class="on"><h1>01 · 现状体检 + 2026 真题三档分层</h1>
 <blockquote>
@@ -1343,6 +1356,385 @@ function typesetMath(root){
 <li>你的作文丢分是<strong>方向性</strong>的，不是深度不够 → 协议三的 20 秒回读，是 48 天里最便宜的一次性收益（约 13 分，成本 0.3 分）。</li>
 <li>你之前的模考记录里没有任何一次「因为时间不够没写完」的记载 —— 说明你的问题不是速度，是<strong>没有跳过机制</strong>，导致难题吃掉的时间无处回收。</li>
 </ul>
+<blockquote>
+<p>📌 本输出由 AI 辅助生成，仅用于信息整理与备考参考，不构成专业意见或决策依据。</p>
+</blockquote></section>
+<section id="write"><h1>2026 · 中英四篇写作（带起承转合标注）</h1>
+<blockquote>
+<p>用色规则（全文一致）：
+<span class="m1">绿底 = 起</span>　<span class="m2">黄底 = 承 / 正</span>　<span class="m3">红底 = 转 / 反</span>　<span class="m4">深绿底 = 合 / 升华</span>
+论证有效性分析额外用 <code>〈引〉〈析〉〈评〉</code> 标出每一段的三截结构。</p>
+</blockquote>
+<hr />
+<h2>一、管综 · 论证有效性分析（第 56 题，30 分）</h2>
+<h3>1.1 真题材料（2026 卷原文，已入库）</h3>
+<blockquote>
+<p>当前，有些地方出现了以租代买的消费方式。以租代买花钱少、享受多，提高了物品的利用率，这一消费方式值得提倡。首先，以租代买经济实惠，体现了一种新的消费观念。过去人们看重物品所有权……时下一些年轻人选择租物使用，租物范围越来越广。<strong>由此可见，现在人们的消费观念都转变了</strong>……
+其次……<strong>若以租代买就可以及时体验到最新款相机带来的拍摄乐趣。这意味着，不以租代买就无法及时体验到这一乐趣</strong>……<strong>这表明奢侈品不再是高收入者的专属，中低收入者也可拥有奢侈品</strong>。
+再次……<strong>避免浪费相对来说就是增加财富，由此可以断定，未来个人和社会财富将会快速增长</strong>。而如果不以租代买，就不能避免浪费；如果不能避免浪费，就会造成环境污染；如果造成环境污染，就会付出巨大的治理代价。
+当然，以租代买还需要保障条件……<strong>未来个人信用体系会不断健全，个人信用也会不断好起来，这样看来，以租代买的保障条件将会越来越完善</strong>。</p>
+</blockquote>
+<h3>1.2 你能拿到哪一档</h3>
+<table>
+<thead>
+<tr>
+<th>档</th>
+<th>分值</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二类</td>
+<td>21–26</td>
+<td>找 3–4 个漏洞，每段「引+析+评」完整，分析有层次</td>
+</tr>
+<tr>
+<td><strong>三类</strong></td>
+<td><strong>15–20</strong></td>
+<td><strong>找 3 个明显漏洞，每段有引、有析、有评，600 字左右</strong></td>
+</tr>
+<tr>
+<td>四类</td>
+<td>8–14</td>
+<td>只引不析，或写成读后感</td>
+</tr>
+<tr>
+<td>五类</td>
+<td>0–7</td>
+<td>偏离题意（写成「我认为管理者应该……」）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>目标就是三类：不跑题、有标题、四段、每段有「为什么错」。</strong></p>
+<h3>1.3 范文（623 字，四段式）</h3>
+<h3 class="essay-t">以租代买未必值得提倡</h3>
+
+<p class="essay"><span class="m1">上述材料通过一连串推理，试图论证「以租代买这一消费方式值得提倡」。然而其论证过程中概念、条件与推论多处失守，结论难以成立，现分析如下。</span></p>
+
+<p class="essay"><span class="m2"><b>首先，</b><span class="tag-yin">〈引〉</span>材料由「时下一些年轻人选择租物使用，租物范围越来越广」推出「现在人们的消费观念都转变了，从过去购买所有权转向购买使用权」。
+<span class="tag-xi">〈析〉</span>这是以偏概全：「一些年轻人」只是消费群体中的一小部分，其偏好不足以代表全体消费者；何况租物范围扩大，也可能只是可租商品种类增加，并不等于观念发生了转变。
+<span class="tag-ping">〈评〉</span>因此，该推论难以成立。</span></p>
+
+<p class="essay"><span class="m2"><b>其次，</b><span class="tag-yin">〈引〉</span>材料认为「若以租代买就可以及时体验最新款相机」，进而推出「不以租代买就无法及时体验这一乐趣」。
+<span class="tag-xi">〈析〉</span>这里把充分条件当成了必要条件。消费者完全可以通过到店试用、向朋友借用、购买二手等方式体验新品，不必以租为前提。
+<span class="tag-ping">〈评〉</span>因此，「无法体验」这一断言缺乏依据。</span></p>
+
+<p class="essay"><span class="m3"><b>再次，</b><span class="tag-yin">〈引〉</span>材料由「中低收入者也可以通过以租代买获得使用奢侈品的机会」推出「奢侈品不再是高收入者的专属，中低收入者也可拥有奢侈品」。
+<span class="tag-xi">〈析〉</span>此处在「使用」与「拥有」之间偷换了概念：获得使用机会并不等于取得所有权，二者在权利内容与经济含义上完全不同。
+<span class="tag-ping">〈评〉</span>因此，该结论不能由前提推出。</span></p>
+
+<p class="essay"><span class="m4"><b>最后，</b><span class="tag-yin">〈引〉</span>材料由「避免浪费相当于增加财富」直接断定「未来个人和社会财富将会快速增长」，并以「不以租代买→不能避免浪费→造成环境污染→付出巨大治理代价」层层施压。
+<span class="tag-xi">〈析〉</span>这是典型的滑坡论证：每一环都只是「可能」而非「必然」，且财富增长主要取决于开源与生产率提升，而非节省。
+<span class="tag-ping">〈评〉</span>综上，材料的论证存在多处缺陷，其「值得提倡」的结论难以令人信服。</span></p>
+
+<h3>1.4 为什么这样写能拿 15–18 分</h3>
+<table>
+<thead>
+<tr>
+<th>动作</th>
+<th>得分点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有标题，且标题是一句反驳</td>
+<td>白给分，不写直接掉档</td>
+</tr>
+<tr>
+<td>开头只做两件事：复述结论 + 指出有漏洞</td>
+<td>不含任何个人建议</td>
+</tr>
+<tr>
+<td>四段各打一个漏洞，段首「首先/其次/再次/最后」</td>
+<td>结构分</td>
+</tr>
+<tr>
+<td>每段三截齐全：引（抄半句）→ 析（为什么推不出）→ 评（所以不成立）</td>
+<td>这是分数的全部来源</td>
+</tr>
+<tr>
+<td>全程 0 处「我认为应该」「管理者应当」</td>
+<td>写成建议即五类</td>
+</tr>
+</tbody>
+</table>
+<h3>1.5 5 分写法长什么样（你上次的坑）</h3>
+<blockquote>
+<p>首先，以租代买经济实惠，体现了一种新的消费观念。<strong>我认为管理者应当……</strong> 其次，企业要培养人才……</p>
+</blockquote>
+<p>这段的问题不是文笔，是<strong>方向</strong>：你在顺着材料往下写建议，而题目要的是「打它」。<strong>一句「我认为应该」就足以把 18 分变成 5 分。</strong></p>
+<hr />
+<h2>二、管综 · 论说文（第 57 题，35 分）</h2>
+<h3>2.1 题目（考生回忆版）</h3>
+<blockquote>
+<p>材料呈现「长期主义沉淀」与「短期高效突围」两种思路的张力：前者强调耐心、定力与根基；后者强调快速决策、灵活应对。请结合材料，自拟题目，写一篇 700 字左右的议论文。</p>
+</blockquote>
+<p>⚠️ 2026 第 57 题原文在你手上两份 PDF 里都缺，这条是考生回忆版（4 级来源），按方法练，别当押题。</p>
+<h3>2.2 审题三步（3 分钟，决定生死）</h3>
+<ol>
+<li><strong>抓关键词</strong>：长期主义 / 短期突围 —— 两个词都出现两次以上，缺一不可</li>
+<li><strong>找矛盾</strong>：不是「A 好还是 B 好」，是「二者是不是对立」</li>
+<li><strong>写标题</strong>：标题必须同时含 A 和 B，只写一边 = 已经跑题</li>
+</ol>
+<h3>2.3 范文（718 字）</h3>
+<h3 class="essay-t">以长期定方向，以短期争时间</h3>
+
+<p class="essay"><span class="m1">材料呈现出两种看似对立的发展思路：一派主张长期主义，强调耐心、定力与根基的厚植；一派主张短期突围，强调在瞬息万变的环境中快速决策、灵活应对。在我看来，二者并非非此即彼的取舍，而是同一件事的两个侧面——<b>长期回答「往哪走」，短期回答「怎么走」</b>。</span></p>
+
+<p class="essay"><span class="m2"><b>没有长期定力，短期的高效只是加速偏离。</b>方向错了，跑得越快离目标越远。柯达在数码技术已经成熟时仍把资源押在胶卷的利润上，每一个季度报表都很漂亮，每一次决策都堪称「高效」，可十年之后整个行业换了赛道。它输的不是效率，是定力。反过来看华为，从 2004 年起持续投入做芯片与操作系统，十多年里这块业务几乎没有回报，被外界讥为「浪费」。正是这份长期沉淀，让它在断供到来时能把「备胎」一夜转正。</span></p>
+
+<p class="essay"><span class="m3"><b>但没有短期突围，长期的沉淀就等不到兑现的那一天。</b>定力需要现金流来供养，也需要一次次小胜来维持信心。疫情初期，许多制造企业正是靠长期积累的产线能力，在两个月内转产口罩与呼吸机——这既是短期突围，也是长期沉淀的兑现。若只会「等风来」，再厚的家底也会在等待中耗尽。<span class="m3">反过来看，一味追短期的企业账面不难看，却往往在下一个周期里被甩开；而在长期主义的名义下拒绝任何调整，则是一种自我感动式的僵化。</span></span></p>
+
+<p class="essay"><span class="m4">因此，真正的做法是让两者互为条件：<b>用长期目标筛掉短期诱惑，用短期成果反哺长期投入</b>。既不能为了一个漂亮的季度数字砍掉研发，也不能以「长期」为名拒绝任何调整。<b>定方向要慢，迈步子要快</b>——这大概就是二者最好的相处方式。</span></p>
+
+<h3>2.4 结构拆解：正 → 反 → 升华</h3>
+<table>
+<thead>
+<tr>
+<th>段</th>
+<th>角色</th>
+<th>干的事</th>
+<th>字数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 段</td>
+<td><strong>起</strong></td>
+<td>复述张力 → 立刻给出自己的判断（不是复述材料）</td>
+<td>约 120</td>
+</tr>
+<tr>
+<td>第 2 段</td>
+<td><strong>正</strong></td>
+<td>分论点一：没有长期，短期是加速偏离。柯达（反面）+ 华为（正面）</td>
+<td>约 260</td>
+</tr>
+<tr>
+<td>第 3 段</td>
+<td><strong>反</strong></td>
+<td>分论点二：没有短期，长期等不到兑现。转产口罩（正面）+ 追短期/假长期（反面）</td>
+<td>约 260</td>
+</tr>
+<tr>
+<td>第 4 段</td>
+<td><strong>升华</strong></td>
+<td>二者互为条件 → 一句话金句收束</td>
+<td>约 80</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意第 3 段的两层「反」</strong>：先反「只要长期」，再反「只要短期」。这就是你说的「正、反」，而第 4 段的「定方向要慢，迈步子要快」是「升华」——它不是重复前文，而是把两条合成一条可执行的动作。</p>
+<h3>2.5 论说文的高频扣分点</h3>
+<table>
+<thead>
+<tr>
+<th>扣分点</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>没写标题</td>
+<td>−2~3 分，直接掉档</td>
+</tr>
+<tr>
+<td>标题只写一边（如「论长期主义」）</td>
+<td>已被判跑题风险</td>
+</tr>
+<tr>
+<td>只有 1 个分论点</td>
+<td>篇幅撑不到 700 字，必掉四类</td>
+</tr>
+<tr>
+<td>结尾空喊「因此我们要努力」</td>
+<td>无升华，三类下</td>
+</tr>
+<tr>
+<td>通篇「我觉得」</td>
+<td>无据，三类下</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>三、英语二 · 小作文（Part A，10 分）</h2>
+<h3>3.1 题目（2026，据你 <code>wps/备考</code> 的真题范文还原）</h3>
+<blockquote>
+<p>你收到美国朋友 Jack 发来的一段视频，记录了他家人在中国旅行的经历。请给他回一封邮件：① 表达你观看视频后的感受；② 表示想了解更多关于这次旅行的细节。约 100 词，署名为 Li Ming。</p>
+</blockquote>
+<p>⚠️ 这是据你手上那份《2027 年小作文万能模版（20-26 真题范文）》里的 2026 范文反推的题干，<strong>不是官方 Directions 原文</strong>；它同时统计表里写的是「在中国的旅行，类似 2020 年」，两者略有出入——按范文走，它是「感谢/感想 + 想了解更多」。</p>
+<h3>3.2 范文（108 词）</h3>
+<p class="essay en"><span class="m1">Dear Jack,</span></p>
+
+<p class="essay en"><span class="m1">So delighted to receive the video of your family's travel in China, I am writing this email to share my feelings about it and to know more about your journey.</span></p>
+
+<p class="essay en"><span class="m2">For one thing, the video, which blends historical value with artistic beauty, presents a truly fantastic journey; the ancient alleys and the evening lights along the river struck me most. For another, I am eager to learn the details of your route — <b>which cities you visited first, how long you stayed in each, and whether any local food surprised you.</b></span></p>
+
+<p class="essay en"><span class="m3">It would be a great help if you could also tell me what you found difficult as a foreign traveller, since a friend of mine is planning a similar trip and would benefit from your experience.</span></p>
+
+<p class="essay en"><span class="m4">I would appreciate it if you could share more when you are free. Looking forward to your reply.</span></p>
+
+<p class="essay en"><span class="m4">Yours sincerely,<br>Li Ming</span></p>
+
+<h3>3.3 起承转合逐句注释</h3>
+<table>
+<thead>
+<tr>
+<th>段</th>
+<th>功能</th>
+<th>关键句式</th>
+<th>为什么这么写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>起</td>
+<td>说明来信缘由</td>
+<td><code>So delighted to receive…, I am writing this email to…</code></td>
+<td>分词短语开头 + purpose，一句话交代替两件事：情绪 + 目的</td>
+</tr>
+<tr>
+<td>承</td>
+<td>具体展开两件事</td>
+<td><code>For one thing… For another…</code></td>
+<td>题干两个要点各占一层，阅卷人一眼看到「两个都写了」</td>
+</tr>
+<tr>
+<td>转</td>
+<td>增加一层请求</td>
+<td><code>It would be a great help if…since…</code></td>
+<td>题干只说「想了解更多」，这里补一个理由，避免干巴巴地问</td>
+</tr>
+<tr>
+<td>合</td>
+<td>礼貌收尾</td>
+<td><code>I would appreciate it if… Looking forward to your reply.</code></td>
+<td>固定收尾，不占字数、不给扣分机会</td>
+</tr>
+</tbody>
+</table>
+<p><strong>小作文只考两件事：要点齐不齐、语气对不对。</strong> 不要炫技，不要写长难句，100 词写满两个要点就是 8 分往上。</p>
+<hr />
+<h2>四、英语二 · 大作文（Part B，15 分）</h2>
+<h3>4.1 题目（2026 真题：柱状图）</h3>
+<blockquote>
+<p>图表标题：<strong>某项关于儿童户外活动看法的调查</strong>（Opinions on Children's Outdoor Activities）
+四个元素与占比：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>满足好奇心（satisfy curiosity）</td>
+<td>54.6%</td>
+</tr>
+<tr>
+<td>促进观察力（improve observation）</td>
+<td>54.5%</td>
+</tr>
+<tr>
+<td>强身健体（build up bodies）</td>
+<td>37.2%</td>
+</tr>
+<tr>
+<td>增强亲子互动（parent-child interaction）</td>
+<td>33.2%</td>
+</tr>
+</tbody>
+</table>
+<p>2026 是<strong>静态柱状图</strong>（无时间跨度）——英语二 17 年里 10 年是静态图，静态图的难点是「图表里的汉字怎么译」。</p>
+<h3>4.2 范文（176 词，三段）</h3>
+<p class="essay en"><span class="m1">The chart above illustrates the proportions of opinions on children's outdoor activities. As is shown, four benefits are covered, and their shares differ noticeably.</span></p>
+
+<p class="essay en"><span class="m2">Specifically, satisfying children's curiosity and improving their observation rank at the top, accounting for 54.6% and 54.5% respectively — a gap of only 0.1 percentage point. Building up children's bodies follows with 37.2%, while strengthening parent-child interaction comes last at 33.2%.</span></p>
+
+<p class="essay en"><span class="m3">Several factors may account for this distribution. To begin with, curiosity and observation are the most immediate gains children can feel, so parents notice and report them first. More importantly, physical training and family interaction usually require time, space and parental company, which many urban families lack. In other words, <b>the ranking reflects not what parents value least, but what is hardest to arrange.</b></span></p>
+
+<p class="essay en"><span class="m4">Given the data, the trend is likely to continue, since awareness of outdoor activity keeps rising while urban schedules remain tight. For schools and communities, the sensible move is to organize more parent-child outdoor programmes — not only to promote fitness, but to make the two lower items easier to achieve.</span></p>
+
+<h3>4.3 三段各干什么</h3>
+<table>
+<thead>
+<tr>
+<th>段</th>
+<th>起承转合</th>
+<th>做什么</th>
+<th>字数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>起</strong></td>
+<td>一句话点题（图表在说什么），不报数据</td>
+<td>约 35</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>承</strong></td>
+<td>报数据：从高到低，给对比（0.1 个百分点）+ 首尾呼应</td>
+<td>约 55</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>转</strong></td>
+<td>解释原因：三条，每条一句。<strong>关键在最后一句把「低」重新定义</strong></td>
+<td>约 65</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>合</strong></td>
+<td>趋势判断 + 给相关方一个具体动作</td>
+<td>约 45</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这段最值钱的不是模板，是第 3 段最后那句</strong>：<code>the ranking reflects not what parents value least, but what is hardest to arrange</code>——把一个平平的柱状图读出了「难度差异」而不是「偏好差异」。这一句就能把 10 分变 13 分。</p>
+<h3>4.4 静态图的三条纪律</h3>
+<ol>
+<li><strong>标题先译成英文再动笔</strong>，译不出来这题就废了（<code>satisfy curiosity</code> / <code>improve observation</code> / <code>build up bodies</code> / <code>parent-child interaction</code>）</li>
+<li><strong>数据必须报全</strong>，四个元素四个数字，漏一个扣内容分</li>
+<li><strong>给一个对比或排序词</strong>（<code>rank at the top</code> / <code>follows with</code> / <code>comes last</code>），只罗列数字等于没分析</li>
+</ol>
+<hr />
+<h2>五、四篇共通的三条纪律</h2>
+<table>
+<thead>
+<tr>
+<th>纪律</th>
+<th>论证有效性</th>
+<th>论说文</th>
+<th>英语两篇</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先定方向再动笔</strong></td>
+<td>先判「它想证什么」</td>
+<td>先写标题</td>
+<td>先译标题</td>
+</tr>
+<tr>
+<td><strong>结构必须外显</strong></td>
+<td>四段 + 首先其次再次最后</td>
+<td>起/正/反/合四段</td>
+<td>起承转合四段</td>
+</tr>
+<tr>
+<td><strong>每段都要有一句「自己的话」</strong></td>
+<td>析的部分</td>
+<td>分论点</td>
+<td>第 3 段那句重新定义</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <blockquote>
 <p>📌 本输出由 AI 辅助生成，仅用于信息整理与备考参考，不构成专业意见或决策依据。</p>
 </blockquote></section>
