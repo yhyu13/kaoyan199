@@ -498,6 +498,21 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 }
 @media print{ .rail,.minimap{ display:none !important; } }
 
+
+/* ---------- 侧栏耗时块 ---------- */
+.rail-sec{ border-top:1px solid var(--line); margin-top:8px; padding-top:6px; }
+.rail-sec>summary{ cursor:pointer; list-style:none; font-size:12.5px; font-weight:700;
+  color:var(--fg); display:flex; align-items:center; gap:6px; }
+.rail-sec>summary::-webkit-details-marker{ display:none; }
+.rail-sec>summary::before{ content:"▸"; color:var(--muted); font-size:10px; }
+.rail-sec[open]>summary::before{ content:"▾"; }
+.rail-sec>summary .r{ margin-left:auto; font-weight:400; color:var(--muted); }
+.rail-chart{ margin:6px 0 2px; }
+.rail-chart svg{ display:block; width:100%; height:auto; }
+.rail-chart .cb{ cursor:pointer; }
+.rail-chart .cb:hover{ opacity:.75; }
+.rail-ctxt{ font-size:11.5px; color:var(--muted); line-height:1.6; }
+
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 </style>
 <style id="katex-css">
@@ -592,6 +607,11 @@ function typesetMath(root){
       <div class="rp-bar"><span id="rpFill" style="width:0"></span></div>
       <div class="rp-txt" id="rpTxt"><span>已答 0/54</span><span>0%</span></div>
       <div class="rail-grid" id="railGrid"></div>
+      <details class="rail-sec" id="railSec" open>
+        <summary>耗时<span class="r" id="railSecR"></span></summary>
+        <div class="rail-chart" id="railChart"></div>
+        <div class="rail-ctxt" id="railChartTxt"></div>
+      </details>
       <div class="rail-legend">
         <i style="background:rgba(46,107,79,.5)"></i>答对　
         <i style="background:rgba(163,63,46,.5)"></i>答错<br>
@@ -3380,7 +3400,57 @@ function renderRail(){
   var pct = total ? Math.round(done * 100 / total) : 0;
   if(fill) fill.style.width = pct + '%';
   if(txt) txt.innerHTML = '<span>已答 ' + done + '/' + total + '</span><span>' + pct + '%</span>';
+  renderRailChart();
   renderMinimap();
+}
+
+
+/* ---------- 侧栏耗时竖条图 ---------- */
+function railChartSVG(rows){
+  var W = 150, H = 52, n = rows.length, gap = W / n;
+  var bw = Math.max(1.4, gap - 0.9);
+  var maxEl = Math.max(60, Math.max.apply(null, rows.map(function(r){ return r.el; })));
+  var yMax = Math.min(300, Math.ceil(maxEl / 60) * 60);
+  function Y(v){ return H - 3 - (H - 8) * Math.min(v, yMax) / yMax; }
+  var g = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="每题耗时">';
+  g += '<line x1="0" y1="' + (H - 3) + '" x2="' + W + '" y2="' + (H - 3) +
+    '" stroke="#ddd8ce" stroke-width="1"/>';
+  rows.forEach(function(r, i){
+    var x = i * gap, h = Math.max(1, (H - 3) - Y(r.el));
+    var cls = r.blank ? 'blank' : (r.ok ? 'ok' : 'bad');
+    var fill = r.blank ? 'rgba(140,140,140,.28)'
+             : (r.ok ? 'rgba(46,107,79,.72)' : 'rgba(163,63,46,.72)');
+    g += '<rect class="cb" data-rail="' + r.no + '" x="' + x.toFixed(2) + '" y="'
+      + Y(r.el).toFixed(2) + '" width="' + bw.toFixed(2) + '" height="' + h.toFixed(2)
+      + '" fill="' + fill + '" rx=".6"><title>第 ' + r.no + ' 题 · ' + Math.round(r.el)
+      + 's</title></rect>';
+    if(r.expect > 0){
+      g += '<line x1="' + x.toFixed(2) + '" y1="' + Y(r.expect).toFixed(2) + '" x2="'
+        + (x + bw).toFixed(2) + '" y2="' + Y(r.expect).toFixed(2)
+        + '" stroke="#b0aa9c" stroke-width="1"/>';
+    }
+    if(r.no === state.current){
+      g += '<rect x="' + (x - 0.5).toFixed(2) + '" y="1" width="' + (bw + 1).toFixed(2)
+        + '" height="' + (H - 4) + '" fill="none" stroke="#2e6b4f" stroke-width=".8" rx="1"/>';
+    }
+  });
+  g += '</svg>';
+  return g;
+}
+function renderRailChart(){
+  var box = document.getElementById('railChart');
+  var txt = document.getElementById('railChartTxt');
+  if(!box) return;
+  var rows = timeRows();
+  box.innerHTML = railChartSVG(rows);
+  if(txt){
+    var done = rows.filter(function(r){ return r.el > 0; });
+    var els = done.map(function(r){ return r.el; });
+    var over = rows.filter(function(r){ return r.expect && r.el > r.expect; }).length;
+    txt.innerHTML = '中位 ' + qtl(els, 0.5) + 's · P90 ' + qtl(els, 0.9) + 's · 超时 '
+      + over + ' 题<br>已答 ' + rows.filter(function(r){ return !r.blank; }).length
+      + '/' + rows.length + ' · 灰条=未作答';
+  }
 }
 
 /* 滚动小地图：整卷 55 段按状态着色 + 视口指示 */
@@ -3435,7 +3505,7 @@ function initRail(){
   renderRail();
 
   rail.addEventListener('click', function(e){
-    var c = e.target.closest('[data-rail]');
+    var c = e.target.closest('[data-rail],[data-rail-chart]');
     if(!c) return;
     var no = +c.dataset.rail;
     if(c.classList.contains('doubt')){ kpJump(no, state.current); return; }
@@ -3443,6 +3513,17 @@ function initRail(){
     kpJump(no, state.current);
     setCurrent(no);
   });
+
+  var rc = document.getElementById('railChart');
+  if(rc){
+    rc.addEventListener('click', function(e){
+      var c = e.target.closest('[data-rail]');
+      if(!c) return;
+      var no = +c.dataset.rail;
+      if(currentView() !== 'quiz') setView('quiz');
+      kpJump(no, state.current); setCurrent(no);
+    });
+  }
 
   var mm = document.getElementById('minimap');
   if(mm){
@@ -3705,24 +3786,35 @@ function choose(no, k){
 }
 
 /* ---------- 计时 ---------- */
-var timer = { no:null, base:0, start:0, iv:null };
+var timer = { no:null, acc:0, tickAt:0, iv:null };   /* acc 单位 ms，state.elapsed 存秒 */
 
 function stopTimer(){
   if(timer.no != null){
-    state.elapsed[timer.no] = timer.base + (Date.now() - timer.start);
+    commitTimer();
     timer.no = null;
   }
   if(timer.iv){ clearInterval(timer.iv); timer.iv = null; }
 }
-function elapsedMs(no){
-  if(timer.no === no && timer.start) return timer.base + (Date.now() - timer.start);
+/* 把当前题的累计毫秒落成秒，stat 那边只认秒 */
+function commitTimer(){
+  if(timer.no == null) return;
+  state.elapsed[timer.no] = Math.round(timer.acc / 1000);
+}
+function elapsedSec(no){
+  if(timer.no === no) return Math.round(timer.acc / 1000);
   return state.elapsed[no] || 0;
 }
+var railPaintAt = 0;
 function tick(){
   if(timer.no == null) return;
   var no = timer.no, q = byNo[no], card = cardOf(no);
   if(!q || !card) return;
-  var sec = Math.floor(elapsedMs(no) / 1000);
+  /* 只有总计时在跑，单题计时才累加；暂停/未开始就冻住 */
+  var now = Date.now();
+  if(state.timerRun && timer.tickAt){ timer.acc += now - timer.tickAt; }
+  timer.tickAt = now;
+  state.elapsed[no] = Math.round(timer.acc / 1000);
+  var sec = Math.round(timer.acc / 1000);
   var over = q.expectSec > 0 && sec > q.expectSec;
   var el = $('[data-role="time"]', card);
   if(el){
@@ -3731,6 +3823,10 @@ function tick(){
       : ('建议 ' + q.expectSec + ' 秒 · 已用 ' + fmt(sec));
   }
   card.classList.toggle('over', over);
+  if(now - railPaintAt > 900){
+    railPaintAt = now;
+    if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+  }
   saveSoon();
 }
 function setCurrent(no){
@@ -3747,8 +3843,8 @@ function setCurrent(no){
     var q = byNo[no];
     if(q.expectSec > 0){
       timer.no = no;
-      timer.base = state.elapsed[no] || 0;
-      timer.start = Date.now();
+      timer.acc = (state.elapsed[no] || 0) * 1000;
+      timer.tickAt = Date.now();
       timer.iv = setInterval(tick, 500);
       tick();
     } else {
@@ -3958,11 +4054,15 @@ var rc = document.getElementById('btnRailClose');
 if(rc) rc.addEventListener('click', function(){ setRail(false); });
 
 document.getElementById('btnTimerToggle').addEventListener('click', function(){
-  state.timerRun = !state.timerRun; save(); paintTimer();
+  state.timerRun = !state.timerRun;
+  timer.tickAt = Date.now();      /* 切换瞬间对齐基准，暂停期间不算时间 */
+  save(); paintTimer();
 });
 document.getElementById('btnTimerReset').addEventListener('click', function(){
   if(!window.confirm('重启计时？当前已用 ' + clockText(0) + ' 的进度会清零，作答记录不会丢。')) return;
-  state.timerSec = 0; state.timerRun = false; save(); paintTimer();
+  state.timerSec = 0; state.timerRun = false;
+  timer.tickAt = Date.now();
+  save(); paintTimer();
 });
 paintTimer();
 setView(state.view || 'quiz');
