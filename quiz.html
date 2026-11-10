@@ -517,6 +517,19 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .rail-chart .cb:hover{ opacity:.75; }
 .rail-ctxt{ font-size:11.5px; color:var(--muted); line-height:1.6; }
 
+
+/* ---------- 每题：计时 + 复制 ---------- */
+.qtoggle{ border:1px solid var(--line); background:var(--card); color:var(--fg);
+  border-radius:999px; padding:3px 11px; font:inherit; font-size:12.5px; cursor:pointer;
+  white-space:nowrap; }
+.qtoggle:hover{ border-color:var(--accent); color:var(--accent); }
+.qtoggle.on{ background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; }
+.qa-actions{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+  margin:2px 0 10px; }
+.qa-actions .btn{ font-size:12.5px; padding:3px 11px; }
+.copied{ color:var(--accent) !important; border-color:var(--accent) !important; }
+@media print{ .qtoggle,.qa-actions{ display:none !important; } }
+
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 /* ================= 主题配色补丁（浅 / 深） ================= */
 :root{
@@ -4834,7 +4847,7 @@ function paintTimer(){
   box.classList.toggle('over', (state.timerSec || 0) > TOTAL_SEC);
   paintObjTimer();
   var b = document.getElementById('btnTimerToggle');
-  if(b) b.textContent = state.timerRun ? '暂停' : '继续';
+  if(b) b.textContent = state.timerRun ? '暂停' : ((state.timerSec || 0) > 0 ? '继续' : '开始计时');
 }
 function tickTimer(){
   if(state.timerRun){ state.timerSec = (state.timerSec || 0) + 1; paintTimer(); }
@@ -5825,6 +5838,92 @@ function applyTheme(){
   if(btn) btn.textContent = state.theme === 'auto' ? '主题：跟随系统' : (state.theme === 'dark' ? '主题：深色' : '主题：浅色');
 }
 
+
+/* ---------- LaTeX → 纯文本（复制用） ---------- */
+function texPlain(s){
+  s = String(s == null ? '' : s);
+  var BS = String.fromCharCode(92);
+  var rep = [
+    [BS + 'dfrac', ''], [BS + 'tfrac', ''], [BS + 'frac', ''], [BS + 'sqrt', '√'],
+    [BS + 'cdot', '·'], [BS + 'times', '×'], [BS + 'div', '÷'], [BS + 'pm', '±'],
+    [BS + 'Delta', 'Δ'], [BS + 'pi', 'π'], [BS + 'alpha', 'α'], [BS + 'theta', 'θ'],
+    [BS + 'le', '≤'], [BS + 'leq', '≤'], [BS + 'ge', '≥'], [BS + 'geq', '≥'],
+    [BS + 'ne', '≠'], [BS + 'neq', '≠'], [BS + 'approx', '≈'], [BS + 'infty', '∞'],
+    [BS + 'cup', '∪'], [BS + 'cap', '∩'], [BS + 'in', '∈'], [BS + 'sum', 'Σ'],
+    [BS + 'Rightarrow', '⇒'], [BS + 'Longrightarrow', '⇒'], [BS + 'Leftrightarrow', '⇔'],
+    [BS + 'rightarrow', '→'], [BS + 'sim', '~'], [BS + 'mid', '|'], [BS + 'quad', ' '],
+    [BS + 'left', ''], [BS + 'right', ''], [BS + 'text', ''], [BS + 'mathrm', ''],
+    [BS + '!', ''], [BS + ',', ''], [BS + ';', ''], [BS + ' ', ' '], [BS + '{', '{'], [BS + '}', '}']
+  ];
+  for(var i = 0; i < rep.length; i++){ s = s.split(rep[i][0]).join(rep[i][1]); }
+  /* 分数：rac{a}{b} → a/b（逐层剥） */
+  for(var k = 0; k < 4; k++){
+    s = s.replace(/\{([^{}]*)\}\{([^{}]*)\}/g, function(m, a, b){ return '(' + a + ')/(' + b + ')'; });
+  }
+  s = s.replace(/\^\{([^{}]*)\}/g, '^$1').replace(/\^([0-9n])/g, '^$1');
+  s = s.replace(/_\{([^{}]*)\}/g, '_$1').replace(/_([0-9nka])/g, '_$1');
+  s = s.replace(/\$/g, '').replace(/[{}]/g, '');
+  return s.replace(/[ \t]+/g, ' ').trim();
+}
+
+/* ---------- 复制 ---------- */
+function copyText(txt, btn){
+  function done(ok){
+    if(!btn) return;
+    var old = btn.textContent;
+    btn.textContent = ok ? '✓ 已复制' : '⚠ 请手动复制';
+    btn.classList.toggle('copied', ok);
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 1400);
+    if(!ok){ window.prompt('浏览器不允许写剪贴板，手动复制：', txt); }
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(function(){ done(true); }, function(){ fallback(); });
+  } else { fallback(); }
+  function fallback(){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, txt.length);
+      var ok = document.execCommand('copy');
+      ta.remove(); done(!!ok);
+    }catch(e){ done(false); }
+  }
+}
+
+function qToText(q, withExp){
+  var L = [];
+  var tag = /^\d+$/.test(String(q.no)) ? ('第 ' + q.no + ' 题') : ('母题 ' + q.no);
+  L.push('【' + tag + '】' + (SUBJ_LABEL[q.subject] || '') + ' · ' + (q.topic || '')
+         + (q.tier ? (' · ' + TIER_LABEL[q.tier]) : ''));
+  L.push('');
+  L.push(texPlain(q.stem || ''));
+  if(q.options && q.options.length > 1 && !q.fill){
+    L.push('');
+    q.options.forEach(function(o){ L.push(o.k + '. ' + texPlain(o.t)); });
+  }
+  if(q.fill && q.ref){ L.push(''); L.push('参考答案：' + texPlain(q.ref)); }
+  if(withExp){
+    var put = function(k, v){
+      if(!v) return;
+      L.push(''); L.push('【' + k + '】'); L.push(texPlain(v));
+    };
+    put('关键题干', q.key);
+    put('秒杀逻辑', q.brief);
+    put('低级错误', q.trap);
+    put('深度解析', (q.exp || '') + (q.steps && q.steps.length ? '' : ''));
+    put('解题路径', (q.steps || []).join('  ⇒  ') + (q.answer ? ('  ⇒  答案 ' + q.answer) : ''));
+    put('题型', q.kind);
+    put('正确答案', q.fill ? ('参考 ' + (q.ref || '')) : q.answer);
+    put('干扰答案', q.distract);
+    put('建议耗时', q.expectSec > 0 ? (q.expectSec + ' 秒') : '不计时');
+    var kps = (KPMAP[q.no] || []).map(function(k){ return KPS[k] ? KPS[k].title : k; });
+    if(kps.length){ L.push(''); L.push('【相关考点】'); L.push(kps.join('、')); }
+  }
+  L.push(''); L.push('—— 来源：2026 管综备考系统 · yhyu13.github.io/kaoyan199');
+  return L.join(String.fromCharCode(10));
+}
+
 /* ---------- 卡片 ---------- */
 function cardHTML(q){
   var doubt = isDoubt(q);
@@ -5837,6 +5936,8 @@ function cardHTML(q){
   else if(hasFlag(q, '图缺失')) head.push('<span class="badge warn">跳过档 · 原卷配图丢失</span>');
   var staticTime = q.expectSec > 0 ? ('建议 ' + q.expectSec + ' 秒') : '跳过档 · 不计时';
   head.push('<span class="time" data-role="time">' + staticTime + '</span>');
+  head.push('<button class="qtoggle' + (state.timerRun && String(q.no) === String(state.current) ? ' on' : '') + '" type="button" data-timer="' + q.no + '" aria-pressed="' + (state.timerRun && String(q.no) === String(state.current)) + '">'
+    + (state.timerRun && String(q.no) === String(state.current) ? '⏸ 计时中' : '▶ 计时') + '</button>');
   head.push('<button class="mark" type="button" data-mark="' + q.no + '" aria-pressed="' + (isMarked(q.no) ? 'true' : 'false') + '">'
     + (isMarked(q.no) ? '✓ 已在错题集' : '＋ 错题集') + '</button>');
 
@@ -5868,6 +5969,10 @@ function cardHTML(q){
     + '<div class="qhead">' + head.join('') + '</div>'
     + '<p class="stem">' + esc(q.stem) + '</p>'
     + '<div class="opts">' + opts + '</div>'
+    + '<div class="qa-actions no-print">'
+    + '<button class="btn sm" type="button" data-copy="q" data-no="' + q.no + '">复制题目</button>'
+    + '<button class="btn sm" type="button" data-copy="qe" data-no="' + q.no + '">复制题目+解析</button>'
+    + '</div>'
     + body.join('')
     + extendHTML(q)
     + '</article>';
@@ -5894,6 +5999,13 @@ function paint(no){
     if(b.dataset.k === chosen && chosen !== q.answer) b.classList.add('is-wrong');
   });
   if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+  var tb2 = $('[data-timer]', card);
+  if(tb2){
+    var on = state.timerRun && String(q.no) === String(state.current);
+    tb2.classList.toggle('on', on);
+    tb2.setAttribute('aria-pressed', String(on));
+    tb2.textContent = on ? '⏸ 计时中' : '▶ 计时';
+  }
   var mk = $('.mark', card);
   if(mk){
     var on = isMarked(no);
@@ -6153,6 +6265,26 @@ list.addEventListener('click', function(e){
   if(!card) return;
   var no = card.dataset.no;
   if(timer.no !== no) setCurrent(no);
+  var tb = e.target.closest('[data-timer]');
+  if(tb){
+    var tno = tb.dataset.timer;
+    if(!(state.timerRun && String(tno) === String(state.current))){
+      setCurrent(tno);
+      state.timerRun = true;
+      timer.tickAt = Date.now();
+    } else {
+      state.timerRun = false;
+      timer.tickAt = Date.now();
+    }
+    save(); paintTimer(); paint(tno);
+    return;
+  }
+  var cp = e.target.closest('[data-copy]');
+  if(cp){
+    var cno = cp.dataset.no, cq = byNo[cno];
+    if(cq) copyText(qToText(cq, cp.dataset.copy === 'qe'), cp);
+    return;
+  }
   var mk = e.target.closest('.mark');
   if(mk){
     if(isMarked(no)) unmarkQuestion(no); else markQuestion(no, 'manual');
@@ -6214,10 +6346,24 @@ document.getElementById('btnTimerToggle').addEventListener('click', function(){
   save(); paintTimer();
 });
 document.getElementById('btnTimerReset').addEventListener('click', function(){
-  if(!window.confirm('重启计时？当前已用 ' + clockText(0) + ' 的进度会清零，作答记录不会丢。')) return;
+  if(!window.confirm('清空计时？\n\n· 总用时归零\n· 每题「已用」归零\n· 作答、错题集、历史记录都不动'))
+    return;
   state.timerSec = 0; state.timerRun = false;
-  timer.tickAt = Date.now();
-  save(); paintTimer();
+  state.elapsed = {};
+  timer.acc = 0; timer.tickAt = Date.now();
+  QS.forEach(function(q){
+    paint(q.no);
+    var c = cardOf(q.no), el = c && $('[data-role="time"]', c);
+    if(el){
+      el.textContent = q.expectSec > 0
+        ? ('建议 ' + q.expectSec + ' 秒 · 已用 0:00')
+        : '跳过档 · 不计时';
+    }
+    if(c) c.classList.remove('over');
+  });
+  if(timer.no != null){ try{ tick(); }catch(e){} }
+  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+  save(); paintTimer(); updateGap();
 });
 paintTimer();
 setView(state.view || 'quiz');

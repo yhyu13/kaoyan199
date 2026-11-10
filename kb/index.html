@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>习题知识库</title>
+<style>
+:root{--bg:#f6f4ef;--fg:#1e211d;--mut:#6b7069;--line:#ddd8ce;--card:#fffdf8;--accent:#2e6b4f;--warn:#a33f2e;--chip:#f0ece2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141613;--fg:#e9e7e1;--mut:#9aa09a;--line:#2c2f2a;--card:#1c1f1b;--accent:#7fc9a2;--warn:#e0876f;--chip:#22261f}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 "Microsoft YaHei","PingFang SC",system-ui,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 70px}
+h1{font-size:25px;margin:0 0 4px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+input#q{flex:1;min-width:180px;border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:999px;padding:8px 16px;font:inherit;font-size:15px}
+button.tb{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;
+  padding:5px 13px;font:inherit;font-size:13px;cursor:pointer}
+button.tb.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:11px 0}
+.item h2{font-size:16.5px;margin:0 0 3px}
+.meta{font-size:12.5px;color:var(--mut);margin-bottom:6px}
+.sum{font-size:14.5px;color:var(--fg);opacity:.9}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;
+  padding:0 8px;margin:2px 5px 0 0;color:var(--mut);cursor:pointer}
+pre.body{white-space:pre-wrap;background:var(--chip);border:1px solid var(--line);border-radius:8px;
+  padding:10px 12px;font-size:14px;line-height:1.8;margin:8px 0 0;display:none;overflow-x:auto}
+.item.open pre.body{display:block}
+.note{font-size:13px;color:var(--mut)}
+.empty{color:var(--mut);text-align:center;padding:40px 0}
+</style></head><body><div class="wrap">
+<h1>习题知识库</h1>
+<p class="sub">共 <b>4</b> 条 · 数据内联在本页，断网可读 · 写入用 <code>_data/kb.py add</code></p>
+<div class="bar">
+  <input id="q" placeholder="搜标题 / 正文 / 标签…" autocomplete="off">
+  <span id="kinds"></span>
+</div>
+<div id="list"></div>
+<p class="note" style="margin-top:26px">字段规范见 <code>知识库/schema.md</code>；别的 Agent 接入看 <code>知识库/接入指南.md</code>。</p>
+</div>
+<script>
+var DATA = [{"kind": "question", "title": "T9 韦达定理：两个候选必须验判别式", "summary": "s=4,p=6 那组实数里根本不存在", "body": "题干：xy+x+y=10，x²y+xy²=24，求 x²+y²。\n\n关键一步：令 s=x+y、p=xy，则 p+s=10、ps=24 → {s,p}={6,4}。\n陷阱：s=4,p=6 时判别式 16-24<0，无实数解，必须舍。所以 x²+y²=s²-2p=28。", "tags": ["数学", "韦达定理", "易错题"], "source": {"agent": "星际绘画", "url": "https://chat.example/x", "at": "2026-11-11T00:00:43+08:00"}, "refs": {"questions": ["9"], "links": [], "images": []}, "schema": 1, "hash": "a2c7e4a5909d2ced", "id": "kb-20261111-000043-a2c7e4"}, {"kind": "link", "title": "地图题的四个下手位置", "summary": "顶点/边界/内部/交叉，按顺序试", "body": "1. 顶点：先把确定数值的点填满\n2. 边界：只与一个点相邻的格子\n3. 内部：自由度最高的先留\n4. 交叉：一拖二题的公共题干", "tags": ["逻辑", "分析推理"], "source": {"agent": "星际绘画", "at": "2026-11-11T00:00:43+08:00"}, "schema": 1, "refs": {"questions": [], "links": [], "images": []}, "hash": "b1cd5c4984ae6871", "id": "kb-20261111-000043-b1cd5c"}, {"kind": "mistake", "title": "我把「证明不了」当成「不存在」", "summary": "诉诸无知的变体，在削弱题里栽过两次", "body": "题干说「没有证据表明 A 导致 B」，我直接判 A 不导致 B。\n正确读法：没有证据 ≠ 证据表明没有。这类选项属于弱支持/弱削弱，不能当结论用。", "tags": ["逻辑", "削弱", "错因"], "source": {"agent": "星际绘画", "at": "2026-11-11T00:00:43+08:00"}, "schema": 1, "refs": {"questions": [], "links": [], "images": []}, "hash": "00ada8d6cb497799", "id": "kb-20261111-000043-00ada8"}, {"kind": "method", "title": "假设题通解：补上断掉的那一环", "summary": "结论里的新概念没被前提覆盖，那一块就是缺口", "body": "# 假设题：找前提和结论之间缺的那块砖\n\n## 通解\n把结论里的**新概念**拎出来，看前提有没有覆盖它。没覆盖的就是缺口，正确选项补的就是这一块。\n\n## 判据\n- 结论出现「某具体动作」（如\"该去风湿免疫科\"）→ 缺口是\"为什么是这个动作\"\n- 结论出现「数量/比例」→ 缺口是\"这个样本能不能代表整体\"\n- 结论出现「必然/都」→ 缺口是\"有没有反例\"\n\n## 典型干扰\n1. 只讲某个好处、不接结论 —— 支持力最弱\n2. 复述题干 —— 支持力≈0\n3. 讲条件、讲合作 —— 与结论无因果", "tags": ["逻辑", "假设题", "通解"], "source": {"agent": "星际绘画", "url": "https://chat.example/abc", "at": "2026-11-11T00:00:37+08:00"}, "refs": {"questions": [], "links": [], "images": []}, "schema": 1, "hash": "3e892d587e408999", "id": "kb-20261111-000037-3e892d"}];
+var state = { q: '', kind: '' };
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function render(){
+  var q = state.q.toLowerCase(), d = DATA.filter(function(e){
+    if(state.kind && e.kind !== state.kind) return false;
+    if(!q) return true;
+    return ((e.title||'') + (e.body||'') + (e.summary||'') + (e.tags||[]).join(' ')).toLowerCase().indexOf(q) >= 0;
+  });
+  document.getElementById('list').innerHTML = d.length ? d.map(function(e){
+    return '<div class="item" data-id="' + esc(e.id) + '">'
+      + '<h2>' + esc(e.title) + '</h2>'
+      + '<div class="meta">' + esc(e.kind) + ' · ' + esc((e.source||{}).agent || '-')
+      + ' · ' + esc((e.source||{}).at || '') + (e.summary ? '' : '')
+      + '</div>'
+      + (e.summary ? '<div class="sum">' + esc(e.summary) + '</div>' : '')
+      + (e.tags||[]).map(function(t){ return '<span class="tag" data-tag="' + esc(t) + '">' + esc(t) + '</span>'; }).join('')
+      + '<pre class="body">' + esc(e.body) + '</pre>'
+      + '</div>';
+  }).join('') : '<div class="empty">没有匹配的条目</div>';
+}
+document.getElementById('list').addEventListener('click', function(ev){
+  var tg = ev.target.closest('[data-tag]');
+  if(tg){ state.q = tg.dataset.tag; state.kind = ''; document.getElementById('q').value = state.q;
+    renderKinds(); render(); return; }
+  var it = ev.target.closest('.item');
+  if(it && !ev.target.closest('pre')) it.classList.toggle('open');
+});
+var KINDS = {};
+DATA.forEach(function(e){ KINDS[e.kind] = (KINDS[e.kind]||0)+1; });
+function renderKinds(){
+  document.getElementById('kinds').innerHTML = '<button class="tb' + (state.kind?'':' on') + '" data-k="">全部 ' + DATA.length + '</button>' +
+    Object.keys(KINDS).map(function(k){
+      return '<button class="tb' + (state.kind===k?' on':'') + '" data-k="' + k + '">' + k + ' ' + KINDS[k] + '</button>';
+    }).join('');
+}
+document.getElementById('kinds').addEventListener('click', function(ev){
+  var b = ev.target.closest('[data-k]'); if(!b) return;
+  state.kind = b.dataset.k; renderKinds(); render();
+});
+document.getElementById('q').addEventListener('input', function(ev){
+  state.q = ev.target.value; render();
+});
+renderKinds(); render();
+</script></body></html>
