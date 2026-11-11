@@ -867,7 +867,7 @@ function typesetMath(root){
   });
 })();
 </script>
-<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-04 代数与函数","exam":"11-04（周三）· 代数与函数","date":"第 3/7 天 · 8 题 · 建议 65 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d2.html\">← 11-03 几何与立体<\/a> <a href=\"d4.html\">11-05 排列组合与概率 →<\/a>"},"questions":[{"no":9,"subject":"math","topic":"代数(韦达定理)","tier":"A","stem":"若实数 $x$、$y$ 满足 $xy+x+y=10$，$x^2y+xy^2=24$，则 $x^2+y^2=(\\quad)$。","options":[{"k":"A","t":"$4$"},{"k":"B","t":"$28$"},{"k":"C","t":"$34$"},{"k":"D","t":"$44$"},{"k":"E","t":"$52$"}],"answer":"B","exp":"令 $s=x+y$、$p=xy$。则 $p+s=10$、$ps=24$，$s,p$ 是 $t^2-10t+24=0$ 的两根 $=6$ 与 $4$。$x^2+y^2=s^2-2p$：若 $s=6,p=4$ 得 $28$；若 $s=4,p=6$，判别式 $16-24<0$ 无实数解，舍去。故 $x^2+y^2=28$。","tierWhy":"这题埋了陷阱：算出 4 就选 A 是掉坑。必须回头验判别式——这是真题最爱设的钩子。","expectSec":150,"brief":"韦达给出两个候选，必须回头验判别式。","steps":["$p+s=10,\\ ps=24$ ⇒ $\\{s,p\\}=\\{6,4\\}$","$s=4,p=6$：$\\Delta=16-24<0$ 舍","$s^2-2p=36-8=28$"],"key":"$xy+x+y=10$，$x^2y+xy^2=24$","trap":"解出两组候选就交卷，不回头验判别式","distract":"A（4）——用 $s=4,p=6$ 那组算的，实数里根本不存在","kind":"易错题","hl":[]},{"no":17,"subject":"math","topic":"条件充分性判断·二次函数+等比","tier":"C","stem":"设 $f(x)=ax^2+bx+c$，其中 $a$、$b$、$c$ 为实数。则 $f(x)>0$。\n（1）$a$、$b$、$c$ 成等比数列\n（2）$a>0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"C","exp":"等比 ⇒ $b^2=ac$。判别式 $\\Delta=b^2-4ac=ac-4ac=-3ac$。要恒正需 $a>0$ 且 $c>0$。由 $a>0$、$b^2=ac\\ge0$ 得 $c\\ge0$，又 $c\\neq0$，故 $c>0$，于是 $\\Delta<0$，开口向上且不与 $x$ 轴相交 ⇒ $f(x)>0$。单靠 $(1)$ 时 $a$ 可能为负（开口向下），不充分。","tierWhy":"「等比 ⇒ $b^2=ac$」+「判别式符号」两步。缺一步就翻车，属于可选题。","expectSec":180,"brief":"等比给 $b^2=ac$，再用判别式判恒正。","steps":["$b^2=ac$ ⇒ $\\Delta=ac-4ac=-3ac$","$a>0\\Rightarrow c>0\\Rightarrow \\Delta<0$","开口向上且不与 $x$ 轴相交 ⇒ 恒正"],"key":"$f(x)=ax^2+bx+c$ 恒正，$a,b,c$ 成等比且 $a>0$","trap":"只验 $b^2=ac$ 不验 $c$ 的符号，判别式符号就判反","distract":"A（条件(1)充分）——忘了开口方向也要 $a>0$","kind":"卡死你不偿命","hl":[]},{"no":19,"subject":"math","topic":"条件充分性判断·不等式解集","tier":"B","stem":"已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$，$B=\\{x\\mid x^2+ax+b\\le 0\\}$，则 $A\\cap B=\\{x\\mid 1<x\\le 3\\}$。\n（1）$a=-2,\\ b=-3$\n（2）$a=-3,\\ b=0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"D","exp":"先解 $A$：$(x-1)(x+1)(x+2)>0$，根 $-2,-1,1$，穿针引线得 $A=(-2,-1)\\cup(1,+\\infty)$。$(1)$ $B=[-1,3]$，$A\\cap B=(1,3]$ ✓；$(2)$ $B=[0,3]$，$A\\cap B=(1,3]$ ✓。两条件各自都够，选 $D$。","tierWhy":"解集题先解出 A（这是不变量），再逐个验 B。两步都标准，算是条件充分性里最该拿的一类。","expectSec":180,"brief":"先解 $A$（不变量），再逐个验 $B$。","steps":["$A=(x^2-1)(x+2)>0$ ⇒ $(-2,-1)\\cup(1,+\\infty)$","$(1)$ $B=[-1,3]$ ⇒ 交 $=(1,3]$","$(2)$ $B=[0,3]$ ⇒ 交 $=(1,3]$"],"key":"$A$ 是不等式解集，$B$ 带参数，交集是 $(1,3]$","trap":"端点开闭搞错；或者不先解出 $A$ 就硬验 $B$","distract":"B（条件(2)充分）——只验了一个条件","kind":"易错题","hl":[]},{"no":20,"subject":"math","topic":"条件充分性判断·数列前n项和","tier":"B","stem":"已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n=bn^2+c$，其中 $b$、$c$ 为实数。则 $a_{10}=38$。\n（1）$a_1=1$\n（2）$a_2=6$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"B","exp":"$a_n=S_n-S_{n-1}=b\\left[n^2-(n-1)^2\\right]=b(2n-1)$（$n\\ge2$），故 $a_{10}=19b$。要 $a_{10}=38$ 需 $b=2$。$(1)$ $a_1=S_1=b+c=1$ 只能定 $b+c$；$(2)$ $a_2=3b=6$ ⇒ $b=2$ ✓。","tierWhy":"「Sₙ 差分成 aₙ」+「目标只含 b」这个观察，两步都在套路内。","expectSec":150,"brief":"$S_n$ 作差得通项，目标只含 $b$。","steps":["$a_n=S_n-S_{n-1}=b(2n-1)$","$a_{10}=19b$，需 $b=2$","$a_2=3b=6$ ⇒ $b=2$ ✓"],"key":"$S_n=bn^2+c$，要 $a_{10}=38$","trap":"$a_1$ 直接当成 $b$；或者忘了 $a_n=S_n-S_{n-1}$ 只对 $n\\ge2$ 成立","distract":"A（条件(1)充分）——$a_1=b+c$ 被当成能定 $b$","kind":"易错题","hl":[]},{"no":21,"subject":"math","topic":"条件充分性判断·齐次化求定值","tier":"B","stem":"设 $a$、$b$ 是正实数。则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值。\n（1）$\\dfrac{b}{a}=\\dfrac{2}{3}$\n（2）$\\dfrac{b}{a}=\\dfrac{1}{3}$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"A","exp":"令 $b=ta$：$\\frac{a(1-t)+\\frac{1}{5}}{a(1+t)+1}$。要对任意 $a$ 都与 $a$ 无关，必须 $\\frac{1-t}{1+t}=\\frac{1/5}{1}$ ⇒ $5-5t=1+t$ ⇒ $t=\\frac{2}{3}$，此时值恒为 $\\frac{1}{5}$。$t=\\frac{1}{3}$ 时式子是 $a$ 的函数，定不出唯一值。","tierWhy":"这是条件充分性里的「巧题」：要意识到必须分子分母成比例。看破 30 秒，看不破写满纸也没用 —— 可跳。","expectSec":180,"brief":"齐次化：让 $a$ 自己消失。","steps":["令 $b=ta$","要与 $a$ 无关 ⇒ $\\frac{1-t}{1+t}=\\frac{1/5}{1}$","$t=\\frac{2}{3}$，值恒为 $\\frac{1}{5}$"],"key":"$(a-b+\\frac{1}{5})/(a+b+1)$ 与 $a$ 无关","trap":"代入一个具体的 $a$ 算出数就以为恒定","distract":"E（都不充分）——没意识到 $t=\\frac{2}{3}$ 能让 $a$ 消掉","kind":"易错题","hl":[]},{"no":"T25","subject":"math","topic":"代数 · 一元二次方程","tier":"A","kind":"送分题","stem":"x² - 5x + 6 = 0,求 x。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"x = 2 或 3","brief":"先算出结果，再对照参考答案自评。","key":"母题 T25 · 一元二次方程","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：x = 2 或 3\n\n**解析**：(x-2)(x-3) = 0","tierWhy":"简单难度，母题第 25 题。","expectSec":120,"steps":["一元二次方程","简单","参考 x = 2 或 3"]},{"no":"T35","subject":"math","topic":"代数 · 韦达定理","tier":"C","kind":"卡死你不偿命","stem":"方程 x² - 5x + k = 0 两根之和为 5,一根为 2,求另一根及 k。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"另一根 3,k = 6","brief":"先算出结果，再对照参考答案自评。","key":"母题 T35 · 韦达定理","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：另一根 3,k = 6\n\n**解析**：和 5,一根 2,另一根 3;积 = k = 2×3 = 6","tierWhy":"难难度，母题第 35 题。","expectSec":360,"steps":["韦达定理","难","参考 另一根 3,k = 6"]},{"no":"T28","subject":"math","topic":"代数 · 均值不等式","tier":"B","kind":"易错题","stem":"x + 4/x 的最小值(x>0)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"4","brief":"先算出结果，再对照参考答案自评。","key":"母题 T28 · 均值不等式","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：4\n\n**解析**：AM-GM:x + 4/x ≥ 2√(x·4/x) = 2×2 = 4,等号在 x = 2 时成立","tierWhy":"中等难度，母题第 28 题。","expectSec":240,"steps":["均值不等式","中等","参考 4"]}]}</script>
+<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-04 代数与函数","exam":"11-04（周三）· 代数与函数","date":"第 3/7 天 · 8 题 · 建议 65 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d2.html\">← 11-03 几何与立体<\/a> <a href=\"d4.html\">11-05 排列组合与概率 →<\/a>"},"questions":[{"no":9,"subject":"math","topic":"代数(韦达定理)","tier":"A","stem":"若实数 $x$、$y$ 满足 $xy+x+y=10$，$x^2y+xy^2=24$，则 $x^2+y^2=(\\quad)$。","options":[{"k":"A","t":"$4$"},{"k":"B","t":"$28$"},{"k":"C","t":"$34$"},{"k":"D","t":"$44$"},{"k":"E","t":"$52$"}],"answer":"B","exp":"令 $s=x+y$、$p=xy$。则 $p+s=10$、$ps=24$，$s,p$ 是 $t^2-10t+24=0$ 的两根 $=6$ 与 $4$。$x^2+y^2=s^2-2p$：若 $s=6,p=4$ 得 $28$；若 $s=4,p=6$，判别式 $16-24<0$ 无实数解，舍去。故 $x^2+y^2=28$。","tierWhy":"这题埋了陷阱：算出 4 就选 A 是掉坑。必须回头验判别式——这是真题最爱设的钩子。","expectSec":150,"brief":"韦达给出两个候选，必须回头验判别式。","steps":["$p+s=10,\\ ps=24$ ⇒ $\\{s,p\\}=\\{6,4\\}$","$s=4,p=6$：$\\Delta=16-24<0$ 舍","$s^2-2p=36-8=28$"],"key":"$xy+x+y=10$，$x^2y+xy^2=24$","trap":"解出两组候选就交卷，不回头验判别式","distract":"A（4）——用 $s=4,p=6$ 那组算的，实数里根本不存在","kind":"易错题","hl":["$x^2y+xy^2=24$"]},{"no":17,"subject":"math","topic":"条件充分性判断·二次函数+等比","tier":"C","stem":"设 $f(x)=ax^2+bx+c$，其中 $a$、$b$、$c$ 为实数。则 $f(x)>0$。\n（1）$a$、$b$、$c$ 成等比数列\n（2）$a>0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"C","exp":"等比 ⇒ $b^2=ac$。判别式 $\\Delta=b^2-4ac=ac-4ac=-3ac$。要恒正需 $a>0$ 且 $c>0$。由 $a>0$、$b^2=ac\\ge0$ 得 $c\\ge0$，又 $c\\neq0$，故 $c>0$，于是 $\\Delta<0$，开口向上且不与 $x$ 轴相交 ⇒ $f(x)>0$。单靠 $(1)$ 时 $a$ 可能为负（开口向下），不充分。","tierWhy":"「等比 ⇒ $b^2=ac$」+「判别式符号」两步。缺一步就翻车，属于可选题。","expectSec":180,"brief":"等比给 $b^2=ac$，再用判别式判恒正。","steps":["$b^2=ac$ ⇒ $\\Delta=ac-4ac=-3ac$","$a>0\\Rightarrow c>0\\Rightarrow \\Delta<0$","开口向上且不与 $x$ 轴相交 ⇒ 恒正"],"key":"$f(x)=ax^2+bx+c$ 恒正，$a,b,c$ 成等比且 $a>0$","trap":"只验 $b^2=ac$ 不验 $c$ 的符号，判别式符号就判反","distract":"A（条件(1)充分）——忘了开口方向也要 $a>0$","kind":"卡死你不偿命","hl":["则 $f(x)>0$"]},{"no":19,"subject":"math","topic":"条件充分性判断·不等式解集","tier":"B","stem":"已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$，$B=\\{x\\mid x^2+ax+b\\le 0\\}$，则 $A\\cap B=\\{x\\mid 1<x\\le 3\\}$。\n（1）$a=-2,\\ b=-3$\n（2）$a=-3,\\ b=0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"D","exp":"先解 $A$：$(x-1)(x+1)(x+2)>0$，根 $-2,-1,1$，穿针引线得 $A=(-2,-1)\\cup(1,+\\infty)$。$(1)$ $B=[-1,3]$，$A\\cap B=(1,3]$ ✓；$(2)$ $B=[0,3]$，$A\\cap B=(1,3]$ ✓。两条件各自都够，选 $D$。","tierWhy":"解集题先解出 A（这是不变量），再逐个验 B。两步都标准，算是条件充分性里最该拿的一类。","expectSec":180,"brief":"先解 $A$（不变量），再逐个验 $B$。","steps":["$A=(x^2-1)(x+2)>0$ ⇒ $(-2,-1)\\cup(1,+\\infty)$","$(1)$ $B=[-1,3]$ ⇒ 交 $=(1,3]$","$(2)$ $B=[0,3]$ ⇒ 交 $=(1,3]$"],"key":"$A$ 是不等式解集，$B$ 带参数，交集是 $(1,3]$","trap":"端点开闭搞错；或者不先解出 $A$ 就硬验 $B$","distract":"B（条件(2)充分）——只验了一个条件","kind":"易错题","hl":["已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$"]},{"no":20,"subject":"math","topic":"条件充分性判断·数列前n项和","tier":"B","stem":"已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n=bn^2+c$，其中 $b$、$c$ 为实数。则 $a_{10}=38$。\n（1）$a_1=1$\n（2）$a_2=6$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"B","exp":"$a_n=S_n-S_{n-1}=b\\left[n^2-(n-1)^2\\right]=b(2n-1)$（$n\\ge2$），故 $a_{10}=19b$。要 $a_{10}=38$ 需 $b=2$。$(1)$ $a_1=S_1=b+c=1$ 只能定 $b+c$；$(2)$ $a_2=3b=6$ ⇒ $b=2$ ✓。","tierWhy":"「Sₙ 差分成 aₙ」+「目标只含 b」这个观察，两步都在套路内。","expectSec":150,"brief":"$S_n$ 作差得通项，目标只含 $b$。","steps":["$a_n=S_n-S_{n-1}=b(2n-1)$","$a_{10}=19b$，需 $b=2$","$a_2=3b=6$ ⇒ $b=2$ ✓"],"key":"$S_n=bn^2+c$，要 $a_{10}=38$","trap":"$a_1$ 直接当成 $b$；或者忘了 $a_n=S_n-S_{n-1}$ 只对 $n\\ge2$ 成立","distract":"A（条件(1)充分）——$a_1=b+c$ 被当成能定 $b$","kind":"易错题","hl":["则 $a_{10}=38$"]},{"no":21,"subject":"math","topic":"条件充分性判断·齐次化求定值","tier":"B","stem":"设 $a$、$b$ 是正实数。则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值。\n（1）$\\dfrac{b}{a}=\\dfrac{2}{3}$\n（2）$\\dfrac{b}{a}=\\dfrac{1}{3}$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"A","exp":"令 $b=ta$：$\\frac{a(1-t)+\\frac{1}{5}}{a(1+t)+1}$。要对任意 $a$ 都与 $a$ 无关，必须 $\\frac{1-t}{1+t}=\\frac{1/5}{1}$ ⇒ $5-5t=1+t$ ⇒ $t=\\frac{2}{3}$，此时值恒为 $\\frac{1}{5}$。$t=\\frac{1}{3}$ 时式子是 $a$ 的函数，定不出唯一值。","tierWhy":"这是条件充分性里的「巧题」：要意识到必须分子分母成比例。看破 30 秒，看不破写满纸也没用 —— 可跳。","expectSec":180,"brief":"齐次化：让 $a$ 自己消失。","steps":["令 $b=ta$","要与 $a$ 无关 ⇒ $\\frac{1-t}{1+t}=\\frac{1/5}{1}$","$t=\\frac{2}{3}$，值恒为 $\\frac{1}{5}$"],"key":"$(a-b+\\frac{1}{5})/(a+b+1)$ 与 $a$ 无关","trap":"代入一个具体的 $a$ 算出数就以为恒定","distract":"E（都不充分）——没意识到 $t=\\frac{2}{3}$ 能让 $a$ 消掉","kind":"易错题","hl":["则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值"]},{"no":"T25","subject":"math","topic":"代数 · 一元二次方程","tier":"A","kind":"送分题","stem":"x² - 5x + 6 = 0,求 x。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"x = 2 或 3","brief":"先算出结果，再对照参考答案自评。","key":"母题 T25 · 一元二次方程","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：x = 2 或 3\n\n**解析**：(x-2)(x-3) = 0","tierWhy":"简单难度，母题第 25 题。","expectSec":120,"steps":["一元二次方程","简单","参考 x = 2 或 3"]},{"no":"T35","subject":"math","topic":"代数 · 韦达定理","tier":"C","kind":"卡死你不偿命","stem":"方程 x² - 5x + k = 0 两根之和为 5,一根为 2,求另一根及 k。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"另一根 3,k = 6","brief":"先算出结果，再对照参考答案自评。","key":"母题 T35 · 韦达定理","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：另一根 3,k = 6\n\n**解析**：和 5,一根 2,另一根 3;积 = k = 2×3 = 6","tierWhy":"难难度，母题第 35 题。","expectSec":360,"steps":["韦达定理","难","参考 另一根 3,k = 6"]},{"no":"T28","subject":"math","topic":"代数 · 均值不等式","tier":"B","kind":"易错题","stem":"x + 4/x 的最小值(x>0)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"4","brief":"先算出结果，再对照参考答案自评。","key":"母题 T28 · 均值不等式","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：4\n\n**解析**：AM-GM:x + 4/x ≥ 2√(x·4/x) = 2×2 = 4,等号在 x = 2 时成立","tierWhy":"中等难度，母题第 28 题。","expectSec":240,"steps":["均值不等式","中等","参考 4"]}]}</script>
 <script id="KPJSON" type="application/json">{
  "kps": {
   "discriminant": {
@@ -6373,28 +6373,55 @@ function ezRanges(raw, frags){
   });
   return m;
 }
+function ezMarkRange(raw, r){
+  return '<mark class="ez-key">' + esc(raw.slice(r[0], r[1])) + '</mark>';
+}
 function ezStemHTML(q){
   if(!state.easy) return esc(q.stem);
-  var frags = [];
-  if(q.hl && q.hl.length){ frags = q.hl.slice(); }          /* 自动切出的原文句，必中 */
-  if(!frags.length){
-    var key = String(q.key || '').replace(/\$/g, ' ');
-    frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
-  }
-  if(!frags.length) return esc(q.stem);
-  return String(q.stem).split(/(\$[^$]*\$)/).map(function(seg){
-    if(seg.charAt(0) === '$') return esc(seg);
-    var rs = ezRanges(seg, frags);
-    if(!rs.length) return esc(seg);
-    var buf = '', last = 0;
-    rs.forEach(function(r){
-      buf += esc(seg.slice(last, r[0]));
-      buf += '<mark class="ez-key">' + esc(seg.slice(r[0], r[1])) + '</mark>';
-      last = r[1];
+  var raw = String(q.stem || '');
+  var hs = (q.hl || []).filter(function(x){ return x && x.length >= 2; });
+  var ranges = [];
+  if(hs.length){
+    /* hl 是题干的原文片段（可能含 $...$），直接按原文定位 */
+    hs.forEach(function(h){
+      var idx = raw.indexOf(h);
+      if(idx >= 0) ranges.push([idx, idx + h.length]);
+      else {
+        var h2 = h.replace(/[\s　]/g, '');
+        if(h2 !== h && raw.replace(/[\s　]/g, '').indexOf(h2) >= 0){ /* 空白差异，放弃这段 */ }
+      }
     });
-    buf += esc(seg.slice(last));
-    return buf;
-  }).join('');
+  }
+  if(!ranges.length){
+    /* 兜底：用「题干要点」里的词组，只在非数学段匹配 */
+    var key = String(q.key || '').replace(/\$/g, ' ');
+    var frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
+    if(!frags.length) return esc(raw);
+    return raw.split(/(\$[^$]*\$)/).map(function(seg){
+      if(seg.charAt(0) === '$') return esc(seg);
+      var t = esc(seg);
+      frags.forEach(function(f){
+        var fe = esc(f);
+        if(fe && t.indexOf(fe) >= 0) t = t.split(fe).join('<mark class="ez-key">' + fe + '</mark>');
+      });
+      return t;
+    }).join('');
+  }
+  ranges.sort(function(a, b){ return a[0] - b[0] || b[1] - a[1]; });
+  var merged = [];
+  ranges.forEach(function(r){
+    if(merged.length && r[0] <= merged[merged.length - 1][1]){
+      merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], r[1]);
+    } else { merged.push([r[0], r[1]]); }
+  });
+  var out = '', last = 0;
+  merged.forEach(function(r){
+    out += esc(raw.slice(last, r[0]));
+    out += ezMarkRange(raw, r);
+    last = r[1];
+  });
+  out += esc(raw.slice(last));
+  return out;
 }
 function ezBoxHTML(q){
   if(!state.easy) return '';

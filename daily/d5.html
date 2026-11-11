@@ -6373,28 +6373,55 @@ function ezRanges(raw, frags){
   });
   return m;
 }
+function ezMarkRange(raw, r){
+  return '<mark class="ez-key">' + esc(raw.slice(r[0], r[1])) + '</mark>';
+}
 function ezStemHTML(q){
   if(!state.easy) return esc(q.stem);
-  var frags = [];
-  if(q.hl && q.hl.length){ frags = q.hl.slice(); }          /* 自动切出的原文句，必中 */
-  if(!frags.length){
-    var key = String(q.key || '').replace(/\$/g, ' ');
-    frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
-  }
-  if(!frags.length) return esc(q.stem);
-  return String(q.stem).split(/(\$[^$]*\$)/).map(function(seg){
-    if(seg.charAt(0) === '$') return esc(seg);
-    var rs = ezRanges(seg, frags);
-    if(!rs.length) return esc(seg);
-    var buf = '', last = 0;
-    rs.forEach(function(r){
-      buf += esc(seg.slice(last, r[0]));
-      buf += '<mark class="ez-key">' + esc(seg.slice(r[0], r[1])) + '</mark>';
-      last = r[1];
+  var raw = String(q.stem || '');
+  var hs = (q.hl || []).filter(function(x){ return x && x.length >= 2; });
+  var ranges = [];
+  if(hs.length){
+    /* hl 是题干的原文片段（可能含 $...$），直接按原文定位 */
+    hs.forEach(function(h){
+      var idx = raw.indexOf(h);
+      if(idx >= 0) ranges.push([idx, idx + h.length]);
+      else {
+        var h2 = h.replace(/[\s　]/g, '');
+        if(h2 !== h && raw.replace(/[\s　]/g, '').indexOf(h2) >= 0){ /* 空白差异，放弃这段 */ }
+      }
     });
-    buf += esc(seg.slice(last));
-    return buf;
-  }).join('');
+  }
+  if(!ranges.length){
+    /* 兜底：用「题干要点」里的词组，只在非数学段匹配 */
+    var key = String(q.key || '').replace(/\$/g, ' ');
+    var frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
+    if(!frags.length) return esc(raw);
+    return raw.split(/(\$[^$]*\$)/).map(function(seg){
+      if(seg.charAt(0) === '$') return esc(seg);
+      var t = esc(seg);
+      frags.forEach(function(f){
+        var fe = esc(f);
+        if(fe && t.indexOf(fe) >= 0) t = t.split(fe).join('<mark class="ez-key">' + fe + '</mark>');
+      });
+      return t;
+    }).join('');
+  }
+  ranges.sort(function(a, b){ return a[0] - b[0] || b[1] - a[1]; });
+  var merged = [];
+  ranges.forEach(function(r){
+    if(merged.length && r[0] <= merged[merged.length - 1][1]){
+      merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], r[1]);
+    } else { merged.push([r[0], r[1]]); }
+  });
+  var out = '', last = 0;
+  merged.forEach(function(r){
+    out += esc(raw.slice(last, r[0]));
+    out += ezMarkRange(raw, r);
+    last = r[1];
+  });
+  out += esc(raw.slice(last));
+  return out;
 }
 function ezBoxHTML(q){
   if(!state.easy) return '';
