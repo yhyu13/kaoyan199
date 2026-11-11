@@ -530,6 +530,36 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .copied{ color:var(--accent) !important; border-color:var(--accent) !important; }
 @media print{ .qtoggle,.qa-actions{ display:none !important; } }
 
+
+/* ---------- 题型多选 ---------- */
+.pick{ border:0; background:transparent; color:var(--fg); border-radius:999px;
+  padding:5px 12px; font:inherit; font-size:13.5px; cursor:pointer; white-space:nowrap; }
+.pick:hover{ color:var(--accent); }
+.pick[aria-pressed="true"]{ background:var(--accent); color:#fff; font-weight:700; }
+.pickbar{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.pickbar .ctl-group{ flex-wrap:wrap; }
+/* ---------- Easy Mode ---------- */
+.ezbox{ margin:6px 0 12px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.ez-row{ display:grid; grid-template-columns:66px minmax(0,1fr); gap:10px;
+  padding:7px 11px; font-size:15px; line-height:1.7; border-bottom:1px solid var(--line); }
+.ez-row:last-child{ border-bottom:0; }
+.ez-row b{ font-size:13px; font-weight:700; opacity:.9; padding-top:1px; }
+.ez-key{ background:rgba(80,120,200,.14); }
+.ez-kill{ background:rgba(199,152,26,.18); }
+.ez-trap{ background:rgba(163,63,46,.15); }
+.ez-kp{ background:rgba(46,107,79,.15); }
+.ez-kp .kptag{ display:inline-block; font-size:13px; border:1px solid var(--line);
+  border-radius:999px; padding:0 9px; margin:2px 6px 0 0; background:var(--card); }
+mark.ez-key{ background:rgba(80,120,200,.32); color:inherit; border-radius:3px;
+  padding:0 2px; font-weight:700; }
+#btnEasy[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent);
+  color:#fff; font-weight:700; }
+@media (max-width:600px){
+  .ez-row{ grid-template-columns:minmax(0,1fr); gap:2px; }
+  .ez-row b{ font-size:12.5px; }
+}
+@media print{ .ezbox{ break-inside:avoid; } }
+
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 /* ================= 主题配色补丁（浅 / 深） ================= */
 :root{
@@ -641,11 +671,15 @@ function typesetMath(root){
   <section class="view on" id="view-quiz">
   <section class="toolbar no-print" aria-label="控制台">
     <div class="ctl-row">
-      <div class="ctl-group" role="group" aria-label="档位筛选">
-        <span class="ctl-label">档位</span>
-        <button class="chip" type="button" data-f="tier" data-v="all" aria-pressed="true">全部</button>
-        <button class="chip" type="button" data-f="tier" data-v="A" aria-pressed="false">只看 A</button>
-        <button class="chip" type="button" data-f="tier" data-v="AB" aria-pressed="false">A+B</button>
+      <div class="ctl-group" role="group" aria-label="题型多选（可多选）">
+        <span class="ctl-label">题型</span>
+        <button class="pick" type="button" data-p="all" aria-pressed="true">全部</button>
+        <button class="pick" type="button" data-p="A" aria-pressed="false">必会题</button>
+        <button class="pick" type="button" data-p="B" aria-pressed="false">可选题</button>
+        <button class="pick" type="button" data-p="C" aria-pressed="false">跳过题</button>
+        <button class="pick" type="button" data-p="gift" aria-pressed="false">送分题</button>
+        <button class="pick" type="button" data-p="tricky" aria-pressed="false">易错题</button>
+        <button class="pick" type="button" data-p="hard" aria-pressed="false">难题</button>
       </div>
       <div class="ctl-group" role="group" aria-label="科目筛选">
         <span class="ctl-label">科目</span>
@@ -664,6 +698,7 @@ function typesetMath(root){
         <button class="btn sm" type="button" id="btnTimerReset">重启</button>
       </div>
       <button class="btn primary" type="button" id="btnSubmit">交卷</button>
+      <button class="btn" type="button" id="btnEasy" aria-pressed="false">Easy Mode</button>
       <button class="btn" type="button" id="btnRail">题号地图</button>
       <button class="btn" type="button" id="btnKp">考点总览</button>
       <button class="btn" type="button" id="btnTheme">主题</button>
@@ -722,7 +757,7 @@ function typesetMath(root){
   </footer>
 </div>
 
-<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-03 几何与立体","exam":"11-03（周二）· 几何与立体","date":"第 2/7 天 · 8 题 · 建议 60 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d1.html\">← 11-02 应用题专项<\/a> <a href=\"d3.html\">11-04 代数与函数 →<\/a>"},"questions":[{"no":3,"subject":"math","topic":"几何(解析几何)","tier":"A","stem":"若实数 $x$、$y$ 满足 $x^2+y^2\\le 1$，则 $\\sqrt{(x-2)^2+y^2}$ 的取值范围是（ ）。","options":[{"k":"A","t":"$[0,1]$"},{"k":"B","t":"$[1,2]$"},{"k":"C","t":"$[1,3]$"},{"k":"D","t":"$[1,4]$"},{"k":"E","t":"$[2,3]$"}],"answer":"C","exp":"$\\sqrt{(x-2)^2+y^2}$ 就是点 $(x,y)$ 到定点 $(2,0)$ 的距离。单位圆盘上的点到 $(2,0)$ 最近 $2-1=1$、最远 $2+1=3$，故 $d\\in[1,3]$。","tierWhy":"把代数式翻译成「距离」是这类题唯一考点。翻不出来就跳过。","expectSec":90,"brief":"根号下两个平方和 → 翻译成到定点的距离。","steps":["$\\sqrt{(x-2)^2+y^2}=d\\big((x,y),(2,0)\\big)$","圆心到 $(2,0)$ 距离 $=2$","$d\\in[2-1,2+1]=[1,3]$"],"key":"$x^2+y^2\\le 1$，求 $\\sqrt{(x-2)^2+y^2}$","trap":"把「≤」当「=」算完就忘了区间端点；或者忘了几何意义，硬去代换","distract":"B（$[1,2]$）——只算了最小值忘了最大值","kind":"易错题"},{"no":5,"subject":"math","topic":"代数(抛物线)","tier":"A","stem":"直线 $y=x$ 与抛物线 $y=ax^2+bx+1$ 的交点为 $(1,1)$、$(2,2)$，则（ ）。","options":[{"k":"A","t":"$a=\\dfrac{1}{2},\\ b=-\\dfrac{1}{2}$"},{"k":"B","t":"$a=-\\dfrac{1}{2},\\ b=\\dfrac{1}{2}$"},{"k":"C","t":"$a=\\dfrac{1}{2},\\ b=\\dfrac{1}{2}$"},{"k":"D","t":"$a=-\\dfrac{1}{2},\\ b=-\\dfrac{1}{2}$"},{"k":"E","t":"$a=1,\\ b=1$"}],"answer":"A","exp":"代 $(1,1)$：$1=a+b+1\\Rightarrow a+b=0$；代 $(2,2)$：$2=4a+2b+1\\Rightarrow 2a+b=\\frac{1}{2}$。两式相减 $a=\\frac{1}{2}$、$b=-\\frac{1}{2}$。","tierWhy":"过定点直接代点解方程组，不用想判别式。1 分钟。","expectSec":60,"brief":"已经给了交点，就代点解方程组。","steps":["代 $(1,1)$：$a+b=0$","代 $(2,2)$：$2a+b=\\frac{1}{2}$","相减 $a=\\frac{1}{2},\\ b=-\\frac{1}{2}$"],"key":"直线与抛物线交于 $(1,1)$、$(2,2)$","trap":"明明给了交点还去联立求判别式，把 40 秒的题做成 3 分钟","distract":"E（$a=1,b=1$）——只代了一个点就凑出来的假解","kind":"送分题"},{"no":6,"subject":"math","topic":"几何(立体/球)","tier":"A","stem":"正方体的一个顶点位于球心，若正方体的棱长为 $1$，球的半径为 $1$，则正方体在球外部部分的体积为（ ）。","options":[{"k":"A","t":"$1-\\dfrac{\\pi}{4}$"},{"k":"B","t":"$1-\\dfrac{\\pi}{5}$"},{"k":"C","t":"$1-\\dfrac{\\pi}{6}$"},{"k":"D","t":"$1-\\dfrac{\\pi}{8}$"},{"k":"E","t":"$1-\\dfrac{\\pi}{10}$"}],"answer":"C","exp":"球心在顶点，正方体只占球的一个卦限，球在正方体内的部分是整球的 $\\frac{1}{8}$，即 $\\frac{1}{8}\\cdot\\frac{4}{3}\\pi=\\frac{\\pi}{6}$。正方体体积 $1$，故外部为 $1-\\frac{\\pi}{6}$。","tierWhy":"「占 1/8」这个几何直觉一步到位。不要真的去积分。","expectSec":120,"brief":"球心在顶点 ⇒ 正方体只占一个卦限。","steps":["球体 $\\frac{1}{8}$ 卦限 $=\\frac{\\pi}{6}$","正方体体积 $=1$","外部 $1-\\frac{\\pi}{6}$"],"key":"正方体一个顶点在球心，棱长与半径都是 1","trap":"把它当成「正方体中心在球心」算，那是另一道题、答案是 0","distract":"E（$1-\\frac{\\pi}{10}$）——靠猜掉哪一档 $\\pi$","kind":"易错题"},{"no":14,"subject":"math","topic":"几何(平面/阴影)","tier":"C","stem":"正方形 $ABCD$ 的边长为 $6$，正方形 $BEFG$ 的边长为 $4$，$\\overset{\\frown}{AC}$ 在以 $B$ 为圆心、$BC$ 为半径的圆上，则阴影部分的面积为（ ）。","options":[{"k":"A","t":"$8\\pi$"},{"k":"B","t":"$8\\pi+\\dfrac{5}{6}$"},{"k":"C","t":"$8\\pi+6$"},{"k":"D","t":"$9\\pi-\\dfrac{5}{6}$"},{"k":"E","t":"$9\\pi$"}],"answer":"E","exp":"答案键为 $E$（$9\\pi$，即半径 $6$ 的四分之一圆）。⚠️ 这份 PDF 是重排版，第 14 题配图丢失，无法独立复核阴影区域的构成。","tierWhy":"【图缺失】没有图就无法判断阴影是哪个区域，这题在现有材料上不可做。见原卷再定档。","expectSec":0,"flags":["图缺失"],"brief":"图缺失，只能取答案键。","steps":["答案键 $E=9\\pi$","四分之一圆：$\\frac{1}{4}\\pi\\cdot6^2=9\\pi$","⚠️ 原图丢失，无法复核"],"key":"阴影面积（原卷配图）","trap":"没有图还硬猜阴影是哪个区域","distract":"A（$8\\pi$）——按半径 4 的圆算的","kind":"卡死你不偿命"},{"no":15,"subject":"math","topic":"排列组合(路线计数)","tier":"C","stem":"一个城市的部分街道如图所示，路口 $C$ 因施工禁行。从 $A$ 出发前往 $B$，如果只许向「上」或向「右」行驶，那么不同的路线有（ ）。","options":[{"k":"A","t":"$17$ 条"},{"k":"B","t":"$18$ 条"},{"k":"C","t":"$26$ 条"},{"k":"D","t":"$29$ 条"},{"k":"E","t":"$35$ 条"}],"answer":"A","exp":"答案键为 $A$（$17$ 条）。做法：从起点开始逐格标出到达该格的方案数（左 $+$ 下），禁行点置 $0$，终点格数字即答案。⚠️ 本题配图同样丢失。","tierWhy":"【图缺失】标数法本身是 A 档技能，但没图做不了。有原卷时它是必拿分。","expectSec":0,"flags":["图缺失"],"brief":"图缺失，先记方法：标数法。","steps":["每个格子 = 左 + 下","禁行点置 $0$","答案键 $A=17$，⚠️ 无图不可复核"],"key":"只许向上或向右，C 点禁行（原卷配图）","trap":"忘了减掉经过禁行点的路线","distract":"D（29 条）——不禁行的总数，没减掉过 C 的","kind":"卡死你不偿命"},{"no":"T14","subject":"math","topic":"几何 · 圆面积","tier":"A","kind":"送分题","stem":"半径 5 的圆,面积(π 取 3.14)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"78.5","brief":"先算出结果，再对照参考答案自评。","key":"母题 T14 · 圆面积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：78.5\n\n**解析**：πr² = 3.14×25 = 78.5","tierWhy":"简单难度，母题第 14 题。","expectSec":120,"steps":["圆面积","简单","参考 78.5"]},{"no":"T20","subject":"math","topic":"几何 · 阴影面积","tier":"B","kind":"易错题","stem":"边长为 2 的正方形内接一个圆,求阴影面积(圆外正方形内)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"0.86","brief":"先算出结果，再对照参考答案自评。","key":"母题 T20 · 阴影面积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：0.86\n\n**解析**：正方形面积 4 - 圆面积 π ≈ 4 - 3.14 = 0.86","tierWhy":"中等难度，母题第 20 题。","expectSec":240,"steps":["阴影面积","中等","参考 0.86"]},{"no":"T23","subject":"math","topic":"几何 · 球体积","tier":"C","kind":"卡死你不偿命","stem":"半径为 3 的球,体积(π 取 3.14)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"113.04","brief":"先算出结果，再对照参考答案自评。","key":"母题 T23 · 球体积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：113.04\n\n**解析**：(4/3)πr³ = (4/3)×3.14×27 = 113.04","tierWhy":"难难度，母题第 23 题。","expectSec":360,"steps":["球体积","难","参考 113.04"]}]}</script>
+<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-03 几何与立体","exam":"11-03（周二）· 几何与立体","date":"第 2/7 天 · 8 题 · 建议 60 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d1.html\">← 11-02 应用题专项<\/a> <a href=\"d3.html\">11-04 代数与函数 →<\/a>"},"questions":[{"no":3,"subject":"math","topic":"几何(解析几何)","tier":"A","stem":"若实数 $x$、$y$ 满足 $x^2+y^2\\le 1$，则 $\\sqrt{(x-2)^2+y^2}$ 的取值范围是（ ）。","options":[{"k":"A","t":"$[0,1]$"},{"k":"B","t":"$[1,2]$"},{"k":"C","t":"$[1,3]$"},{"k":"D","t":"$[1,4]$"},{"k":"E","t":"$[2,3]$"}],"answer":"C","exp":"$\\sqrt{(x-2)^2+y^2}$ 就是点 $(x,y)$ 到定点 $(2,0)$ 的距离。单位圆盘上的点到 $(2,0)$ 最近 $2-1=1$、最远 $2+1=3$，故 $d\\in[1,3]$。","tierWhy":"把代数式翻译成「距离」是这类题唯一考点。翻不出来就跳过。","expectSec":90,"brief":"根号下两个平方和 → 翻译成到定点的距离。","steps":["$\\sqrt{(x-2)^2+y^2}=d\\big((x,y),(2,0)\\big)$","圆心到 $(2,0)$ 距离 $=2$","$d\\in[2-1,2+1]=[1,3]$"],"key":"$x^2+y^2\\le 1$，求 $\\sqrt{(x-2)^2+y^2}$","trap":"把「≤」当「=」算完就忘了区间端点；或者忘了几何意义，硬去代换","distract":"B（$[1,2]$）——只算了最小值忘了最大值","kind":"易错题","hl":[]},{"no":5,"subject":"math","topic":"代数(抛物线)","tier":"A","stem":"直线 $y=x$ 与抛物线 $y=ax^2+bx+1$ 的交点为 $(1,1)$、$(2,2)$，则（ ）。","options":[{"k":"A","t":"$a=\\dfrac{1}{2},\\ b=-\\dfrac{1}{2}$"},{"k":"B","t":"$a=-\\dfrac{1}{2},\\ b=\\dfrac{1}{2}$"},{"k":"C","t":"$a=\\dfrac{1}{2},\\ b=\\dfrac{1}{2}$"},{"k":"D","t":"$a=-\\dfrac{1}{2},\\ b=-\\dfrac{1}{2}$"},{"k":"E","t":"$a=1,\\ b=1$"}],"answer":"A","exp":"代 $(1,1)$：$1=a+b+1\\Rightarrow a+b=0$；代 $(2,2)$：$2=4a+2b+1\\Rightarrow 2a+b=\\frac{1}{2}$。两式相减 $a=\\frac{1}{2}$、$b=-\\frac{1}{2}$。","tierWhy":"过定点直接代点解方程组，不用想判别式。1 分钟。","expectSec":60,"brief":"已经给了交点，就代点解方程组。","steps":["代 $(1,1)$：$a+b=0$","代 $(2,2)$：$2a+b=\\frac{1}{2}$","相减 $a=\\frac{1}{2},\\ b=-\\frac{1}{2}$"],"key":"直线与抛物线交于 $(1,1)$、$(2,2)$","trap":"明明给了交点还去联立求判别式，把 40 秒的题做成 3 分钟","distract":"E（$a=1,b=1$）——只代了一个点就凑出来的假解","kind":"送分题","hl":[]},{"no":6,"subject":"math","topic":"几何(立体/球)","tier":"A","stem":"正方体的一个顶点位于球心，若正方体的棱长为 $1$，球的半径为 $1$，则正方体在球外部部分的体积为（ ）。","options":[{"k":"A","t":"$1-\\dfrac{\\pi}{4}$"},{"k":"B","t":"$1-\\dfrac{\\pi}{5}$"},{"k":"C","t":"$1-\\dfrac{\\pi}{6}$"},{"k":"D","t":"$1-\\dfrac{\\pi}{8}$"},{"k":"E","t":"$1-\\dfrac{\\pi}{10}$"}],"answer":"C","exp":"球心在顶点，正方体只占球的一个卦限，球在正方体内的部分是整球的 $\\frac{1}{8}$，即 $\\frac{1}{8}\\cdot\\frac{4}{3}\\pi=\\frac{\\pi}{6}$。正方体体积 $1$，故外部为 $1-\\frac{\\pi}{6}$。","tierWhy":"「占 1/8」这个几何直觉一步到位。不要真的去积分。","expectSec":120,"brief":"球心在顶点 ⇒ 正方体只占一个卦限。","steps":["球体 $\\frac{1}{8}$ 卦限 $=\\frac{\\pi}{6}$","正方体体积 $=1$","外部 $1-\\frac{\\pi}{6}$"],"key":"正方体一个顶点在球心，棱长与半径都是 1","trap":"把它当成「正方体中心在球心」算，那是另一道题、答案是 0","distract":"E（$1-\\frac{\\pi}{10}$）——靠猜掉哪一档 $\\pi$","kind":"易错题","hl":[]},{"no":14,"subject":"math","topic":"几何(平面/阴影)","tier":"C","stem":"正方形 $ABCD$ 的边长为 $6$，正方形 $BEFG$ 的边长为 $4$，$\\overset{\\frown}{AC}$ 在以 $B$ 为圆心、$BC$ 为半径的圆上，则阴影部分的面积为（ ）。","options":[{"k":"A","t":"$8\\pi$"},{"k":"B","t":"$8\\pi+\\dfrac{5}{6}$"},{"k":"C","t":"$8\\pi+6$"},{"k":"D","t":"$9\\pi-\\dfrac{5}{6}$"},{"k":"E","t":"$9\\pi$"}],"answer":"E","exp":"答案键为 $E$（$9\\pi$，即半径 $6$ 的四分之一圆）。⚠️ 这份 PDF 是重排版，第 14 题配图丢失，无法独立复核阴影区域的构成。","tierWhy":"【图缺失】没有图就无法判断阴影是哪个区域，这题在现有材料上不可做。见原卷再定档。","expectSec":0,"flags":["图缺失"],"brief":"图缺失，只能取答案键。","steps":["答案键 $E=9\\pi$","四分之一圆：$\\frac{1}{4}\\pi\\cdot6^2=9\\pi$","⚠️ 原图丢失，无法复核"],"key":"阴影面积（原卷配图）","trap":"没有图还硬猜阴影是哪个区域","distract":"A（$8\\pi$）——按半径 4 的圆算的","kind":"卡死你不偿命","hl":[]},{"no":15,"subject":"math","topic":"排列组合(路线计数)","tier":"C","stem":"一个城市的部分街道如图所示，路口 $C$ 因施工禁行。从 $A$ 出发前往 $B$，如果只许向「上」或向「右」行驶，那么不同的路线有（ ）。","options":[{"k":"A","t":"$17$ 条"},{"k":"B","t":"$18$ 条"},{"k":"C","t":"$26$ 条"},{"k":"D","t":"$29$ 条"},{"k":"E","t":"$35$ 条"}],"answer":"A","exp":"答案键为 $A$（$17$ 条）。做法：从起点开始逐格标出到达该格的方案数（左 $+$ 下），禁行点置 $0$，终点格数字即答案。⚠️ 本题配图同样丢失。","tierWhy":"【图缺失】标数法本身是 A 档技能，但没图做不了。有原卷时它是必拿分。","expectSec":0,"flags":["图缺失"],"brief":"图缺失，先记方法：标数法。","steps":["每个格子 = 左 + 下","禁行点置 $0$","答案键 $A=17$，⚠️ 无图不可复核"],"key":"只许向上或向右，C 点禁行（原卷配图）","trap":"忘了减掉经过禁行点的路线","distract":"D（29 条）——不禁行的总数，没减掉过 C 的","kind":"卡死你不偿命","hl":[]},{"no":"T14","subject":"math","topic":"几何 · 圆面积","tier":"A","kind":"送分题","stem":"半径 5 的圆,面积(π 取 3.14)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"78.5","brief":"先算出结果，再对照参考答案自评。","key":"母题 T14 · 圆面积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：78.5\n\n**解析**：πr² = 3.14×25 = 78.5","tierWhy":"简单难度，母题第 14 题。","expectSec":120,"steps":["圆面积","简单","参考 78.5"]},{"no":"T20","subject":"math","topic":"几何 · 阴影面积","tier":"B","kind":"易错题","stem":"边长为 2 的正方形内接一个圆,求阴影面积(圆外正方形内)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"0.86","brief":"先算出结果，再对照参考答案自评。","key":"母题 T20 · 阴影面积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：0.86\n\n**解析**：正方形面积 4 - 圆面积 π ≈ 4 - 3.14 = 0.86","tierWhy":"中等难度，母题第 20 题。","expectSec":240,"steps":["阴影面积","中等","参考 0.86"]},{"no":"T23","subject":"math","topic":"几何 · 球体积","tier":"C","kind":"卡死你不偿命","stem":"半径为 3 的球,体积(π 取 3.14)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"113.04","brief":"先算出结果，再对照参考答案自评。","key":"母题 T23 · 球体积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：113.04\n\n**解析**：(4/3)πr³ = (4/3)×3.14×27 = 113.04","tierWhy":"难难度，母题第 23 题。","expectSec":360,"steps":["球体积","难","参考 113.04"]}]}</script>
 <script id="KPJSON" type="application/json">{
  "kps": {
   "discriminant": {
@@ -5764,6 +5799,8 @@ function defaultState(){
     answers:{},
     marks:{},
     view:'quiz',
+    easy:false,
+    pick:[],
     timerSec:0,
     timerRun:false,
     elapsed:{},
@@ -5801,6 +5838,8 @@ var state = defaultState();
       };
     });
   }
+  if(typeof s.easy === 'boolean') state.easy = s.easy;
+  if(Array.isArray(s.pick)) state.pick = s.pick.filter(function(p){ return PICK_LABEL[p] && p !== 'all'; });
   if(typeof s.view === 'string') state.view = s.view;
   if(typeof s.timerSec === 'number') state.timerSec = Math.max(0, s.timerSec);
   if(typeof s.timerRun === 'boolean') state.timerRun = s.timerRun;
@@ -5924,6 +5963,100 @@ function qToText(q, withExp){
   return L.join(String.fromCharCode(10));
 }
 
+
+/* ---------- 题型多选 ---------- */
+var PICK_LABEL = { all:'全部', A:'必会题', B:'可选题', C:'跳过题',
+                   gift:'送分题', tricky:'易错题', hard:'难题' };
+function qTokens(q){
+  var t = [q.tier];
+  if(q.kind === '送分题') t.push('gift');
+  if(q.kind === '易错题') t.push('tricky');
+  if(q.kind === '卡死你不偿命') t.push('hard');
+  return t;
+}
+function syncPicks(){
+  $$('.pick').forEach(function(b){
+    var p = b.dataset.p, pick = state.pick || [];
+    var on = (p === 'all') ? pick.length === 0 : pick.indexOf(p) >= 0;
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+
+/* ---------- Easy Mode ---------- */
+function ezCompact(str){
+  var out = '', map = [];
+  for(var i = 0; i < str.length; i++){
+    var c = str.charAt(i);
+    if(/[\s　]/.test(c)) continue;
+    out += c; map.push(i);
+  }
+  return { s: out, map: map };
+}
+function ezRanges(raw, frags){
+  var cm = ezCompact(raw), out = [];
+  frags.forEach(function(f){
+    var fc = f.replace(/[\s　]/g, '');
+    if(fc.length < 2) return;
+    var idx = cm.s.indexOf(fc);
+    while(idx >= 0){
+      out.push([cm.map[idx], cm.map[idx + fc.length - 1] + 1]);
+      idx = cm.s.indexOf(fc, idx + 1);
+    }
+  });
+  out.sort(function(a, b){ return a[0] - b[0] || b[1] - a[1]; });
+  var m = [];
+  out.forEach(function(r){
+    if(m.length && r[0] <= m[m.length - 1][1]){
+      m[m.length - 1][1] = Math.max(m[m.length - 1][1], r[1]);
+    } else { m.push([r[0], r[1]]); }
+  });
+  return m;
+}
+function ezStemHTML(q){
+  if(!state.easy) return esc(q.stem);
+  var frags = [];
+  if(q.hl && q.hl.length){ frags = q.hl.slice(); }          /* 自动切出的原文句，必中 */
+  if(!frags.length){
+    var key = String(q.key || '').replace(/\$/g, ' ');
+    frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
+  }
+  if(!frags.length) return esc(q.stem);
+  return String(q.stem).split(/(\$[^$]*\$)/).map(function(seg){
+    if(seg.charAt(0) === '$') return esc(seg);
+    var rs = ezRanges(seg, frags);
+    if(!rs.length) return esc(seg);
+    var buf = '', last = 0;
+    rs.forEach(function(r){
+      buf += esc(seg.slice(last, r[0]));
+      buf += '<mark class="ez-key">' + esc(seg.slice(r[0], r[1])) + '</mark>';
+      last = r[1];
+    });
+    buf += esc(seg.slice(last));
+    return buf;
+  }).join('');
+}
+function ezBoxHTML(q){
+  if(!state.easy) return '';
+  var kps = (KPMAP[q.no] || []).map(function(k){
+    return KPS[k] ? '<span class="kptag">' + esc(KPS[k].title) + '</span>' : '';
+  }).join('');
+  var h = '<div class="ezbox no-print">';
+  if(q.key) h += '<div class="ez-row ez-key"><b>题干要点</b><div>' + esc(q.key) + '</div></div>';
+  if(q.brief) h += '<div class="ez-row ez-kill"><b>秒杀逻辑</b><div>' + esc(q.brief) + '</div></div>';
+  if(q.trap) h += '<div class="ez-row ez-trap"><b>低级错误</b><div>' + esc(q.trap) + '</div></div>';
+  if(kps) h += '<div class="ez-row ez-kp"><b>本卷考点</b><div>' + kps + '</div></div>';
+  h += '</div>';
+  return h;
+}
+function rerenderAll(){
+  list.innerHTML = QS.map(cardHTML).join('');
+  typesetMath(list);
+  QS.forEach(function(q){ paint(q.no); });
+  applyFilters();
+  if(state.current != null) setCurrent(state.current);
+  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+}
+
 /* ---------- 卡片 ---------- */
 function cardHTML(q){
   var doubt = isDoubt(q);
@@ -5967,7 +6100,8 @@ function cardHTML(q){
   return '<article class="qcard" id="q' + q.no + '" data-no="' + q.no + '" data-tier="' + q.tier
     + '" data-subject="' + q.subject + '">'
     + '<div class="qhead">' + head.join('') + '</div>'
-    + '<p class="stem">' + esc(q.stem) + '</p>'
+    + '<p class="stem">' + ezStemHTML(q) + '</p>'
+    + ezBoxHTML(q)
     + '<div class="opts">' + opts + '</div>'
     + '<div class="qa-actions no-print">'
     + '<button class="btn sm" type="button" data-copy="q" data-no="' + q.no + '">复制题目</button>'
@@ -6125,10 +6259,11 @@ function setCurrent(no){
 
 /* ---------- 筛选 ---------- */
 function passes(q){
-  if(state.tier === 'A' && q.tier !== 'A') return false;
-  if(state.tier === 'AB' && q.tier === 'C') return false;
   if(state.subject !== 'all' && q.subject !== state.subject) return false;
-  return true;
+  var pick = state.pick || [];
+  if(!pick.length) return true;
+  var toks = qTokens(q);
+  return pick.some(function(p){ return toks.indexOf(p) >= 0; });
 }
 function visibleCards(){ return $$('.qcard', list).filter(function(c){ return !c.hidden; }); }
 
@@ -6139,11 +6274,14 @@ function applyFilters(){
     c.hidden = !ok;
     if(ok) n++;
   });
-  $$('.chip').forEach(function(b){
+$$('.chip').forEach(function(b){
     var key = b.dataset.f, v = b.dataset.v;
     b.setAttribute('aria-pressed', String(state[key] === v));
   });
-  document.getElementById('countLine').textContent = '当前显示 ' + n + ' / ' + QS.length + ' 题';
+  var pickTxt = (state.pick || []).length
+    ? '（' + state.pick.map(function(p){ return PICK_LABEL[p]; }).join(' + ') + '）' : '';
+  document.getElementById('countLine').textContent =
+    '当前显示 ' + n + ' / ' + QS.length + ' 题' + pickTxt;
   var first = visibleCards()[0];
   if(first){
     var no = first.dataset.no;
@@ -6335,6 +6473,30 @@ document.getElementById('btnKp').addEventListener('click', renderKpNav);
 $$('.tabm').forEach(function(b){
   b.addEventListener('click', function(){ setView(b.dataset.view); });
 });
+  $$('.pick').forEach(function(b){
+  b.addEventListener('click', function(){
+    var p = b.dataset.p;
+    if(p === 'all'){ state.pick = []; }
+    else {
+      var i = state.pick.indexOf(p);
+      if(i >= 0) state.pick.splice(i, 1); else state.pick.push(p);
+    }
+    save(); syncPicks(); applyFilters();
+  });
+});
+syncPicks();
+
+document.getElementById('btnEasy').addEventListener('click', function(){
+  state.easy = !state.easy;
+  save();
+  document.getElementById('btnEasy').setAttribute('aria-pressed', String(state.easy));
+  document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开' : 'Easy Mode';
+  rerenderAll();
+});
+document.getElementById('btnEasy').setAttribute('aria-pressed', String(!!state.easy));
+document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开' : 'Easy Mode';
+
+
 initRail();
 document.getElementById('btnRail').addEventListener('click', function(){ setRail(!RAIL_ON); });
 var rc = document.getElementById('btnRailClose');

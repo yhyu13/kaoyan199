@@ -530,6 +530,36 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .copied{ color:var(--accent) !important; border-color:var(--accent) !important; }
 @media print{ .qtoggle,.qa-actions{ display:none !important; } }
 
+
+/* ---------- 题型多选 ---------- */
+.pick{ border:0; background:transparent; color:var(--fg); border-radius:999px;
+  padding:5px 12px; font:inherit; font-size:13.5px; cursor:pointer; white-space:nowrap; }
+.pick:hover{ color:var(--accent); }
+.pick[aria-pressed="true"]{ background:var(--accent); color:#fff; font-weight:700; }
+.pickbar{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.pickbar .ctl-group{ flex-wrap:wrap; }
+/* ---------- Easy Mode ---------- */
+.ezbox{ margin:6px 0 12px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.ez-row{ display:grid; grid-template-columns:66px minmax(0,1fr); gap:10px;
+  padding:7px 11px; font-size:15px; line-height:1.7; border-bottom:1px solid var(--line); }
+.ez-row:last-child{ border-bottom:0; }
+.ez-row b{ font-size:13px; font-weight:700; opacity:.9; padding-top:1px; }
+.ez-key{ background:rgba(80,120,200,.14); }
+.ez-kill{ background:rgba(199,152,26,.18); }
+.ez-trap{ background:rgba(163,63,46,.15); }
+.ez-kp{ background:rgba(46,107,79,.15); }
+.ez-kp .kptag{ display:inline-block; font-size:13px; border:1px solid var(--line);
+  border-radius:999px; padding:0 9px; margin:2px 6px 0 0; background:var(--card); }
+mark.ez-key{ background:rgba(80,120,200,.32); color:inherit; border-radius:3px;
+  padding:0 2px; font-weight:700; }
+#btnEasy[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent);
+  color:#fff; font-weight:700; }
+@media (max-width:600px){
+  .ez-row{ grid-template-columns:minmax(0,1fr); gap:2px; }
+  .ez-row b{ font-size:12.5px; }
+}
+@media print{ .ezbox{ break-inside:avoid; } }
+
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 /* ================= 主题配色补丁（浅 / 深） ================= */
 :root{
@@ -641,11 +671,15 @@ function typesetMath(root){
   <section class="view on" id="view-quiz">
   <section class="toolbar no-print" aria-label="控制台">
     <div class="ctl-row">
-      <div class="ctl-group" role="group" aria-label="档位筛选">
-        <span class="ctl-label">档位</span>
-        <button class="chip" type="button" data-f="tier" data-v="all" aria-pressed="true">全部</button>
-        <button class="chip" type="button" data-f="tier" data-v="A" aria-pressed="false">只看 A</button>
-        <button class="chip" type="button" data-f="tier" data-v="AB" aria-pressed="false">A+B</button>
+      <div class="ctl-group" role="group" aria-label="题型多选（可多选）">
+        <span class="ctl-label">题型</span>
+        <button class="pick" type="button" data-p="all" aria-pressed="true">全部</button>
+        <button class="pick" type="button" data-p="A" aria-pressed="false">必会题</button>
+        <button class="pick" type="button" data-p="B" aria-pressed="false">可选题</button>
+        <button class="pick" type="button" data-p="C" aria-pressed="false">跳过题</button>
+        <button class="pick" type="button" data-p="gift" aria-pressed="false">送分题</button>
+        <button class="pick" type="button" data-p="tricky" aria-pressed="false">易错题</button>
+        <button class="pick" type="button" data-p="hard" aria-pressed="false">难题</button>
       </div>
       <div class="ctl-group" role="group" aria-label="科目筛选">
         <span class="ctl-label">科目</span>
@@ -664,6 +698,7 @@ function typesetMath(root){
         <button class="btn sm" type="button" id="btnTimerReset">重启</button>
       </div>
       <button class="btn primary" type="button" id="btnSubmit">交卷</button>
+      <button class="btn" type="button" id="btnEasy" aria-pressed="false">Easy Mode</button>
       <button class="btn" type="button" id="btnRail">题号地图</button>
       <button class="btn" type="button" id="btnKp">考点总览</button>
       <button class="btn" type="button" id="btnTheme">主题</button>
@@ -722,7 +757,7 @@ function typesetMath(root){
   </footer>
 </div>
 
-<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-04 代数与函数","exam":"11-04（周三）· 代数与函数","date":"第 3/7 天 · 8 题 · 建议 65 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d2.html\">← 11-03 几何与立体<\/a> <a href=\"d4.html\">11-05 排列组合与概率 →<\/a>"},"questions":[{"no":9,"subject":"math","topic":"代数(韦达定理)","tier":"A","stem":"若实数 $x$、$y$ 满足 $xy+x+y=10$，$x^2y+xy^2=24$，则 $x^2+y^2=(\\quad)$。","options":[{"k":"A","t":"$4$"},{"k":"B","t":"$28$"},{"k":"C","t":"$34$"},{"k":"D","t":"$44$"},{"k":"E","t":"$52$"}],"answer":"B","exp":"令 $s=x+y$、$p=xy$。则 $p+s=10$、$ps=24$，$s,p$ 是 $t^2-10t+24=0$ 的两根 $=6$ 与 $4$。$x^2+y^2=s^2-2p$：若 $s=6,p=4$ 得 $28$；若 $s=4,p=6$，判别式 $16-24<0$ 无实数解，舍去。故 $x^2+y^2=28$。","tierWhy":"这题埋了陷阱：算出 4 就选 A 是掉坑。必须回头验判别式——这是真题最爱设的钩子。","expectSec":150,"brief":"韦达给出两个候选，必须回头验判别式。","steps":["$p+s=10,\\ ps=24$ ⇒ $\\{s,p\\}=\\{6,4\\}$","$s=4,p=6$：$\\Delta=16-24<0$ 舍","$s^2-2p=36-8=28$"],"key":"$xy+x+y=10$，$x^2y+xy^2=24$","trap":"解出两组候选就交卷，不回头验判别式","distract":"A（4）——用 $s=4,p=6$ 那组算的，实数里根本不存在","kind":"易错题"},{"no":17,"subject":"math","topic":"条件充分性判断·二次函数+等比","tier":"C","stem":"设 $f(x)=ax^2+bx+c$，其中 $a$、$b$、$c$ 为实数。则 $f(x)>0$。\n（1）$a$、$b$、$c$ 成等比数列\n（2）$a>0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"C","exp":"等比 ⇒ $b^2=ac$。判别式 $\\Delta=b^2-4ac=ac-4ac=-3ac$。要恒正需 $a>0$ 且 $c>0$。由 $a>0$、$b^2=ac\\ge0$ 得 $c\\ge0$，又 $c\\neq0$，故 $c>0$，于是 $\\Delta<0$，开口向上且不与 $x$ 轴相交 ⇒ $f(x)>0$。单靠 $(1)$ 时 $a$ 可能为负（开口向下），不充分。","tierWhy":"「等比 ⇒ $b^2=ac$」+「判别式符号」两步。缺一步就翻车，属于可选题。","expectSec":180,"brief":"等比给 $b^2=ac$，再用判别式判恒正。","steps":["$b^2=ac$ ⇒ $\\Delta=ac-4ac=-3ac$","$a>0\\Rightarrow c>0\\Rightarrow \\Delta<0$","开口向上且不与 $x$ 轴相交 ⇒ 恒正"],"key":"$f(x)=ax^2+bx+c$ 恒正，$a,b,c$ 成等比且 $a>0$","trap":"只验 $b^2=ac$ 不验 $c$ 的符号，判别式符号就判反","distract":"A（条件(1)充分）——忘了开口方向也要 $a>0$","kind":"卡死你不偿命"},{"no":19,"subject":"math","topic":"条件充分性判断·不等式解集","tier":"B","stem":"已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$，$B=\\{x\\mid x^2+ax+b\\le 0\\}$，则 $A\\cap B=\\{x\\mid 1<x\\le 3\\}$。\n（1）$a=-2,\\ b=-3$\n（2）$a=-3,\\ b=0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"D","exp":"先解 $A$：$(x-1)(x+1)(x+2)>0$，根 $-2,-1,1$，穿针引线得 $A=(-2,-1)\\cup(1,+\\infty)$。$(1)$ $B=[-1,3]$，$A\\cap B=(1,3]$ ✓；$(2)$ $B=[0,3]$，$A\\cap B=(1,3]$ ✓。两条件各自都够，选 $D$。","tierWhy":"解集题先解出 A（这是不变量），再逐个验 B。两步都标准，算是条件充分性里最该拿的一类。","expectSec":180,"brief":"先解 $A$（不变量），再逐个验 $B$。","steps":["$A=(x^2-1)(x+2)>0$ ⇒ $(-2,-1)\\cup(1,+\\infty)$","$(1)$ $B=[-1,3]$ ⇒ 交 $=(1,3]$","$(2)$ $B=[0,3]$ ⇒ 交 $=(1,3]$"],"key":"$A$ 是不等式解集，$B$ 带参数，交集是 $(1,3]$","trap":"端点开闭搞错；或者不先解出 $A$ 就硬验 $B$","distract":"B（条件(2)充分）——只验了一个条件","kind":"易错题"},{"no":20,"subject":"math","topic":"条件充分性判断·数列前n项和","tier":"B","stem":"已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n=bn^2+c$，其中 $b$、$c$ 为实数。则 $a_{10}=38$。\n（1）$a_1=1$\n（2）$a_2=6$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"B","exp":"$a_n=S_n-S_{n-1}=b\\left[n^2-(n-1)^2\\right]=b(2n-1)$（$n\\ge2$），故 $a_{10}=19b$。要 $a_{10}=38$ 需 $b=2$。$(1)$ $a_1=S_1=b+c=1$ 只能定 $b+c$；$(2)$ $a_2=3b=6$ ⇒ $b=2$ ✓。","tierWhy":"「Sₙ 差分成 aₙ」+「目标只含 b」这个观察，两步都在套路内。","expectSec":150,"brief":"$S_n$ 作差得通项，目标只含 $b$。","steps":["$a_n=S_n-S_{n-1}=b(2n-1)$","$a_{10}=19b$，需 $b=2$","$a_2=3b=6$ ⇒ $b=2$ ✓"],"key":"$S_n=bn^2+c$，要 $a_{10}=38$","trap":"$a_1$ 直接当成 $b$；或者忘了 $a_n=S_n-S_{n-1}$ 只对 $n\\ge2$ 成立","distract":"A（条件(1)充分）——$a_1=b+c$ 被当成能定 $b$","kind":"易错题"},{"no":21,"subject":"math","topic":"条件充分性判断·齐次化求定值","tier":"B","stem":"设 $a$、$b$ 是正实数。则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值。\n（1）$\\dfrac{b}{a}=\\dfrac{2}{3}$\n（2）$\\dfrac{b}{a}=\\dfrac{1}{3}$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"A","exp":"令 $b=ta$：$\\frac{a(1-t)+\\frac{1}{5}}{a(1+t)+1}$。要对任意 $a$ 都与 $a$ 无关，必须 $\\frac{1-t}{1+t}=\\frac{1/5}{1}$ ⇒ $5-5t=1+t$ ⇒ $t=\\frac{2}{3}$，此时值恒为 $\\frac{1}{5}$。$t=\\frac{1}{3}$ 时式子是 $a$ 的函数，定不出唯一值。","tierWhy":"这是条件充分性里的「巧题」：要意识到必须分子分母成比例。看破 30 秒，看不破写满纸也没用 —— 可跳。","expectSec":180,"brief":"齐次化：让 $a$ 自己消失。","steps":["令 $b=ta$","要与 $a$ 无关 ⇒ $\\frac{1-t}{1+t}=\\frac{1/5}{1}$","$t=\\frac{2}{3}$，值恒为 $\\frac{1}{5}$"],"key":"$(a-b+\\frac{1}{5})/(a+b+1)$ 与 $a$ 无关","trap":"代入一个具体的 $a$ 算出数就以为恒定","distract":"E（都不充分）——没意识到 $t=\\frac{2}{3}$ 能让 $a$ 消掉","kind":"易错题"},{"no":"T25","subject":"math","topic":"代数 · 一元二次方程","tier":"A","kind":"送分题","stem":"x² - 5x + 6 = 0,求 x。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"x = 2 或 3","brief":"先算出结果，再对照参考答案自评。","key":"母题 T25 · 一元二次方程","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：x = 2 或 3\n\n**解析**：(x-2)(x-3) = 0","tierWhy":"简单难度，母题第 25 题。","expectSec":120,"steps":["一元二次方程","简单","参考 x = 2 或 3"]},{"no":"T35","subject":"math","topic":"代数 · 韦达定理","tier":"C","kind":"卡死你不偿命","stem":"方程 x² - 5x + k = 0 两根之和为 5,一根为 2,求另一根及 k。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"另一根 3,k = 6","brief":"先算出结果，再对照参考答案自评。","key":"母题 T35 · 韦达定理","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：另一根 3,k = 6\n\n**解析**：和 5,一根 2,另一根 3;积 = k = 2×3 = 6","tierWhy":"难难度，母题第 35 题。","expectSec":360,"steps":["韦达定理","难","参考 另一根 3,k = 6"]},{"no":"T28","subject":"math","topic":"代数 · 均值不等式","tier":"B","kind":"易错题","stem":"x + 4/x 的最小值(x>0)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"4","brief":"先算出结果，再对照参考答案自评。","key":"母题 T28 · 均值不等式","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：4\n\n**解析**：AM-GM:x + 4/x ≥ 2√(x·4/x) = 2×2 = 4,等号在 x = 2 时成立","tierWhy":"中等难度，母题第 28 题。","expectSec":240,"steps":["均值不等式","中等","参考 4"]}]}</script>
+<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-04 代数与函数","exam":"11-04（周三）· 代数与函数","date":"第 3/7 天 · 8 题 · 建议 65 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d2.html\">← 11-03 几何与立体<\/a> <a href=\"d4.html\">11-05 排列组合与概率 →<\/a>"},"questions":[{"no":9,"subject":"math","topic":"代数(韦达定理)","tier":"A","stem":"若实数 $x$、$y$ 满足 $xy+x+y=10$，$x^2y+xy^2=24$，则 $x^2+y^2=(\\quad)$。","options":[{"k":"A","t":"$4$"},{"k":"B","t":"$28$"},{"k":"C","t":"$34$"},{"k":"D","t":"$44$"},{"k":"E","t":"$52$"}],"answer":"B","exp":"令 $s=x+y$、$p=xy$。则 $p+s=10$、$ps=24$，$s,p$ 是 $t^2-10t+24=0$ 的两根 $=6$ 与 $4$。$x^2+y^2=s^2-2p$：若 $s=6,p=4$ 得 $28$；若 $s=4,p=6$，判别式 $16-24<0$ 无实数解，舍去。故 $x^2+y^2=28$。","tierWhy":"这题埋了陷阱：算出 4 就选 A 是掉坑。必须回头验判别式——这是真题最爱设的钩子。","expectSec":150,"brief":"韦达给出两个候选，必须回头验判别式。","steps":["$p+s=10,\\ ps=24$ ⇒ $\\{s,p\\}=\\{6,4\\}$","$s=4,p=6$：$\\Delta=16-24<0$ 舍","$s^2-2p=36-8=28$"],"key":"$xy+x+y=10$，$x^2y+xy^2=24$","trap":"解出两组候选就交卷，不回头验判别式","distract":"A（4）——用 $s=4,p=6$ 那组算的，实数里根本不存在","kind":"易错题","hl":[]},{"no":17,"subject":"math","topic":"条件充分性判断·二次函数+等比","tier":"C","stem":"设 $f(x)=ax^2+bx+c$，其中 $a$、$b$、$c$ 为实数。则 $f(x)>0$。\n（1）$a$、$b$、$c$ 成等比数列\n（2）$a>0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"C","exp":"等比 ⇒ $b^2=ac$。判别式 $\\Delta=b^2-4ac=ac-4ac=-3ac$。要恒正需 $a>0$ 且 $c>0$。由 $a>0$、$b^2=ac\\ge0$ 得 $c\\ge0$，又 $c\\neq0$，故 $c>0$，于是 $\\Delta<0$，开口向上且不与 $x$ 轴相交 ⇒ $f(x)>0$。单靠 $(1)$ 时 $a$ 可能为负（开口向下），不充分。","tierWhy":"「等比 ⇒ $b^2=ac$」+「判别式符号」两步。缺一步就翻车，属于可选题。","expectSec":180,"brief":"等比给 $b^2=ac$，再用判别式判恒正。","steps":["$b^2=ac$ ⇒ $\\Delta=ac-4ac=-3ac$","$a>0\\Rightarrow c>0\\Rightarrow \\Delta<0$","开口向上且不与 $x$ 轴相交 ⇒ 恒正"],"key":"$f(x)=ax^2+bx+c$ 恒正，$a,b,c$ 成等比且 $a>0$","trap":"只验 $b^2=ac$ 不验 $c$ 的符号，判别式符号就判反","distract":"A（条件(1)充分）——忘了开口方向也要 $a>0$","kind":"卡死你不偿命","hl":[]},{"no":19,"subject":"math","topic":"条件充分性判断·不等式解集","tier":"B","stem":"已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$，$B=\\{x\\mid x^2+ax+b\\le 0\\}$，则 $A\\cap B=\\{x\\mid 1<x\\le 3\\}$。\n（1）$a=-2,\\ b=-3$\n（2）$a=-3,\\ b=0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"D","exp":"先解 $A$：$(x-1)(x+1)(x+2)>0$，根 $-2,-1,1$，穿针引线得 $A=(-2,-1)\\cup(1,+\\infty)$。$(1)$ $B=[-1,3]$，$A\\cap B=(1,3]$ ✓；$(2)$ $B=[0,3]$，$A\\cap B=(1,3]$ ✓。两条件各自都够，选 $D$。","tierWhy":"解集题先解出 A（这是不变量），再逐个验 B。两步都标准，算是条件充分性里最该拿的一类。","expectSec":180,"brief":"先解 $A$（不变量），再逐个验 $B$。","steps":["$A=(x^2-1)(x+2)>0$ ⇒ $(-2,-1)\\cup(1,+\\infty)$","$(1)$ $B=[-1,3]$ ⇒ 交 $=(1,3]$","$(2)$ $B=[0,3]$ ⇒ 交 $=(1,3]$"],"key":"$A$ 是不等式解集，$B$ 带参数，交集是 $(1,3]$","trap":"端点开闭搞错；或者不先解出 $A$ 就硬验 $B$","distract":"B（条件(2)充分）——只验了一个条件","kind":"易错题","hl":[]},{"no":20,"subject":"math","topic":"条件充分性判断·数列前n项和","tier":"B","stem":"已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n=bn^2+c$，其中 $b$、$c$ 为实数。则 $a_{10}=38$。\n（1）$a_1=1$\n（2）$a_2=6$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"B","exp":"$a_n=S_n-S_{n-1}=b\\left[n^2-(n-1)^2\\right]=b(2n-1)$（$n\\ge2$），故 $a_{10}=19b$。要 $a_{10}=38$ 需 $b=2$。$(1)$ $a_1=S_1=b+c=1$ 只能定 $b+c$；$(2)$ $a_2=3b=6$ ⇒ $b=2$ ✓。","tierWhy":"「Sₙ 差分成 aₙ」+「目标只含 b」这个观察，两步都在套路内。","expectSec":150,"brief":"$S_n$ 作差得通项，目标只含 $b$。","steps":["$a_n=S_n-S_{n-1}=b(2n-1)$","$a_{10}=19b$，需 $b=2$","$a_2=3b=6$ ⇒ $b=2$ ✓"],"key":"$S_n=bn^2+c$，要 $a_{10}=38$","trap":"$a_1$ 直接当成 $b$；或者忘了 $a_n=S_n-S_{n-1}$ 只对 $n\\ge2$ 成立","distract":"A（条件(1)充分）——$a_1=b+c$ 被当成能定 $b$","kind":"易错题","hl":[]},{"no":21,"subject":"math","topic":"条件充分性判断·齐次化求定值","tier":"B","stem":"设 $a$、$b$ 是正实数。则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值。\n（1）$\\dfrac{b}{a}=\\dfrac{2}{3}$\n（2）$\\dfrac{b}{a}=\\dfrac{1}{3}$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"A","exp":"令 $b=ta$：$\\frac{a(1-t)+\\frac{1}{5}}{a(1+t)+1}$。要对任意 $a$ 都与 $a$ 无关，必须 $\\frac{1-t}{1+t}=\\frac{1/5}{1}$ ⇒ $5-5t=1+t$ ⇒ $t=\\frac{2}{3}$，此时值恒为 $\\frac{1}{5}$。$t=\\frac{1}{3}$ 时式子是 $a$ 的函数，定不出唯一值。","tierWhy":"这是条件充分性里的「巧题」：要意识到必须分子分母成比例。看破 30 秒，看不破写满纸也没用 —— 可跳。","expectSec":180,"brief":"齐次化：让 $a$ 自己消失。","steps":["令 $b=ta$","要与 $a$ 无关 ⇒ $\\frac{1-t}{1+t}=\\frac{1/5}{1}$","$t=\\frac{2}{3}$，值恒为 $\\frac{1}{5}$"],"key":"$(a-b+\\frac{1}{5})/(a+b+1)$ 与 $a$ 无关","trap":"代入一个具体的 $a$ 算出数就以为恒定","distract":"E（都不充分）——没意识到 $t=\\frac{2}{3}$ 能让 $a$ 消掉","kind":"易错题","hl":[]},{"no":"T25","subject":"math","topic":"代数 · 一元二次方程","tier":"A","kind":"送分题","stem":"x² - 5x + 6 = 0,求 x。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"x = 2 或 3","brief":"先算出结果，再对照参考答案自评。","key":"母题 T25 · 一元二次方程","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：x = 2 或 3\n\n**解析**：(x-2)(x-3) = 0","tierWhy":"简单难度，母题第 25 题。","expectSec":120,"steps":["一元二次方程","简单","参考 x = 2 或 3"]},{"no":"T35","subject":"math","topic":"代数 · 韦达定理","tier":"C","kind":"卡死你不偿命","stem":"方程 x² - 5x + k = 0 两根之和为 5,一根为 2,求另一根及 k。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"另一根 3,k = 6","brief":"先算出结果，再对照参考答案自评。","key":"母题 T35 · 韦达定理","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：另一根 3,k = 6\n\n**解析**：和 5,一根 2,另一根 3;积 = k = 2×3 = 6","tierWhy":"难难度，母题第 35 题。","expectSec":360,"steps":["韦达定理","难","参考 另一根 3,k = 6"]},{"no":"T28","subject":"math","topic":"代数 · 均值不等式","tier":"B","kind":"易错题","stem":"x + 4/x 的最小值(x>0)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"4","brief":"先算出结果，再对照参考答案自评。","key":"母题 T28 · 均值不等式","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：4\n\n**解析**：AM-GM:x + 4/x ≥ 2√(x·4/x) = 2×2 = 4,等号在 x = 2 时成立","tierWhy":"中等难度，母题第 28 题。","expectSec":240,"steps":["均值不等式","中等","参考 4"]}]}</script>
 <script id="KPJSON" type="application/json">{
  "kps": {
   "discriminant": {
@@ -5764,6 +5799,8 @@ function defaultState(){
     answers:{},
     marks:{},
     view:'quiz',
+    easy:false,
+    pick:[],
     timerSec:0,
     timerRun:false,
     elapsed:{},
@@ -5801,6 +5838,8 @@ var state = defaultState();
       };
     });
   }
+  if(typeof s.easy === 'boolean') state.easy = s.easy;
+  if(Array.isArray(s.pick)) state.pick = s.pick.filter(function(p){ return PICK_LABEL[p] && p !== 'all'; });
   if(typeof s.view === 'string') state.view = s.view;
   if(typeof s.timerSec === 'number') state.timerSec = Math.max(0, s.timerSec);
   if(typeof s.timerRun === 'boolean') state.timerRun = s.timerRun;
@@ -5924,6 +5963,100 @@ function qToText(q, withExp){
   return L.join(String.fromCharCode(10));
 }
 
+
+/* ---------- 题型多选 ---------- */
+var PICK_LABEL = { all:'全部', A:'必会题', B:'可选题', C:'跳过题',
+                   gift:'送分题', tricky:'易错题', hard:'难题' };
+function qTokens(q){
+  var t = [q.tier];
+  if(q.kind === '送分题') t.push('gift');
+  if(q.kind === '易错题') t.push('tricky');
+  if(q.kind === '卡死你不偿命') t.push('hard');
+  return t;
+}
+function syncPicks(){
+  $$('.pick').forEach(function(b){
+    var p = b.dataset.p, pick = state.pick || [];
+    var on = (p === 'all') ? pick.length === 0 : pick.indexOf(p) >= 0;
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+
+/* ---------- Easy Mode ---------- */
+function ezCompact(str){
+  var out = '', map = [];
+  for(var i = 0; i < str.length; i++){
+    var c = str.charAt(i);
+    if(/[\s　]/.test(c)) continue;
+    out += c; map.push(i);
+  }
+  return { s: out, map: map };
+}
+function ezRanges(raw, frags){
+  var cm = ezCompact(raw), out = [];
+  frags.forEach(function(f){
+    var fc = f.replace(/[\s　]/g, '');
+    if(fc.length < 2) return;
+    var idx = cm.s.indexOf(fc);
+    while(idx >= 0){
+      out.push([cm.map[idx], cm.map[idx + fc.length - 1] + 1]);
+      idx = cm.s.indexOf(fc, idx + 1);
+    }
+  });
+  out.sort(function(a, b){ return a[0] - b[0] || b[1] - a[1]; });
+  var m = [];
+  out.forEach(function(r){
+    if(m.length && r[0] <= m[m.length - 1][1]){
+      m[m.length - 1][1] = Math.max(m[m.length - 1][1], r[1]);
+    } else { m.push([r[0], r[1]]); }
+  });
+  return m;
+}
+function ezStemHTML(q){
+  if(!state.easy) return esc(q.stem);
+  var frags = [];
+  if(q.hl && q.hl.length){ frags = q.hl.slice(); }          /* 自动切出的原文句，必中 */
+  if(!frags.length){
+    var key = String(q.key || '').replace(/\$/g, ' ');
+    frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
+  }
+  if(!frags.length) return esc(q.stem);
+  return String(q.stem).split(/(\$[^$]*\$)/).map(function(seg){
+    if(seg.charAt(0) === '$') return esc(seg);
+    var rs = ezRanges(seg, frags);
+    if(!rs.length) return esc(seg);
+    var buf = '', last = 0;
+    rs.forEach(function(r){
+      buf += esc(seg.slice(last, r[0]));
+      buf += '<mark class="ez-key">' + esc(seg.slice(r[0], r[1])) + '</mark>';
+      last = r[1];
+    });
+    buf += esc(seg.slice(last));
+    return buf;
+  }).join('');
+}
+function ezBoxHTML(q){
+  if(!state.easy) return '';
+  var kps = (KPMAP[q.no] || []).map(function(k){
+    return KPS[k] ? '<span class="kptag">' + esc(KPS[k].title) + '</span>' : '';
+  }).join('');
+  var h = '<div class="ezbox no-print">';
+  if(q.key) h += '<div class="ez-row ez-key"><b>题干要点</b><div>' + esc(q.key) + '</div></div>';
+  if(q.brief) h += '<div class="ez-row ez-kill"><b>秒杀逻辑</b><div>' + esc(q.brief) + '</div></div>';
+  if(q.trap) h += '<div class="ez-row ez-trap"><b>低级错误</b><div>' + esc(q.trap) + '</div></div>';
+  if(kps) h += '<div class="ez-row ez-kp"><b>本卷考点</b><div>' + kps + '</div></div>';
+  h += '</div>';
+  return h;
+}
+function rerenderAll(){
+  list.innerHTML = QS.map(cardHTML).join('');
+  typesetMath(list);
+  QS.forEach(function(q){ paint(q.no); });
+  applyFilters();
+  if(state.current != null) setCurrent(state.current);
+  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+}
+
 /* ---------- 卡片 ---------- */
 function cardHTML(q){
   var doubt = isDoubt(q);
@@ -5967,7 +6100,8 @@ function cardHTML(q){
   return '<article class="qcard" id="q' + q.no + '" data-no="' + q.no + '" data-tier="' + q.tier
     + '" data-subject="' + q.subject + '">'
     + '<div class="qhead">' + head.join('') + '</div>'
-    + '<p class="stem">' + esc(q.stem) + '</p>'
+    + '<p class="stem">' + ezStemHTML(q) + '</p>'
+    + ezBoxHTML(q)
     + '<div class="opts">' + opts + '</div>'
     + '<div class="qa-actions no-print">'
     + '<button class="btn sm" type="button" data-copy="q" data-no="' + q.no + '">复制题目</button>'
@@ -6125,10 +6259,11 @@ function setCurrent(no){
 
 /* ---------- 筛选 ---------- */
 function passes(q){
-  if(state.tier === 'A' && q.tier !== 'A') return false;
-  if(state.tier === 'AB' && q.tier === 'C') return false;
   if(state.subject !== 'all' && q.subject !== state.subject) return false;
-  return true;
+  var pick = state.pick || [];
+  if(!pick.length) return true;
+  var toks = qTokens(q);
+  return pick.some(function(p){ return toks.indexOf(p) >= 0; });
 }
 function visibleCards(){ return $$('.qcard', list).filter(function(c){ return !c.hidden; }); }
 
@@ -6139,11 +6274,14 @@ function applyFilters(){
     c.hidden = !ok;
     if(ok) n++;
   });
-  $$('.chip').forEach(function(b){
+$$('.chip').forEach(function(b){
     var key = b.dataset.f, v = b.dataset.v;
     b.setAttribute('aria-pressed', String(state[key] === v));
   });
-  document.getElementById('countLine').textContent = '当前显示 ' + n + ' / ' + QS.length + ' 题';
+  var pickTxt = (state.pick || []).length
+    ? '（' + state.pick.map(function(p){ return PICK_LABEL[p]; }).join(' + ') + '）' : '';
+  document.getElementById('countLine').textContent =
+    '当前显示 ' + n + ' / ' + QS.length + ' 题' + pickTxt;
   var first = visibleCards()[0];
   if(first){
     var no = first.dataset.no;
@@ -6335,6 +6473,30 @@ document.getElementById('btnKp').addEventListener('click', renderKpNav);
 $$('.tabm').forEach(function(b){
   b.addEventListener('click', function(){ setView(b.dataset.view); });
 });
+  $$('.pick').forEach(function(b){
+  b.addEventListener('click', function(){
+    var p = b.dataset.p;
+    if(p === 'all'){ state.pick = []; }
+    else {
+      var i = state.pick.indexOf(p);
+      if(i >= 0) state.pick.splice(i, 1); else state.pick.push(p);
+    }
+    save(); syncPicks(); applyFilters();
+  });
+});
+syncPicks();
+
+document.getElementById('btnEasy').addEventListener('click', function(){
+  state.easy = !state.easy;
+  save();
+  document.getElementById('btnEasy').setAttribute('aria-pressed', String(state.easy));
+  document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开' : 'Easy Mode';
+  rerenderAll();
+});
+document.getElementById('btnEasy').setAttribute('aria-pressed', String(!!state.easy));
+document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开' : 'Easy Mode';
+
+
 initRail();
 document.getElementById('btnRail').addEventListener('click', function(){ setRail(!RAIL_ON); });
 var rc = document.getElementById('btnRailClose');

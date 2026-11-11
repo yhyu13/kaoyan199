@@ -530,6 +530,36 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .copied{ color:var(--accent) !important; border-color:var(--accent) !important; }
 @media print{ .qtoggle,.qa-actions{ display:none !important; } }
 
+
+/* ---------- 题型多选 ---------- */
+.pick{ border:0; background:transparent; color:var(--fg); border-radius:999px;
+  padding:5px 12px; font:inherit; font-size:13.5px; cursor:pointer; white-space:nowrap; }
+.pick:hover{ color:var(--accent); }
+.pick[aria-pressed="true"]{ background:var(--accent); color:#fff; font-weight:700; }
+.pickbar{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.pickbar .ctl-group{ flex-wrap:wrap; }
+/* ---------- Easy Mode ---------- */
+.ezbox{ margin:6px 0 12px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.ez-row{ display:grid; grid-template-columns:66px minmax(0,1fr); gap:10px;
+  padding:7px 11px; font-size:15px; line-height:1.7; border-bottom:1px solid var(--line); }
+.ez-row:last-child{ border-bottom:0; }
+.ez-row b{ font-size:13px; font-weight:700; opacity:.9; padding-top:1px; }
+.ez-key{ background:rgba(80,120,200,.14); }
+.ez-kill{ background:rgba(199,152,26,.18); }
+.ez-trap{ background:rgba(163,63,46,.15); }
+.ez-kp{ background:rgba(46,107,79,.15); }
+.ez-kp .kptag{ display:inline-block; font-size:13px; border:1px solid var(--line);
+  border-radius:999px; padding:0 9px; margin:2px 6px 0 0; background:var(--card); }
+mark.ez-key{ background:rgba(80,120,200,.32); color:inherit; border-radius:3px;
+  padding:0 2px; font-weight:700; }
+#btnEasy[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent);
+  color:#fff; font-weight:700; }
+@media (max-width:600px){
+  .ez-row{ grid-template-columns:minmax(0,1fr); gap:2px; }
+  .ez-row b{ font-size:12.5px; }
+}
+@media print{ .ezbox{ break-inside:avoid; } }
+
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 /* ================= 主题配色补丁（浅 / 深） ================= */
 :root{
@@ -641,11 +671,15 @@ function typesetMath(root){
   <section class="view on" id="view-quiz">
   <section class="toolbar no-print" aria-label="控制台">
     <div class="ctl-row">
-      <div class="ctl-group" role="group" aria-label="档位筛选">
-        <span class="ctl-label">档位</span>
-        <button class="chip" type="button" data-f="tier" data-v="all" aria-pressed="true">全部</button>
-        <button class="chip" type="button" data-f="tier" data-v="A" aria-pressed="false">只看 A</button>
-        <button class="chip" type="button" data-f="tier" data-v="AB" aria-pressed="false">A+B</button>
+      <div class="ctl-group" role="group" aria-label="题型多选（可多选）">
+        <span class="ctl-label">题型</span>
+        <button class="pick" type="button" data-p="all" aria-pressed="true">全部</button>
+        <button class="pick" type="button" data-p="A" aria-pressed="false">必会题</button>
+        <button class="pick" type="button" data-p="B" aria-pressed="false">可选题</button>
+        <button class="pick" type="button" data-p="C" aria-pressed="false">跳过题</button>
+        <button class="pick" type="button" data-p="gift" aria-pressed="false">送分题</button>
+        <button class="pick" type="button" data-p="tricky" aria-pressed="false">易错题</button>
+        <button class="pick" type="button" data-p="hard" aria-pressed="false">难题</button>
       </div>
       <div class="ctl-group" role="group" aria-label="科目筛选">
         <span class="ctl-label">科目</span>
@@ -664,6 +698,7 @@ function typesetMath(root){
         <button class="btn sm" type="button" id="btnTimerReset">重启</button>
       </div>
       <button class="btn primary" type="button" id="btnSubmit">交卷</button>
+      <button class="btn" type="button" id="btnEasy" aria-pressed="false">Easy Mode</button>
       <button class="btn" type="button" id="btnRail">题号地图</button>
       <button class="btn" type="button" id="btnKp">考点总览</button>
       <button class="btn" type="button" id="btnTheme">主题</button>
@@ -722,7 +757,7 @@ function typesetMath(root){
   </footer>
 </div>
 
-<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-06 逻辑·论证（14 类谬误）","exam":"11-06（周五）· 逻辑·论证（14 类谬误）","date":"第 5/7 天 · 8 题 · 建议 50 分钟","total":200,"sections":[],"sources":["2026 真题"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d4.html\">← 11-05 排列组合与概率<\/a> <a href=\"d6.html\">11-07 逻辑·分析推理 →<\/a>"},"questions":[{"no":26,"subject":"logic","topic":"支持·除外","tier":"A","stem":"中国对全球气候治理的贡献有目共睹。风电、光伏发电、水电、生物质发电装机容量连续多年位居世界第一，大幅降低了全球发展可再生能源的成本。国际能源署官员表示中国今天已经成为全球清洁能源领域的冠军。相关人士表示，作为负责任的发展中大国，中国始终保持气候行动的战略定力，中国经济社会发展已经走上全面绿色转型的轨道。\n以下各项如果为真，则除哪项外均能支持上述相关人士的观点？","options":[{"k":"A","t":"中国深入推进能源革命，非化石能源装机容量比重已超50%。"},{"k":"B","t":"中国全面停止新建境外燃煤电厂，得到许多国家的高度赞扬。"},{"k":"C","t":"中国大力推进绿色发展，二氧化碳等温室气体排放强度已连续多年持续下降。"},{"k":"D","t":"中国新能源汽车产销量稳居全球第一，保有量超1800万辆，占世界一半以上。"},{"k":"E","t":"中国利用自身先进的清洁能源技术和低成本优势，正帮助世界其他国家实现绿色转型。"}],"answer":"B","exp":"结论是「中国是清洁能源冠军／已走上全面绿色转型轨道」。A、C、D、E 都直接给出中国在清洁能源与减排上的实绩；B 讲的是对「境外」煤电的态度，属于对外行为的克制与外部评价，不能证明中国自身的能源结构已转型。（自推）","tierWhy":"「除外」题只看一件事：选项是否落在结论的主体与谓语范围内。B 换了主体（境外），是典型无关项。四个正向项一律不用细读。","expectSec":90,"steps":["圈主体词：智能 / 信息平台","$B$ 讲的是境外煤电","其余四项都是国内实绩"],"brief":"「除外」题找换了主体的那一项。","key":"中国清洁能源成绩单，问「除哪项外」","trap":"把「除外」读成「哪项能」，方向直接反了","distract":"$A$——非化石能源超 50%，看起来最像数据","kind":"送分题"},{"no":27,"subject":"logic","topic":"论证方式相似","tier":"A","stem":"平日里进行高强度耐力训练的人，反而没有那些不太运动的人长寿。所以，运动未必益寿。\n以下哪项与上述论证方式最为相似？","options":[{"k":"A","t":"相比于那些较少食用含果葡糖浆食品的人，经常食用者患脂肪肝、心脏病的风险比较高。因此，为了健康应尽量远离含果葡糖浆的食品。"},{"k":"B","t":"今年国庆、中秋长假临近时，民航国内航线长假出票量已超过去年同期，个别航线余票所剩无几。所以，长假出行应尽早订票。"},{"k":"C","t":"不能将接受的新信息与现有知识储备有机结合的人，反而会比他们未接受新信息时作出更糟的选择。所以，知识更多未必有助于人们作出明智的选择。"},{"k":"D","t":"14~16世纪，当北美农耕村落的人口增加一倍时，人均居住面积和家庭财富会显著增加。由此可知，人口集中带来的合作可让社群中的所有人都受益。"},{"k":"E","t":"一项对非洲中低收入家庭的调查显示，在取水过程中女性比男性更易因动物袭击、交通事故等原因而受伤。因此，男性更应该承担取水的责任。"}],"answer":"C","exp":"原论证的骨架是：在某场合下有人反而更差 ⇒ 推出这件事本身未必有好处（用反例否掉整体收益）。C 完全同构：接受新信息但没结合好的人反而更差 ⇒ 知识更多未必有助于明智选择。A、B、D、E 都是从某现象直接推「该怎么做」或「有人受益」，结论性质不同。（自推）","tierWhy":"相似题只比「前提长什么样、结论长什么样」，不比内容。先给原题写一句骨架，再拿骨架去套，别逐句读内容。","expectSec":120,"steps":["骨架：有人反而更差 ⇒ 此事未必有益","找同构","$C$ 结构与原题一致"],"brief":"先把原题压成一句骨架，再套选项。","key":"高强度训练的人反而不如不太运动的人长寿","trap":"去比较「运动到底有没有用」，而不是比论证结构","distract":"$A$——也是「某类人风险更高」，但结论是「该怎么做」","kind":"送分题"},{"no":28,"subject":"logic","topic":"削弱","tier":"A","stem":"近几年汉服悄然流行。从日常生活到顶级时尚圈，汉服无处不在。随着汉服从小众走向大众、从舞台表演走向日常生活，各种乱象也时有发生。某些影视剧、综艺节目的制作者因对相关历史、服饰演变等知识了解不够，经常会乱改、乱搭汉服。对此有专家主张，必须规范汉服的生产和使用，因为只有还原传统汉服的本来面貌，才能保持汉服应有的历史文化价值和独特美感。\n以下哪项如果为真，最能质疑上述专家的主张？","options":[{"k":"A","t":"汉服的发展历史悠久，每个时代的汉服都各具特色。在日常生活中，许多汉服爱好者各美其美，根据自己的喜好自由选择不同时代的服饰。"},{"k":"B","t":"穿上传统汉服并不方便工作。将传统汉服的代表元素抽离出来，设计出适合现代人穿着的汉服，依旧能保存汉服的历史文化和审美价值。"},{"k":"C","t":"近现代以来，我国大多数人不再穿汉服，日常生活中的汉服也已改变了许多，很难再回到传统汉服的模样。"},{"k":"D","t":"有些景区安排演员身着汉服，但其服饰与景区文化主题并不匹配，这种做法严重损害了汉服的历史文化价值和相关礼仪的神圣感。"},{"k":"E","t":"最好的传承就是走进日常生活，但有些人为了迎合时尚、体现个性，将汉服改得不伦不类，丢失了传统汉服的典型特征。"}],"answer":"B","exp":"专家主张的支点是「只有还原传统汉服的本来面貌，才能保持其历史文化价值和独特美感」。B 直接给出反例：抽离代表元素、做成现代汉服，依然能保住历史文化和审美价值 ⇒ 必要条件不成立，主张的根基被拆掉。A 讲多样、C 讲回不去、D 讲乱象危害、E 讲改坏的后果，都不针对「只有…才…」这条链。（自推）","tierWhy":"削弱「只有A才B」最强的招法永远是：给出「非A 但 B」的实例。看到「只要／只有」先圈出来，选项里找反例即可，30 秒。","expectSec":90,"steps":["支点：只有还原才能保价值","找「非 A 但 B」","$B$：抽元素做现代汉服也保住了"],"brief":"打掉「只有…才…」的唯一办法：给反例。","key":"「只有还原传统汉服，才能保持其价值」","trap":"去论证「该不该规范」，而不是打这条必要条件","distract":"$C$——「回不到传统模样」，是诉诸现实不是反例","kind":"送分题"},{"no":29,"subject":"logic","topic":"支持","tier":"A","stem":"根据某宇宙学模型，宇宙中大约有68%的成分是暗能量，27%为暗物质，剩下5%左右才是普通物质。在这5%左右的普通物质中，看得见、摸得着的大约只占理论估算的一半，剩下的一半估计散落在星系之间并且因为密度太低而无法称量。但是有专家指出，对宇宙中的快速射电暴爆发现象进行精确定位，就可以对这些散落在星系间的「灰尘」进行「称重」了。\n以下哪项如果为真，最能支持上述专家的观点？","options":[{"k":"A","t":"快速射电暴爆发所产生的电磁波信号在宇宙空间中穿行时，遇到宇宙中的尘埃会发生散射现象。"},{"k":"B","t":"只有多国科学家通力合作，在地球多点同时进行观测，才能对宇宙中的快速射电暴爆发现象进行精确定位。"},{"k":"C","t":"利用射电望远镜可在一个星系中确定快速射电暴爆发的精确位置，并由此计算出该星系中散落物质的分布区域。"},{"k":"D","t":"根据快速射电暴爆发的精确位置可以计算出其电磁波信号到达地球的时间差，从而可以估算出快速射电暴爆发信号穿越了多少「灰尘」。"},{"k":"E","t":"宇宙中的普通物质通常聚集成网状结构，对越来越多的快速射电暴爆发现象进行定位，可为未来绘制出普通物质在宇宙中的分布图提供有利条件。"}],"answer":"D","exp":"专家要给出的是「称重」（数量／质量）。D 补上了从「定位」到「量」的完整机制链：定位 → 时间差 → 穿越多少灰尘 ⇒ 能估量。B 讲合作条件、C 讲分布区域、E 讲绘图条件、A 只讲会散射，都停在「与重量无关」的半路上。（自推）","tierWhy":"支持题的核心是补「机制链里缺的那一环」。正确答案往往把「定位」和「称重」之间的因果桥搭上，其余选项只提条件、提好处。","expectSec":90,"steps":["目标：算出质量","找机制链","$D$：定位 ⇒ 时间差 ⇒ 多少灰尘"],"brief":"补上「定位」到「称重」之间缺的机制。","key":"精确定位快速射电暴就能给星系间灰尘「称重」","trap":"选了个「也相关」但接不上「重量」的选项","distract":"$C$——能算「分布区域」，但那是位置不是质量","kind":"送分题"},{"no":30,"subject":"logic","topic":"解释","tier":"A","stem":"北宋名臣包拯铁面无私、刚正不阿，其事迹被编成话本、戏曲，长期在民间流传和上演。话本、戏曲中的包拯，一般是以黑脸大汉的面目出场的。但据史料记载，宋仁宗庆历五年夏，包拯曾任契丹元旦使。古代选拔官吏一般都十分注重外表，包拯能够担任外交官，可见其仪表堂堂。流传后世的私家画像和官方画像也印证了这点。这说明，包大人的「黑」其实是后人塑造的。\n以下哪项如果为真，最能解释包大人被后人所「黑」的原因？","options":[{"k":"A","t":"明朝万历年间，包大人的脸开始变黑。成书于这一时期的《百家公案》讲述包拯的长相特征是「黑脸」。到了清朝，包大人全身都变黑了。"},{"k":"B","t":"包拯断案如神、执法如山。根据中国古代五行理论，水主阴，阴刑杀，而水属北方，其色黑。明清艺人可能由此偏爱黑脸的包大人。"},{"k":"C","t":"从心理学角度看，黑色象征黑暗、黑夜，容易让人产生恐惧。包拯刚猛严明的形象让豪强贼子惧怕，明清艺人为追求社会效应才慢慢将包大人「涂黑」。"},{"k":"D","t":"包拯又被称为包龙图。与包拯同朝为官的龙图阁大学士梅挚，一次跌入溪中全身变黑，后变得百毒不侵。这个荒诞故事可能被明清艺人「张冠李戴」了。"},{"k":"E","t":"皋陶相传是远古舜帝时期的司法官，他脸色青绿、执法公正。明清时期的百姓可能不经意间将狱神皋陶的相貌和品质移植到了包大人身上。"}],"answer":"C","exp":"按答案键为 C：C 同时给出了「为什么是黑色」（黑色的心理威慑效果）和「谁在塑造」（明清艺人追求社会效应），最贴题干「后人塑造」这个落点。\n⚠️ B（五行理论·水属北方其色黑）与 C 强度非常接近，是典型强干扰：B 只解释「为什么选黑」，不解释「艺人的动机」；C 两样都占。若你的判据不同，这 2 分不纠结、按键走。（自推）","tierWhy":"解释题数「要件」：原因题通常问「为什么这样做」，最好答案同时含动机与方式。发现两个都像，30 秒内定一个就走。","expectSec":120,"steps":["问「为什么被涂黑」","要件：为什么是黑 + 谁在涂","$C$ 两样都占"],"brief":"解释题数要件：动机 + 方式。","key":"包拯画像仪表堂堂，却被塑造成黑脸","trap":"只解释了「为什么是黑色」，没解释艺人动机","distract":"$B$——五行尚黑，文化味最浓，但没有动机","kind":"易错题"},{"no":32,"subject":"logic","topic":"假设","tier":"A","stem":"在预防疾病、降低早逝风险等方面，中年时期的运动尤其重要。中年人应该多坚持有氧运动。有氧运动可以锻炼心肺功能和四肢的肌肉力量。中年人每次久坐不宜超过45分钟。每周进行合适、足量的有氧运动对中年人的身体健康非常有益。有专家由此认为，中年人只要每天坚持散步40分钟以上，就可以提高健康指数，降低患病风险。\n以下哪项最可能是上述专家观点的假设？","options":[{"k":"A","t":"散步有助于提高身体的平衡机能。"},{"k":"B","t":"持之以恒的散步是合适的有氧运动之一。"},{"k":"C","t":"心肺功能是人体最为重要的健康指标，而散步可增强心肺功能。"},{"k":"D","t":"中年人面临着家庭、生活、工作等多重压力，处于保健的关键期。"},{"k":"E","t":"散步是人类在长期进化过程中保留下来的最基本的运动方式，也可能是锻炼效果最佳的运动方式。"}],"answer":"B","exp":"专家的链条是「有氧运动有益」→「散步40分钟也有益」，中间必须有桥：散步属于「合适、足量的有氧运动」。B 就是这座桥。A、C 只讲散步的某个好处却没接上「有氧运动」这一环；D 无关；E 讲散步的地位，与「足量有氧」无关。","tierWhy":"假设题就是找「前提和结论之间缺的那块砖」，标准检验是「结论里的新概念有没有被前提覆盖」。B 一句话接上，10 秒能判。","expectSec":90,"steps":["结论：散步可提高健康指数","缺：散步属于合适的有氧运动","$B$"],"brief":"假设题找前提与结论之间缺的砖。","key":"有氧运动有益 → 散步 40 分钟也能提高健康指数","trap":"选了「散步的某个好处」，没接上「属于有氧运动」这一环","distract":"$C$——心肺功能最重要，但没解决「散步算不算足量有氧」","kind":"送分题"},{"no":33,"subject":"logic","topic":"前提","tier":"B","stem":"当前，网络犯罪呈现出新形式、新特点。相比于传统的违法犯罪，网络暴力往往针对陌生人实施。网络空间的匿名性和即时性使得受害人在确认侵害人、收集证据等方面存在更多困难，导致违法成本低、维权成本高。法治社会绝不允许网络暴力。用法治力量严惩网络暴力、维护公民权益和网络秩序，对营造和谐、理性、有序的网络环境至关重要。因此，严惩网络暴力，迫切需要科学认识网络治理规律，不断优化、完善法律法规。\n以下哪项最适合作为上述论证的前提？","options":[{"k":"A","t":"我国刑法、民法典以及治安管理处罚法等多部法律已对遏制网络暴力作出相关规定，不断扎紧惩治网络暴力的法律，网络生态持续向好。"},{"k":"B","t":"网络暴力行为突破了道德底线，践踏法律红线，不仅侵害当事人的权利，还扰乱网络秩序、破坏网络生态，成为人民群众深恶痛绝的网络「毒瘤」。"},{"k":"C","t":"近年来，人民法院、人民检察院、公安机关坚持严惩立场，依法能动履职，为受害人提供有效的法律救济，维护了公民合法权益和网络秩序。"},{"k":"D","t":"人工智能、大数据、云计算等新技术新应用的快速发展，催生了一系列网络新业态新模式，但相关法律法规还存在时间差、空白区。"},{"k":"E","t":"清除网络暴力，需要凝聚各方合力，推动全社会增强法治意识，增强严惩网络暴力的信心和决心，积极营造向上向善、诚信互助的网络风尚。"}],"answer":"D","exp":"结论落在「需要优化、完善法律法规」，则前提必须说明「现有法律法规不够用」——D 正好给出「存在时间差、空白区」。A 说法律已扎紧、C 说已有效履职，都在证明现状够用，反而削弱结论；B 只讲危害程度，E 讲社会合力，都推不出「要修法」。","tierWhy":"看到结论是「应当做某事」，前提八成是「现在不做会出问题／现在做得不够」。D 是唯一指出缺口的一项。","expectSec":120,"steps":["结论：需要完善法律法规","找缺口","$D$：存在时间差、空白区"],"brief":"结论要「应当修法」，前提就说「现在不够用」。","key":"结论落在「需要优化、完善法律法规」","trap":"选了讲危害程度的选项，它推不出「要修法」","distract":"$B$——网络暴力是「毒瘤」，情绪最强但方向不对","kind":"易错题"},{"no":34,"subject":"logic","topic":"支持","tier":"B","stem":"在工业革命之前的更早历史时期，M国在诸多方面曾是技术领域的领先者。M国为什么会错过改变世界的工业革命呢？有学者认为，前工业化技术的发展往往是改进或合并已有技术，经过反复试错直到取得想要的结果，未必了解其运作机理。然而，科学思维的出现提供了对于世界真正运作机理的深刻见解，从而拓展了发明者想象力的疆域，进而缩减了试错的规模。而M国则继续依赖试错法进行创新，从而导致其与技术先进国家之间出现巨大的发展差距。\n以下哪项如果为真，最能支持上述学者的观点？","options":[{"k":"A","t":"依赖试错法进行创新，试错规模的大小直接影响了创新的效率。"},{"k":"B","t":"近代实验方法的诞生和自古希腊以来的数学和逻辑传统催生了科学思维。"},{"k":"C","t":"只有通过科学思维而不是仅仅依赖试错法才能揭示世界的真正运作机理。"},{"k":"D","t":"强调技术的实用性而不重视科学的纯粹性造成了两种思维方式的巨大差异。"},{"k":"E","t":"研究者的想象力决定了创新的空间和潜力，而拘泥于技术的功利性严重限制了研究者的想象力。"}],"answer":"A","exp":"学者的链条是「科学思维 → 缩减试错规模 → 领先；M国继续试错 → 落后」。整条链最脆的一环是「试错规模变小是否真的等于效率变高」，A 直接把这一环钉死。C 语意上只是学者原话的复述，属同义重复而非新增支持；B 只讲科学思维怎么来的，与「试错规模—效率」无关。","tierWhy":"支持题要找「最脆的那一环」。凡是复述题干原话的选项（C），支持力约等于零；给新机制、新数据的（A）才加分。","expectSec":120,"steps":["链：试错规模↓ ⇒ 效率↑","这一环最脆","$A$ 直接钉死"],"brief":"支持题找最脆的那一环。","key":"科学思维 → 缩减试错规模 → 领先","trap":"选了复述题干原话的选项，支持力等于零","distract":"$C$——几乎是原文改写，看着最像答案","kind":"易错题"}]}</script>
+<script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-06 逻辑·论证（14 类谬误）","exam":"11-06（周五）· 逻辑·论证（14 类谬误）","date":"第 5/7 天 · 8 题 · 建议 50 分钟","total":200,"sections":[],"sources":["2026 真题"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d4.html\">← 11-05 排列组合与概率<\/a> <a href=\"d6.html\">11-07 逻辑·分析推理 →<\/a>"},"questions":[{"no":26,"subject":"logic","topic":"支持·除外","tier":"A","stem":"中国对全球气候治理的贡献有目共睹。风电、光伏发电、水电、生物质发电装机容量连续多年位居世界第一，大幅降低了全球发展可再生能源的成本。国际能源署官员表示中国今天已经成为全球清洁能源领域的冠军。相关人士表示，作为负责任的发展中大国，中国始终保持气候行动的战略定力，中国经济社会发展已经走上全面绿色转型的轨道。\n以下各项如果为真，则除哪项外均能支持上述相关人士的观点？","options":[{"k":"A","t":"中国深入推进能源革命，非化石能源装机容量比重已超50%。"},{"k":"B","t":"中国全面停止新建境外燃煤电厂，得到许多国家的高度赞扬。"},{"k":"C","t":"中国大力推进绿色发展，二氧化碳等温室气体排放强度已连续多年持续下降。"},{"k":"D","t":"中国新能源汽车产销量稳居全球第一，保有量超1800万辆，占世界一半以上。"},{"k":"E","t":"中国利用自身先进的清洁能源技术和低成本优势，正帮助世界其他国家实现绿色转型。"}],"answer":"B","exp":"结论是「中国是清洁能源冠军／已走上全面绿色转型轨道」。A、C、D、E 都直接给出中国在清洁能源与减排上的实绩；B 讲的是对「境外」煤电的态度，属于对外行为的克制与外部评价，不能证明中国自身的能源结构已转型。（自推）","tierWhy":"「除外」题只看一件事：选项是否落在结论的主体与谓语范围内。B 换了主体（境外），是典型无关项。四个正向项一律不用细读。","expectSec":90,"steps":["圈主体词：智能 / 信息平台","$B$ 讲的是境外煤电","其余四项都是国内实绩"],"brief":"「除外」题找换了主体的那一项。","key":"中国清洁能源成绩单，问「除哪项外」","trap":"把「除外」读成「哪项能」，方向直接反了","distract":"$A$——非化石能源超 50%，看起来最像数据","kind":"送分题","hl":["风电、光伏发电、水电、生物质发电装机容量连续多年位居世界第一"]},{"no":27,"subject":"logic","topic":"论证方式相似","tier":"A","stem":"平日里进行高强度耐力训练的人，反而没有那些不太运动的人长寿。所以，运动未必益寿。\n以下哪项与上述论证方式最为相似？","options":[{"k":"A","t":"相比于那些较少食用含果葡糖浆食品的人，经常食用者患脂肪肝、心脏病的风险比较高。因此，为了健康应尽量远离含果葡糖浆的食品。"},{"k":"B","t":"今年国庆、中秋长假临近时，民航国内航线长假出票量已超过去年同期，个别航线余票所剩无几。所以，长假出行应尽早订票。"},{"k":"C","t":"不能将接受的新信息与现有知识储备有机结合的人，反而会比他们未接受新信息时作出更糟的选择。所以，知识更多未必有助于人们作出明智的选择。"},{"k":"D","t":"14~16世纪，当北美农耕村落的人口增加一倍时，人均居住面积和家庭财富会显著增加。由此可知，人口集中带来的合作可让社群中的所有人都受益。"},{"k":"E","t":"一项对非洲中低收入家庭的调查显示，在取水过程中女性比男性更易因动物袭击、交通事故等原因而受伤。因此，男性更应该承担取水的责任。"}],"answer":"C","exp":"原论证的骨架是：在某场合下有人反而更差 ⇒ 推出这件事本身未必有好处（用反例否掉整体收益）。C 完全同构：接受新信息但没结合好的人反而更差 ⇒ 知识更多未必有助于明智选择。A、B、D、E 都是从某现象直接推「该怎么做」或「有人受益」，结论性质不同。（自推）","tierWhy":"相似题只比「前提长什么样、结论长什么样」，不比内容。先给原题写一句骨架，再拿骨架去套，别逐句读内容。","expectSec":120,"steps":["骨架：有人反而更差 ⇒ 此事未必有益","找同构","$C$ 结构与原题一致"],"brief":"先把原题压成一句骨架，再套选项。","key":"高强度训练的人反而不如不太运动的人长寿","trap":"去比较「运动到底有没有用」，而不是比论证结构","distract":"$A$——也是「某类人风险更高」，但结论是「该怎么做」","kind":"送分题","hl":["平日里进行高强度耐力训练的人"]},{"no":28,"subject":"logic","topic":"削弱","tier":"A","stem":"近几年汉服悄然流行。从日常生活到顶级时尚圈，汉服无处不在。随着汉服从小众走向大众、从舞台表演走向日常生活，各种乱象也时有发生。某些影视剧、综艺节目的制作者因对相关历史、服饰演变等知识了解不够，经常会乱改、乱搭汉服。对此有专家主张，必须规范汉服的生产和使用，因为只有还原传统汉服的本来面貌，才能保持汉服应有的历史文化价值和独特美感。\n以下哪项如果为真，最能质疑上述专家的主张？","options":[{"k":"A","t":"汉服的发展历史悠久，每个时代的汉服都各具特色。在日常生活中，许多汉服爱好者各美其美，根据自己的喜好自由选择不同时代的服饰。"},{"k":"B","t":"穿上传统汉服并不方便工作。将传统汉服的代表元素抽离出来，设计出适合现代人穿着的汉服，依旧能保存汉服的历史文化和审美价值。"},{"k":"C","t":"近现代以来，我国大多数人不再穿汉服，日常生活中的汉服也已改变了许多，很难再回到传统汉服的模样。"},{"k":"D","t":"有些景区安排演员身着汉服，但其服饰与景区文化主题并不匹配，这种做法严重损害了汉服的历史文化价值和相关礼仪的神圣感。"},{"k":"E","t":"最好的传承就是走进日常生活，但有些人为了迎合时尚、体现个性，将汉服改得不伦不类，丢失了传统汉服的典型特征。"}],"answer":"B","exp":"专家主张的支点是「只有还原传统汉服的本来面貌，才能保持其历史文化价值和独特美感」。B 直接给出反例：抽离代表元素、做成现代汉服，依然能保住历史文化和审美价值 ⇒ 必要条件不成立，主张的根基被拆掉。A 讲多样、C 讲回不去、D 讲乱象危害、E 讲改坏的后果，都不针对「只有…才…」这条链。（自推）","tierWhy":"削弱「只有A才B」最强的招法永远是：给出「非A 但 B」的实例。看到「只要／只有」先圈出来，选项里找反例即可，30 秒。","expectSec":90,"steps":["支点：只有还原才能保价值","找「非 A 但 B」","$B$：抽元素做现代汉服也保住了"],"brief":"打掉「只有…才…」的唯一办法：给反例。","key":"「只有还原传统汉服，才能保持其价值」","trap":"去论证「该不该规范」，而不是打这条必要条件","distract":"$C$——「回不到传统模样」，是诉诸现实不是反例","kind":"送分题","hl":["近几年汉服悄然流行"]},{"no":29,"subject":"logic","topic":"支持","tier":"A","stem":"根据某宇宙学模型，宇宙中大约有68%的成分是暗能量，27%为暗物质，剩下5%左右才是普通物质。在这5%左右的普通物质中，看得见、摸得着的大约只占理论估算的一半，剩下的一半估计散落在星系之间并且因为密度太低而无法称量。但是有专家指出，对宇宙中的快速射电暴爆发现象进行精确定位，就可以对这些散落在星系间的「灰尘」进行「称重」了。\n以下哪项如果为真，最能支持上述专家的观点？","options":[{"k":"A","t":"快速射电暴爆发所产生的电磁波信号在宇宙空间中穿行时，遇到宇宙中的尘埃会发生散射现象。"},{"k":"B","t":"只有多国科学家通力合作，在地球多点同时进行观测，才能对宇宙中的快速射电暴爆发现象进行精确定位。"},{"k":"C","t":"利用射电望远镜可在一个星系中确定快速射电暴爆发的精确位置，并由此计算出该星系中散落物质的分布区域。"},{"k":"D","t":"根据快速射电暴爆发的精确位置可以计算出其电磁波信号到达地球的时间差，从而可以估算出快速射电暴爆发信号穿越了多少「灰尘」。"},{"k":"E","t":"宇宙中的普通物质通常聚集成网状结构，对越来越多的快速射电暴爆发现象进行定位，可为未来绘制出普通物质在宇宙中的分布图提供有利条件。"}],"answer":"D","exp":"专家要给出的是「称重」（数量／质量）。D 补上了从「定位」到「量」的完整机制链：定位 → 时间差 → 穿越多少灰尘 ⇒ 能估量。B 讲合作条件、C 讲分布区域、E 讲绘图条件、A 只讲会散射，都停在「与重量无关」的半路上。（自推）","tierWhy":"支持题的核心是补「机制链里缺的那一环」。正确答案往往把「定位」和「称重」之间的因果桥搭上，其余选项只提条件、提好处。","expectSec":90,"steps":["目标：算出质量","找机制链","$D$：定位 ⇒ 时间差 ⇒ 多少灰尘"],"brief":"补上「定位」到「称重」之间缺的机制。","key":"精确定位快速射电暴就能给星系间灰尘「称重」","trap":"选了个「也相关」但接不上「重量」的选项","distract":"$C$——能算「分布区域」，但那是位置不是质量","kind":"送分题","hl":["宇宙中大约有68%的成分是暗能量"]},{"no":30,"subject":"logic","topic":"解释","tier":"A","stem":"北宋名臣包拯铁面无私、刚正不阿，其事迹被编成话本、戏曲，长期在民间流传和上演。话本、戏曲中的包拯，一般是以黑脸大汉的面目出场的。但据史料记载，宋仁宗庆历五年夏，包拯曾任契丹元旦使。古代选拔官吏一般都十分注重外表，包拯能够担任外交官，可见其仪表堂堂。流传后世的私家画像和官方画像也印证了这点。这说明，包大人的「黑」其实是后人塑造的。\n以下哪项如果为真，最能解释包大人被后人所「黑」的原因？","options":[{"k":"A","t":"明朝万历年间，包大人的脸开始变黑。成书于这一时期的《百家公案》讲述包拯的长相特征是「黑脸」。到了清朝，包大人全身都变黑了。"},{"k":"B","t":"包拯断案如神、执法如山。根据中国古代五行理论，水主阴，阴刑杀，而水属北方，其色黑。明清艺人可能由此偏爱黑脸的包大人。"},{"k":"C","t":"从心理学角度看，黑色象征黑暗、黑夜，容易让人产生恐惧。包拯刚猛严明的形象让豪强贼子惧怕，明清艺人为追求社会效应才慢慢将包大人「涂黑」。"},{"k":"D","t":"包拯又被称为包龙图。与包拯同朝为官的龙图阁大学士梅挚，一次跌入溪中全身变黑，后变得百毒不侵。这个荒诞故事可能被明清艺人「张冠李戴」了。"},{"k":"E","t":"皋陶相传是远古舜帝时期的司法官，他脸色青绿、执法公正。明清时期的百姓可能不经意间将狱神皋陶的相貌和品质移植到了包大人身上。"}],"answer":"C","exp":"按答案键为 C：C 同时给出了「为什么是黑色」（黑色的心理威慑效果）和「谁在塑造」（明清艺人追求社会效应），最贴题干「后人塑造」这个落点。\n⚠️ B（五行理论·水属北方其色黑）与 C 强度非常接近，是典型强干扰：B 只解释「为什么选黑」，不解释「艺人的动机」；C 两样都占。若你的判据不同，这 2 分不纠结、按键走。（自推）","tierWhy":"解释题数「要件」：原因题通常问「为什么这样做」，最好答案同时含动机与方式。发现两个都像，30 秒内定一个就走。","expectSec":120,"steps":["问「为什么被涂黑」","要件：为什么是黑 + 谁在涂","$C$ 两样都占"],"brief":"解释题数要件：动机 + 方式。","key":"包拯画像仪表堂堂，却被塑造成黑脸","trap":"只解释了「为什么是黑色」，没解释艺人动机","distract":"$B$——五行尚黑，文化味最浓，但没有动机","kind":"易错题","hl":["宋仁宗庆历五年夏"]},{"no":32,"subject":"logic","topic":"假设","tier":"A","stem":"在预防疾病、降低早逝风险等方面，中年时期的运动尤其重要。中年人应该多坚持有氧运动。有氧运动可以锻炼心肺功能和四肢的肌肉力量。中年人每次久坐不宜超过45分钟。每周进行合适、足量的有氧运动对中年人的身体健康非常有益。有专家由此认为，中年人只要每天坚持散步40分钟以上，就可以提高健康指数，降低患病风险。\n以下哪项最可能是上述专家观点的假设？","options":[{"k":"A","t":"散步有助于提高身体的平衡机能。"},{"k":"B","t":"持之以恒的散步是合适的有氧运动之一。"},{"k":"C","t":"心肺功能是人体最为重要的健康指标，而散步可增强心肺功能。"},{"k":"D","t":"中年人面临着家庭、生活、工作等多重压力，处于保健的关键期。"},{"k":"E","t":"散步是人类在长期进化过程中保留下来的最基本的运动方式，也可能是锻炼效果最佳的运动方式。"}],"answer":"B","exp":"专家的链条是「有氧运动有益」→「散步40分钟也有益」，中间必须有桥：散步属于「合适、足量的有氧运动」。B 就是这座桥。A、C 只讲散步的某个好处却没接上「有氧运动」这一环；D 无关；E 讲散步的地位，与「足量有氧」无关。","tierWhy":"假设题就是找「前提和结论之间缺的那块砖」，标准检验是「结论里的新概念有没有被前提覆盖」。B 一句话接上，10 秒能判。","expectSec":90,"steps":["结论：散步可提高健康指数","缺：散步属于合适的有氧运动","$B$"],"brief":"假设题找前提与结论之间缺的砖。","key":"有氧运动有益 → 散步 40 分钟也能提高健康指数","trap":"选了「散步的某个好处」，没接上「属于有氧运动」这一环","distract":"$C$——心肺功能最重要，但没解决「散步算不算足量有氧」","kind":"送分题","hl":["中年人每次久坐不宜超过45分钟"]},{"no":33,"subject":"logic","topic":"前提","tier":"B","stem":"当前，网络犯罪呈现出新形式、新特点。相比于传统的违法犯罪，网络暴力往往针对陌生人实施。网络空间的匿名性和即时性使得受害人在确认侵害人、收集证据等方面存在更多困难，导致违法成本低、维权成本高。法治社会绝不允许网络暴力。用法治力量严惩网络暴力、维护公民权益和网络秩序，对营造和谐、理性、有序的网络环境至关重要。因此，严惩网络暴力，迫切需要科学认识网络治理规律，不断优化、完善法律法规。\n以下哪项最适合作为上述论证的前提？","options":[{"k":"A","t":"我国刑法、民法典以及治安管理处罚法等多部法律已对遏制网络暴力作出相关规定，不断扎紧惩治网络暴力的法律，网络生态持续向好。"},{"k":"B","t":"网络暴力行为突破了道德底线，践踏法律红线，不仅侵害当事人的权利，还扰乱网络秩序、破坏网络生态，成为人民群众深恶痛绝的网络「毒瘤」。"},{"k":"C","t":"近年来，人民法院、人民检察院、公安机关坚持严惩立场，依法能动履职，为受害人提供有效的法律救济，维护了公民合法权益和网络秩序。"},{"k":"D","t":"人工智能、大数据、云计算等新技术新应用的快速发展，催生了一系列网络新业态新模式，但相关法律法规还存在时间差、空白区。"},{"k":"E","t":"清除网络暴力，需要凝聚各方合力，推动全社会增强法治意识，增强严惩网络暴力的信心和决心，积极营造向上向善、诚信互助的网络风尚。"}],"answer":"D","exp":"结论落在「需要优化、完善法律法规」，则前提必须说明「现有法律法规不够用」——D 正好给出「存在时间差、空白区」。A 说法律已扎紧、C 说已有效履职，都在证明现状够用，反而削弱结论；B 只讲危害程度，E 讲社会合力，都推不出「要修法」。","tierWhy":"看到结论是「应当做某事」，前提八成是「现在不做会出问题／现在做得不够」。D 是唯一指出缺口的一项。","expectSec":120,"steps":["结论：需要完善法律法规","找缺口","$D$：存在时间差、空白区"],"brief":"结论要「应当修法」，前提就说「现在不够用」。","key":"结论落在「需要优化、完善法律法规」","trap":"选了讲危害程度的选项，它推不出「要修法」","distract":"$B$——网络暴力是「毒瘤」，情绪最强但方向不对","kind":"易错题","hl":["网络暴力往往针对陌生人实施"]},{"no":34,"subject":"logic","topic":"支持","tier":"B","stem":"在工业革命之前的更早历史时期，M国在诸多方面曾是技术领域的领先者。M国为什么会错过改变世界的工业革命呢？有学者认为，前工业化技术的发展往往是改进或合并已有技术，经过反复试错直到取得想要的结果，未必了解其运作机理。然而，科学思维的出现提供了对于世界真正运作机理的深刻见解，从而拓展了发明者想象力的疆域，进而缩减了试错的规模。而M国则继续依赖试错法进行创新，从而导致其与技术先进国家之间出现巨大的发展差距。\n以下哪项如果为真，最能支持上述学者的观点？","options":[{"k":"A","t":"依赖试错法进行创新，试错规模的大小直接影响了创新的效率。"},{"k":"B","t":"近代实验方法的诞生和自古希腊以来的数学和逻辑传统催生了科学思维。"},{"k":"C","t":"只有通过科学思维而不是仅仅依赖试错法才能揭示世界的真正运作机理。"},{"k":"D","t":"强调技术的实用性而不重视科学的纯粹性造成了两种思维方式的巨大差异。"},{"k":"E","t":"研究者的想象力决定了创新的空间和潜力，而拘泥于技术的功利性严重限制了研究者的想象力。"}],"answer":"A","exp":"学者的链条是「科学思维 → 缩减试错规模 → 领先；M国继续试错 → 落后」。整条链最脆的一环是「试错规模变小是否真的等于效率变高」，A 直接把这一环钉死。C 语意上只是学者原话的复述，属同义重复而非新增支持；B 只讲科学思维怎么来的，与「试错规模—效率」无关。","tierWhy":"支持题要找「最脆的那一环」。凡是复述题干原话的选项（C），支持力约等于零；给新机制、新数据的（A）才加分。","expectSec":120,"steps":["链：试错规模↓ ⇒ 效率↑","这一环最脆","$A$ 直接钉死"],"brief":"支持题找最脆的那一环。","key":"科学思维 → 缩减试错规模 → 领先","trap":"选了复述题干原话的选项，支持力等于零","distract":"$C$——几乎是原文改写，看着最像答案","kind":"易错题","hl":[]}]}</script>
 <script id="KPJSON" type="application/json">{
  "kps": {
   "discriminant": {
@@ -5764,6 +5799,8 @@ function defaultState(){
     answers:{},
     marks:{},
     view:'quiz',
+    easy:false,
+    pick:[],
     timerSec:0,
     timerRun:false,
     elapsed:{},
@@ -5801,6 +5838,8 @@ var state = defaultState();
       };
     });
   }
+  if(typeof s.easy === 'boolean') state.easy = s.easy;
+  if(Array.isArray(s.pick)) state.pick = s.pick.filter(function(p){ return PICK_LABEL[p] && p !== 'all'; });
   if(typeof s.view === 'string') state.view = s.view;
   if(typeof s.timerSec === 'number') state.timerSec = Math.max(0, s.timerSec);
   if(typeof s.timerRun === 'boolean') state.timerRun = s.timerRun;
@@ -5924,6 +5963,100 @@ function qToText(q, withExp){
   return L.join(String.fromCharCode(10));
 }
 
+
+/* ---------- 题型多选 ---------- */
+var PICK_LABEL = { all:'全部', A:'必会题', B:'可选题', C:'跳过题',
+                   gift:'送分题', tricky:'易错题', hard:'难题' };
+function qTokens(q){
+  var t = [q.tier];
+  if(q.kind === '送分题') t.push('gift');
+  if(q.kind === '易错题') t.push('tricky');
+  if(q.kind === '卡死你不偿命') t.push('hard');
+  return t;
+}
+function syncPicks(){
+  $$('.pick').forEach(function(b){
+    var p = b.dataset.p, pick = state.pick || [];
+    var on = (p === 'all') ? pick.length === 0 : pick.indexOf(p) >= 0;
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+
+/* ---------- Easy Mode ---------- */
+function ezCompact(str){
+  var out = '', map = [];
+  for(var i = 0; i < str.length; i++){
+    var c = str.charAt(i);
+    if(/[\s　]/.test(c)) continue;
+    out += c; map.push(i);
+  }
+  return { s: out, map: map };
+}
+function ezRanges(raw, frags){
+  var cm = ezCompact(raw), out = [];
+  frags.forEach(function(f){
+    var fc = f.replace(/[\s　]/g, '');
+    if(fc.length < 2) return;
+    var idx = cm.s.indexOf(fc);
+    while(idx >= 0){
+      out.push([cm.map[idx], cm.map[idx + fc.length - 1] + 1]);
+      idx = cm.s.indexOf(fc, idx + 1);
+    }
+  });
+  out.sort(function(a, b){ return a[0] - b[0] || b[1] - a[1]; });
+  var m = [];
+  out.forEach(function(r){
+    if(m.length && r[0] <= m[m.length - 1][1]){
+      m[m.length - 1][1] = Math.max(m[m.length - 1][1], r[1]);
+    } else { m.push([r[0], r[1]]); }
+  });
+  return m;
+}
+function ezStemHTML(q){
+  if(!state.easy) return esc(q.stem);
+  var frags = [];
+  if(q.hl && q.hl.length){ frags = q.hl.slice(); }          /* 自动切出的原文句，必中 */
+  if(!frags.length){
+    var key = String(q.key || '').replace(/\$/g, ' ');
+    frags = key.split(/[\s，,、；;。：:()（）]+/).filter(function(x){ return x.length >= 2; });
+  }
+  if(!frags.length) return esc(q.stem);
+  return String(q.stem).split(/(\$[^$]*\$)/).map(function(seg){
+    if(seg.charAt(0) === '$') return esc(seg);
+    var rs = ezRanges(seg, frags);
+    if(!rs.length) return esc(seg);
+    var buf = '', last = 0;
+    rs.forEach(function(r){
+      buf += esc(seg.slice(last, r[0]));
+      buf += '<mark class="ez-key">' + esc(seg.slice(r[0], r[1])) + '</mark>';
+      last = r[1];
+    });
+    buf += esc(seg.slice(last));
+    return buf;
+  }).join('');
+}
+function ezBoxHTML(q){
+  if(!state.easy) return '';
+  var kps = (KPMAP[q.no] || []).map(function(k){
+    return KPS[k] ? '<span class="kptag">' + esc(KPS[k].title) + '</span>' : '';
+  }).join('');
+  var h = '<div class="ezbox no-print">';
+  if(q.key) h += '<div class="ez-row ez-key"><b>题干要点</b><div>' + esc(q.key) + '</div></div>';
+  if(q.brief) h += '<div class="ez-row ez-kill"><b>秒杀逻辑</b><div>' + esc(q.brief) + '</div></div>';
+  if(q.trap) h += '<div class="ez-row ez-trap"><b>低级错误</b><div>' + esc(q.trap) + '</div></div>';
+  if(kps) h += '<div class="ez-row ez-kp"><b>本卷考点</b><div>' + kps + '</div></div>';
+  h += '</div>';
+  return h;
+}
+function rerenderAll(){
+  list.innerHTML = QS.map(cardHTML).join('');
+  typesetMath(list);
+  QS.forEach(function(q){ paint(q.no); });
+  applyFilters();
+  if(state.current != null) setCurrent(state.current);
+  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
+}
+
 /* ---------- 卡片 ---------- */
 function cardHTML(q){
   var doubt = isDoubt(q);
@@ -5967,7 +6100,8 @@ function cardHTML(q){
   return '<article class="qcard" id="q' + q.no + '" data-no="' + q.no + '" data-tier="' + q.tier
     + '" data-subject="' + q.subject + '">'
     + '<div class="qhead">' + head.join('') + '</div>'
-    + '<p class="stem">' + esc(q.stem) + '</p>'
+    + '<p class="stem">' + ezStemHTML(q) + '</p>'
+    + ezBoxHTML(q)
     + '<div class="opts">' + opts + '</div>'
     + '<div class="qa-actions no-print">'
     + '<button class="btn sm" type="button" data-copy="q" data-no="' + q.no + '">复制题目</button>'
@@ -6125,10 +6259,11 @@ function setCurrent(no){
 
 /* ---------- 筛选 ---------- */
 function passes(q){
-  if(state.tier === 'A' && q.tier !== 'A') return false;
-  if(state.tier === 'AB' && q.tier === 'C') return false;
   if(state.subject !== 'all' && q.subject !== state.subject) return false;
-  return true;
+  var pick = state.pick || [];
+  if(!pick.length) return true;
+  var toks = qTokens(q);
+  return pick.some(function(p){ return toks.indexOf(p) >= 0; });
 }
 function visibleCards(){ return $$('.qcard', list).filter(function(c){ return !c.hidden; }); }
 
@@ -6139,11 +6274,14 @@ function applyFilters(){
     c.hidden = !ok;
     if(ok) n++;
   });
-  $$('.chip').forEach(function(b){
+$$('.chip').forEach(function(b){
     var key = b.dataset.f, v = b.dataset.v;
     b.setAttribute('aria-pressed', String(state[key] === v));
   });
-  document.getElementById('countLine').textContent = '当前显示 ' + n + ' / ' + QS.length + ' 题';
+  var pickTxt = (state.pick || []).length
+    ? '（' + state.pick.map(function(p){ return PICK_LABEL[p]; }).join(' + ') + '）' : '';
+  document.getElementById('countLine').textContent =
+    '当前显示 ' + n + ' / ' + QS.length + ' 题' + pickTxt;
   var first = visibleCards()[0];
   if(first){
     var no = first.dataset.no;
@@ -6335,6 +6473,30 @@ document.getElementById('btnKp').addEventListener('click', renderKpNav);
 $$('.tabm').forEach(function(b){
   b.addEventListener('click', function(){ setView(b.dataset.view); });
 });
+  $$('.pick').forEach(function(b){
+  b.addEventListener('click', function(){
+    var p = b.dataset.p;
+    if(p === 'all'){ state.pick = []; }
+    else {
+      var i = state.pick.indexOf(p);
+      if(i >= 0) state.pick.splice(i, 1); else state.pick.push(p);
+    }
+    save(); syncPicks(); applyFilters();
+  });
+});
+syncPicks();
+
+document.getElementById('btnEasy').addEventListener('click', function(){
+  state.easy = !state.easy;
+  save();
+  document.getElementById('btnEasy').setAttribute('aria-pressed', String(state.easy));
+  document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开' : 'Easy Mode';
+  rerenderAll();
+});
+document.getElementById('btnEasy').setAttribute('aria-pressed', String(!!state.easy));
+document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开' : 'Easy Mode';
+
+
 initRail();
 document.getElementById('btnRail').addEventListener('click', function(){ setRail(!RAIL_ON); });
 var rc = document.getElementById('btnRailClose');
