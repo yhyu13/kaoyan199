@@ -532,6 +532,7 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 
 
 
+
 /* ---------- 题型多选 ---------- */
 .pick{ border:0; background:transparent; color:var(--fg); border-radius:999px;
   padding:5px 12px; font:inherit; font-size:13.5px; cursor:pointer; white-space:nowrap; }
@@ -600,6 +601,27 @@ mark.ez-key{ background:rgba(80,120,200,.32); color:inherit; border-radius:3px;
 @media (prefers-reduced-motion:reduce){
   .fx-heart,.fx-toast,.qcard.fx-ok,.qcard.fx-bad{ animation:none !important; }
 }
+
+
+/* ---------- 倒计时数字 ---------- */
+.time{ display:inline-block; transition:color .2s; }
+.time b{ font-variant-numeric:tabular-nums; }
+.time.warn{ color:var(--warn); font-weight:700; animation:cdPulse 1s ease-in-out infinite; }
+.time.over{ color:#d93025; font-weight:800; animation:cdPulse .55s ease-in-out infinite; }
+@keyframes cdPulse{
+  0%,100%{ transform:scale(1); }
+  45%{ transform:scale(1.22); }
+}
+@media (prefers-reduced-motion:reduce){ .time.warn,.time.over{ animation:none; } }
+/* ---------- Easy Mode 提示块可折叠 ---------- */
+details.ezbox{ margin:6px 0 12px; border:1px solid var(--line); border-radius:10px;
+  overflow:hidden; background:var(--card); }
+details.ezbox>summary{ cursor:pointer; list-style:none; padding:8px 12px; font-size:14px;
+  font-weight:700; color:var(--fg); display:flex; align-items:center; gap:8px; }
+details.ezbox>summary::-webkit-details-marker{ display:none; }
+details.ezbox>summary::before{ content:"▸"; color:var(--muted); font-size:11px; }
+details.ezbox[open]>summary::before{ content:"▾"; }
+details.ezbox>summary .hint{ font-weight:400; color:var(--muted); font-size:12.5px; }
 
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 /* ================= 主题配色补丁（浅 / 深） ================= */
@@ -5892,6 +5914,7 @@ function defaultState(){
     marks:{},
     view:'quiz',
     easy:false,
+    ezOpen:false,
     fx:true,
     streakOk:0,
     streakBad:0,
@@ -5934,6 +5957,7 @@ var state = defaultState();
     });
   }
   if(typeof s.easy === 'boolean') state.easy = s.easy;
+  if(typeof s.ezOpen === 'boolean') state.ezOpen = s.ezOpen;
   if(typeof s.fx === 'boolean') state.fx = s.fx;
   if(typeof s.streakOk === 'number') state.streakOk = s.streakOk;
   if(typeof s.streakBad === 'number') state.streakBad = s.streakBad;
@@ -6270,6 +6294,37 @@ function reward(no, ok){
   }
 }
 
+/* ---------- 单题倒计时 ---------- */
+function paintTime(no){
+  var q = byNo[no], card = cardOf(no);
+  if(!q || !card) return;
+  var el = $('[data-role="time"]', card);
+  if(!el) return;
+  if(!(q.expectSec > 0)){ el.textContent = '跳过档 · 不计时'; el.className = 'time'; return; }
+  var used = elapsedSec(no);
+  var rem = q.expectSec - used;
+  var over = rem <= 0;
+  var warn = !over && rem <= Math.max(10, Math.round(q.expectSec * 0.3));
+  var mm = Math.floor(Math.abs(rem) / 60), ss = Math.abs(rem) % 60;
+  var txt = (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss;
+  el.className = 'time' + (over ? ' over' : (warn ? ' warn' : ''));
+  el.innerHTML = over
+    ? ('超时 <b>+' + txt + '</b>')
+    : ('剩余 <b>' + txt + '</b>');
+  el.title = '建议 ' + q.expectSec + ' 秒 · 已用 ' + used + ' 秒';
+  card.classList.toggle('over', over);
+}
+function resetCardTime(no){
+  var q = byNo[no], card = cardOf(no);
+  if(!q || !card) return;
+  var el = $('[data-role="time"]', card);
+  if(!el) return;
+  el.className = 'time' + (q.expectSec > 0 ? '' : '');
+  el.textContent = q.expectSec > 0 ? ('建议 ' + q.expectSec + ' 秒') : '跳过档 · 不计时';
+  el.title = '';
+  card.classList.remove('over');
+}
+
 /* ---------- 题型多选 ---------- */
 var PICK_LABEL = { all:'全部', A:'必会题', B:'可选题', C:'跳过题',
                    gift:'送分题', tricky:'易错题', hard:'难题' };
@@ -6346,12 +6401,14 @@ function ezBoxHTML(q){
   var kps = (KPMAP[q.no] || []).map(function(k){
     return KPS[k] ? '<span class="kptag">' + esc(KPS[k].title) + '</span>' : '';
   }).join('');
-  var h = '<div class="ezbox no-print">';
+  var h = '<details class="ezbox no-print"' + (state.ezOpen ? ' open' : '') + '>'
+        + '<summary>提示 · 题干要点 / 秒杀逻辑 / 低级错误 / 本卷考点'
+        + '<span class="hint">点一下展开</span></summary>';
   if(q.key) h += '<div class="ez-row ez-key"><b>题干要点</b><div>' + esc(q.key) + '</div></div>';
   if(q.brief) h += '<div class="ez-row ez-kill"><b>秒杀逻辑</b><div>' + esc(q.brief) + '</div></div>';
   if(q.trap) h += '<div class="ez-row ez-trap"><b>低级错误</b><div>' + esc(q.trap) + '</div></div>';
   if(kps) h += '<div class="ez-row ez-kp"><b>本卷考点</b><div>' + kps + '</div></div>';
-  h += '</div>';
+  h += '</details>';
   return h;
 }
 function rerenderAll(){
@@ -6523,15 +6580,7 @@ function tick(){
   if(state.timerRun && timer.tickAt){ timer.acc += now - timer.tickAt; }
   timer.tickAt = now;
   state.elapsed[no] = Math.round(timer.acc / 1000);
-  var sec = Math.round(timer.acc / 1000);
-  var over = q.expectSec > 0 && sec > q.expectSec;
-  var el = $('[data-role="time"]', card);
-  if(el){
-    el.textContent = over
-      ? ('超时，该跳 · 已用 ' + fmt(sec))
-      : ('建议 ' + q.expectSec + ' 秒 · 已用 ' + fmt(sec));
-  }
-  card.classList.toggle('over', over);
+  paintTime(no);
   if(now - railPaintAt > 900){
     railPaintAt = now;
     if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
@@ -6558,7 +6607,7 @@ function setCurrent(no){
       tick();
     } else {
       var el = $('[data-role="time"]', card);
-      if(el) el.textContent = '跳过档 · 不计时';
+      if(el){ el.className = 'time'; el.textContent = '跳过档 · 不计时'; }
     }
   }
   if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
@@ -6794,6 +6843,14 @@ $$('.tabm').forEach(function(b){
 });
 syncPicks();
 
+document.getElementById('list').addEventListener('toggle', function(e){
+  var d = e.target;
+  if(d && d.classList && d.classList.contains('ezbox')){
+    state.ezOpen = !!d.open;
+    save();
+  }
+}, true);
+
 document.getElementById('btnFx').setAttribute('aria-pressed', String(state.fx !== false));
 document.getElementById('btnFx').textContent = state.fx !== false ? '特效 开' : '特效 关';
 document.getElementById('btnFx').addEventListener('click', function(){
@@ -6827,24 +6884,22 @@ document.getElementById('btnTimerToggle').addEventListener('click', function(){
   save(); paintTimer();
 });
 document.getElementById('btnTimerReset').addEventListener('click', function(){
-  if(!window.confirm('清空计时？\n\n· 总用时归零\n· 每题「已用」归零\n· 作答、错题集、历史记录都不动'))
+  if(!window.confirm('重启这一场？会清空：\n\n· 所有作答与对错\n· 每题已用时间\n· 总计时\n· 错题集与艾宾浩斯进度\n· 连对/连错\n· 交卷结果\n\n历史记录（学习效率对比）保留。'))
     return;
-  state.timerSec = 0; state.timerRun = false;
+  stopTimer();
+  state.answers = {};
   state.elapsed = {};
+  state.marks = {};
+  state.timerSec = 0;
+  state.timerRun = false;
+  state.submitted = false;
+  state.streakOk = 0;
+  state.streakBad = 0;
   timer.acc = 0; timer.tickAt = Date.now();
-  QS.forEach(function(q){
-    paint(q.no);
-    var c = cardOf(q.no), el = c && $('[data-role="time"]', c);
-    if(el){
-      el.textContent = q.expectSec > 0
-        ? ('建议 ' + q.expectSec + ' 秒 · 已用 0:00')
-        : '跳过档 · 不计时';
-    }
-    if(c) c.classList.remove('over');
-  });
-  if(timer.no != null){ try{ tick(); }catch(e){} }
-  if(typeof renderRail === 'function'){ try{ renderRail(); }catch(e){} }
-  save(); paintTimer(); updateGap();
+  var rp = document.getElementById('resultPanel');
+  if(rp){ rp.hidden = true; rp.innerHTML = ''; }
+  rerenderAll();
+  save(); paintTimer(); updateWrongCount(); updateGap();
 });
 paintTimer();
 setView(state.view || 'quiz');
