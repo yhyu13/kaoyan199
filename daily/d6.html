@@ -5789,6 +5789,10 @@ function setRail(on){
 function initRail(){
   var rail = document.getElementById('rail');
   if(!rail) return;
+  try{
+    if(/[?&]safe=1/.test(location.search)){ state.fx = false; }
+  }catch(e){}
+
   var saved = localStorage.getItem('kg2026-rail');
   setRail(saved === null ? window.innerWidth >= 1180 : saved === '1');
   renderRail();
@@ -6109,6 +6113,7 @@ function fxCanvas(){
   if(!FX.canvas){
     var c = document.createElement('canvas');
     c.id = 'fxCanvas';
+    c.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:60;display:block';
     document.body.appendChild(c);
     FX.canvas = c; FX.ctx = c.getContext('2d');
     var fit = function(){
@@ -6169,6 +6174,8 @@ function hearts(emojis, n){
   if(!FX.layer){
     var d = document.createElement('div');
     d.className = 'fx-hearts';
+    d.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;'
+      + 'z-index:61;overflow:hidden';
     document.body.appendChild(d);
     FX.layer = d;
   }
@@ -6191,6 +6198,7 @@ function toast(html, kind, big){
   if(!fxOn()) return;
   var t = document.createElement('div');
   t.className = 'fx-toast ' + kind + (big ? ' big' : '');
+  t.style.pointerEvents = 'none';
   t.innerHTML = html;
   document.body.appendChild(t);
   setTimeout(function(){ t.remove(); }, 2150);
