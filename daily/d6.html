@@ -531,6 +531,7 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 @media print{ .qtoggle,.qa-actions{ display:none !important; } }
 
 
+
 /* ---------- 题型多选 ---------- */
 .pick{ border:0; background:transparent; color:var(--fg); border-radius:999px;
   padding:5px 12px; font:inherit; font-size:13.5px; cursor:pointer; white-space:nowrap; }
@@ -559,6 +560,46 @@ mark.ez-key{ background:rgba(80,120,200,.32); color:inherit; border-radius:3px;
   .ez-row b{ font-size:12.5px; }
 }
 @media print{ .ezbox{ break-inside:avoid; } }
+
+
+/* ---------- 答题特效层 ---------- */
+#fxCanvas{ position:fixed; inset:0; pointer-events:none; z-index:60; display:block; }
+.fx-hearts{ position:fixed; inset:0; pointer-events:none; z-index:61; overflow:hidden; }
+.fx-heart{ position:absolute; bottom:-40px; font-size:26px; line-height:1;
+  animation:fxFloat 1.9s cubic-bezier(.22,.7,.3,1) forwards; will-change:transform,opacity; }
+@keyframes fxFloat{
+  0%{ transform:translateY(0) scale(.6) rotate(0deg); opacity:0; }
+  12%{ opacity:1; }
+  100%{ transform:translateY(-78vh) scale(1.15) rotate(var(--rot, 20deg)); opacity:0; }
+}
+.fx-toast{ position:fixed; left:50%; transform:translateX(-50%); bottom:34px; z-index:62;
+  max-width:min(88vw,520px); padding:11px 20px; border-radius:14px; font-size:17px;
+  font-weight:700; line-height:1.5; text-align:center; pointer-events:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.18); animation:fxToast 2.1s ease forwards; }
+.fx-toast.ok{ background:#1f6b46; color:#fff; }
+.fx-toast.bad{ background:#a3251b; color:#fff; }
+.fx-toast.big{ font-size:20px; padding:15px 26px; }
+@keyframes fxToast{
+  0%{ opacity:0; transform:translate(-50%,18px) scale(.92); }
+  12%{ opacity:1; transform:translate(-50%,0) scale(1); }
+  82%{ opacity:1; transform:translate(-50%,0) scale(1); }
+  100%{ opacity:0; transform:translate(-50%,-10px) scale(.98); }
+}
+.qcard.fx-ok{ animation:fxOk .5s ease; }
+@keyframes fxOk{ 0%{ box-shadow:0 0 0 0 rgba(46,107,79,.55);} 100%{ box-shadow:0 0 0 14px rgba(46,107,79,0);} }
+.qcard.fx-bad{ animation:fxBad .5s ease; }
+@keyframes fxBad{
+  0%,100%{ transform:translateX(0); }
+  15%{ transform:translateX(-7px); } 30%{ transform:translateX(6px); }
+  45%{ transform:translateX(-5px); } 60%{ transform:translateX(4px); }
+  80%{ transform:translateX(-2px); }
+}
+.qcard.fx-bad::after{ content:""; }
+#btnFx[aria-pressed="false"]{ opacity:.55; }
+@media print{ #fxCanvas,.fx-hearts,.fx-toast{ display:none !important; } }
+@media (prefers-reduced-motion:reduce){
+  .fx-heart,.fx-toast,.qcard.fx-ok,.qcard.fx-bad{ animation:none !important; }
+}
 
 .mmdwrap svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}.mmdwrap svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}.mmdwrap svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}.mmdwrap svg .error-icon{fill:#552222;}.mmdwrap svg .error-text{fill:#552222;stroke:#552222;}.mmdwrap svg .edge-thickness-normal{stroke-width:1px;}.mmdwrap svg .edge-thickness-thick{stroke-width:3.5px;}.mmdwrap svg .edge-pattern-solid{stroke-dasharray:0;}.mmdwrap svg .edge-thickness-invisible{stroke-width:0;fill:none;}.mmdwrap svg .edge-pattern-dashed{stroke-dasharray:3;}.mmdwrap svg .edge-pattern-dotted{stroke-dasharray:2;}.mmdwrap svg .marker{fill:#666;stroke:#666;}.mmdwrap svg .marker.cross{stroke:#666;}.mmdwrap svg svg{font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:16px;}.mmdwrap svg p{margin:0;}.mmdwrap svg .label{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#000000;}.mmdwrap svg .cluster-label text{fill:#333;}.mmdwrap svg .cluster-label span{color:#333;}.mmdwrap svg .cluster-label span p{background-color:transparent;}.mmdwrap svg .label text,.mmdwrap svg span{fill:#000000;color:#000000;}.mmdwrap svg .node rect,.mmdwrap svg .node circle,.mmdwrap svg .node ellipse,.mmdwrap svg .node polygon,.mmdwrap svg .node path{fill:#eee;stroke:#999;stroke-width:1px;}.mmdwrap svg .rough-node .label text,.mmdwrap svg .node .label text,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-anchor:middle;}.mmdwrap svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}.mmdwrap svg .rough-node .label,.mmdwrap svg .node .label,.mmdwrap svg .image-shape .label,.mmdwrap svg .icon-shape .label{text-align:center;}.mmdwrap svg .node.clickable{cursor:pointer;}.mmdwrap svg .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}.mmdwrap svg .arrowheadPath{fill:#333333;}.mmdwrap svg .edgePaths .path{stroke:#666;stroke-width:1px;}.mmdwrap svg .flowchart-link{stroke:#666;fill:none;}.mmdwrap svg .edgeLabel{background-color:white;text-align:center;}.mmdwrap svg .edgeLabel p{background-color:white;}.mmdwrap svg .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .labelBkg{background-color:rgba(255, 255, 255, 0.5);}.mmdwrap svg .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}.mmdwrap svg .cluster text{fill:#333;}.mmdwrap svg .cluster span{color:#333;}.mmdwrap svg .node .collapsed-indicator{fill:#707070;stroke:none;opacity:0.6;}.mmdwrap svg .node .collapsed-separator{stroke:#707070;stroke-width:0.75px;}.mmdwrap svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}.mmdwrap svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}.mmdwrap svg rect.text{fill:none;stroke-width:0;}.mmdwrap svg .icon-shape,.mmdwrap svg .image-shape{background-color:white;text-align:center;}.mmdwrap svg .icon-shape p,.mmdwrap svg .image-shape p{background-color:white;padding:2px;}.mmdwrap svg .icon-shape .label rect,.mmdwrap svg .image-shape .label rect{opacity:0.5;background-color:white;fill:white;}.mmdwrap svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}.mmdwrap svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}.mmdwrap svg .node .neo-node{stroke:#999;}.mmdwrap svg [data-look="neo"].node rect,.mmdwrap svg [data-look="neo"].cluster rect,.mmdwrap svg [data-look="neo"].node polygon{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].swimlane.cluster rect{filter:none;}.mmdwrap svg [data-look="neo"].node path{stroke:url(.mmdwrap svg-gradient);stroke-width:1px;}.mmdwrap svg [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node .neo-line path{stroke:#999;filter:none;}.mmdwrap svg [data-look="neo"].node circle{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].node circle .state-start{fill:#000000;}.mmdwrap svg [data-look="neo"].icon-shape .icon{fill:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg [data-look="neo"].icon-shape .icon-neo path{stroke:url(.mmdwrap svg-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}.mmdwrap svg :root{--mermaid-font-family:"Microsoft YaHei","PingFang SC",sans-serif;}
 /* ================= 主题配色补丁（浅 / 深） ================= */
@@ -699,6 +740,7 @@ function typesetMath(root){
       </div>
       <button class="btn primary" type="button" id="btnSubmit">交卷</button>
       <button class="btn" type="button" id="btnEasy" aria-pressed="false">Easy Mode</button>
+      <button class="btn" type="button" id="btnFx" aria-pressed="true">特效 开</button>
       <button class="btn" type="button" id="btnRail">题号地图</button>
       <button class="btn" type="button" id="btnKp">考点总览</button>
       <button class="btn" type="button" id="btnTheme">主题</button>
@@ -5800,6 +5842,9 @@ function defaultState(){
     marks:{},
     view:'quiz',
     easy:false,
+    fx:true,
+    streakOk:0,
+    streakBad:0,
     pick:[],
     timerSec:0,
     timerRun:false,
@@ -5839,6 +5884,9 @@ var state = defaultState();
     });
   }
   if(typeof s.easy === 'boolean') state.easy = s.easy;
+  if(typeof s.fx === 'boolean') state.fx = s.fx;
+  if(typeof s.streakOk === 'number') state.streakOk = s.streakOk;
+  if(typeof s.streakBad === 'number') state.streakBad = s.streakBad;
   if(Array.isArray(s.pick)) state.pick = s.pick.filter(function(p){ return PICK_LABEL[p] && p !== 'all'; });
   if(typeof s.view === 'string') state.view = s.view;
   if(typeof s.timerSec === 'number') state.timerSec = Math.max(0, s.timerSec);
@@ -5963,6 +6011,210 @@ function qToText(q, withExp){
   return L.join(String.fromCharCode(10));
 }
 
+
+/* ================= 答题特效 ================= */
+var FX = { audio:null, canvas:null, ctx:null, parts:[], raf:0, layer:null };
+
+function fxOn(){ return state.fx !== false; }
+
+function fxAudio(){
+  if(!FX.audio){
+    try{
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if(AC) FX.audio = new AC();
+    }catch(e){ FX.audio = null; }
+  }
+  if(FX.audio && FX.audio.state === 'suspended'){ FX.audio.resume().catch(function(){}); }
+  return FX.audio;
+}
+/* 音符：f=频率，t=起点(秒)，d=时长，type=波形，v=音量 */
+function tone(ac, f, t, d, type, v){
+  var o = ac.createOscillator(), g = ac.createGain();
+  o.type = type || 'sine';
+  o.frequency.setValueAtTime(f, t);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(v || .18, t + 0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+  o.connect(g); g.connect(ac.destination);
+  o.start(t); o.stop(t + d + 0.02);
+}
+function sfx(kind){
+  if(!fxOn()) return;
+  var ac = fxAudio(); if(!ac) return;
+  var t = ac.currentTime + 0.001;
+  if(kind === 'ok'){
+    tone(ac, 783.99, t,        .12, 'sine', .16);   /* G5 */
+    tone(ac, 1046.5, t + .075, .16, 'sine', .14);   /* C6 */
+  } else if(kind === 'okbig'){
+    [523.25, 659.25, 783.99, 1046.5].forEach(function(f, i){
+      tone(ac, f, t + i * .07, .22, 'triangle', .15);
+    });
+  } else if(kind === 'bad'){
+    tone(ac, 196,  t,        .16, 'sawtooth', .10); /* G3 */
+    tone(ac, 146.83, t + .09, .26, 'sawtooth', .10);
+  } else if(kind === 'badbig'){
+    tone(ac, 174.6, t,        .18, 'square', .09);
+    tone(ac, 130.8, t + .10,  .30, 'square', .09);
+    tone(ac, 98,    t + .22,  .36, 'sine',   .12);
+  }
+}
+
+function fxCanvas(){
+  if(!FX.canvas){
+    var c = document.createElement('canvas');
+    c.id = 'fxCanvas';
+    document.body.appendChild(c);
+    FX.canvas = c; FX.ctx = c.getContext('2d');
+    var fit = function(){
+      c.width = Math.round(innerWidth * (window.devicePixelRatio || 1));
+      c.height = Math.round(innerHeight * (window.devicePixelRatio || 1));
+      c.style.width = innerWidth + 'px';
+      c.style.height = innerHeight + 'px';
+    };
+    fit();
+    window.addEventListener('resize', fit);
+  }
+  return FX.canvas;
+}
+function confetti(n, palette, heavy){
+  if(!fxOn()) return;
+  fxCanvas();
+  var W = innerWidth, H = innerHeight;
+  for(var i = 0; i < n; i++){
+    FX.parts.push({
+      x: W / 2 + (Math.random() - .5) * W * .35,
+      y: heavy ? H * .38 : H * .32,
+      vx: (Math.random() - .5) * (heavy ? 13 : 9),
+      vy: -Math.random() * (heavy ? 13 : 9) - 2,
+      g: .22 + Math.random() * .12,
+      w: 5 + Math.random() * 7, h: 4 + Math.random() * 5,
+      rot: Math.random() * Math.PI, vr: (Math.random() - .5) * .35,
+      c: palette[(Math.random() * palette.length) | 0],
+      life: 1
+    });
+  }
+  if(!FX.raf) FX.raf = requestAnimationFrame(fxTick);
+}
+function fxTick(){
+  var c = FX.canvas, ctx = FX.ctx;
+  var dpr = window.devicePixelRatio || 1;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  var alive = [];
+  FX.parts.forEach(function(p){
+    p.vy += p.g; p.x += p.vx; p.y += p.vy; p.vx *= .995;
+    p.rot += p.vr; p.life -= .0085;
+    if(p.life > 0 && p.y < innerHeight + 60){
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.life));
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.c;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+      alive.push(p);
+    }
+  });
+  FX.parts = alive;
+  if(alive.length){ FX.raf = requestAnimationFrame(fxTick); }
+  else { FX.raf = 0; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+}
+function hearts(emojis, n){
+  if(!fxOn()) return;
+  if(!FX.layer){
+    var d = document.createElement('div');
+    d.className = 'fx-hearts';
+    document.body.appendChild(d);
+    FX.layer = d;
+  }
+  for(var i = 0; i < n; i++){
+    (function(i){
+      setTimeout(function(){
+        var s = document.createElement('span');
+        s.className = 'fx-heart';
+        s.textContent = emojis[(Math.random() * emojis.length) | 0];
+        s.style.left = (8 + Math.random() * 84) + 'vw';
+        s.style.setProperty('--rot', ((Math.random() - .5) * 70).toFixed(0) + 'deg');
+        s.style.fontSize = (20 + Math.random() * 16).toFixed(0) + 'px';
+        FX.layer.appendChild(s);
+        setTimeout(function(){ s.remove(); }, 2100);
+      }, i * 70);
+    })(i);
+  }
+}
+function toast(html, kind, big){
+  if(!fxOn()) return;
+  var t = document.createElement('div');
+  t.className = 'fx-toast ' + kind + (big ? ' big' : '');
+  t.innerHTML = html;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2150);
+}
+
+/* ---------- 文案池 ---------- */
+var OK_MSG = [
+  '✓ 干净。', '✓ 就该这么快。', '✓ 稳。', '✓ 这题你吃透了。', '✓ 节奏对。',
+  '✓ 手很稳。', '✓ 对了，别停。', '✓ 这才是必拿分的样子。'
+];
+var OK_EMOJI = ['💚', '✨', '🎉', '👏', '🔥', '💯'];
+var BAD_MSG = [
+  '✗ 这都错？回去看「低级错误」那条。',
+  '✗ 停。这题是必拿分，丢了就是白送。',
+  '✗ 又错一道。别急着做下一题。',
+  '✗ 错了。你现在是在给考场攒亏损。',
+  '✗ 这题不该错。把题干再读一遍。',
+  '✗ 错的不是运气，是没看坑。',
+  '✗ 送分题丢分，最亏的一种。',
+  '✗ 手快了。慢 10 秒，这题就是你的。'
+];
+var BAD_EMOJI = ['💢', '🩸', '⚠️', '🧊', '😤'];
+
+function fxStreakOk(){
+  state.streakOk = (state.streakOk || 0) + 1;
+  state.streakBad = 0;
+  return state.streakOk;
+}
+function fxStreakBad(){
+  state.streakBad = (state.streakBad || 0) + 1;
+  state.streakOk = 0;
+  return state.streakBad;
+}
+
+function reward(no, ok){
+  var card = cardOf(no);
+  if(ok){
+    var n = fxStreakOk();
+    if(n > 0 && n % 5 === 0){                     /* 5 连对：大爆 */
+      sfx('okbig');
+      confetti(140, ['#2e6b4f', '#7fc9a2', '#e2bb63', '#ffffff', '#f0d9a0'], true);
+      hearts(OK_EMOJI, 12);
+      toast('🔥 已经连对 <b>' + n + '</b> 题。手感来了，保持这个节奏。', 'ok', true);
+      if(card){ card.classList.remove('fx-ok'); void card.offsetWidth; card.classList.add('fx-ok'); }
+      return;
+    }
+    sfx('ok');
+    confetti(34, ['#2e6b4f', '#7fc9a2', '#e2bb63', '#ffffff']);
+    hearts(OK_EMOJI, 4);
+    var msg = OK_MSG[(Math.random() * OK_MSG.length) | 0];
+    if(n >= 2) msg += '（连对 ' + n + '）';
+    toast(msg, 'ok');
+    if(card){ card.classList.remove('fx-ok'); void card.offsetWidth; card.classList.add('fx-ok'); }
+  } else {
+    var m = fxStreakBad();
+    var heavy = m >= 3;
+    if(heavy){                                     /* 3 连错：骂得更重 */
+      sfx('badbig');
+      confetti(70, ['#a3251b', '#d6553d', '#7a2a1c', '#3a2a26'], true);
+      hearts(BAD_EMOJI, 7);
+      toast('🩸 连续错 <b>' + m + '</b> 题。停手，把这三题的「低级错误」抄一遍再继续。', 'bad', true);
+    } else {
+      sfx('bad');
+      confetti(26, ['#a3251b', '#d6553d', '#7a2a1c']);
+      hearts(BAD_EMOJI, 3);
+      toast(BAD_MSG[(Math.random() * BAD_MSG.length) | 0], 'bad');
+    }
+    if(card){ card.classList.remove('fx-bad'); void card.offsetWidth; card.classList.add('fx-bad'); }
+  }
+}
 
 /* ---------- 题型多选 ---------- */
 var PICK_LABEL = { all:'全部', A:'必会题', B:'可选题', C:'跳过题',
@@ -6176,9 +6428,11 @@ function choose(no, k){
   var q = byNo[no];
   if(!q || isDoubt(q)) return;
   var wasMarked = isMarked(no);
+  var firstTry = !state.answers[no];
   state.answers[no] = k;
   if(k !== q.answer && !wasMarked) markQuestion(no, 'wrong');
   paint(no);
+  if(firstTry){ try{ reward(no, k === q.answer); }catch(e){ console.warn('fx-error', e && e.message); } }
   save();
   updateWrongCount();
   updateGap();
@@ -6485,6 +6739,16 @@ $$('.tabm').forEach(function(b){
   });
 });
 syncPicks();
+
+document.getElementById('btnFx').setAttribute('aria-pressed', String(state.fx !== false));
+document.getElementById('btnFx').textContent = state.fx !== false ? '特效 开' : '特效 关';
+document.getElementById('btnFx').addEventListener('click', function(){
+  state.fx = !(state.fx !== false);
+  save();
+  this.setAttribute('aria-pressed', String(state.fx));
+  this.textContent = state.fx ? '特效 开' : '特效 关';
+  if(state.fx){ try{ sfx('ok'); }catch(e){} }
+});
 
 document.getElementById('btnEasy').addEventListener('click', function(){
   state.easy = !state.easy;
