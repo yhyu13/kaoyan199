@@ -852,11 +852,17 @@ function typesetMath(root){
     d.id = 'fatalBar';
     d.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:9999;background:#a3251b;color:#fff;'
       + 'font:14px/1.6 "Microsoft YaHei",sans-serif;padding:8px 14px;white-space:pre-wrap';
-    d.textContent = '页面脚本出错：' + msg + '  —— 请把这行截图发我';
+    d.textContent = '页面脚本出错：' + msg + (window.__errLoc ? ('  @ ' + window.__errLoc) : '')
+      + '  —— 请把这行截图发我';
     (document.body || document.documentElement).appendChild(d);
   };
   window.addEventListener('error', function(e){
-    if(e && e.message) window.__showFatal(e.message);
+    if(!e || !e.message) return;
+    try{
+      window.__errLoc = (e.filename || '').split('/').pop() + ':' + e.lineno + ':' + e.colno;
+    }catch(x){}
+    if(e.error && e.error.stack) window.__errStack = String(e.error.stack).slice(0, 600);
+    window.__showFatal(e.message);
   }, true);
   window.addEventListener('DOMContentLoaded', function(){
     setTimeout(function(){
@@ -4816,6 +4822,7 @@ if(!BANK || !BANK.questions || !BANK.questions.length){
 var QS = BANK.questions;
 var META = BANK.meta || {};
 var LS = 'kg2026-brush-v1';
+/* 这三个常量必须在任何渲染之前就存在 */
 var TIER_LABEL = { A:'A · 必拿分', B:'B · 可选', C:'C · 无脑跳过' };
 var SUBJ_LABEL = { math:'数学', logic:'逻辑' };
 var byNo = {};
@@ -5813,6 +5820,12 @@ function initRail(){
   if(!rail) return;
   try{
     if(/[?&]safe=1/.test(location.search)){ state.fx = false; }
+    if(/[?&]reset=1/.test(location.search)){
+      localStorage.removeItem(LS);
+      sessionStorage.setItem('__reset_done', '1');
+      location.replace(location.pathname + (location.hash || ''));
+      return;
+    }
   }catch(e){}
 
   var saved = localStorage.getItem('kg2026-rail');
@@ -6439,7 +6452,17 @@ function ezBoxHTML(q){
   return h;
 }
 function rerenderAll(){
+  try{
   list.innerHTML = QS.map(cardHTML).join('');
+}catch(err){
+  console.warn('整表渲染失败，逐张兜底：', err && err.message);
+  var _ok = [];
+  QS.forEach(function(q){
+    try{ _ok.push(cardHTML(q)); }
+    catch(e2){ console.warn('第 ' + q.no + ' 题渲染失败：', e2 && e2.message); }
+  });
+  list.innerHTML = _ok.join('');
+}
   typesetMath(list);
   QS.forEach(function(q){ paint(q.no); });
   applyFilters();
@@ -6686,7 +6709,8 @@ function computeStats(){
   QS.forEach(function(q){
     if(isDoubt(q)){ st.doubt.push(q.no); return; }
     var p = pts(q), a = state.answers[q.no], ok = a === q.answer;
-    [st.total, st.tier[q.tier], st.subj[q.subject]].forEach(function(b){
+    var _tb = st.tier[q.tier] || st.tier.C;
+    [st.total, _tb, st.subj[q.subject]].forEach(function(b){
       b.n += 1; b.max += p;
       if(ok){ b.ok += 1; b.pts += p; }
       else if(a){ b.bad += 1; }
@@ -6722,15 +6746,19 @@ function updateWrongCount(){
 
 /* ---------- 交卷结果 ---------- */
 function renderResult(){
+  try{ renderResultInner(); }catch(e){ console.warn('renderResult 失败：', e && e.message); }
+}
+function renderResultInner(){
   var st = computeStats();
   var tm = state.targets.math, tl = state.targets.logic;
   var m = st.subj.math, l = st.subj.logic;
   var passM = m.pts >= tm, passL = l.pts >= tl;
   var pass = passM && passL;
-  var a = st.tier.A;
+  var _tier = st.tier || { A:{ok:0,n:0,max:0,pts:0}, B:{ok:0,n:0,max:0,pts:0}, C:{ok:0,n:0,max:0,pts:0} };
+  var a = _tier.A || {ok:0,n:0,max:0,pts:0};
 
   var rows = ['A','B','C'].map(function(t){
-    var b = st.tier[t];
+    var b = _tier[t] || {ok:0,n:0,max:0,pts:0,blank:0,bad:0};
     return '<tr><td class="tier">' + TIER_LABEL[t] + '</td><td>' + b.n + '</td><td>' + b.ok
       + '</td><td>' + b.bad + '</td><td>' + b.blank + '</td><td>' + b.pts + ' / ' + b.max + '</td></tr>';
   }).join('');
