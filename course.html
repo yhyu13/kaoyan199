@@ -75,6 +75,9 @@ a{color:var(--accent)}
 p.essay{ margin:12px 0; line-height:2.05; font-size:16.5px; }
 p.essay.en{ font-family:"Segoe UI",system-ui,sans-serif; line-height:1.95; }
 h3.essay-t{ text-align:center; font-size:19px; margin:18px 0 10px; letter-spacing:.04em; }
+a[download]{ display:inline-block; border:1px solid var(--accent); color:var(--accent);
+  border-radius:999px; padding:3px 14px; text-decoration:none; font-size:14.5px; }
+a[download]:hover{ background:var(--accent); color:#fff; }
 .mmdwrap{ margin:12px 0 6px; padding:10px 8px; border:1px dashed var(--line);
   border-radius:10px; overflow:auto; max-height:76vh; background:var(--card); }
 .mmdwrap svg{ max-width:100%; height:auto; display:block; margin:0 auto; }
@@ -191,8 +194,9 @@ function typesetMath(root){
   <button class="tab tab1" data-t="two">01 · 作文三类卷</button>
   <button class="tab tab2" data-t="three">02 · 间隙恢复</button>
   <button class="tab tab3" data-t="write">03 · 写作四篇</button>
-  <button class="tab tab4" data-t="ai">04 · AI 写作通解</button>
-  <button class="tab tab5" data-t="kp">05 · 考点库</button>
+  <button class="tab tab4" data-t="deck">04 · 写作讲义</button>
+  <button class="tab tab5" data-t="ai">05 · AI 写作通解</button>
+  <button class="tab tab6" data-t="kp">06 · 考点库</button>
 </div></header>
 <main><section id="zero" class="on"><h1>01 · 现状体检 + 2026 真题三档分层</h1>
 <blockquote>
@@ -1804,6 +1808,265 @@ function typesetMath(root){
 <hr />
 <blockquote>
 <p>📌 本输出由 AI 辅助生成，仅用于信息整理与备考参考，不构成专业意见或决策依据。</p>
+</blockquote></section>
+<section id="deck"><h1>写作讲义 · 两份 skill</h1>
+<blockquote>
+<p>这两份是 2026-11-14 那批写作产物落成的可复用方法，不是新编的。来源写在每节开头。
+讲义的 PPTX 可以直接下载，方法骨架在下面，不用打开也能用。</p>
+</blockquote>
+<h2>一、两份讲义下载</h2>
+<table>
+<thead>
+<tr>
+<th>讲义</th>
+<th>页数</th>
+<th>下载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>论证有效性分析 · 找漏洞不提建议</td>
+<td>6 页</td>
+<td><a href="writing/01-论证有效性分析-找漏洞不提建议.pptx" download>01-论证有效性分析-找漏洞不提建议.pptx</a></td>
+</tr>
+<tr>
+<td>论说文 · FTL 审题结构</td>
+<td>7 页</td>
+<td><a href="writing/02-论说文-FTL审题结构.pptx" download>02-论说文-FTL审题结构.pptx</a></td>
+</tr>
+</tbody>
+</table>
+<p>对应的两份 skill 原文：</p>
+<ul>
+<li><code>Tools/skills/ftl-argument-analysis/SKILL.md</code></li>
+<li><code>Tools/skills/ftl-essay-structure/SKILL.md</code></li>
+</ul>
+<hr />
+<h2>二、论证有效性分析 · 找漏洞不提建议</h2>
+<blockquote>
+<p>来源：项目内 <code>10-真题体系/02-作文-怎么拿三类卷.md</code> 的书面方法。档位是备考口径，当年评分细则优先。</p>
+</blockquote>
+<h3>五步动手</h3>
+<ol>
+<li>用一句话写出材料想证明的<strong>结论</strong>。</li>
+<li>标出 4 个「由 A 推出 B」的位置，选最明显的 3–4 个。</li>
+<li>每个位置只写：A 是什么、B 是什么、<strong>为什么推不出</strong>。</li>
+<li>按四段骨架落笔，每段都有引、析、评。</li>
+<li>用检查表删掉所有建议句。</li>
+</ol>
+<p><strong>完成标准</strong>：标题反驳结论；至少 3 个漏洞各有引、析、评；全文没有「应该、应当、管理者要」。</p>
+<h3>四段骨架</h3>
+<table>
+<thead>
+<tr>
+<th>段</th>
+<th>字数</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 段</td>
+<td>约 70 字</td>
+<td>点明材料结论 + 「存在漏洞，现分析如下」</td>
+</tr>
+<tr>
+<td>第 2 段</td>
+<td>约 150 字</td>
+<td>首先：漏洞 1，引 → 析 → 评</td>
+</tr>
+<tr>
+<td>第 3 段</td>
+<td>约 150 字</td>
+<td>其次：漏洞 2，引 → 析 → 评</td>
+</tr>
+<tr>
+<td>第 4 段</td>
+<td>约 150 字</td>
+<td>再次 / 最后：漏洞 3，分析后收束</td>
+</tr>
+</tbody>
+</table>
+<p>标题用「××未必值得提倡」这类句式——一句话反驳结论。</p>
+<h3>三条铁律</h3>
+<ul>
+<li>不写「我认为应该」「管理者应当」。</li>
+<li>每段必须有「引」和「析」。只说「这是错的」不够。</li>
+<li>4 段以上，段首用「首先、其次、再次、最后」。</li>
+</ul>
+<h3>五种漏洞（覆盖 80% 真题）</h3>
+<table>
+<thead>
+<tr>
+<th>漏洞</th>
+<th>信号</th>
+<th>怎么写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>混淆 / 偷换概念</td>
+<td>同一个词前后意思变了</td>
+<td>写出两个概念的不同内涵</td>
+</tr>
+<tr>
+<td>绝对化</td>
+<td>必然、一定、任何、所有、只要…就</td>
+<td>举一个不能一概而论的情形</td>
+</tr>
+<tr>
+<td>类比不当</td>
+<td>如同、就像、相当于</td>
+<td>指出本质差异</td>
+</tr>
+<tr>
+<td>非黑即白</td>
+<td>不是…就是、要么…要么</td>
+<td>写出第三种可能</td>
+</tr>
+<tr>
+<td>强加因果 / 条件误用</td>
+<td>因此、只要…就、只有…才</td>
+<td>区分时间先后、充分条件、必要条件</td>
+</tr>
+</tbody>
+</table>
+<p>叫不出名称也能得分，但必须说清「这个理由<strong>为什么</strong>推不出这个结论」。</p>
+<h3>交卷检查</h3>
+<ul>
+<li>标题反驳材料结论。</li>
+<li>开头只介绍论证缺陷，<strong>不发表观点</strong>。</li>
+<li>至少 3 个漏洞，每段都能指回题干原句。</li>
+<li>每段都解释了为什么推不出，并给出「结论不成立」。</li>
+<li>全文搜索「应该 / 应当 / 管理者要」，结果为 0。</li>
+<li>全文约 550–650 字。</li>
+</ul>
+<p>任一项不过，就从那个漏洞重写，<strong>不要在建议句旁边补反驳</strong>。</p>
+<hr />
+<h2>三、论说文 · FTL 审题结构</h2>
+<blockquote>
+<p>来源：2026-11-14 写作串讲的课件（PDF 47 页）。已核对的是课件文字；老师口头补充未逐字转写，不作为原话引用。</p>
+</blockquote>
+<h3>五步动手</h3>
+<ol>
+<li>判断材料类型。</li>
+<li>用 3 分钟写出材料关键词和核心关系。</li>
+<li>标题必须表达立场，并落到<strong>管理 / 组织 / 个人决策</strong>。</li>
+<li>按选定模板分配字数，再填例子。</li>
+<li>写完用文末检查表逐项核对。</li>
+</ol>
+<p><strong>完成标准</strong>：标题、每段任务、字数、例子都先落在纸上，且没有停在故事、名言或事件表面。</p>
+<h3>四种材料类型</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>课上例子</th>
+<th>必须做的事</th>
+<th>停止线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>寓言故事</td>
+<td>2014 孔雀开屏；2022 鸟类进化；2007 南极司各脱</td>
+<td>把故事迁到企业管理 / 组织 / 个人决策</td>
+<td>复述故事、写成语文读后感</td>
+</tr>
+<tr>
+<td>名言论说</td>
+<td>2012 熊十力《十力语要》；2016 城邦一致性与多样性</td>
+<td>辨概念关系，不望文生义</td>
+<td>只解释字面、不回扣现实</td>
+</tr>
+<tr>
+<td>现实案例</td>
+<td>2020 挑战者号；2013 波音麦道与空客</td>
+<td>案例只作引子，挖管理启示</td>
+<td>长篇复述事件</td>
+</tr>
+<tr>
+<td>社会思辨</td>
+<td>2018 人工智能；2019 辩论与真理；2023 领导艺术；2024 发散性思维；2025 评价标准与合群；2026 足球球员视角</td>
+<td>两边都分析，再给判断</td>
+<td>选边站队、只写绝对化结论</td>
+</tr>
+</tbody>
+</table>
+<p><strong>社会思辨是 2018–2026 的明显趋势</strong>：考辩证与权衡，不考激烈站队。</p>
+<h3>标题检查</h3>
+<blockquote>
+<p>删掉材料里的专名后，标题仍能看出<strong>管理判断</strong>。看不出来就重写。</p>
+</blockquote>
+<h3>模板一：总分总（适合一元式论点）</h3>
+<table>
+<thead>
+<tr>
+<th>段</th>
+<th>字数</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开头</td>
+<td>约 100 字</td>
+<td>引材料核心观点 → 表态 → 提出总论点</td>
+</tr>
+<tr>
+<td>好处 1</td>
+<td>约 200 字</td>
+<td>个人角度说价值，结合具体场景</td>
+</tr>
+<tr>
+<td>好处 2</td>
+<td>约 200 字</td>
+<td>企业角度说意义，关联经营目标</td>
+</tr>
+<tr>
+<td>好处 3</td>
+<td>约 200 字</td>
+<td>社会 / 国家层面提升高度</td>
+</tr>
+<tr>
+<td>防守 / 补充</td>
+<td>约 100 字，可选</td>
+<td>预判反对意见，简要回应</td>
+</tr>
+<tr>
+<td>结尾</td>
+<td>约 100 字</td>
+<td>总结论点，呼应开头</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>模板二（二元对立）课上一句：「总分总，适合二元对立」，分段字数没有完整显示，<strong>不补造</strong>。二元题按 <code>05-AI议题写作通解</code> 里的「以 A 定什么，以 B 做什么」写。</p>
+</blockquote>
+<h3>和当前写作状态对齐</h3>
+<p>现在实测是论证 5/30、论说 5/35，两篇都在五类。论说文的直接问题是<strong>没有标题</strong>，以及问「变多还是变少」时写成「管理者该如何应对」。</p>
+<p>这份方法只修论说文：</p>
+<ul>
+<li>先写标题，标题同时保住材料双方或核心概念。</li>
+<li>总论点<strong>回答材料的问题</strong>，不另换成一套管理建议。</li>
+<li>一元题用模板一；二元题先写清 A 与 B 的关系。</li>
+<li>例子最多两个，每个例子后必须有一句<strong>回扣分论点</strong>。</li>
+<li>目标先稳三类：有标题、不跑题、2–3 个分论点、结构完整、约 700 字。</li>
+</ul>
+<h3>交卷检查</h3>
+<ul>
+<li>标题是<strong>判断句</strong>，不是主题词。</li>
+<li>开头 100 字内同时出现材料态度和总论点。</li>
+<li>三段好处分别落在个人、企业、社会，没有重复同一个例子。</li>
+<li>故事、名言、事件都已迁到管理问题。</li>
+<li>社会思辨题两边都写到，结论是<strong>权衡</strong>不是站队。</li>
+<li>全文没有「管理者应当如何应对」这类替题回答。</li>
+<li>总长约 700 字。</li>
+</ul>
+<p>任一项不过，<strong>从标题重来</strong>，不在原文上补句子。</p>
+<hr />
+<blockquote>
+<p>📌 本页内容整理自项目内已有的两份 skill 文件与串讲课件；未经编造的方法细节一律标注「不补造」。</p>
 </blockquote></section>
 <section id="ai"><h1>AI 议题 · 中英写作通解</h1>
 <blockquote>
