@@ -76,6 +76,8 @@ textarea.t{min-height:64px;resize:vertical}
   <button data-m="lines" class="on">三行填空 · <span class="c"></span></button>
   <button data-m="trans">变换判断 · <span class="c"></span></button>
   <button data-m="title">标题二选 · <span class="c"></span></button>
+  <button data-m="flaw">漏洞判断 · <span class="c"></span></button>
+  <button data-m="intent">审题判断 · <span class="c"></span></button>
   <button data-m="wrong">错题本 · <span id="wcount">0</span></button>
 </div>
 
@@ -170,7 +172,18 @@ var TITLES = [
 
 /* ================= 状态 ================= */
 var LS='kg2026-writing-drill-v1';
-var S = {mode:'lines', done:{}, wrong:{}, idx:{lines:0, trans:0, title:0}};
+var S = {mode:'lines', done:{}, wrong:{}, idx:{lines:0, trans:0, title:0, flaw:0, intent:0}};
+var CHOICES = [
+ {id:'zero', kind:'flaw', topic:'零和博弈', text:'市场参与者存在绝对利害关系，一方胜利必然伴随另一方失败。', options:['竞争之外还有合作与市场扩大，绝对化不成立','管理者应该加强内部治理','市场竞争总是不好的'], right:0, why:'引用「必然、绝对」，再给合作、分工、共同扩大市场这些反例。不要改写管理建议。'},
+ {id:'solo', kind:'flaw', topic:'一人创业', text:'AI 能完成文案、设计和剪辑，所以个人一定创业成功。', options:['部分工作可完成，推不出创业的全部条件已满足','AI 没有作用','一个人不该创业'], right:0, why:'把链条拆开：部分职能、成本、客户、交付和风险承受是不同条件，前一项只推出可能性。'},
+ {id:'short', kind:'flaw', topic:'短视频阅读', text:'年轻人靠短视频了解历史和科普，因此能掌握书的全部核心内容。', options:['局部了解不等于掌握全书核心','短视频都没有价值','高校学者不能做短视频'], right:0, why:'同一个「掌握」前后变了意思：了解结论，不等于掌握全书论证、语境和限制。'},
+ {id:'sentence', kind:'flaw', topic:'论证文句型', text:'哪句可以留在论证有效性正文中？', options:['该前提只能推出可能性，不能推出必然结论','管理者应当建立有效机制','我认为企业应该主动出击'], right:0, why:'论证文只评价推理。出现「应当、应该」，就回到了提建议。'},
+ {id:'ai', kind:'intent', topic:'人工智能', text:'效率极大提升后，有人认为问题越来越少，有人则不以为然。', options:['回应问题数量与回答速度是不是一回事','管理者该如何应对人工智能','介绍人工智能的发展历程'], right:0, why:'标题必须回答材料的问题。先承认回答变快，再区分可检索的问题与需要判断的问题。'},
+ {id:'learn', kind:'intent', topic:'学我者生，似我者死', text:'有人学到乱真，有人只学表面却不得要领。', options:['区分学习方法与表面模仿','否定一切学习','复述齐白石生平'], right:0, why:'故事要迁到组织学习：学原理可以生成自己的判断，复制表面不能。'},
+ {id:'fruit', kind:'intent', topic:'果树', text:'一类枝叶繁茂但结果少，另一类收敛外在繁盛、养分内收后结果。', options:['写繁茂与收敛的取舍','只赞美枝叶繁茂','管理者应当修剪一切业务'], right:0, why:'双方都要留在标题里。判断是资源有限时，扩张与沉淀分别承担什么。'},
+ {id:'speed', kind:'intent', topic:'速度与质量', text:'两个观点看似对立。', options:['速度负责兑现，质量负责根基','速度最重要，质量以后补','质量高于一切，速度没有意义'], right:0, why:'先写辩证统一，再分配角色。只选一边就没有回答双观点题。'}
+];
+function choiceSet(kind){ return CHOICES.filter(function(x){return x.kind===kind;}); }
 try{ var raw=localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object'){ S=Object.assign(S,o);} } }catch(e){}
 function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
 
@@ -178,14 +191,15 @@ function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
 var view=document.getElementById('view');
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function stats(){
-  var total = TOPICS.length + TRANS.length + TITLES.length;
+  var total = TOPICS.length + TRANS.length + TITLES.length + CHOICES.length;
   var done = Object.keys(S.done).length;
   document.getElementById('progFill').style.width = (100*done/total).toFixed(0)+'%';
   document.getElementById('stat').textContent = '总进度 ' + done + ' / ' + total +
     ' · 三行 ' + TOPICS.length + ' / 变换 ' + TRANS.length + ' / 标题 ' + TITLES.length +
+    ' / 漏洞 ' + choiceSet('flaw').length + ' / 审题 ' + choiceSet('intent').length +
     ' · 错题 ' + Object.keys(S.wrong).length;
   document.getElementById('wcount').textContent = Object.keys(S.wrong).length;
-  var counts={lines:TOPICS.length, trans:TRANS.length, title:TITLES.length, wrong:Object.keys(S.wrong).length};
+  var counts={lines:TOPICS.length, trans:TRANS.length, title:TITLES.length, flaw:choiceSet('flaw').length, intent:choiceSet('intent').length, wrong:Object.keys(S.wrong).length};
   [].slice.call(document.querySelectorAll('#modes button')).forEach(function(b){
     var c=b.querySelector('.c'); if(c) c.textContent=counts[b.dataset.m];
   });
@@ -318,12 +332,29 @@ function renderTitle(){
   };
 }
 
+function renderChoice(kind){
+  var data=choiceSet(kind), q=data[S.idx[kind]], key=kind+':'+q.id;
+  var hint = kind==='flaw'
+    ? '先找「必然、一定、只要就、因此」。问前一句是不是足以推出后一句；不要写企业应该做什么。'
+    : '先圈材料争的双方。标题同时含双方；出现「如何应对」或只讲故事本身，就是换题。';
+  view.innerHTML='<div class="card"><span class="qtag">'+(kind==='flaw'?'漏洞判断':'审题判断')+' · 第 '+(S.idx[kind]+1)+' / '+data.length+' 题</span>'+
+    '<p class="prompt"><b>'+esc(q.topic)+'</b><br>'+esc(q.text)+'</p>'+
+    '<div class="hint" id="hint">'+esc(hint)+'</div>'+
+    '<div id="opts"></div><div class="answer" id="ans"></div>'+
+    '<div class="actions"><button class="btn" id="btnHint">提示</button><button class="btn" id="btnPrev">上一题</button><button class="btn primary" id="btnNext">下一题</button></div></div>';
+  var box=document.getElementById('opts');
+  q.options.forEach(function(op,i){var b=document.createElement('button'); b.className='opt'; b.textContent=String.fromCharCode(65+i)+'　'+op; b.dataset.i=i; box.appendChild(b);});
+  [].slice.call(box.children).forEach(function(b){b.onclick=function(){var ok=+b.dataset.i===q.right; [].slice.call(box.children).forEach(function(x){x.disabled=true; if(+x.dataset.i===q.right)x.classList.add('right');}); if(!ok)b.classList.add('wrong'); var a=document.getElementById('ans'); a.innerHTML='<b>'+(ok?'✓ 对':'✗ 错')+'</b><br>'+esc(q.why); a.classList.add('on'); markDone(key,ok);};});
+  document.getElementById('btnHint').onclick=function(){document.getElementById('hint').classList.toggle('on');};
+  document.getElementById('btnPrev').onclick=function(){S.idx[kind]=(S.idx[kind]-1+data.length)%data.length; save(); renderChoice(kind);};
+  document.getElementById('btnNext').onclick=function(){S.idx[kind]=(S.idx[kind]+1)%data.length; save(); renderChoice(kind);};
+}
+
 function renderWrong(){
   var keys=Object.keys(S.wrong);
   view.innerHTML='<div class="card"><span class="qtag">错题本</span>'+
     (keys.length? '<ul class="wronglist">'+keys.map(function(k){
-        var label = k.split(':')[0]==='lines' ? '三行填空'
-                  : k.split(':')[0]==='trans' ? '变换判断' : '标题二选';
+        var label = {lines:'三行填空',trans:'变换判断',title:'标题二选',flaw:'漏洞判断',intent:'审题判断'}[k.split(':')[0]] || '练习';
         return '<li>['+label+'] '+esc(k.split(':').slice(1).join(':'))+'</li>';
       }).join('')+'</ul>'
       : '<p class="prompt">还没有错题。答错会自动记到这里。</p>')+
@@ -349,6 +380,7 @@ function setMode(m){
   if(m==='lines') renderLines();
   else if(m==='trans') renderTrans();
   else if(m==='title') renderTitle();
+  else if(m==='flaw' || m==='intent') renderChoice(m);
   else renderWrong();
   stats();
 }
@@ -357,7 +389,7 @@ function setMode(m){
 });
 document.getElementById('btnReset').onclick=function(){
   if(!window.confirm('清空本页的作答与错题记录？')) return;
-  S={mode:'lines',done:{},wrong:{},idx:{lines:0,trans:0,title:0}}; save(); setMode('lines');
+  S={mode:'lines',done:{},wrong:{},idx:{lines:0,trans:0,title:0,flaw:0,intent:0}}; save(); setMode('lines');
 };
 setMode(S.mode || 'lines');
 </script>
