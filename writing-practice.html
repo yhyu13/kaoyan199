@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>两日写作解题练习</title>
+<style>
+:root{--bg:#f6f4ef;--fg:#1d211c;--mut:#626860;--line:#ddd8ce;--card:#fffdf8;--ok:#1f6b4a;--no:#8e2f2f;--accent:#1e4e79}
+@media(prefers-color-scheme:dark){:root{--bg:#141613;--fg:#e9e7e1;--mut:#a4aaa2;--line:#30342e;--card:#1c1f1b;--ok:#7dcea5;--no:#e0876f;--accent:#8eb7de}}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.7 "Microsoft YaHei","PingFang SC",sans-serif}
+main{max-width:900px;margin:auto;padding:28px 18px 80px}h1{font-size:32px;line-height:1.3;margin:12px 0}
+a{color:var(--accent)} .meta{color:var(--mut)}
+.progress{height:8px;background:var(--line);border-radius:99px;margin:18px 0}.progress span{display:block;height:100%;background:var(--accent);border-radius:99px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.material{padding:10px 12px;border-left:4px solid var(--accent);background:var(--bg);border-radius:0 8px 8px 0}
+button.opt,button.nav{width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-top:8px;cursor:pointer}
+button.nav{width:auto;margin-right:8px}.opt.good{border-color:var(--ok)}.opt.bad{border-color:var(--no)}
+.why{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--bg)}.why.show{display:block}
+.why b{color:var(--ok)} .score{font-size:28px;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+<p><a href="writing.html">返回写作方法</a></p>
+<h1>两日写作：先判断，再写</h1>
+<p class="meta">共 8 题。材料只来自 11月14–15日已核对课件。做完一题再看思路，结果保存在这台浏览器。</p>
+<div class="progress"><span id="bar"></span></div>
+<p><span id="count">0 / 8</span></p>
+<div id="quiz"></div>
+</main>
+<script>
+const questions = [
+ {kind:"论证文",prompt:"零和博弈材料说：市场参与者存在绝对利害关系，一方胜利必然伴随另一方失败。最准确的攻击点是？",material:"竞争被直接写成零和，并使用「必然」「绝对」。",options:["竞争之外还有合作、市场扩大等可能，所以绝对化不成立","管理者应该加强内部治理","市场竞争总是不好的","企业应该避免招聘过多人员"],answer:0,why:"先引用「必然、绝对」，再指出合作、分工和共同做大市场都可能使双方受益。不要改成给管理者提建议。"},
+ {kind:"论证文",prompt:"一人创业材料由「AI 能完成文案、设计和剪辑」推出「个人一定创业成功」。断裂在哪里？",material:"部分工作成本下降，被连续推到价格优势、市场份额和创业成功。",options:["AI 工具没有用","部分职能可替代，推不出创业所需的全部条件已经满足","一个人不该创业","团队企业一定优于个人"],answer:1,why:"把推论拆成几步：会做部分工作，不等于拥有产品、客户、交付和风险承受能力。每一步都只是可能。"},
+ {kind:"论证文",prompt:"短视频材料说，年轻人靠短视频了解历史和科普，因此可以掌握书的全部核心内容。",material:"「了解一部分知识」被换成了「掌握全书核心」。",options:["短视频都没有价值","这里混淆了局部了解与全书核心","高校学者不能做短视频","大家都不该看书"],answer:1,why:"指出两个概念内涵不同：几分钟内容可以介绍结论，但不能因此等同于全书的论证、语境和限制条件。"},
+ {kind:"论证文",prompt:"写论证有效性时，哪句可以直接留在正文里？",material:"目标是证明材料的推论不成立。",options:["管理者应当建立有效激励机制","我认为企业应该主动出击","该前提只能推出可能性，不能推出必然结论","只有加强监管才能解决问题"],answer:2,why:"论证文评价的是推理。前三句都在提出做法，会把文章写回五类卷。"},
+ {kind:"论说文",prompt:"人工智能材料问：效率提升后，我们的问题是否越来越少？标题应抓住什么？",material:"材料同时给出「越来越少」和「不然」两种看法。",options:["管理者如何应对人工智能","问题多少与回答快慢不是一回事","人工智能的发展历史","企业必须增加研发投入"],answer:1,why:"标题要回应材料的问题。可以承认回答变快，再区分知识性问题与需要判断、取舍的问题。"},
+ {kind:"论说文",prompt:"「学我者生，似我者死」应落在哪个判断？",material:"许麟庐学到乱真；另一些人只模仿表面，不得要领。",options:["学习没有价值","核心是学习与表面模仿的边界","齐白石的生平介绍","企业不应培养员工"],answer:1,why:"这是寓言或故事类。要迁到企业学习：学原理和方法可以创新，只复制表面形式会失去自己的判断。"},
+ {kind:"论说文",prompt:"果树材料一边枝叶繁茂却结果少，另一边抑制徒长、养分内收后结果。写作重心是？",material:"繁茂与收敛同时出现，不能只选一个赞美。",options:["只赞美枝叶繁茂","繁茂与收敛要取舍，把资源用于结果","农业技术的发展","管理者应当修剪一切业务"],answer:1,why:"标题保留双方，例如「收外繁，养内实」。正文写资源有限时，扩张与沉淀如何配合。"},
+ {kind:"论说文",prompt:"双观点题「速度与质量」，结构第一句应该怎么起？",material:"11月15日模板要求先写看似对立、实则辩证统一。",options:["速度最重要，质量可以后补","质量高于一切，速度没有意义","二者看似对立，实则速度是兑现，质量是根基","用一个企业故事代替立场"],answer:2,why:"先定关系，再分配角色。速度不能脱离质量；质量也要靠适当速度进入市场。"}
+];
+const box=document.querySelector("#quiz"), done=new Set(JSON.parse(localStorage.getItem("writing-practice-v1")||"[]"));
+function render(){
+ box.innerHTML="";
+ questions.forEach((q,i)=>{
+  const el=document.createElement("article"); el.className="q";
+  el.innerHTML=`<p class="meta">第 ${i+1} 题 · ${q.kind}</p><h2>${q.prompt}</h2><p class="material">${q.material}</p>`;
+  q.options.forEach((text,k)=>{
+   const b=document.createElement("button"); b.className="opt"; b.textContent=text;
+   b.onclick=()=>choose(el,q,k,b); el.appendChild(b);
+  });
+  const why=document.createElement("div"); why.className="why"; why.innerHTML=`<b>解题路径</b><br>${q.why}`; el.appendChild(why);
+  if(done.has(i)){el.querySelectorAll("button")[q.answer].classList.add("good"); why.classList.add("show")}
+  box.appendChild(el);
+ });
+ update();
+}
+function choose(el,q,k,button){
+ if(el.dataset.locked) return; el.dataset.locked="1";
+ const buttons=[...el.querySelectorAll(".opt")];
+ buttons.forEach(b=>b.disabled=true);
+ buttons[q.answer].classList.add("good");
+ if(k!==q.answer) button.classList.add("bad");
+ el.querySelector(".why").classList.add("show");
+}
+function update(){
+ const shown=document.querySelectorAll(".why.show").length;
+ document.querySelector("#count").textContent=`${shown} / ${questions.length}`;
+ document.querySelector("#bar").style.width=`${shown/questions.length*100}%`;
+ const ids=[...document.querySelectorAll(".q")].flatMap((el,i)=>el.querySelector(".why.show")? [i]:[]);
+ localStorage.setItem("writing-practice-v1", JSON.stringify(ids));
+}
+render();
+new MutationObserver(update).observe(box,{subtree:true,attributes:true,attributeFilter:["class"]});
+</script>
+</body>
+</html>
