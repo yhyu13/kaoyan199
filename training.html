@@ -48,6 +48,10 @@ textarea.t{min-height:64px;resize:vertical}
 .ans{margin-top:12px;border-left:3px solid var(--accent);background:rgba(46,107,79,.08);
   border-radius:0 10px 10px 0;padding:10px 14px;font-size:14.5px;line-height:1.85;display:none}
 .ans.on{display:block}
+.hint{margin-top:10px;border-left:3px solid var(--warn);background:rgba(163,63,46,.08);
+  border-radius:0 10px 10px 0;padding:9px 13px;font-size:14px;line-height:1.8;display:none}
+.hint.on{display:block}
+.idxline{font-size:13px;color:var(--mut);margin-bottom:6px}
 .ans b{color:var(--accent)}
 .kv{display:grid;grid-template-columns:64px 1fr;gap:6px 10px;margin:8px 0}
 .kv dt{color:var(--mut);font-size:13.5px}
@@ -69,9 +73,9 @@ textarea.t{min-height:64px;resize:vertical}
 <p class="sub">练三样东西：<b>三行</b>（起点/终点/阻力）、<b>一段一变换</b>、<b>标题两边都写</b>。全部 AI 议题轮换出题，答错进错题本。</p>
 
 <div class="bar" id="modes">
-  <button data-m="lines" class="on">三行填空</button>
-  <button data-m="trans">变换判断</button>
-  <button data-m="title">标题二选</button>
+  <button data-m="lines" class="on">三行填空 · <span class="c"></span></button>
+  <button data-m="trans">变换判断 · <span class="c"></span></button>
+  <button data-m="title">标题二选 · <span class="c"></span></button>
   <button data-m="wrong">错题本 · <span id="wcount">0</span></button>
 </div>
 
@@ -177,8 +181,14 @@ function stats(){
   var total = TOPICS.length + TRANS.length + TITLES.length;
   var done = Object.keys(S.done).length;
   document.getElementById('progFill').style.width = (100*done/total).toFixed(0)+'%';
-  document.getElementById('stat').textContent = '已答 ' + done + ' / ' + total + ' · 错题 ' + Object.keys(S.wrong).length;
+  document.getElementById('stat').textContent = '总进度 ' + done + ' / ' + total +
+    ' · 三行 ' + TOPICS.length + ' / 变换 ' + TRANS.length + ' / 标题 ' + TITLES.length +
+    ' · 错题 ' + Object.keys(S.wrong).length;
   document.getElementById('wcount').textContent = Object.keys(S.wrong).length;
+  var counts={lines:TOPICS.length, trans:TRANS.length, title:TITLES.length, wrong:Object.keys(S.wrong).length};
+  [].slice.call(document.querySelectorAll('#modes button')).forEach(function(b){
+    var c=b.querySelector('.c'); if(c) c.textContent=counts[b.dataset.m];
+  });
 }
 function markDone(key, ok){
   S.done[key]=1;
@@ -188,13 +198,19 @@ function markDone(key, ok){
 
 function renderLines(){
   var t = TOPICS[S.idx.lines % TOPICS.length];
+  var i0 = S.idx.lines % TOPICS.length;
   view.innerHTML =
-    '<div class="card"><span class="qtag">议题 · ' + esc(t.name) + '</span>' +
+    '<div class="card"><div class="idxline">第 ' + (i0+1) + ' / ' + TOPICS.length + ' 题</div>' +
+    '<span class="qtag">议题 · ' + esc(t.name) + '</span>' +
     '<p class="prompt">写这篇之前，先写三行。写完再点「看参考答案」。</p>' +
     '<label class="f"><span>① 起点：读者现在相信什么</span><input class="t" id="l1" placeholder="一句话，写读者的旧信念"></label>' +
     '<label class="f"><span>② 终点：读完必须改信什么</span><input class="t" id="l2" placeholder="一句话，写你要他改成什么"></label>' +
     '<label class="f"><span>③ 阻力：哪一条旧信念会挡住</span><input class="t" id="l3" placeholder="一句话，写他为什么不愿意改"></label>' +
-    '<div class="actions"><button class="btn primary" id="btnShow">看参考答案</button>' +
+    '<div class="hint" id="hint">先问一句：读者现在最可能相信的那句话是什么？把它写成一句，不要写话题名。<br>' +
+    '再问一句：读完你要他改信的，和这句差在哪？差的那一点就是「阻力」。</div>' +
+    '<div class="actions"><button class="btn" id="btnHint">提示</button>' +
+    '<button class="btn primary" id="btnShow">看参考答案</button>' +
+    '<button class="btn" id="btnPrev">上一题</button>' +
     '<button class="btn" id="btnNext">下一题</button></div>' +
     '<div class="ans" id="ans"><b>参考答案</b>' +
       '<dl class="kv"><dt>起点</dt><dd>' + esc(t.start) + '</dd>' +
@@ -206,21 +222,35 @@ function renderLines(){
     document.getElementById('ans').classList.add('on');
     markDone('lines:'+t.id, true);
   };
+  document.getElementById('btnHint').onclick=function(){
+    document.getElementById('hint').classList.toggle('on');
+  };
+  document.getElementById('btnPrev').onclick=function(){
+    S.idx.lines=(S.idx.lines-1+TOPICS.length)%TOPICS.length; save(); renderLines();
+  };
   document.getElementById('btnNext').onclick=function(){
     S.idx.lines=(S.idx.lines+1)%TOPICS.length; save(); renderLines();
   };
 }
 
 function renderTrans(){
-  var q = TRANS[S.idx.trans % TRANS.length];
+  var i0 = S.idx.trans % TRANS.length;
+  var q = TRANS[i0];
   var kinds=[['definition','定义'],['decompose','分解'],['map','映射'],['conserve','守恒'],['counter','反例'],['none','不是变换']];
   view.innerHTML =
-    '<div class="card"><span class="qtag">这一段用的是哪种变换？</span>' +
+    '<div class="card"><div class="idxline">第 ' + (i0+1) + ' / ' + TRANS.length + ' 题</div>' +
+    '<span class="qtag">这一段用的是哪种变换？</span>' +
     '<p class="prompt">' + esc(q.text) + '</p>' +
     '<div class="opts">' + kinds.map(function(k,i){
       return '<button class="opt" data-k="'+k[0]+'">'+esc(k[1])+'</button>'; }).join('') + '</div>' +
+    '<div class="hint" id="hint">先找信号词：<br>' +
+    '· 在给某个词划内涵 → 定义　· 在拆成互不重叠的几块 → 分解<br>' +
+    '· 由一个输入推出一个输出 → 映射　· 换了说法结论还在 → 守恒<br>' +
+    '· 一条反例否掉普遍说法 → 反例　· 只是「而且/同时」并列 → 不是变换</div>' +
     '<div class="ans" id="ans"></div>' +
-    '<div class="actions"><button class="btn" id="btnNext">下一题</button></div></div>';
+    '<div class="actions"><button class="btn" id="btnHint">提示</button>' +
+    '<button class="btn" id="btnPrev">上一题</button>' +
+    '<button class="btn" id="btnNext">下一题</button></div></div>';
   var btns=[].slice.call(view.querySelectorAll('.opt'));
   btns.forEach(function(b){
     b.onclick=function(){
@@ -238,20 +268,32 @@ function renderTrans(){
       markDone('trans:'+q.text.slice(0,8), ok);
     };
   });
+  document.getElementById('btnHint').onclick=function(){
+    document.getElementById('hint').classList.toggle('on');
+  };
+  document.getElementById('btnPrev').onclick=function(){
+    S.idx.trans=(S.idx.trans-1+TRANS.length)%TRANS.length; save(); renderTrans();
+  };
   document.getElementById('btnNext').onclick=function(){
     S.idx.trans=(S.idx.trans+1)%TRANS.length; save(); renderTrans();
   };
 }
 
 function renderTitle(){
-  var q = TITLES[S.idx.title % TITLES.length];
+  var i0 = S.idx.title % TITLES.length;
+  var q = TITLES[i0];
   view.innerHTML =
-    '<div class="card"><span class="qtag">议题 · ' + esc(q.topic) + '</span>' +
+    '<div class="card"><div class="idxline">第 ' + (i0+1) + ' / ' + TITLES.length + ' 题</div>' +
+    '<span class="qtag">议题 · ' + esc(q.topic) + '</span>' +
     '<p class="prompt">下面三个标题，哪个是「两边都标出来」的？</p>' +
     '<div class="opts">' + q.opts.map(function(o,i){
       return '<button class="opt" data-i="'+i+'">'+String.fromCharCode(65+i)+'. '+esc(o)+'</button>'; }).join('') + '</div>' +
+    '<div class="hint" id="hint">数一数：标题里有没有出现<b>两个对立或相关的词</b>？<br>' +
+    '只出现一个词 = 只写一边；出现「如何应对」「论…的发展」= 换了题目，不是标题。</div>' +
     '<div class="ans" id="ans"></div>' +
-    '<div class="actions"><button class="btn" id="btnNext">下一题</button></div></div>';
+    '<div class="actions"><button class="btn" id="btnHint">提示</button>' +
+    '<button class="btn" id="btnPrev">上一题</button>' +
+    '<button class="btn" id="btnNext">下一题</button></div></div>';
   var btns=[].slice.call(view.querySelectorAll('.opt'));
   btns.forEach(function(b){
     b.onclick=function(){
@@ -265,6 +307,12 @@ function renderTitle(){
       markDone('title:'+q.topic, ok);
     };
   });
+  document.getElementById('btnHint').onclick=function(){
+    document.getElementById('hint').classList.toggle('on');
+  };
+  document.getElementById('btnPrev').onclick=function(){
+    S.idx.title=(S.idx.title-1+TITLES.length)%TITLES.length; save(); renderTitle();
+  };
   document.getElementById('btnNext').onclick=function(){
     S.idx.title=(S.idx.title+1)%TITLES.length; save(); renderTitle();
   };
