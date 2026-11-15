@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>写作训练 · 填空与选择</title>
+<style>
+:root{
+  --bg:#f6f4ef; --fg:#1e211d; --mut:#6b7069; --line:#ddd8ce; --card:#fffdf8;
+  --accent:#2e6b4f; --warn:#a33f2e; --ok:#2e6b4f; --chip:#f0ece2;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+    --accent:#7fc9a2; --warn:#e0876f; --ok:#7fc9a2; --chip:#22261f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+  --accent:#7fc9a2; --warn:#e0876f; --ok:#7fc9a2; --chip:#22261f;
+}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.75 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:22px 16px 70px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 16px}
+.bar button{border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:999px;padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+.bar button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--mut);margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.qtag{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
+.prompt{font-size:16px;line-height:1.85;margin:10px 0 12px;white-space:pre-wrap}
+label.f{display:block;margin:10px 0}
+label.f span{font-size:13px;color:var(--mut);display:block;margin-bottom:3px}
+input.t,textarea.t{width:100%;box-sizing:border-box;border:1px solid var(--line);background:var(--bg);
+  color:var(--fg);border-radius:9px;padding:9px 11px;font:inherit;font-size:15px;line-height:1.7}
+textarea.t{min-height:64px;resize:vertical}
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--bg);
+  color:var(--fg);border-radius:10px;padding:10px 13px;font:inherit;font-size:15px;cursor:pointer;line-height:1.6}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--ok);background:rgba(46,107,79,.14);font-weight:700}
+.opt.wrong{border-color:var(--warn);background:rgba(163,63,46,.13)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;
+  padding:7px 16px;font:inherit;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.ans{margin-top:12px;border-left:3px solid var(--accent);background:rgba(46,107,79,.08);
+  border-radius:0 10px 10px 0;padding:10px 14px;font-size:14.5px;line-height:1.85;display:none}
+.ans.on{display:block}
+.ans b{color:var(--accent)}
+.kv{display:grid;grid-template-columns:64px 1fr;gap:6px 10px;margin:8px 0}
+.kv dt{color:var(--mut);font-size:13.5px}
+.kv dd{margin:0;font-size:15px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.tbl th{background:var(--bg)}
+.prog{height:7px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 2px}
+.prog span{display:block;height:100%;background:var(--accent);width:0}
+.note{font-size:13px;color:var(--mut)}
+.wronglist li{font-size:14px;margin:5px 0}
+@media (max-width:600px){
+  h1{font-size:21px} .card{padding:13px}
+  .kv{grid-template-columns:52px 1fr}
+}
+</style></head><body><div class="wrap">
+
+<h1>写作训练 · 填空与选择</h1>
+<p class="sub">练三样东西：<b>三行</b>（起点/终点/阻力）、<b>一段一变换</b>、<b>标题两边都写</b>。全部 AI 议题轮换出题，答错进错题本。</p>
+
+<div class="bar" id="modes">
+  <button data-m="lines" class="on">三行填空</button>
+  <button data-m="trans">变换判断</button>
+  <button data-m="title">标题二选</button>
+  <button data-m="wrong">错题本 · <span id="wcount">0</span></button>
+</div>
+
+<div class="prog"><span id="progFill"></span></div>
+<div class="meta"><span id="stat"></span><button class="btn" type="button" id="btnReset" style="padding:2px 12px;font-size:12.5px">清空进度</button></div>
+
+<main id="view"></main>
+
+<p class="note" style="margin-top:26px">
+方法出处：<code>10-真题体系/05-AI议题写作通解.md</code>（议题与边界）＋
+<code>写作专题/mental-model-writing</code>（五种变换、一段一变换、标题两边都要标）。
+本页只判结构在不在，不判文笔好不好。
+</p>
+
+</div>
+<script>
+/* ================= 数据 ================= */
+var TOPICS = [
+ {id:'q1', name:'AI 让问题变少还是变多', A:'效率：问题被解决', B:'复杂度：新问题被制造',
+  boundary:'边界在「问题由谁定义」：执行类问题在减少，判断类问题在增加',
+  start:'读者相信「AI 提高效率，所以问题会更少」',
+  end:'读完相信「问题总数没变少，只是从执行类挪到了判断类」',
+  resist:'「效率」这个词本身让人以为总量会减少',
+  good:['以「效率」解决旧题，以「判断」回应新题','「少」的是执行，「多」的是判断'],
+  bad:['论人工智能的效率优势','AI 时代我们该如何应对']},
+ {id:'q2', name:'AI 替代人还是增强人', A:'替代：可标准化的任务', B:'增强：需要判断的任务',
+  boundary:'边界在「责任能否外包」：能外包的会被替代，不能外包的只能被增强',
+  start:'读者担心「AI 会整体取代人」',
+  end:'读完相信「被替代的不是人，是任务；留下来的那部分恰恰不能外包」',
+  resist:'把「岗位」和「任务」当成同一个东西',
+  good:['以「任务」谈替代，以「责任」谈增强','「替代」的是任务，「增强」的是判断'],
+  bad:['AI 会不会取代人类','人机协作的重要性']},
+ {id:'q3', name:'AI 与教育（教什么）', A:'工具：该教怎么用', B:'目的：该教为什么用',
+  boundary:'边界在「考试还考不考这件事」：考的地方方法会被教，不考的地方只剩习惯',
+  start:'读者相信「AI 进课堂就是教工具」',
+  end:'读完相信「工具会被自动学会，学校真正要守住的是判断标准」',
+  resist:'把「会用」当成「会判断」',
+  good:['以「工具」进课堂，以「标准」守课堂','「怎么用」会过时，「为什么用」不会'],
+  bad:['论 AI 对教育的影响','教育信息化的路径']},
+ {id:'q4', name:'AI 与诚信（署名与担责）', A:'便利：表达成本下降', B:'责任：署名该由谁负',
+  boundary:'边界在「谁署名谁负责」：署名的人必须能解释产出，否则署的是空名',
+  start:'读者相信「用 AI 写东西只是效率问题」',
+  end:'读完相信「用 AI 不违规，解释不了才违规」',
+  resist:'把「用了工具」和「放弃了判断」混为一谈',
+  good:['以「便利」降低门槛，以「署名」补上责任','「用了没」不重要，「解释得了」才重要'],
+  bad:['论学术诚信','AI 写作的伦理问题']},
+ {id:'q5', name:'效率与判断力', A:'效率：省下的时间', B:'判断力：被省掉的训练',
+  boundary:'边界在「这项技能是否靠重复获得」：靠重复获得的，省下来就等于没长',
+  start:'读者相信「省时间总是好事」',
+  end:'读完相信「有些时间省下来，省掉的是能力本身」',
+  resist:'默认所有时间都可替代',
+  good:['以「效率」换时间，以「训练」换能力','省掉的不是时间，是练习次数'],
+  bad:['论效率的重要性','时间管理的方法']}
+];
+
+var TRANS = [
+ {text:'这里说的「替代」只指可标准化的任务，不含需要担责的判断。', ans:'definition',
+  why:'先给「替代」划了内涵，后文共用一个意思 → 定义。'},
+ {text:'企业用 AI 的收益分三层：省下的人力、缩短的周期、减少的返工。', ans:'decompose',
+  why:'把「收益」拆成互不重叠的三块 → 分解。'},
+ {text:'一个团队把审核环节交给 AI，出错后没人能解释这条结论怎么来的。', ans:'map',
+  why:'「交给 AI」这个输入，推出「无人能解释」这个输出 → 映射。'},
+ {text:'无论工具怎么换，最终要有人签字这件事没有变。', ans:'conserve',
+  why:'换了说法，结论（要有人签字）仍然成立 → 守恒。'},
+ {text:'有人说 AI 必然提升所有企业效率。一家作坊买来系统后返工率翻倍，这就是反例。', ans:'counter',
+  why:'一条反例否掉了「必然」这条普遍说法 → 反例。'},
+ {text:'AI 很重要，而且现在很多公司都在用，我们应该重视它。', ans:'none',
+  why:'「而且」只是并列，没有改变任何信念 → 不是变换，应该删。'},
+ {text:'读图时先报四个类别：满足好奇心 54.6%、促进观察力 54.5%、强身健体 37.2%、增强亲子互动 33.2%。', ans:'decompose',
+  why:'把「看法」拆成四类并报全数据 → 分解（图表段允许放宽到 12 个数字）。'},
+ {text:'如果把判断也外包出去，剩下的就只有执行；而执行恰恰是最容易被替换的部分。', ans:'map',
+  why:'由「外包判断」推出「只剩执行」，再由「执行」推出「最容易被替换」→ 映射。'}
+];
+
+var TITLES = [
+ {topic:'AI 让问题变少还是变多',
+  opts:['论人工智能的发展','以「效率」解决旧题，以「判断」回应新题','AI 时代我们该如何应对'], right:1,
+  why:'只有第二个同时标出「效率」和「判断」两边；第一个是主题词，第三个是替题回答。'},
+ {topic:'AI 替代人还是增强人',
+  opts:['「替代」的是任务，「增强」的是判断','AI 会不会取代人类','人机协作的重要性'], right:0,
+  why:'第一个两边都在；第二个是选边问句；第三个只写一边（协作）。'},
+ {topic:'AI 与教育',
+  opts:['论 AI 对教育的影响','教育信息化的路径','以「工具」进课堂，以「标准」守课堂'], right:2,
+  why:'第三个把「工具」和「标准」都标出来；前两个是话题，不是判断。'},
+ {topic:'效率与判断力',
+  opts:['论效率的重要性','省掉的不是时间，是练习次数','时间管理的方法'], right:1,
+  why:'第二个把「时间」和「练习」的关系写成了判断；第一个只写一边。'},
+ {topic:'AI 与诚信',
+  opts:['论学术诚信','AI 写作的伦理问题','「用了没」不重要，「解释得了」才重要'], right:2,
+  why:'第三个给出了判断句；前两个是话题词，读者看完仍不知道你的立场。'}
+];
+
+/* ================= 状态 ================= */
+var LS='kg2026-writing-drill-v1';
+var S = {mode:'lines', done:{}, wrong:{}, idx:{lines:0, trans:0, title:0}};
+try{ var raw=localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object'){ S=Object.assign(S,o);} } }catch(e){}
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+
+/* ================= 渲染 ================= */
+var view=document.getElementById('view');
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function stats(){
+  var total = TOPICS.length + TRANS.length + TITLES.length;
+  var done = Object.keys(S.done).length;
+  document.getElementById('progFill').style.width = (100*done/total).toFixed(0)+'%';
+  document.getElementById('stat').textContent = '已答 ' + done + ' / ' + total + ' · 错题 ' + Object.keys(S.wrong).length;
+  document.getElementById('wcount').textContent = Object.keys(S.wrong).length;
+}
+function markDone(key, ok){
+  S.done[key]=1;
+  if(!ok) S.wrong[key]=1; else delete S.wrong[key];
+  save(); stats();
+}
+
+function renderLines(){
+  var t = TOPICS[S.idx.lines % TOPICS.length];
+  view.innerHTML =
+    '<div class="card"><span class="qtag">议题 · ' + esc(t.name) + '</span>' +
+    '<p class="prompt">写这篇之前，先写三行。写完再点「看参考答案」。</p>' +
+    '<label class="f"><span>① 起点：读者现在相信什么</span><input class="t" id="l1" placeholder="一句话，写读者的旧信念"></label>' +
+    '<label class="f"><span>② 终点：读完必须改信什么</span><input class="t" id="l2" placeholder="一句话，写你要他改成什么"></label>' +
+    '<label class="f"><span>③ 阻力：哪一条旧信念会挡住</span><input class="t" id="l3" placeholder="一句话，写他为什么不愿意改"></label>' +
+    '<div class="actions"><button class="btn primary" id="btnShow">看参考答案</button>' +
+    '<button class="btn" id="btnNext">下一题</button></div>' +
+    '<div class="ans" id="ans"><b>参考答案</b>' +
+      '<dl class="kv"><dt>起点</dt><dd>' + esc(t.start) + '</dd>' +
+      '<dt>终点</dt><dd>' + esc(t.end) + '</dd>' +
+      '<dt>阻力</dt><dd>' + esc(t.resist) + '</dd>' +
+      '<dt>边界</dt><dd>' + esc(t.boundary) + '</dd></dl>' +
+      '<p>自评：三行都写到「具体信念」而不是「话题」，算对。</p></div></div>';
+  document.getElementById('btnShow').onclick=function(){
+    document.getElementById('ans').classList.add('on');
+    markDone('lines:'+t.id, true);
+  };
+  document.getElementById('btnNext').onclick=function(){
+    S.idx.lines=(S.idx.lines+1)%TOPICS.length; save(); renderLines();
+  };
+}
+
+function renderTrans(){
+  var q = TRANS[S.idx.trans % TRANS.length];
+  var kinds=[['definition','定义'],['decompose','分解'],['map','映射'],['conserve','守恒'],['counter','反例'],['none','不是变换']];
+  view.innerHTML =
+    '<div class="card"><span class="qtag">这一段用的是哪种变换？</span>' +
+    '<p class="prompt">' + esc(q.text) + '</p>' +
+    '<div class="opts">' + kinds.map(function(k,i){
+      return '<button class="opt" data-k="'+k[0]+'">'+esc(k[1])+'</button>'; }).join('') + '</div>' +
+    '<div class="ans" id="ans"></div>' +
+    '<div class="actions"><button class="btn" id="btnNext">下一题</button></div></div>';
+  var btns=[].slice.call(view.querySelectorAll('.opt'));
+  btns.forEach(function(b){
+    b.onclick=function(){
+      var ok = b.dataset.k===q.ans;
+      btns.forEach(function(x){
+        x.disabled=true;
+        if(x.dataset.k===q.ans) x.classList.add('right');
+      });
+      if(!ok) b.classList.add('wrong');
+      var a=document.getElementById('ans');
+      a.innerHTML='<b>'+(ok?'✓ 对':'✗ 错')+'</b>　正确答案：'+
+        esc((kinds.filter(function(k){return k[0]===q.ans})[0]||['',''])[1])+
+        '<br>' + esc(q.why);
+      a.classList.add('on');
+      markDone('trans:'+q.text.slice(0,8), ok);
+    };
+  });
+  document.getElementById('btnNext').onclick=function(){
+    S.idx.trans=(S.idx.trans+1)%TRANS.length; save(); renderTrans();
+  };
+}
+
+function renderTitle(){
+  var q = TITLES[S.idx.title % TITLES.length];
+  view.innerHTML =
+    '<div class="card"><span class="qtag">议题 · ' + esc(q.topic) + '</span>' +
+    '<p class="prompt">下面三个标题，哪个是「两边都标出来」的？</p>' +
+    '<div class="opts">' + q.opts.map(function(o,i){
+      return '<button class="opt" data-i="'+i+'">'+String.fromCharCode(65+i)+'. '+esc(o)+'</button>'; }).join('') + '</div>' +
+    '<div class="ans" id="ans"></div>' +
+    '<div class="actions"><button class="btn" id="btnNext">下一题</button></div></div>';
+  var btns=[].slice.call(view.querySelectorAll('.opt'));
+  btns.forEach(function(b){
+    b.onclick=function(){
+      var i=+b.dataset.i, ok = i===q.right;
+      btns.forEach(function(x){ x.disabled=true; if(+x.dataset.i===q.right) x.classList.add('right'); });
+      if(!ok) b.classList.add('wrong');
+      var a=document.getElementById('ans');
+      a.innerHTML='<b>'+(ok?'✓ 对':'✗ 错')+'</b>　正确答案：'+String.fromCharCode(65+q.right)+
+        '<br>' + esc(q.why);
+      a.classList.add('on');
+      markDone('title:'+q.topic, ok);
+    };
+  });
+  document.getElementById('btnNext').onclick=function(){
+    S.idx.title=(S.idx.title+1)%TITLES.length; save(); renderTitle();
+  };
+}
+
+function renderWrong(){
+  var keys=Object.keys(S.wrong);
+  view.innerHTML='<div class="card"><span class="qtag">错题本</span>'+
+    (keys.length? '<ul class="wronglist">'+keys.map(function(k){
+        var label = k.split(':')[0]==='lines' ? '三行填空'
+                  : k.split(':')[0]==='trans' ? '变换判断' : '标题二选';
+        return '<li>['+label+'] '+esc(k.split(':').slice(1).join(':'))+'</li>';
+      }).join('')+'</ul>'
+      : '<p class="prompt">还没有错题。答错会自动记到这里。</p>')+
+    '<div class="actions"><button class="btn primary" id="btnRetry">重做错题</button></div></div>';
+  var r=document.getElementById('btnRetry');
+  if(r) r.onclick=function(){
+    keys.forEach(function(k){
+      var p=k.split(':');
+      if(p[0]==='trans'){
+        var i=TRANS.map(function(x){return x.text.slice(0,8)}).indexOf(p[1]);
+        if(i>=0){ S.idx.trans=i; setMode('trans'); return; }
+      }
+    });
+    setMode('trans');
+  };
+}
+
+function setMode(m){
+  S.mode=m; save();
+  [].slice.call(document.querySelectorAll('#modes button')).forEach(function(b){
+    b.classList.toggle('on', b.dataset.m===m);
+  });
+  if(m==='lines') renderLines();
+  else if(m==='trans') renderTrans();
+  else if(m==='title') renderTitle();
+  else renderWrong();
+  stats();
+}
+[].slice.call(document.querySelectorAll('#modes button')).forEach(function(b){
+  b.onclick=function(){ setMode(b.dataset.m); };
+});
+document.getElementById('btnReset').onclick=function(){
+  if(!window.confirm('清空本页的作答与错题记录？')) return;
+  S={mode:'lines',done:{},wrong:{},idx:{lines:0,trans:0,title:0}}; save(); setMode('lines');
+};
+setMode(S.mode || 'lines');
+</script>
+</body></html>
