@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "note": "专栏定义。条目的 column 字段写这里的 slug；没写 column 的条目自动归到 tags[0] 对应的专栏。tone 只能是 green / violet / amber / blue / rose。",
+  "columns": [
+    {
+      "slug": "deepseek",
+      "name": "DeepSeek 对话",
+      "tone": "violet",
+      "desc": "一次对话 = 一条记录：我问了什么、它答了什么、我采纳了哪一句、哪一句后来被推翻了。",
+      "howto": [
+        "把 DeepSeek 的分享链接和对话正文丢进 Chat，我拆成若干条结论入库，每条挂 [[双链]] 指回相关考点和题。",
+        "自己跑：python _data/kb.py ds --url <分享链接> --file 对话.md --title '结论句'",
+        "一条只放一个结论；原文折叠在条目底部，随时能翻回原话。",
+        "同一件事以后想起来了，不改老条目，新开一条并 [[链接]] 到它——历史才看得见。"
+      ]
+    },
+    {
+      "slug": "logic",
+      "name": "逻辑",
+      "tone": "amber",
+      "desc": "论证逻辑与分析推理：通解、判据、错因。"
+    },
+    {
+      "slug": "math",
+      "name": "数学",
+      "tone": "blue",
+      "desc": "算术、代数、几何、数据分析：一题一招，招招能复用。"
+    },
+    {
+      "slug": "writing",
+      "name": "写作",
+      "tone": "green",
+      "desc": "论证有效性分析与论说文：审题、骨架、素材。"
+    },
+    {
+      "slug": "english",
+      "name": "英语",
+      "tone": "rose",
+      "desc": "英语二：长难句、翻译、大小作文。"
+    }
+  ]
+}
