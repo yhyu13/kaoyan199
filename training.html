@@ -86,6 +86,10 @@ h2{font-size:17px;margin:22px 0 8px}
 .olbody .ph{color:var(--mut);font-style:italic}
 .olbody .fill{font-weight:600}
 .olnote{font-size:13px;color:var(--mut);margin-top:6px}
+.wblink{display:inline-flex;align-items:center;gap:5px;margin:0 0 8px;
+  padding:3px 12px;border:1px solid var(--line);border-radius:999px;
+  background:var(--card);color:var(--accent);font-size:13px;text-decoration:none}
+.wblink:hover{border-color:var(--accent)}
 @media (max-width:600px){
   h1{font-size:21px} .card{padding:13px}
   .olrow{grid-template-columns:1fr;gap:4px}
@@ -94,6 +98,7 @@ h2{font-size:17px;margin:22px 0 8px}
 
 <h1>写作训练 · 论说文 → 论证文 → 英文</h1>
 <p class="sub">全部选择题。每一步只判一件事，答对就把那句话填进下面的<b>大纲</b>里——六步答完，一篇 700 字论说文的骨架就拼好了。答错自动进错题本。</p>
+<a class="wblink" href="wrongbook.html">独立错题本 · 全部错题汇总 →</a>
 
 <div class="bar" id="tabs">
   <button data-t="essay" class="on">① 论说文 · 拼大纲</button>
@@ -116,6 +121,193 @@ h2{font-size:17px;margin:22px 0 8px}
 </p>
 
 </div>
+<script>
+/* ========== 错题本共享存储 · 所有做题页共用 kg2026-wrong-v1 ========== */
+window.WB = (function(){
+  var KEY = 'kg2026-wrong-v1';
+  var EB = [1, 2, 4, 7, 15];
+  var mem = null;
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function today(){
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function stamp(){ return new Date().toISOString(); }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function blank(){ return { v: 1, updatedAt: '', items: {}, removed: {} }; }
+  function load(){
+    if(mem) return mem;
+    var st = blank();
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(raw){
+        var o = JSON.parse(raw);
+        if(o && typeof o === 'object'){
+          st.v = o.v || 1;
+          st.items = o.items && typeof o.items === 'object' ? o.items : {};
+          st.removed = o.removed && typeof o.removed === 'object' ? o.removed : {};
+        }
+      }
+    }catch(e){}
+    mem = st;
+    return st;
+  }
+  function save(){
+    var st = load();
+    st.updatedAt = stamp();
+    try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){}
+    try{
+      var ev;
+      if(typeof window.CustomEvent === 'function'){
+        ev = new window.CustomEvent('wb:change');
+      }else{
+        ev = document.createEvent('Event');
+        ev.initEvent('wb:change', true, true);
+      }
+      window.dispatchEvent(ev);
+    }catch(e){}
+  }
+  function norm(it){
+    if(!it || typeof it !== 'object') return null;
+    var o = clone(it);
+    o.id = String(o.id || '').replace(/^\s+|\s+$/g, '');
+    if(!o.id) return null;
+    o.src = o.src || 'manual';
+    o.source = o.source || '手动';
+    o.opts = Object.prototype.toString.call(o.opts) === '[object Array]' ? o.opts : [];
+    o.optKeys = Object.prototype.toString.call(o.optKeys) === '[object Array]' ? o.optKeys : [];
+    o.why = Object.prototype.toString.call(o.why) === '[object Array]' ? o.why : [];
+    o.tags = Object.prototype.toString.call(o.tags) === '[object Array]' ? o.tags : [];
+    o.done = Object.prototype.toString.call(o.done) === '[object Array]' ? o.done : [];
+    o.stage = Math.max(0, Math.min(EB.length, parseInt(o.stage, 10) || 0));
+    o.addedAt = o.addedAt || today();
+    o.mastered = !!o.mastered || o.stage >= EB.length;
+    o.ans = (typeof o.ans === 'number' && o.ans >= 0) ? o.ans : null;
+    o.pick = (typeof o.pick === 'number' && o.pick >= 0) ? o.pick : null;
+    o.updatedAt = o.updatedAt || stamp();
+    return o;
+  }
+  function add(it, opt){
+    opt = opt || {};
+    it = norm(it);
+    if(!it) return null;
+    var st = load();
+    if(st.removed[it.id] && !opt.force) return null;
+    if(st.removed[it.id] && opt.force) delete st.removed[it.id];
+    var old = st.items[it.id];
+    if(old){
+      /* 只更新题目内容；复习状态 / 加入日期 / 备注由老条目保留 */
+      for(var k in it){
+        if(!Object.prototype.hasOwnProperty.call(it, k)) continue;
+        if(k === 'stage' || k === 'done' || k === 'addedAt' || k === 'mastered'
+           || k === 'note' || k === 'tags' || k === 'lastReview') continue;
+        if(it[k] === '' || it[k] === null || it[k] === undefined) continue;
+        old[k] = it[k];
+      }
+      if(opt.stage != null) old.stage = Math.max(0, Math.min(EB.length, +opt.stage || 0));
+      if(opt.done) old.done = opt.done.slice();
+      if(opt.addedAt) old.addedAt = opt.addedAt;
+      if(opt.note != null) old.note = opt.note;
+      if(opt.tags) old.tags = opt.tags.slice();
+      old.mastered = !!old.mastered || old.stage >= EB.length;
+      old.updatedAt = stamp();
+    }else{
+      if(opt.stage != null) it.stage = Math.max(0, Math.min(EB.length, +opt.stage || 0));
+      if(opt.done) it.done = opt.done.slice();
+      if(opt.addedAt) it.addedAt = opt.addedAt;
+      if(opt.note != null) it.note = opt.note;
+      if(opt.tags) it.tags = opt.tags.slice();
+      it.mastered = !!it.mastered || it.stage >= EB.length;
+      it.updatedAt = stamp();
+      st.items[it.id] = it;
+    }
+    save();
+    return st.items[it.id];
+  }
+  function has(id){
+    var st = load();
+    return !!(st.items[id] && !st.removed[id]);
+  }
+  function get(id){
+    var st = load();
+    return st.items[id] && !st.removed[id] ? st.items[id] : null;
+  }
+  function remove(id){
+    var st = load();
+    if(st.items[id]) delete st.items[id];
+    st.removed[id] = today();
+    save();
+  }
+  function restore(id){
+    var st = load();
+    delete st.removed[id];
+    save();
+  }
+  function review(id){
+    var st = load(), it = st.items[id];
+    if(!it) return null;
+    it.done = it.done || [];
+    it.done.push(today());
+    it.stage = Math.min(EB.length, (+it.stage || 0) + 1);
+    it.lastReview = today();
+    if(it.stage >= EB.length) it.mastered = true;
+    save();
+    return it;
+  }
+  function setNote(id, note){
+    var st = load(), it = st.items[id];
+    if(!it) return null;
+    it.note = String(note == null ? '' : note);
+    it.updatedAt = stamp();
+    save();
+    return it;
+  }
+  function all(){
+    var st = load(), out = [];
+    for(var id in st.items){
+      if(!Object.prototype.hasOwnProperty.call(st.items, id)) continue;
+      if(st.removed[id]) continue;
+      out.push(st.items[id]);
+    }
+    return out;
+  }
+  function count(){ return all().length; }
+  function snapshot(){
+    return { v: 1, key: KEY, exportedAt: stamp(), eb: EB, items: all() };
+  }
+  function dueDate(it){
+    if(!it) return null;
+    if(!it.addedAt || it.stage >= EB.length) return null;
+    var p = String(it.addedAt).split('-');
+    var d = new Date(+p[0], (+p[1] || 1) - 1, +p[2] || 1);
+    d.setDate(d.getDate() + EB[it.stage]);
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function dueState(it){
+    var d = dueDate(it);
+    if(!d) return 'done';
+    var t = today();
+    if(d < t) return 'late';
+    if(d === t) return 'today';
+    return 'future';
+  }
+  function clearLocal(){
+    mem = blank();
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    save();
+  }
+  return {
+    KEY: KEY, EB: EB, today: today, load: load, save: save,
+    add: add, put: function(it){ return add(it, {force:true}); },
+    has: has, get: get, remove: remove, restore: restore,
+    review: review, setNote: setNote, all: all, count: count,
+    snapshot: snapshot, dueDate: dueDate, dueState: dueState,
+    clearLocal: clearLocal
+  };
+})();
+</script>
 <script>
 /* =========================================================
    数据：三个 track，每个 track 若干「题组」，每组若干「步」
@@ -655,6 +847,22 @@ function renderTrack(t){
   drawOutline(item);
 }
 
+function wbAddStep(item, st, track, picked){
+  if(typeof WB === 'undefined') return;
+  var keys = ['A','B','C','D','E'];
+  WB.add({
+    id: 'writing:' + keyOf(item, st).replace('::','-'),
+    src: 'writing', source: '写作训练', qid: keyOf(item, st),
+    page: '写作训练.html', subject: (track === 'en' ? 'english' : 'writing'),
+    kp: '', kpName: item.name + ' · ' + st.name,
+    stem: (item.material ? item.material + String.fromCharCode(10) + String.fromCharCode(10) : '') + st.ask,
+    opts: st.opts.slice(), optKeys: keys.slice(0, st.opts.length),
+    ans: st.right, pick: picked,
+    kind: '写作步骤', trap: '', sol: st.why, why: [],
+    reason: '答错', addedAt: WB.today()
+  }, {force:true});
+}
+
 function stepEl(item,st,si){
   var k=keyOf(item,st), rec=S.res[k];
   var answered=(rec!=null);
@@ -697,7 +905,10 @@ function stepEl(item,st,si){
       b.onclick=function(){
         picked=+b.dataset.i; ok=(picked===st.right);
         S.res[k]= ok?1:(picked+100);
-        if(!ok) S.wrong[k]=1;   /* 曾经答错就留在错题本，答对后标「已订正」 */
+        if(!ok){
+          S.wrong[k]=1;   /* 曾经答错就留在错题本，答对后标「已订正」 */
+          try{ wbAddStep(item, st, S.tab, picked); }catch(e){}
+        }
         save();
         btns.forEach(function(x){
           var i=+x.dataset.i; x.disabled=true;

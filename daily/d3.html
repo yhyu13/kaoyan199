@@ -20,7 +20,7 @@
 13. 目标分默认值在 defaultState()：targets.math=50、targets.logic=40；换卷按新卷满分调整滑杆 max（HTML 里 tMath / tLogic 的 max）。
 14. 目标分滑杆的 step 是「一题的分值」（数学 3、逻辑 2），保证目标分永远是一道题能凑出来的数。
 15. localStorage 的 key 是 kg2026-brush-v1 —— 换卷务必改 key，否则上一卷的作答/计时会串到新卷的题号上。
-16. 错题本是派生数据（answers 里答错的题），没有独立存储，所以「清空错题本」= 删掉那些错答，题目回到未作答。
+16. 错题本有两层：页面内 state.marks（本页错题集面板） + 共享 localStorage `kg2026-wrong-v1`（所有做题页汇到 错题本.html）。改字段时两边一起改，否则独立页缺题干。
 17. tierWhy 与 expectSec 是这套系统的核心字段：前者决定档位理由，后者决定「超时该跳」的红色提醒，缺一个就少一半价值。
 18. 加题后如果 A 档超过 30 题，先怀疑定档标准被稀释了 —— A 档的定义是「三步内出答案、错了就是粗心」。
 19. 打印样式只隐藏按钮类元素，题干/选项/解析照常输出，可直接打印成纸质卷（@media print 在 CSS 末尾）。
@@ -302,6 +302,12 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .ext-back{ display:none; margin:0 0 10px; padding:8px 10px; border-radius:8px;
   background:var(--warnbg); font-size:14px; }
 .ext-back.on{ display:block; }
+.wblink{ display:inline-flex; align-items:center; gap:5px; margin:2px 0 10px;
+  padding:3px 12px; border:1px solid var(--line); border-radius:999px;
+  background:var(--card); color:var(--accent); font-size:13px; text-decoration:none;
+  line-height:1.7; }
+.wblink b{ font-variant-numeric:tabular-nums; }
+.wblink:hover{ border-color:var(--accent); }
 .qcard.flash{ animation:fl 1.6s ease-out 1; }
 @keyframes fl{ 0%{ box-shadow:0 0 0 3px var(--accent); } 100%{ box-shadow:0 0 0 0 transparent; } }
 .kpnav{ display:none; }
@@ -723,6 +729,7 @@ function typesetMath(root){
     <h1>2026 管综真题刷题系统</h1>
     <p class="sub" id="metaLine"></p>
     <div class="daynav" id="dayNav" hidden></div>
+    <a class="wblink no-print" id="wbLink" href="../wrongbook.html">独立错题本 <b id="wbLinkCount">0</b> →</a>
   </header>
 
   <nav class="tabbar no-print" role="tablist" aria-label="主导航">
@@ -871,6 +878,193 @@ function typesetMath(root){
       }
     }, 2500);
   });
+})();
+</script>
+<script>
+/* ========== 错题本共享存储 · 所有做题页共用 kg2026-wrong-v1 ========== */
+window.WB = (function(){
+  var KEY = 'kg2026-wrong-v1';
+  var EB = [1, 2, 4, 7, 15];
+  var mem = null;
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function today(){
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function stamp(){ return new Date().toISOString(); }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function blank(){ return { v: 1, updatedAt: '', items: {}, removed: {} }; }
+  function load(){
+    if(mem) return mem;
+    var st = blank();
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(raw){
+        var o = JSON.parse(raw);
+        if(o && typeof o === 'object'){
+          st.v = o.v || 1;
+          st.items = o.items && typeof o.items === 'object' ? o.items : {};
+          st.removed = o.removed && typeof o.removed === 'object' ? o.removed : {};
+        }
+      }
+    }catch(e){}
+    mem = st;
+    return st;
+  }
+  function save(){
+    var st = load();
+    st.updatedAt = stamp();
+    try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){}
+    try{
+      var ev;
+      if(typeof window.CustomEvent === 'function'){
+        ev = new window.CustomEvent('wb:change');
+      }else{
+        ev = document.createEvent('Event');
+        ev.initEvent('wb:change', true, true);
+      }
+      window.dispatchEvent(ev);
+    }catch(e){}
+  }
+  function norm(it){
+    if(!it || typeof it !== 'object') return null;
+    var o = clone(it);
+    o.id = String(o.id || '').replace(/^\s+|\s+$/g, '');
+    if(!o.id) return null;
+    o.src = o.src || 'manual';
+    o.source = o.source || '手动';
+    o.opts = Object.prototype.toString.call(o.opts) === '[object Array]' ? o.opts : [];
+    o.optKeys = Object.prototype.toString.call(o.optKeys) === '[object Array]' ? o.optKeys : [];
+    o.why = Object.prototype.toString.call(o.why) === '[object Array]' ? o.why : [];
+    o.tags = Object.prototype.toString.call(o.tags) === '[object Array]' ? o.tags : [];
+    o.done = Object.prototype.toString.call(o.done) === '[object Array]' ? o.done : [];
+    o.stage = Math.max(0, Math.min(EB.length, parseInt(o.stage, 10) || 0));
+    o.addedAt = o.addedAt || today();
+    o.mastered = !!o.mastered || o.stage >= EB.length;
+    o.ans = (typeof o.ans === 'number' && o.ans >= 0) ? o.ans : null;
+    o.pick = (typeof o.pick === 'number' && o.pick >= 0) ? o.pick : null;
+    o.updatedAt = o.updatedAt || stamp();
+    return o;
+  }
+  function add(it, opt){
+    opt = opt || {};
+    it = norm(it);
+    if(!it) return null;
+    var st = load();
+    if(st.removed[it.id] && !opt.force) return null;
+    if(st.removed[it.id] && opt.force) delete st.removed[it.id];
+    var old = st.items[it.id];
+    if(old){
+      /* 只更新题目内容；复习状态 / 加入日期 / 备注由老条目保留 */
+      for(var k in it){
+        if(!Object.prototype.hasOwnProperty.call(it, k)) continue;
+        if(k === 'stage' || k === 'done' || k === 'addedAt' || k === 'mastered'
+           || k === 'note' || k === 'tags' || k === 'lastReview') continue;
+        if(it[k] === '' || it[k] === null || it[k] === undefined) continue;
+        old[k] = it[k];
+      }
+      if(opt.stage != null) old.stage = Math.max(0, Math.min(EB.length, +opt.stage || 0));
+      if(opt.done) old.done = opt.done.slice();
+      if(opt.addedAt) old.addedAt = opt.addedAt;
+      if(opt.note != null) old.note = opt.note;
+      if(opt.tags) old.tags = opt.tags.slice();
+      old.mastered = !!old.mastered || old.stage >= EB.length;
+      old.updatedAt = stamp();
+    }else{
+      if(opt.stage != null) it.stage = Math.max(0, Math.min(EB.length, +opt.stage || 0));
+      if(opt.done) it.done = opt.done.slice();
+      if(opt.addedAt) it.addedAt = opt.addedAt;
+      if(opt.note != null) it.note = opt.note;
+      if(opt.tags) it.tags = opt.tags.slice();
+      it.mastered = !!it.mastered || it.stage >= EB.length;
+      it.updatedAt = stamp();
+      st.items[it.id] = it;
+    }
+    save();
+    return st.items[it.id];
+  }
+  function has(id){
+    var st = load();
+    return !!(st.items[id] && !st.removed[id]);
+  }
+  function get(id){
+    var st = load();
+    return st.items[id] && !st.removed[id] ? st.items[id] : null;
+  }
+  function remove(id){
+    var st = load();
+    if(st.items[id]) delete st.items[id];
+    st.removed[id] = today();
+    save();
+  }
+  function restore(id){
+    var st = load();
+    delete st.removed[id];
+    save();
+  }
+  function review(id){
+    var st = load(), it = st.items[id];
+    if(!it) return null;
+    it.done = it.done || [];
+    it.done.push(today());
+    it.stage = Math.min(EB.length, (+it.stage || 0) + 1);
+    it.lastReview = today();
+    if(it.stage >= EB.length) it.mastered = true;
+    save();
+    return it;
+  }
+  function setNote(id, note){
+    var st = load(), it = st.items[id];
+    if(!it) return null;
+    it.note = String(note == null ? '' : note);
+    it.updatedAt = stamp();
+    save();
+    return it;
+  }
+  function all(){
+    var st = load(), out = [];
+    for(var id in st.items){
+      if(!Object.prototype.hasOwnProperty.call(st.items, id)) continue;
+      if(st.removed[id]) continue;
+      out.push(st.items[id]);
+    }
+    return out;
+  }
+  function count(){ return all().length; }
+  function snapshot(){
+    return { v: 1, key: KEY, exportedAt: stamp(), eb: EB, items: all() };
+  }
+  function dueDate(it){
+    if(!it) return null;
+    if(!it.addedAt || it.stage >= EB.length) return null;
+    var p = String(it.addedAt).split('-');
+    var d = new Date(+p[0], (+p[1] || 1) - 1, +p[2] || 1);
+    d.setDate(d.getDate() + EB[it.stage]);
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function dueState(it){
+    var d = dueDate(it);
+    if(!d) return 'done';
+    var t = today();
+    if(d < t) return 'late';
+    if(d === t) return 'today';
+    return 'future';
+  }
+  function clearLocal(){
+    mem = blank();
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    save();
+  }
+  return {
+    KEY: KEY, EB: EB, today: today, load: load, save: save,
+    add: add, put: function(it){ return add(it, {force:true}); },
+    has: has, get: get, remove: remove, restore: restore,
+    review: review, setNote: setNote, all: all, count: count,
+    snapshot: snapshot, dueDate: dueDate, dueState: dueState,
+    clearLocal: clearLocal
+  };
 })();
 </script>
 <script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-04 代数与函数","exam":"11-04（周三）· 代数与函数","date":"第 3/7 天 · 8 题 · 建议 65 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d2.html\">← 11-03 几何与立体<\/a> <a href=\"d4.html\">11-05 排列组合与概率 →<\/a>"},"questions":[{"no":9,"subject":"math","topic":"代数(韦达定理)","tier":"A","stem":"若实数 $x$、$y$ 满足 $xy+x+y=10$，$x^2y+xy^2=24$，则 $x^2+y^2=(\\quad)$。","options":[{"k":"A","t":"$4$"},{"k":"B","t":"$28$"},{"k":"C","t":"$34$"},{"k":"D","t":"$44$"},{"k":"E","t":"$52$"}],"answer":"B","exp":"令 $s=x+y$、$p=xy$。则 $p+s=10$、$ps=24$，$s,p$ 是 $t^2-10t+24=0$ 的两根 $=6$ 与 $4$。$x^2+y^2=s^2-2p$：若 $s=6,p=4$ 得 $28$；若 $s=4,p=6$，判别式 $16-24<0$ 无实数解，舍去。故 $x^2+y^2=28$。","tierWhy":"这题埋了陷阱：算出 4 就选 A 是掉坑。必须回头验判别式——这是真题最爱设的钩子。","expectSec":150,"brief":"韦达给出两个候选，必须回头验判别式。","steps":["$p+s=10,\\ ps=24$ ⇒ $\\{s,p\\}=\\{6,4\\}$","$s=4,p=6$：$\\Delta=16-24<0$ 舍","$s^2-2p=36-8=28$"],"key":"$xy+x+y=10$，$x^2y+xy^2=24$","trap":"解出两组候选就交卷，不回头验判别式","distract":"A（4）——用 $s=4,p=6$ 那组算的，实数里根本不存在","kind":"易错题","hl":["$x^2y+xy^2=24$"]},{"no":17,"subject":"math","topic":"条件充分性判断·二次函数+等比","tier":"C","stem":"设 $f(x)=ax^2+bx+c$，其中 $a$、$b$、$c$ 为实数。则 $f(x)>0$。\n（1）$a$、$b$、$c$ 成等比数列\n（2）$a>0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"C","exp":"等比 ⇒ $b^2=ac$。判别式 $\\Delta=b^2-4ac=ac-4ac=-3ac$。要恒正需 $a>0$ 且 $c>0$。由 $a>0$、$b^2=ac\\ge0$ 得 $c\\ge0$，又 $c\\neq0$，故 $c>0$，于是 $\\Delta<0$，开口向上且不与 $x$ 轴相交 ⇒ $f(x)>0$。单靠 $(1)$ 时 $a$ 可能为负（开口向下），不充分。","tierWhy":"「等比 ⇒ $b^2=ac$」+「判别式符号」两步。缺一步就翻车，属于可选题。","expectSec":180,"brief":"等比给 $b^2=ac$，再用判别式判恒正。","steps":["$b^2=ac$ ⇒ $\\Delta=ac-4ac=-3ac$","$a>0\\Rightarrow c>0\\Rightarrow \\Delta<0$","开口向上且不与 $x$ 轴相交 ⇒ 恒正"],"key":"$f(x)=ax^2+bx+c$ 恒正，$a,b,c$ 成等比且 $a>0$","trap":"只验 $b^2=ac$ 不验 $c$ 的符号，判别式符号就判反","distract":"A（条件(1)充分）——忘了开口方向也要 $a>0$","kind":"卡死你不偿命","hl":["则 $f(x)>0$"]},{"no":19,"subject":"math","topic":"条件充分性判断·不等式解集","tier":"B","stem":"已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$，$B=\\{x\\mid x^2+ax+b\\le 0\\}$，则 $A\\cap B=\\{x\\mid 1<x\\le 3\\}$。\n（1）$a=-2,\\ b=-3$\n（2）$a=-3,\\ b=0$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"D","exp":"先解 $A$：$(x-1)(x+1)(x+2)>0$，根 $-2,-1,1$，穿针引线得 $A=(-2,-1)\\cup(1,+\\infty)$。$(1)$ $B=[-1,3]$，$A\\cap B=(1,3]$ ✓；$(2)$ $B=[0,3]$，$A\\cap B=(1,3]$ ✓。两条件各自都够，选 $D$。","tierWhy":"解集题先解出 A（这是不变量），再逐个验 B。两步都标准，算是条件充分性里最该拿的一类。","expectSec":180,"brief":"先解 $A$（不变量），再逐个验 $B$。","steps":["$A=(x^2-1)(x+2)>0$ ⇒ $(-2,-1)\\cup(1,+\\infty)$","$(1)$ $B=[-1,3]$ ⇒ 交 $=(1,3]$","$(2)$ $B=[0,3]$ ⇒ 交 $=(1,3]$"],"key":"$A$ 是不等式解集，$B$ 带参数，交集是 $(1,3]$","trap":"端点开闭搞错；或者不先解出 $A$ 就硬验 $B$","distract":"B（条件(2)充分）——只验了一个条件","kind":"易错题","hl":["已知 $A=\\{x\\mid (x^2-1)(x+2)>0\\}$"]},{"no":20,"subject":"math","topic":"条件充分性判断·数列前n项和","tier":"B","stem":"已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n=bn^2+c$，其中 $b$、$c$ 为实数。则 $a_{10}=38$。\n（1）$a_1=1$\n（2）$a_2=6$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"B","exp":"$a_n=S_n-S_{n-1}=b\\left[n^2-(n-1)^2\\right]=b(2n-1)$（$n\\ge2$），故 $a_{10}=19b$。要 $a_{10}=38$ 需 $b=2$。$(1)$ $a_1=S_1=b+c=1$ 只能定 $b+c$；$(2)$ $a_2=3b=6$ ⇒ $b=2$ ✓。","tierWhy":"「Sₙ 差分成 aₙ」+「目标只含 b」这个观察，两步都在套路内。","expectSec":150,"brief":"$S_n$ 作差得通项，目标只含 $b$。","steps":["$a_n=S_n-S_{n-1}=b(2n-1)$","$a_{10}=19b$，需 $b=2$","$a_2=3b=6$ ⇒ $b=2$ ✓"],"key":"$S_n=bn^2+c$，要 $a_{10}=38$","trap":"$a_1$ 直接当成 $b$；或者忘了 $a_n=S_n-S_{n-1}$ 只对 $n\\ge2$ 成立","distract":"A（条件(1)充分）——$a_1=b+c$ 被当成能定 $b$","kind":"易错题","hl":["则 $a_{10}=38$"]},{"no":21,"subject":"math","topic":"条件充分性判断·齐次化求定值","tier":"B","stem":"设 $a$、$b$ 是正实数。则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值。\n（1）$\\dfrac{b}{a}=\\dfrac{2}{3}$\n（2）$\\dfrac{b}{a}=\\dfrac{1}{3}$","options":[{"k":"A","t":"条件(1)充分，但条件(2)不充分"},{"k":"B","t":"条件(2)充分，但条件(1)不充分"},{"k":"C","t":"条件(1)和(2)单独都不充分，但联合起来充分"},{"k":"D","t":"条件(1)充分，条件(2)也充分"},{"k":"E","t":"条件(1)和(2)单独都不充分，联合起来也不充分"}],"answer":"A","exp":"令 $b=ta$：$\\frac{a(1-t)+\\frac{1}{5}}{a(1+t)+1}$。要对任意 $a$ 都与 $a$ 无关，必须 $\\frac{1-t}{1+t}=\\frac{1/5}{1}$ ⇒ $5-5t=1+t$ ⇒ $t=\\frac{2}{3}$，此时值恒为 $\\frac{1}{5}$。$t=\\frac{1}{3}$ 时式子是 $a$ 的函数，定不出唯一值。","tierWhy":"这是条件充分性里的「巧题」：要意识到必须分子分母成比例。看破 30 秒，看不破写满纸也没用 —— 可跳。","expectSec":180,"brief":"齐次化：让 $a$ 自己消失。","steps":["令 $b=ta$","要与 $a$ 无关 ⇒ $\\frac{1-t}{1+t}=\\frac{1/5}{1}$","$t=\\frac{2}{3}$，值恒为 $\\frac{1}{5}$"],"key":"$(a-b+\\frac{1}{5})/(a+b+1)$ 与 $a$ 无关","trap":"代入一个具体的 $a$ 算出数就以为恒定","distract":"E（都不充分）——没意识到 $t=\\frac{2}{3}$ 能让 $a$ 消掉","kind":"易错题","hl":["则能确定 $\\dfrac{a-b+\\frac{1}{5}}{a+b+1}$ 的值"]},{"no":"T25","subject":"math","topic":"代数 · 一元二次方程","tier":"A","kind":"送分题","stem":"x² - 5x + 6 = 0,求 x。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"x = 2 或 3","brief":"先算出结果，再对照参考答案自评。","key":"母题 T25 · 一元二次方程","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：x = 2 或 3\n\n**解析**：(x-2)(x-3) = 0","tierWhy":"简单难度，母题第 25 题。","expectSec":120,"steps":["一元二次方程","简单","参考 x = 2 或 3"]},{"no":"T35","subject":"math","topic":"代数 · 韦达定理","tier":"C","kind":"卡死你不偿命","stem":"方程 x² - 5x + k = 0 两根之和为 5,一根为 2,求另一根及 k。\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"另一根 3,k = 6","brief":"先算出结果，再对照参考答案自评。","key":"母题 T35 · 韦达定理","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：另一根 3,k = 6\n\n**解析**：和 5,一根 2,另一根 3;积 = k = 2×3 = 6","tierWhy":"难难度，母题第 35 题。","expectSec":360,"steps":["韦达定理","难","参考 另一根 3,k = 6"]},{"no":"T28","subject":"math","topic":"代数 · 均值不等式","tier":"B","kind":"易错题","stem":"x + 4/x 的最小值(x>0)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"4","brief":"先算出结果，再对照参考答案自评。","key":"母题 T28 · 均值不等式","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：4\n\n**解析**：AM-GM:x + 4/x ≥ 2√(x·4/x) = 2×2 = 4,等号在 x = 2 时成立","tierWhy":"中等难度，母题第 28 题。","expectSec":240,"steps":["均值不等式","中等","参考 4"]}]}</script>
@@ -4871,14 +5065,63 @@ function mmdBlock(kid){
 /* ================= ② 错题集（手动增删） ================= */
 function markOf(no){ return state.marks[no] || null; }
 function isMarked(no){ return !!state.marks[no]; }
-function markQuestion(no, source){
+function wbPageName(){
+  try{
+    var parts = location.pathname.split('/');
+    return decodeURIComponent(parts.slice(-2).join('/'));
+  }catch(e){ return ''; }
+}
+function wbSourceName(){
+  var p = location.pathname;
+  try{ p = decodeURIComponent(p); }catch(e){}
+  return /(每日习题|\/daily\/)/.test(p) ? '每日习题' : '刷题器';
+}
+function wbKey(no){ return 'brush:' + no; }
+function wbItemFor(q, reason, pickKey){
+  var opts = (q.options || []).map(function(o){ return o.t; });
+  var keys = (q.options || []).map(function(o){ return o.k; });
+  var ai = keys.indexOf(q.answer);
+  var pi = pickKey ? keys.indexOf(pickKey) : -1;
+  var kp = (KPMAP[q.no] || [])[0] || '';
+  var kpName = (KPS[kp] && (KPS[kp].title || KPS[kp].name)) || q.topic || '';
+  return {
+    id: wbKey(q.no), src: 'brush', source: wbSourceName(), qid: String(q.no),
+    page: wbPageName(), subject: q.subject, kp: kp, kpName: kpName,
+    stem: q.stem, opts: opts, optKeys: keys,
+    ans: ai >= 0 ? ai : null, pick: pi >= 0 ? pi : null,
+    kind: q.kind || '', trap: q.trap || '', sol: q.exp || '',
+    why: [], reason: reason || '答错', addedAt: todayStr()
+  };
+}
+function wbAdd(q, reason, pickKey){
+  if(typeof WB === 'undefined' || !q) return;
+  try{ WB.add(wbItemFor(q, reason, pickKey), {force:true}); }catch(e){ console.warn('wb-add', e && e.message); }
+}
+function wbMigrate(){
+  if(typeof WB === 'undefined') return;
+  Object.keys(state.marks).forEach(function(no){
+    var q = byNo[no];
+    if(!q || WB.has(wbKey(no))) return;
+    var m = state.marks[no] || {};
+    try{
+      WB.add(wbItemFor(q, m.source === 'manual' ? '手动' : '答错'),
+             { addedAt: m.addedAt, stage: m.stage || 0, done: m.done || [] });
+    }catch(e){}
+  });
+  if(typeof updateWrongCount === 'function') updateWrongCount();
+}
+function markQuestion(no, source, pickKey){
   if(isMarked(no)) return false;
   state.marks[no] = { addedAt: todayStr(), stage: 0, source: source || 'manual', done: [] };
+  wbAdd(byNo[no], source === 'manual' ? '手动' : (source === 'wrong' ? '答错' : (source || '答错')), pickKey);
   return true;
 }
 function unmarkQuestion(no){
   var had = isMarked(no);
   delete state.marks[no];
+  if(typeof WB !== 'undefined'){
+    try{ WB.remove(wbKey(no)); }catch(e){}
+  }
   return had;
 }
 
@@ -4920,6 +5163,9 @@ function reviewNow(no){
   m.done = m.done || [];
   m.done.push(todayStr());
   m.stage = Math.min(EB_STEPS.length, (m.stage || 0) + 1);
+  if(typeof WB !== 'undefined'){
+    try{ WB.review(wbKey(no)); }catch(e){}
+  }
   save();
 }
 
@@ -5398,6 +5644,7 @@ function renderStats(){
           }
           save();
           QS.forEach(function(q){ paint(q.no); });
+          wbMigrate();
           updateWrongCount(); updateGap(); paintTimer(); renderStats();
           window.alert('已导入：作答 ' + Object.keys(state.answers).length + ' 题，错题集 '
             + Object.keys(state.marks).length + ' 题。');
@@ -6519,6 +6766,8 @@ function cardHTML(q){
     + '<div class="qa-actions no-print">'
     + '<button class="btn sm" type="button" data-copy="q" data-no="' + q.no + '">复制题目</button>'
     + '<button class="btn sm" type="button" data-copy="qe" data-no="' + q.no + '">复制题目+解析</button>'
+    + '<button class="btn sm mark" type="button" data-mark="' + q.no + '" aria-pressed="' + (isMarked(q.no) ? 'true' : 'false') + '">'
+    + (isMarked(q.no) ? '✓ 已在错题集' : '＋ 错题集') + '</button>'
     + '</div>'
     + body.join('')
     + extendHTML(q)
@@ -6553,12 +6802,11 @@ function paint(no){
     tb2.setAttribute('aria-pressed', String(on));
     tb2.textContent = on ? '⏸ 计时中' : '▶ 计时';
   }
-  var mk = $('.mark', card);
-  if(mk){
+  $$('.mark', card).forEach(function(mk){
     var on = isMarked(no);
     mk.setAttribute('aria-pressed', on ? 'true' : 'false');
     mk.textContent = on ? '✓ 已在错题集' : '＋ 错题集';
-  }
+  });
   var v = $('[data-role="verdict"]', card);
   var exp = $('details.exp', card);
   if(isDoubt(q)){
@@ -6591,7 +6839,7 @@ function choose(no, k){
   var wasMarked = isMarked(no);
   var firstTry = !state.answers[no];
   state.answers[no] = k;
-  if(k !== q.answer && !wasMarked) markQuestion(no, 'wrong');
+  if(k !== q.answer && !wasMarked) markQuestion(no, 'wrong', k);
   paint(no);
   if(firstTry){ try{ reward(no, k === q.answer); }catch(e){ console.warn('fx-error', e && e.message); } }
   save();
@@ -6742,6 +6990,12 @@ function updateGap(){
 
 function updateWrongCount(){
   document.getElementById('wrongCount').textContent = String(wrongList().length);
+  var n = wrongList().length;
+  if(typeof WB !== 'undefined'){
+    try{ n = WB.count(); }catch(e){}
+  }
+  var lc = document.getElementById('wbLinkCount');
+  if(lc) lc.textContent = String(n);
 }
 
 /* ---------- 交卷结果 ---------- */
@@ -6928,6 +7182,7 @@ document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开'
 
 
 window.__appReady = true;
+wbMigrate();
 initRail();
 document.getElementById('btnRail').addEventListener('click', function(){ setRail(!RAIL_ON); });
 var rc = document.getElementById('btnRailClose');
@@ -6942,6 +7197,11 @@ document.getElementById('btnTimerReset').addEventListener('click', function(){
   if(!window.confirm('重启这一场？会清空：\n\n· 所有作答与对错\n· 每题已用时间\n· 总计时\n· 错题集与艾宾浩斯进度\n· 连对/连错\n· 交卷结果\n\n历史记录（学习效率对比）保留。'))
     return;
   stopTimer();
+  if(typeof WB !== 'undefined'){
+    Object.keys(state.marks).forEach(function(no){
+      try{ WB.remove(wbKey(no)); }catch(e){}
+    });
+  }
   state.answers = {};
   state.elapsed = {};
   state.marks = {};

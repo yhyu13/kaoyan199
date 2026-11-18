@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-18T00:00:00+08:00",
+  "note": "错题本种子。Agent 可以直接改这个文件，然后跑 python _data/wrongbook.py build 重新生成 错题本.html。浏览器里做错的题存在 localStorage（kg2026-wrong-v1），在页面上点「导出全部」可以把它们导成同格式的 JSON 再合并进来。",
+  "items": []
+}

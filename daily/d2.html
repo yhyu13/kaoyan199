@@ -20,7 +20,7 @@
 13. 目标分默认值在 defaultState()：targets.math=50、targets.logic=40；换卷按新卷满分调整滑杆 max（HTML 里 tMath / tLogic 的 max）。
 14. 目标分滑杆的 step 是「一题的分值」（数学 3、逻辑 2），保证目标分永远是一道题能凑出来的数。
 15. localStorage 的 key 是 kg2026-brush-v1 —— 换卷务必改 key，否则上一卷的作答/计时会串到新卷的题号上。
-16. 错题本是派生数据（answers 里答错的题），没有独立存储，所以「清空错题本」= 删掉那些错答，题目回到未作答。
+16. 错题本有两层：页面内 state.marks（本页错题集面板） + 共享 localStorage `kg2026-wrong-v1`（所有做题页汇到 错题本.html）。改字段时两边一起改，否则独立页缺题干。
 17. tierWhy 与 expectSec 是这套系统的核心字段：前者决定档位理由，后者决定「超时该跳」的红色提醒，缺一个就少一半价值。
 18. 加题后如果 A 档超过 30 题，先怀疑定档标准被稀释了 —— A 档的定义是「三步内出答案、错了就是粗心」。
 19. 打印样式只隐藏按钮类元素，题干/选项/解析照常输出，可直接打印成纸质卷（@media print 在 CSS 末尾）。
@@ -302,6 +302,12 @@ details.exp > summary{ cursor:pointer; font-size:16px; color:var(--accent); }
 .ext-back{ display:none; margin:0 0 10px; padding:8px 10px; border-radius:8px;
   background:var(--warnbg); font-size:14px; }
 .ext-back.on{ display:block; }
+.wblink{ display:inline-flex; align-items:center; gap:5px; margin:2px 0 10px;
+  padding:3px 12px; border:1px solid var(--line); border-radius:999px;
+  background:var(--card); color:var(--accent); font-size:13px; text-decoration:none;
+  line-height:1.7; }
+.wblink b{ font-variant-numeric:tabular-nums; }
+.wblink:hover{ border-color:var(--accent); }
 .qcard.flash{ animation:fl 1.6s ease-out 1; }
 @keyframes fl{ 0%{ box-shadow:0 0 0 3px var(--accent); } 100%{ box-shadow:0 0 0 0 transparent; } }
 .kpnav{ display:none; }
@@ -723,6 +729,7 @@ function typesetMath(root){
     <h1>2026 管综真题刷题系统</h1>
     <p class="sub" id="metaLine"></p>
     <div class="daynav" id="dayNav" hidden></div>
+    <a class="wblink no-print" id="wbLink" href="../wrongbook.html">独立错题本 <b id="wbLinkCount">0</b> →</a>
   </header>
 
   <nav class="tabbar no-print" role="tablist" aria-label="主导航">
@@ -871,6 +878,193 @@ function typesetMath(root){
       }
     }, 2500);
   });
+})();
+</script>
+<script>
+/* ========== 错题本共享存储 · 所有做题页共用 kg2026-wrong-v1 ========== */
+window.WB = (function(){
+  var KEY = 'kg2026-wrong-v1';
+  var EB = [1, 2, 4, 7, 15];
+  var mem = null;
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function today(){
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function stamp(){ return new Date().toISOString(); }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function blank(){ return { v: 1, updatedAt: '', items: {}, removed: {} }; }
+  function load(){
+    if(mem) return mem;
+    var st = blank();
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(raw){
+        var o = JSON.parse(raw);
+        if(o && typeof o === 'object'){
+          st.v = o.v || 1;
+          st.items = o.items && typeof o.items === 'object' ? o.items : {};
+          st.removed = o.removed && typeof o.removed === 'object' ? o.removed : {};
+        }
+      }
+    }catch(e){}
+    mem = st;
+    return st;
+  }
+  function save(){
+    var st = load();
+    st.updatedAt = stamp();
+    try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){}
+    try{
+      var ev;
+      if(typeof window.CustomEvent === 'function'){
+        ev = new window.CustomEvent('wb:change');
+      }else{
+        ev = document.createEvent('Event');
+        ev.initEvent('wb:change', true, true);
+      }
+      window.dispatchEvent(ev);
+    }catch(e){}
+  }
+  function norm(it){
+    if(!it || typeof it !== 'object') return null;
+    var o = clone(it);
+    o.id = String(o.id || '').replace(/^\s+|\s+$/g, '');
+    if(!o.id) return null;
+    o.src = o.src || 'manual';
+    o.source = o.source || '手动';
+    o.opts = Object.prototype.toString.call(o.opts) === '[object Array]' ? o.opts : [];
+    o.optKeys = Object.prototype.toString.call(o.optKeys) === '[object Array]' ? o.optKeys : [];
+    o.why = Object.prototype.toString.call(o.why) === '[object Array]' ? o.why : [];
+    o.tags = Object.prototype.toString.call(o.tags) === '[object Array]' ? o.tags : [];
+    o.done = Object.prototype.toString.call(o.done) === '[object Array]' ? o.done : [];
+    o.stage = Math.max(0, Math.min(EB.length, parseInt(o.stage, 10) || 0));
+    o.addedAt = o.addedAt || today();
+    o.mastered = !!o.mastered || o.stage >= EB.length;
+    o.ans = (typeof o.ans === 'number' && o.ans >= 0) ? o.ans : null;
+    o.pick = (typeof o.pick === 'number' && o.pick >= 0) ? o.pick : null;
+    o.updatedAt = o.updatedAt || stamp();
+    return o;
+  }
+  function add(it, opt){
+    opt = opt || {};
+    it = norm(it);
+    if(!it) return null;
+    var st = load();
+    if(st.removed[it.id] && !opt.force) return null;
+    if(st.removed[it.id] && opt.force) delete st.removed[it.id];
+    var old = st.items[it.id];
+    if(old){
+      /* 只更新题目内容；复习状态 / 加入日期 / 备注由老条目保留 */
+      for(var k in it){
+        if(!Object.prototype.hasOwnProperty.call(it, k)) continue;
+        if(k === 'stage' || k === 'done' || k === 'addedAt' || k === 'mastered'
+           || k === 'note' || k === 'tags' || k === 'lastReview') continue;
+        if(it[k] === '' || it[k] === null || it[k] === undefined) continue;
+        old[k] = it[k];
+      }
+      if(opt.stage != null) old.stage = Math.max(0, Math.min(EB.length, +opt.stage || 0));
+      if(opt.done) old.done = opt.done.slice();
+      if(opt.addedAt) old.addedAt = opt.addedAt;
+      if(opt.note != null) old.note = opt.note;
+      if(opt.tags) old.tags = opt.tags.slice();
+      old.mastered = !!old.mastered || old.stage >= EB.length;
+      old.updatedAt = stamp();
+    }else{
+      if(opt.stage != null) it.stage = Math.max(0, Math.min(EB.length, +opt.stage || 0));
+      if(opt.done) it.done = opt.done.slice();
+      if(opt.addedAt) it.addedAt = opt.addedAt;
+      if(opt.note != null) it.note = opt.note;
+      if(opt.tags) it.tags = opt.tags.slice();
+      it.mastered = !!it.mastered || it.stage >= EB.length;
+      it.updatedAt = stamp();
+      st.items[it.id] = it;
+    }
+    save();
+    return st.items[it.id];
+  }
+  function has(id){
+    var st = load();
+    return !!(st.items[id] && !st.removed[id]);
+  }
+  function get(id){
+    var st = load();
+    return st.items[id] && !st.removed[id] ? st.items[id] : null;
+  }
+  function remove(id){
+    var st = load();
+    if(st.items[id]) delete st.items[id];
+    st.removed[id] = today();
+    save();
+  }
+  function restore(id){
+    var st = load();
+    delete st.removed[id];
+    save();
+  }
+  function review(id){
+    var st = load(), it = st.items[id];
+    if(!it) return null;
+    it.done = it.done || [];
+    it.done.push(today());
+    it.stage = Math.min(EB.length, (+it.stage || 0) + 1);
+    it.lastReview = today();
+    if(it.stage >= EB.length) it.mastered = true;
+    save();
+    return it;
+  }
+  function setNote(id, note){
+    var st = load(), it = st.items[id];
+    if(!it) return null;
+    it.note = String(note == null ? '' : note);
+    it.updatedAt = stamp();
+    save();
+    return it;
+  }
+  function all(){
+    var st = load(), out = [];
+    for(var id in st.items){
+      if(!Object.prototype.hasOwnProperty.call(st.items, id)) continue;
+      if(st.removed[id]) continue;
+      out.push(st.items[id]);
+    }
+    return out;
+  }
+  function count(){ return all().length; }
+  function snapshot(){
+    return { v: 1, key: KEY, exportedAt: stamp(), eb: EB, items: all() };
+  }
+  function dueDate(it){
+    if(!it) return null;
+    if(!it.addedAt || it.stage >= EB.length) return null;
+    var p = String(it.addedAt).split('-');
+    var d = new Date(+p[0], (+p[1] || 1) - 1, +p[2] || 1);
+    d.setDate(d.getDate() + EB[it.stage]);
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function dueState(it){
+    var d = dueDate(it);
+    if(!d) return 'done';
+    var t = today();
+    if(d < t) return 'late';
+    if(d === t) return 'today';
+    return 'future';
+  }
+  function clearLocal(){
+    mem = blank();
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    save();
+  }
+  return {
+    KEY: KEY, EB: EB, today: today, load: load, save: save,
+    add: add, put: function(it){ return add(it, {force:true}); },
+    has: has, get: get, remove: remove, restore: restore,
+    review: review, setNote: setNote, all: all, count: count,
+    snapshot: snapshot, dueDate: dueDate, dueState: dueState,
+    clearLocal: clearLocal
+  };
 })();
 </script>
 <script id="BANK" type="application/json">{"meta":{"title":"每日习题 · 11-03 几何与立体","exam":"11-03（周二）· 几何与立体","date":"第 2/7 天 · 8 题 · 建议 60 分钟","total":200,"sections":[],"sources":["2026 真题","母题 60"],"nav":"<a href=\"index.html\">← 本周总览<\/a> <a href=\"d1.html\">← 11-02 应用题专项<\/a> <a href=\"d3.html\">11-04 代数与函数 →<\/a>"},"questions":[{"no":3,"subject":"math","topic":"几何(解析几何)","tier":"A","stem":"若实数 $x$、$y$ 满足 $x^2+y^2\\le 1$，则 $\\sqrt{(x-2)^2+y^2}$ 的取值范围是（ ）。","options":[{"k":"A","t":"$[0,1]$"},{"k":"B","t":"$[1,2]$"},{"k":"C","t":"$[1,3]$"},{"k":"D","t":"$[1,4]$"},{"k":"E","t":"$[2,3]$"}],"answer":"C","exp":"$\\sqrt{(x-2)^2+y^2}$ 就是点 $(x,y)$ 到定点 $(2,0)$ 的距离。单位圆盘上的点到 $(2,0)$ 最近 $2-1=1$、最远 $2+1=3$，故 $d\\in[1,3]$。","tierWhy":"把代数式翻译成「距离」是这类题唯一考点。翻不出来就跳过。","expectSec":90,"brief":"根号下两个平方和 → 翻译成到定点的距离。","steps":["$\\sqrt{(x-2)^2+y^2}=d\\big((x,y),(2,0)\\big)$","圆心到 $(2,0)$ 距离 $=2$","$d\\in[2-1,2+1]=[1,3]$"],"key":"$x^2+y^2\\le 1$，求 $\\sqrt{(x-2)^2+y^2}$","trap":"把「≤」当「=」算完就忘了区间端点；或者忘了几何意义，硬去代换","distract":"B（$[1,2]$）——只算了最小值忘了最大值","kind":"易错题","hl":["若实数 $x$、$y$ 满足 $x^2+y^2\\le 1$"]},{"no":5,"subject":"math","topic":"代数(抛物线)","tier":"A","stem":"直线 $y=x$ 与抛物线 $y=ax^2+bx+1$ 的交点为 $(1,1)$、$(2,2)$，则（ ）。","options":[{"k":"A","t":"$a=\\dfrac{1}{2},\\ b=-\\dfrac{1}{2}$"},{"k":"B","t":"$a=-\\dfrac{1}{2},\\ b=\\dfrac{1}{2}$"},{"k":"C","t":"$a=\\dfrac{1}{2},\\ b=\\dfrac{1}{2}$"},{"k":"D","t":"$a=-\\dfrac{1}{2},\\ b=-\\dfrac{1}{2}$"},{"k":"E","t":"$a=1,\\ b=1$"}],"answer":"A","exp":"代 $(1,1)$：$1=a+b+1\\Rightarrow a+b=0$；代 $(2,2)$：$2=4a+2b+1\\Rightarrow 2a+b=\\frac{1}{2}$。两式相减 $a=\\frac{1}{2}$、$b=-\\frac{1}{2}$。","tierWhy":"过定点直接代点解方程组，不用想判别式。1 分钟。","expectSec":60,"brief":"已经给了交点，就代点解方程组。","steps":["代 $(1,1)$：$a+b=0$","代 $(2,2)$：$2a+b=\\frac{1}{2}$","相减 $a=\\frac{1}{2},\\ b=-\\frac{1}{2}$"],"key":"直线与抛物线交于 $(1,1)$、$(2,2)$","trap":"明明给了交点还去联立求判别式，把 40 秒的题做成 3 分钟","distract":"E（$a=1,b=1$）——只代了一个点就凑出来的假解","kind":"送分题","hl":["直线 $y=x$ 与抛物线 $y=ax^2+bx+1$ 的交点为 $(1,1)$"]},{"no":6,"subject":"math","topic":"几何(立体/球)","tier":"A","stem":"正方体的一个顶点位于球心，若正方体的棱长为 $1$，球的半径为 $1$，则正方体在球外部部分的体积为（ ）。","options":[{"k":"A","t":"$1-\\dfrac{\\pi}{4}$"},{"k":"B","t":"$1-\\dfrac{\\pi}{5}$"},{"k":"C","t":"$1-\\dfrac{\\pi}{6}$"},{"k":"D","t":"$1-\\dfrac{\\pi}{8}$"},{"k":"E","t":"$1-\\dfrac{\\pi}{10}$"}],"answer":"C","exp":"球心在顶点，正方体只占球的一个卦限，球在正方体内的部分是整球的 $\\frac{1}{8}$，即 $\\frac{1}{8}\\cdot\\frac{4}{3}\\pi=\\frac{\\pi}{6}$。正方体体积 $1$，故外部为 $1-\\frac{\\pi}{6}$。","tierWhy":"「占 1/8」这个几何直觉一步到位。不要真的去积分。","expectSec":120,"brief":"球心在顶点 ⇒ 正方体只占一个卦限。","steps":["球体 $\\frac{1}{8}$ 卦限 $=\\frac{\\pi}{6}$","正方体体积 $=1$","外部 $1-\\frac{\\pi}{6}$"],"key":"正方体一个顶点在球心，棱长与半径都是 1","trap":"把它当成「正方体中心在球心」算，那是另一道题、答案是 0","distract":"E（$1-\\frac{\\pi}{10}$）——靠猜掉哪一档 $\\pi$","kind":"易错题","hl":["若正方体的棱长为 $1$"]},{"no":14,"subject":"math","topic":"几何(平面/阴影)","tier":"C","stem":"正方形 $ABCD$ 的边长为 $6$，正方形 $BEFG$ 的边长为 $4$，$\\overset{\\frown}{AC}$ 在以 $B$ 为圆心、$BC$ 为半径的圆上，则阴影部分的面积为（ ）。","options":[{"k":"A","t":"$8\\pi$"},{"k":"B","t":"$8\\pi+\\dfrac{5}{6}$"},{"k":"C","t":"$8\\pi+6$"},{"k":"D","t":"$9\\pi-\\dfrac{5}{6}$"},{"k":"E","t":"$9\\pi$"}],"answer":"E","exp":"答案键为 $E$（$9\\pi$，即半径 $6$ 的四分之一圆）。⚠️ 这份 PDF 是重排版，第 14 题配图丢失，无法独立复核阴影区域的构成。","tierWhy":"【图缺失】没有图就无法判断阴影是哪个区域，这题在现有材料上不可做。见原卷再定档。","expectSec":0,"flags":["图缺失"],"brief":"图缺失，只能取答案键。","steps":["答案键 $E=9\\pi$","四分之一圆：$\\frac{1}{4}\\pi\\cdot6^2=9\\pi$","⚠️ 原图丢失，无法复核"],"key":"阴影面积（原卷配图）","trap":"没有图还硬猜阴影是哪个区域","distract":"A（$8\\pi$）——按半径 4 的圆算的","kind":"卡死你不偿命","hl":["正方形 $ABCD$ 的边长为 $6$"]},{"no":15,"subject":"math","topic":"排列组合(路线计数)","tier":"C","stem":"一个城市的部分街道如图所示，路口 $C$ 因施工禁行。从 $A$ 出发前往 $B$，如果只许向「上」或向「右」行驶，那么不同的路线有（ ）。","options":[{"k":"A","t":"$17$ 条"},{"k":"B","t":"$18$ 条"},{"k":"C","t":"$26$ 条"},{"k":"D","t":"$29$ 条"},{"k":"E","t":"$35$ 条"}],"answer":"A","exp":"答案键为 $A$（$17$ 条）。做法：从起点开始逐格标出到达该格的方案数（左 $+$ 下），禁行点置 $0$，终点格数字即答案。⚠️ 本题配图同样丢失。","tierWhy":"【图缺失】标数法本身是 A 档技能，但没图做不了。有原卷时它是必拿分。","expectSec":0,"flags":["图缺失"],"brief":"图缺失，先记方法：标数法。","steps":["每个格子 = 左 + 下","禁行点置 $0$","答案键 $A=17$，⚠️ 无图不可复核"],"key":"只许向上或向右，C 点禁行（原卷配图）","trap":"忘了减掉经过禁行点的路线","distract":"D（29 条）——不禁行的总数，没减掉过 C 的","kind":"卡死你不偿命","hl":["一个城市的部分街道如图所示"]},{"no":"T14","subject":"math","topic":"几何 · 圆面积","tier":"A","kind":"送分题","stem":"半径 5 的圆,面积(π 取 3.14)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"78.5","brief":"先算出结果，再对照参考答案自评。","key":"母题 T14 · 圆面积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：78.5\n\n**解析**：πr² = 3.14×25 = 78.5","tierWhy":"简单难度，母题第 14 题。","expectSec":120,"steps":["圆面积","简单","参考 78.5"]},{"no":"T20","subject":"math","topic":"几何 · 阴影面积","tier":"B","kind":"易错题","stem":"边长为 2 的正方形内接一个圆,求阴影面积(圆外正方形内)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"0.86","brief":"先算出结果，再对照参考答案自评。","key":"母题 T20 · 阴影面积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：0.86\n\n**解析**：正方形面积 4 - 圆面积 π ≈ 4 - 3.14 = 0.86","tierWhy":"中等难度，母题第 20 题。","expectSec":240,"steps":["阴影面积","中等","参考 0.86"]},{"no":"T23","subject":"math","topic":"几何 · 球体积","tier":"C","kind":"卡死你不偿命","stem":"半径为 3 的球,体积(π 取 3.14)?\n（本题为解答题，先自己算，再点开对答案自评）","options":[{"k":"Y","t":"我算对了"},{"k":"N","t":"算错了，进错题集"}],"answer":"Y","fill":true,"ref":"113.04","brief":"先算出结果，再对照参考答案自评。","key":"母题 T23 · 球体积","trap":"不算完就翻答案，等于没做。","distract":"无选项；自己算出来的数才是答案。","exp":"**参考答案**：113.04\n\n**解析**：(4/3)πr³ = (4/3)×3.14×27 = 113.04","tierWhy":"难难度，母题第 23 题。","expectSec":360,"steps":["球体积","难","参考 113.04"]}]}</script>
@@ -4871,14 +5065,63 @@ function mmdBlock(kid){
 /* ================= ② 错题集（手动增删） ================= */
 function markOf(no){ return state.marks[no] || null; }
 function isMarked(no){ return !!state.marks[no]; }
-function markQuestion(no, source){
+function wbPageName(){
+  try{
+    var parts = location.pathname.split('/');
+    return decodeURIComponent(parts.slice(-2).join('/'));
+  }catch(e){ return ''; }
+}
+function wbSourceName(){
+  var p = location.pathname;
+  try{ p = decodeURIComponent(p); }catch(e){}
+  return /(每日习题|\/daily\/)/.test(p) ? '每日习题' : '刷题器';
+}
+function wbKey(no){ return 'brush:' + no; }
+function wbItemFor(q, reason, pickKey){
+  var opts = (q.options || []).map(function(o){ return o.t; });
+  var keys = (q.options || []).map(function(o){ return o.k; });
+  var ai = keys.indexOf(q.answer);
+  var pi = pickKey ? keys.indexOf(pickKey) : -1;
+  var kp = (KPMAP[q.no] || [])[0] || '';
+  var kpName = (KPS[kp] && (KPS[kp].title || KPS[kp].name)) || q.topic || '';
+  return {
+    id: wbKey(q.no), src: 'brush', source: wbSourceName(), qid: String(q.no),
+    page: wbPageName(), subject: q.subject, kp: kp, kpName: kpName,
+    stem: q.stem, opts: opts, optKeys: keys,
+    ans: ai >= 0 ? ai : null, pick: pi >= 0 ? pi : null,
+    kind: q.kind || '', trap: q.trap || '', sol: q.exp || '',
+    why: [], reason: reason || '答错', addedAt: todayStr()
+  };
+}
+function wbAdd(q, reason, pickKey){
+  if(typeof WB === 'undefined' || !q) return;
+  try{ WB.add(wbItemFor(q, reason, pickKey), {force:true}); }catch(e){ console.warn('wb-add', e && e.message); }
+}
+function wbMigrate(){
+  if(typeof WB === 'undefined') return;
+  Object.keys(state.marks).forEach(function(no){
+    var q = byNo[no];
+    if(!q || WB.has(wbKey(no))) return;
+    var m = state.marks[no] || {};
+    try{
+      WB.add(wbItemFor(q, m.source === 'manual' ? '手动' : '答错'),
+             { addedAt: m.addedAt, stage: m.stage || 0, done: m.done || [] });
+    }catch(e){}
+  });
+  if(typeof updateWrongCount === 'function') updateWrongCount();
+}
+function markQuestion(no, source, pickKey){
   if(isMarked(no)) return false;
   state.marks[no] = { addedAt: todayStr(), stage: 0, source: source || 'manual', done: [] };
+  wbAdd(byNo[no], source === 'manual' ? '手动' : (source === 'wrong' ? '答错' : (source || '答错')), pickKey);
   return true;
 }
 function unmarkQuestion(no){
   var had = isMarked(no);
   delete state.marks[no];
+  if(typeof WB !== 'undefined'){
+    try{ WB.remove(wbKey(no)); }catch(e){}
+  }
   return had;
 }
 
@@ -4920,6 +5163,9 @@ function reviewNow(no){
   m.done = m.done || [];
   m.done.push(todayStr());
   m.stage = Math.min(EB_STEPS.length, (m.stage || 0) + 1);
+  if(typeof WB !== 'undefined'){
+    try{ WB.review(wbKey(no)); }catch(e){}
+  }
   save();
 }
 
@@ -5398,6 +5644,7 @@ function renderStats(){
           }
           save();
           QS.forEach(function(q){ paint(q.no); });
+          wbMigrate();
           updateWrongCount(); updateGap(); paintTimer(); renderStats();
           window.alert('已导入：作答 ' + Object.keys(state.answers).length + ' 题，错题集 '
             + Object.keys(state.marks).length + ' 题。');
@@ -6519,6 +6766,8 @@ function cardHTML(q){
     + '<div class="qa-actions no-print">'
     + '<button class="btn sm" type="button" data-copy="q" data-no="' + q.no + '">复制题目</button>'
     + '<button class="btn sm" type="button" data-copy="qe" data-no="' + q.no + '">复制题目+解析</button>'
+    + '<button class="btn sm mark" type="button" data-mark="' + q.no + '" aria-pressed="' + (isMarked(q.no) ? 'true' : 'false') + '">'
+    + (isMarked(q.no) ? '✓ 已在错题集' : '＋ 错题集') + '</button>'
     + '</div>'
     + body.join('')
     + extendHTML(q)
@@ -6553,12 +6802,11 @@ function paint(no){
     tb2.setAttribute('aria-pressed', String(on));
     tb2.textContent = on ? '⏸ 计时中' : '▶ 计时';
   }
-  var mk = $('.mark', card);
-  if(mk){
+  $$('.mark', card).forEach(function(mk){
     var on = isMarked(no);
     mk.setAttribute('aria-pressed', on ? 'true' : 'false');
     mk.textContent = on ? '✓ 已在错题集' : '＋ 错题集';
-  }
+  });
   var v = $('[data-role="verdict"]', card);
   var exp = $('details.exp', card);
   if(isDoubt(q)){
@@ -6591,7 +6839,7 @@ function choose(no, k){
   var wasMarked = isMarked(no);
   var firstTry = !state.answers[no];
   state.answers[no] = k;
-  if(k !== q.answer && !wasMarked) markQuestion(no, 'wrong');
+  if(k !== q.answer && !wasMarked) markQuestion(no, 'wrong', k);
   paint(no);
   if(firstTry){ try{ reward(no, k === q.answer); }catch(e){ console.warn('fx-error', e && e.message); } }
   save();
@@ -6742,6 +6990,12 @@ function updateGap(){
 
 function updateWrongCount(){
   document.getElementById('wrongCount').textContent = String(wrongList().length);
+  var n = wrongList().length;
+  if(typeof WB !== 'undefined'){
+    try{ n = WB.count(); }catch(e){}
+  }
+  var lc = document.getElementById('wbLinkCount');
+  if(lc) lc.textContent = String(n);
 }
 
 /* ---------- 交卷结果 ---------- */
@@ -6928,6 +7182,7 @@ document.getElementById('btnEasy').textContent = state.easy ? 'Easy Mode · 开'
 
 
 window.__appReady = true;
+wbMigrate();
 initRail();
 document.getElementById('btnRail').addEventListener('click', function(){ setRail(!RAIL_ON); });
 var rc = document.getElementById('btnRailClose');
@@ -6942,6 +7197,11 @@ document.getElementById('btnTimerReset').addEventListener('click', function(){
   if(!window.confirm('重启这一场？会清空：\n\n· 所有作答与对错\n· 每题已用时间\n· 总计时\n· 错题集与艾宾浩斯进度\n· 连对/连错\n· 交卷结果\n\n历史记录（学习效率对比）保留。'))
     return;
   stopTimer();
+  if(typeof WB !== 'undefined'){
+    Object.keys(state.marks).forEach(function(no){
+      try{ WB.remove(wbKey(no)); }catch(e){}
+    });
+  }
   state.answers = {};
   state.elapsed = {};
   state.marks = {};
