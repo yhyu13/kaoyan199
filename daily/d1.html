@@ -5793,6 +5793,34 @@ function renderWrong(){
   if(!panel) return;
   panel.addEventListener('click', function(e){
     var t = e.target;
+    var rs = t.closest('#btnReset');
+    if(rs){
+      if(!window.confirm('清空全部进度？' + String.fromCharCode(10) + String.fromCharCode(10)
+        + '· 所有作答' + String.fromCharCode(10)
+        + '· 错题集与艾宾浩斯进度' + String.fromCharCode(10)
+        + '· 每题耗时 / 总计时' + String.fromCharCode(10)
+        + '· 交卷结果' + String.fromCharCode(10) + String.fromCharCode(10)
+        + '历史记录保留。')) return;
+      stopTimer();
+      if(typeof WB !== 'undefined'){
+        Object.keys(state.marks).forEach(function(no){
+          try{ WB.remove(wbKey(no)); }catch(e){}
+        });
+      }
+      state.answers = {};
+      state.elapsed = {};
+      state.marks = {};
+      state.timerSec = 0;
+      state.timerRun = false;
+      state.submitted = false;
+      state.streakOk = 0;
+      state.streakBad = 0;
+      timer.acc = 0; timer.tickAt = Date.now();
+      var rp = document.getElementById('resultPanel');
+      if(rp){ rp.hidden = true; rp.innerHTML = ''; }
+      rerenderAll(); save(); paintTimer(); updateWrongCount(); updateGap(); renderWrong();
+      return;
+    }
     var rv = t.closest('[data-review]');
     if(rv){ reviewNow(+rv.dataset.review); renderWrong(); updateWrongCount(); return; }
     var um = t.closest('[data-unmark]');
