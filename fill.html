@@ -43,6 +43,15 @@ h2{font-size:17px;margin:20px 0 8px}
 .prog{height:7px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 2px}
 .prog span{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
 
+.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 0;
+  border-top:1px dashed var(--line);padding-top:10px}
+.tm{font:700 24px/1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.5px;color:var(--fg);
+  font-variant-numeric:tabular-nums}
+.tm.warn{color:var(--warn)}
+.tm.over{color:var(--warn)}
+.tm.ok{color:var(--ok);font-size:18px;font-weight:600}
+.tmlab{font-size:12.5px;color:var(--mut)}
+.timer .btn{padding:5px 13px;font-size:13px}
 /* 结构导航 */
 .nav{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
 .nav .pill{font-size:12.5px;border:1px solid var(--line);border-radius:8px;padding:3px 9px;color:var(--mut);background:var(--bg)}
@@ -107,11 +116,12 @@ h2{font-size:17px;margin:20px 0 8px}
 </style></head><body><div class="wrap">
 
 <h1>写作填空 · 段落排序 + 段内选句</h1>
-<p class="sub">每篇范文两关：<b>① 把段落拖/点到正确位置</b>（段落库里混着两段不该出现的段落）→ <b>② 段内关键句四选一</b>（承上启下句、引句、因果句、隐喻句、收束句）。全部点选，不用写字。<br>另一页：<a href="training.html"><b>写作训练 · 58 题拼大纲</b></a>（六步拼出 700 字骨架、五步拼出引析评四段）。</p>
+<p class="sub">每篇范文两关：<b>① 把段落拖/点到正确位置</b>（段落库里混着两段不该出现的段落）→ <b>② 段内关键句四选一</b>（承上启下句、引句、因果句、隐喻句、收束句）。全部点选，不用写字。每篇 15 分钟倒计时，排序与填空共用一条。<br>另一页：<a href="training.html"><b>写作训练 · 58 题拼大纲</b></a>（六步拼出 700 字骨架、五步拼出引析评四段）。</p>
 
 <div class="bar" id="tabs">
   <button data-t="arg" class="on">一 · 论证有效性（2 篇）</button>
   <button data-t="essay">二 · 论说文（2 篇）</button>
+  <button data-t="link">三 · 衔接词（2 组）</button>
   <button data-t="wrong">错题本 · <span id="wcount">0</span></button>
 </div>
 
@@ -416,15 +426,270 @@ var EX = [
      {t:'未来已来，唯有改变才能生存。', ok:false,
       why:'纯情绪。没有一个词落在本题上。'}]}
   }
+},
+/* ------------------ 论证有效性 ③ 高铁票价（自拟材料） ------------------ */
+{ id:'a3', type:'arg', name:'高铁票价放开（自拟材料）', source:'高铁票价话题；材料与范文为自拟，非真题原文，只练结构',
+  prompt:'材料结论：高铁票价应当完全放开，由市场供求决定。\n要求：写一篇 600 字左右的论证有效性分析，指出材料论证中的缺陷。',
+  roles:[
+    {name:'起 · 靶子段', cls:'r-qi', quota:'70 字'},
+    {name:'承1 · 类比不当', cls:'r-cheng', quota:'140 字'},
+    {name:'承2 · 滑坡', cls:'r-cheng', quota:'150 字'},
+    {name:'承3 · 偷换概念', cls:'r-zhuan', quota:'140 字'},
+    {name:'合 · 收束段', cls:'r-he', quota:'120 字'}
+  ],
+  paras:[
+    {id:'p1', text:'材料试图论证「高铁票价应当完全放开、由市场供求决定」。{{b1}}'},
+    {id:'p2', text:'首先，{{b2}}这是类比不当，兼有以偏概全：航空市场有多家承运人互相竞争，铁路却是一家公司经营一张路网，二者的可替代性与竞争结构并不相同，机票的经验无法直接搬到铁路上。因此，该推论不能成立。'},
+    {id:'p3', text:'其次，{{b3}}这是典型的滑坡论证：票价上浮带来的收入是否投入服务、投入之后乘客是否满意，取决于定价机制与监管，而非涨价的自然后果；三步之间每一环都只是可能。因此，「乘客自然满意」缺乏依据。'},
+    {id:'p4', text:'再次，{{b4}}此处在「不是公益事业」与「不必考虑低收入群体」之间偷换了概念：铁路具有公共属性，不等于它可以放弃普遍服务义务；不属公益，也不等于可以不承担社会责任。因此，该结论不能由前提推出。'},
+    {id:'p5', text:'最后，{{b5}}综上，材料在类比、条件与概念三处均存在缺陷，「完全放开」的结论难以令人信服。'}
+  ],
+  distract:[
+    {id:'d1', text:'因此，铁路部门应当建立票价听证制度，公开成本构成，在旺季设置涨幅上限，并对通勤旅客保留月票优惠，让价格调整既有弹性又有温度。',
+     why:'建议段。论证文只评价材料的推理，不提自己的方案；这一段一出现，全篇就被判五类。'},
+    {id:'d2', text:'我去年春节坐高铁回家，二等座一票难求，最后买了站票。如果当时票价能上浮，也许我就买到座位了。',
+     why:'个人经历，而且方向反了——它其实在替材料说话。阅卷人找不到「引—析—评」，这一段零分。'}
+  ],
+  blanks:{
+   b1:{kind:'起段定调句', ask:'开头第二句该写什么？',
+    opts:[
+     {t:'然而其论证在类比、条件与概念三处失守，结论难以成立。', ok:true,
+      why:'先指认缺陷落点（类比、条件、概念），后面四段一段打一处，读者第一眼就知道你要打什么。'},
+     {t:'高铁票价是关系国计民生的重要问题，值得我们深入讨论。', ok:false,
+      why:'背景铺垫。起段 70 字很贵，铺背景会把靶子推迟，阅卷人看不到「我要打它」。'},
+     {t:'我完全同意票价应当放开，但也要考虑低收入群体的承受能力。', ok:false,
+      why:'站到材料一边又替它打补丁。论证文第一句必须表明要打它。'},
+     {t:'下面从经济学角度分析高铁的定价机制。', ok:false,
+      why:'说明文口吻，写成了教材章节，不是评价别人的论证。'}]},
+   b2:{kind:'引句（类比那一步）', ask:'「首先」后面该接哪一句？',
+    opts:[
+     {t:'材料由「机票价格早已市场化」推出「交通服务价格都应由市场调节」。', ok:true,
+      why:'把类比的两端同时引出来，下一句「类比不当」才有对象；「都」字也顺手暴露了以偏概全。'},
+     {t:'机票价格市场化了，高铁票价却一直没放开，这很不合理。', ok:false,
+      why:'变成了自己的主张（应当放开），方向反了：你要打的是「由机票推高铁」这一步。'},
+     {t:'交通服务包括航空、铁路、公路、水运等多种方式。', ok:false,
+      why:'在做分类介绍，既没引材料，也没指出推理问题。'},
+     {t:'机票打折很常见，高铁很少打折，说明高铁定价不灵活。', ok:false,
+      why:'还在替材料说话——你在论证「高铁该学机票」，而任务是指出这个类比不成立。'}]},
+   b3:{kind:'因果链（滑坡三步）', ask:'「其次」后面该接哪一句？',
+    opts:[
+     {t:'材料认为「票价上浮能增加铁路收入」，收入增加后「就能改善服务」，改善服务后「乘客自然满意」。', ok:true,
+      why:'一句之内把三级台阶全摆出来，「这是典型的滑坡论证」才落得下去；漏掉任何一环，打点就打不实。'},
+     {t:'票价上浮会增加乘客的出行成本。', ok:false,
+      why:'说的是乘客负担，与「涨价的收入会不会变成更好的服务」这条链无关。'},
+     {t:'铁路收入增加了，服务质量未必提高。', ok:false,
+      why:'结论对，但没有还原那条链，读者看不到你从哪一步开始打的，属于「只评不析」。'},
+     {t:'铁路部门应该公开票价的成本构成。', ok:false,
+      why:'又是建议。一句「应该」，这一段就白写了。'}]},
+   b4:{kind:'引句 + 概念区分', ask:'「再次」后面该接哪一句？',
+    opts:[
+     {t:'材料由「高铁不是公益事业」推出「不必考虑低收入群体的出行」。', ok:true,
+      why:'把「非公益」与「无公共属性」两种说法并置，下一句的「偷换了概念」才有落点。'},
+     {t:'高铁票价确实不便宜，对低收入群体来说负担较重。', ok:false,
+      why:'在讲现实困难，属于价值判断，打不到「非公益 → 不必考虑」这一步。'},
+     {t:'高铁由国有企业经营，应该承担社会责任。', ok:false,
+      why:'换成自己的主张。论证文不提供替代方案，只说对方推不出。'},
+     {t:'公益事业通常指义务教育、公共卫生等领域。', ok:false,
+      why:'在做名词解释，读者仍不知道材料哪一步跳了。'}]},
+   b5:{kind:'收束句（回到靶子）', ask:'「最后」后面该接哪一句？',
+    opts:[
+     {t:'材料又由「淡季打折、旺季上浮只是价格随供需波动」推出「与老百姓的日常开支无关」。', ok:true,
+      why:'合段还要再打一处，然后一句「综上」收全文。这里打的仍是概念偷换：出行是刚需支出，不是可有可无的波动。'},
+     {t:'票价随供需波动是市场经济的正常现象。', ok:false,
+      why:'替材料辩护，方向反了。'},
+     {t:'我认为高铁票价不应该完全放开。', ok:false,
+      why:'这是个人态度，不是对推理的评价；放不放开也不是本题要判的。'},
+     {t:'总之，高铁票价改革需要慎重推进。', ok:false,
+      why:'万能收尾。「慎重推进」可以贴在任何政策话题后面，说明它什么也没说。'}]}
+  }
+},
+
+/* ------------------ 论证有效性 ④ AI 与就业（自拟材料） ------------------ */
+{ id:'a4', type:'arg', name:'AI 与就业（自拟材料）', source:'AI 与就业话题；材料与范文为自拟，非真题原文，只练结构',
+  prompt:'材料结论：AI 会带来更多就业机会，因此不必担心失业。\n要求：写一篇 600 字左右的论证有效性分析。',
+  roles:[
+    {name:'起 · 靶子段', cls:'r-qi', quota:'60 字'},
+    {name:'承1 · 类比不当', cls:'r-cheng', quota:'150 字'},
+    {name:'承2 · 以偏概全', cls:'r-cheng', quota:'150 字'},
+    {name:'承3 · 绝对化', cls:'r-zhuan', quota:'130 字'},
+    {name:'合 · 收束段', cls:'r-he', quota:'100 字'}
+  ],
+  paras:[
+    {id:'p1', text:'材料试图论证「AI 会带来更多就业机会，因此不必担心失业」。{{b1}}'},
+    {id:'p2', text:'首先，{{b2}}这是类比不当：历史上的技术革命替代的多是体力与重复劳动，新岗位与旧岗位的技能距离较近；AI 替代的是部分认知劳动，被替代者的经验未必能迁移过去，何况这一次的替代速度也快得多。因此，该推论不能成立。'},
+    {id:'p3', text:'其次，{{b3}}这是以偏概全，也混淆了「结构」与「总量」：AI 岗位同比增长 200%，可能只是因为基数极小；即便新岗位数量可观，被替代者的年龄、地域与技能也未必与之匹配。因此，「就业市场整体向好」缺乏依据。'},
+    {id:'p4', text:'再次，{{b4}}这是绝对化：能否重新就业取决于岗位数量、培训成本、年龄门槛与家庭负担，「只要学」把一个多变量的结果压成了单变量。'},
+    {id:'p5', text:'最后，{{b5}}综上，材料在类比、样本与条件三处均存在缺陷，「不必担心失业」的结论难以令人信服。'}
+  ],
+  distract:[
+    {id:'d1', text:'因此，政府应当建立转岗培训补贴制度，对四十岁以上的劳动者给予专项支持，同时把职业教育的课程与企业真实岗位需求对接，让技术红利惠及更多人。',
+     why:'建议段。论证文不写「应当怎么做」，只写材料的推理为什么推不出。'},
+    {id:'d2', text:'我朋友的公司去年裁掉了整个客服团队，换成了智能应答。他至今没找到合适的工作，这件事让我很震动。',
+     why:'个案叙述。它虽有情绪分量，但不是对推理的检验；阅卷人看不到〈引〉〈析〉〈评〉，这一段零分。'}
+  ],
+  blanks:{
+   b1:{kind:'起段定调句', ask:'开头第二句该写什么？',
+    opts:[
+     {t:'然而其论证在类比、样本与条件三处失守，结论难以成立。', ok:true,
+      why:'三处落点先报出来，下面三段一段打一处，结构一眼可见。'},
+     {t:'AI 是新一轮科技革命的核心，正在深刻改变生产方式。', ok:false,
+      why:'背景铺垫，把靶子往后推。起段只干复述与指认两件事。'},
+     {t:'我认为 AI 确实会带来失业，但长期看是好事。', ok:false,
+      why:'既要选边又要展望，等于替材料和自己各说一半，读者不知道你要打什么。'},
+     {t:'本文将从就业结构、技能匹配、社会保障三个层面展开分析。', ok:false,
+      why:'写成了自己的分析框架。论证文不搭自己的体系，只拆对方的推断。'}]},
+   b2:{kind:'引句（历史类比）', ask:'「首先」后面该接哪一句？',
+    opts:[
+     {t:'材料认为「历史上每一次技术革命都创造了更多岗位」，由此推出「AI 也会如此」。', ok:true,
+      why:'历史类比的关键在两端：过去的替代对象、技能距离、替代速度。先引出来，下一句才好逐条比对。'},
+     {t:'历史上技术革命确实创造了很多岗位，这一点没有争议。', ok:false,
+      why:'替材料作证。你要打的是「过去如此，所以现在也会如此」这一步。'},
+     {t:'AI 与以往的技术革命不同，它的影响更大。', ok:false,
+      why:'只有断言没有依据，也没有引材料原句，属于「只评不析」。'},
+     {t:'技术革命会导致短期失业，长期就业会增加。', ok:false,
+      why:'转述了一个经济学结论，与本题要打的类比无关。'}]},
+   b3:{kind:'引句 + 概念', ask:'「其次」后面该接哪一句？',
+    opts:[
+     {t:'材料又由「AI 相关岗位同比增长 200%」推出「就业市场整体向好」。', ok:true,
+      why:'把「某个细分岗位的增长」与「整体市场」并置，下一句「以偏概全、结构不等于总量」才有依托。'},
+     {t:'200% 这个数据可能不准，招聘平台的统计口径很成问题。', ok:false,
+      why:'质疑数据真假是另开战场。即便数字为真，从细分到整体照样推不出。'},
+     {t:'AI 岗位增长确实很快，很多人都转行做了算法。', ok:false,
+      why:'替材料补充论据，方向反了。'},
+     {t:'就业市场的整体状况要看失业率和平均工资。', ok:false,
+      why:'换成了指标体系讨论，读者仍不知道材料哪一步跳了。'}]},
+   b4:{kind:'绝对化（单因归谬）', ask:'「再次」后面该接哪一句？',
+    opts:[
+     {t:'材料认为「被 AI 取代的人只要学习新技能就能重新就业」。', ok:true,
+      why:'「只要……就」是要害。引出这句，下一句「把一个多变量的结果压成单变量」就成立。'},
+     {t:'学习新技能需要时间和金钱，不是所有人都负担得起。', ok:false,
+      why:'说的是客观困难，仍停在「不容易」；要指出的是「只要学就能就业」这一步的绝对化。'},
+     {t:'政府应该为失业者提供免费培训。', ok:false,
+      why:'建议。一句「应该」就把这一段变成五类写法。'},
+     {t:'很多人学了新技能，仍然找不到工作。', ok:false,
+      why:'这是反例，但不能替代分析：没点出「单因归谬」，阅卷人看不到谬误类型。'}]},
+   b5:{kind:'收束句（回到靶子）', ask:'「最后」后面该接哪一句？',
+    opts:[
+     {t:'材料还由「失业者获得了自由时间」推出「可以做更有创造性的事」。', ok:true,
+      why:'合段再打一处：这是把失业的处境美化成了福利，收入中断与社会保障压力被整个略去。'},
+     {t:'失业者可以利用这段时间学习，未必是坏事。', ok:false,
+      why:'替材料说话，且丢掉了「大多数人没有这份余裕」的事实。'},
+     {t:'我认为 AI 造成的失业问题被严重低估了。', ok:false,
+      why:'个人态度，不是对推理的评价。'},
+     {t:'总之，面对 AI 我们既不能盲目乐观，也不能过度悲观。', ok:false,
+      why:'万能收尾，可以贴在任何一个 AI 题目后面。'}]}
+  }
+},
+
+/* ------------------ 衔接词 ① 论证文 · 共享单车（自拟） ------------------ */
+{ id:'l1', type:'link', noOrder:true, name:'论证文 · 共享单车取代短途公交', source:'自拟短文，只挖衔接词',
+  prompt:'这篇短文只挖了连接词。判断每一处该用哪个：是并列推进（首先/其次）、还是转折（然而）、还是递进追加（何况）、还是收口（因此/综上）。',
+  roles:[{name:'全文 · 6 处衔接', cls:'r-cheng', quota:'约 300 字'}],
+  paras:[
+    {id:'p1', text:'材料认为，城市应当用共享单车全面取代短途公交。{{b1}}，其论证在概念与条件两处失守，结论难以成立。'},
+    {id:'p2', text:'{{b2}}，材料由「随取随停」推出「比公交更灵活」。这是把理想使用状态当成了普遍状态：雨雪天、长距离、携带重物时，单车的优势并不存在；{{b3}}，投放与停放还挤占人行空间。{{b4}}，该推论不能成立。'},
+    {id:'p3', text:'{{b5}}，材料由「不烧油」推出「更环保」。这是偷换概念：调度、维修与报废回收同样消耗运力与资源，「不烧油」不等于「全周期更环保」。{{b6}}，材料在概念与条件上均存在缺陷，「全面取代」的结论难以成立。'}
+  ],
+  distract:[],
+  blanks:{
+   b1:{kind:'段首转折', ask:'第一段第二句开头该用哪个词？',
+    opts:[
+     {t:'然而', ok:true, why:'前一句是材料的结论，这一句要拐回来打它，用「然而」；这与后文「结论难以成立」的方向一致。'},
+     {t:'因此', ok:false, why:'「因此」表示由前句推出后句。材料的结论推不出「它的论证有缺陷」，方向正好相反。'},
+     {t:'何况', ok:false, why:'「何况」是追加一层更进的反证，用在两个反证之间，不能把靶子直接拐成批评。'},
+     {t:'例如', ok:false, why:'「例如」后面要接具体例子，这里接的是对整篇论证的定性判断。'}]},
+   b2:{kind:'并列推进', ask:'第二段开头该用哪个词？',
+    opts:[
+     {t:'首先', ok:true, why:'论证文正文的标准排序从「首先」开始，后面依次「其次/再次/最后」。'},
+     {t:'其次', ok:false, why:'「其次」要求前面已经出现「首先」。这里是第一个打点，用「其次」会让读者找不到第一点。'},
+     {t:'然而', ok:false, why:'第一段已经转折过，正文段首再转折，会读成「又绕回来」，丢掉并列推进的结构。'},
+     {t:'因此', ok:false, why:'这里是另起一个打点，不是由上一段推出结论。'}]},
+   b3:{kind:'递进追加', ask:'分号后面该用哪个词？',
+    opts:[
+     {t:'何况', ok:true, why:'前面已给了一层反驳（雨雪天、长距离），这一层是再追加一条更进的理由，用「何况」。'},
+     {t:'因此', ok:false, why:'「挤占人行空间」不是前一句的结果，而是并列追加的另一条反证。'},
+     {t:'然而', ok:false, why:'前面已经在反驳，这里不是转折，是同向加码。'},
+     {t:'例如', ok:false, why:'后面接的是一般性事实，不是为前一句举例。'}]},
+   b4:{kind:'段内收束', ask:'这一句开头该用哪个词？',
+    opts:[
+     {t:'因此', ok:true, why:'前两句是理由，这一句是结论「该推论不能成立」，因果方向清楚。'},
+     {t:'然而', ok:false, why:'理由与结论同向，不是转折关系。'},
+     {t:'何况', ok:false, why:'「何况」后面要更进一层，而这里是收口。'},
+     {t:'总之', ok:false, why:'「总之」用于全篇收束（最后一段），用在一个打点的末尾就越位了。'}]},
+   b5:{kind:'并列推进（第二点）', ask:'第三段开头该用哪个词？',
+    opts:[
+     {t:'其次', ok:true, why:'上一段用「首先」，这一段是第二个打点，标准用法是「其次」。'},
+     {t:'然而', ok:false, why:'段与段之间是并列推进，不是转折；一转折，读者会以为你在自我修正。'},
+     {t:'因此', ok:false, why:'第二个打点不是由第一个推出来的结论，不能用因果词。'},
+     {t:'何况', ok:false, why:'「何况」要求同向追加且语气更重，两段打的是不同漏洞，属于并列。'}]},
+   b6:{kind:'全篇收束', ask:'最后一句开头该用哪个词？',
+    opts:[
+     {t:'综上', ok:true, why:'这是全篇收口，标准写法是「综上／综上所述」，后面接「结论难以成立」。'},
+     {t:'然而', ok:false, why:'收尾不再转折。'},
+     {t:'何况', ok:false, why:'收尾不再追加新证据。'},
+     {t:'例如', ok:false, why:'收尾不给例子，给判断。'}]}
+  }
+},
+
+/* ------------------ 衔接词 ② 论说文 · AI 与教育（自拟） ------------------ */
+{ id:'l2', type:'link', noOrder:true, name:'论说文 · AI 与教育', source:'自拟短文，只挖衔接词',
+  prompt:'论说文的衔接词有自己的活：起段给判断（在我看来）、正段先让步（诚然）、反段转过来（但）、合段收口（因此）。先看两句之间的关系，再选词。',
+  roles:[{name:'全文 · 6 处衔接', cls:'r-cheng', quota:'约 300 字'}],
+  paras:[
+    {id:'p1', text:'AI 走进课堂，争的不是要不要用，而是教什么。{{b1}}，工具会被自动学会，标准只能被教出来；{{b2}}，课堂真正的职责是把标准立在工具之前。'},
+    {id:'p2', text:'{{b3}}，不把工具带进课堂，学生也会在校外自己学会，只是学到的仅是操作，没有人替他建立判断。'},
+    {id:'p3', text:'{{b4}}，若只守标准、不碰工具，标准同样落空：没见过产出的人，无从判断产出。'},
+    {id:'p4', text:'{{b5}}，课堂要做的不是禁止工具，而是让判断先于操作。{{b6}}，这样教出来的学生，换一套工具也不必重新开始。'}
+  ],
+  distract:[],
+  blanks:{
+   b1:{kind:'起段给判断', ask:'第一段这一处该用哪个词？',
+    opts:[
+     {t:'在我看来', ok:true, why:'起段的核心动作是「立刻给出自己的判断」。三个字既划清立场，又把后面两句收成自己的话。'},
+     {t:'然而', ok:false, why:'前面只是提出争论，没有可转折的对象，用「然而」会读成「可我要反对」，但你还没说反对什么。'},
+     {t:'因此', ok:false, why:'前一句没有提供原因，推不出后一句。'},
+     {t:'例如', ok:false, why:'后面是判断，不是例子。'}]},
+   b2:{kind:'同向推出', ask:'分号后面该用哪个词？',
+    opts:[
+     {t:'所以', ok:true, why:'前一句给出「工具会被自动学会、标准只能被教出来」，这一句是它的直接推论，语气上是同向推出。'},
+     {t:'然而', ok:false, why:'两句方向一致，不构成转折。'},
+     {t:'何况', ok:false, why:'「何况」要更进一层且带反驳意味，这里是顺势推出。'},
+     {t:'总之', ok:false, why:'「总之」用于全篇收口，用在这里会提前把文章关掉。'}]},
+   b3:{kind:'正段让步', ask:'第二段开头该用哪个词？',
+    opts:[
+     {t:'诚然', ok:true, why:'正段的写法是先承认对方一半、再指出缺了什么。「诚然」正是让步的标志，比「首先」更贴论说文的语气。'},
+     {t:'因此', ok:false, why:'这里不是因果推论，是先让步。'},
+     {t:'总之', ok:false, why:'开头就收束，后面无话可说。'},
+     {t:'何况', ok:false, why:'「何况」是追加反驳，与「先让一步」的动作相反。'}]},
+   b4:{kind:'转到反面', ask:'第三段开头该用哪个词？',
+    opts:[
+     {t:'但', ok:true, why:'上一段是让步，这一段把话转过来讲「只守标准也不行」，一个「但」就把正反两段扣上了，这是论说文的骨节。'},
+     {t:'因此', ok:false, why:'两段是互相制约的关系，不是因果。'},
+     {t:'例如', ok:false, why:'后面接的是道理，不是例子。'},
+     {t:'此外', ok:false, why:'「此外」是并列补充，读起来像「还有一点」，会丢掉正反相扣的张力。'}]},
+   b5:{kind:'合段收口', ask:'第四段开头该用哪个词？',
+    opts:[
+     {t:'因此', ok:true, why:'前两段一正一反，这一段要给结论与做法，「因此」把两段收成一条。'},
+     {t:'然而', ok:false, why:'合段不再转折，否则文章永远合不上。'},
+     {t:'何况', ok:false, why:'合段不再追加反证。'},
+     {t:'诚然', ok:false, why:'「诚然」是让步，出现在结尾会让全文读成还没定论。'}]},
+   b6:{kind:'同段承接', ask:'最后一句开头该用哪个词？',
+    opts:[
+     {t:'也正因为如此', ok:true, why:'前一句给了做法，这一句给做法的收益，用承接性短语把因果说明白，比再来一个「因此」显得不重复。'},
+     {t:'然而', ok:false, why:'与上一句方向一致，不构成转折。'},
+     {t:'例如', ok:false, why:'后面是一般性判断（换工具也不必重来），不是具体例子。'},
+     {t:'总之', ok:false, why:'同一段里第二次收束，会显得重复且仓促。'}]}
+  }
 }
 ];
 
 /* ================= 状态 ================= */
 var LS='kg2026-fill-v1';
-var S={tab:'arg', cur:{arg:0,essay:0}, place:{}, blanks:{}, wrong:{}, open:{}};
+var S={tab:'arg', cur:{arg:0,essay:0,link:0}, place:{}, blanks:{}, wrong:{}, open:{}, timers:{}};
 try{ var raw=localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object'){
   if(o.cur) S.cur=Object.assign(S.cur,o.cur);
-  S.place=o.place||{}; S.blanks=o.blanks||{}; S.wrong=o.wrong||{}; S.tab=o.tab||'arg';
+  S.place=o.place||{}; S.blanks=o.blanks||{}; S.wrong=o.wrong||{}; S.tab=o.tab||'arg'; S.timers=o.timers||{};
+  if(!S.cur.link) S.cur.link=0;
 } } }catch(e){}
 function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
@@ -460,17 +725,51 @@ function blankPicked(ex,b){ return S.blanks[ex.id+'::'+b]; }
 function blanksDone(ex){
   return blanksOf(ex).every(function(b){ var v=blankPicked(ex,b); return v!=null && v===R(ex.blanks[b]); });
 }
-function exDone(ex){ return orderDone(ex) && blanksDone(ex); }
+function exDone(ex){ return (ex.noOrder || orderDone(ex)) && blanksDone(ex); }
+
+/* ===== 计时：一篇 15 分钟，排序与填空共用一条 ===== */
+var LIMIT=15*60;
+function limitOf(ex){ return ex.limit || LIMIT; }
+function timerOf(ex){ return (S.timers||{})[ex.id]||null; }
+function startTimer(ex){
+  S.timers=S.timers||{};
+  S.timers[ex.id]={t0:Date.now()};
+  save(); renderEx();
+}
+function clearTimer(ex){
+  if(S.timers){ delete S.timers[ex.id]; }
+  save(); renderEx();
+}
+function syncTimer(ex){
+  var t=timerOf(ex);
+  if(!t) return;
+  if(exDone(ex) && !t.t1){ t.t1=Date.now()-t.t0; save(); }
+  if(!exDone(ex) && t.t1){ delete t.t1; save(); }
+}
+function fmt(sec){
+  if(sec<0) sec=0;
+  var m=Math.floor(sec/60), s2=sec%60;
+  return (m<10?'0':'')+m+':'+(s2<10?'0':'')+s2;
+}
+/* 每 0.5 秒只刷新数字，不重绘整页 */
+setInterval(function(){
+  var el=document.getElementById('tm'); if(!el) return;
+  var ex=curEx ? curEx() : null; if(!ex) return;
+  var t=timerOf(ex); if(!t) return;
+  if(t.t1){ el.className='tm ok'; el.textContent='用时 '+fmt(Math.floor(t.t1/1000)); return; }
+  var left=limitOf(ex)-Math.floor((Date.now()-t.t0)/1000);
+  if(left>0){ el.className='tm'+(left<=120?' warn':''); el.textContent='剩余 '+fmt(left); }
+  else { el.className='tm over'; el.textContent='已超时 +'+fmt(-left); }
+},500);
 
 function stats(){
   var total=0, done=0;
   EX.forEach(function(ex){
-    total += 2; // 排序 + 填空 各算一关
-    if(orderDone(ex)) done++;
-    if(blanksDone(ex)) done++;
+    if(ex.noOrder){ total+=1; if(blanksDone(ex)) done++; }        // 衔接词组：只有一关
+    else { total+=2; if(orderDone(ex)) done++; if(blanksDone(ex)) done++; }
   });
   document.getElementById('progFill').style.width=(100*done/total).toFixed(0)+'%';
-  document.getElementById('stat').textContent='已完成 '+done+' / '+total+' 关 · 4 篇范文 · 错题 '+Object.keys(S.wrong).length;
+  document.getElementById('stat').textContent='已完成 '+done+' / '+total+' 关 · 4 篇论证 + 2 篇论说 + 2 组衔接 · 错题 '+Object.keys(S.wrong).length;
   document.getElementById('wcount').textContent=Object.keys(S.wrong).length;
 }
 
@@ -481,7 +780,26 @@ function renderEx(){
   var cards=shuffled(ex.paras.map(function(p){return {id:p.id, text:p.text, isP:true};})
     .concat(ex.distract.map(function(d){return {id:d.id, text:d.text, isP:false};})), ex.id);
 
-  var h='<div class="card"><span class="qtag">'+(S.tab==='arg'?'论证有效性分析':'论说文')+'</span>'+
+  syncTimer(ex);
+  var KIND={arg:'论证有效性分析', essay:'论说文', link:'衔接词专练'};
+  var t=timerOf(ex);
+  var timerHtml;
+  if(!t){
+    timerHtml='<div class="timer"><span class="tm">'+fmt(limitOf(ex))+'</span>'+
+      '<span class="tmlab">限时，排序与填空共用一条</span>'+
+      '<button class="btn primary" id="tmStart">开始计时</button></div>';
+  }else if(t.t1){
+    timerHtml='<div class="timer"><span class="tm ok">用时 '+fmt(Math.floor(t.t1/1000))+'</span>'+
+      '<span class="tmlab">限时 '+fmt(limitOf(ex))+'</span>'+
+      '<button class="btn" id="tmReset">重新计时</button></div>';
+  }else{
+    var left=limitOf(ex)-Math.floor((Date.now()-t.t0)/1000);
+    timerHtml='<div class="timer"><span class="tm'+(left<=0?' over':(left<=120?' warn':''))+'" id="tm">'+
+      (left>0?('剩余 '+fmt(left)):('已超时 +'+fmt(-left)))+'</span>'+
+      '<span class="tmlab">限时 '+fmt(limitOf(ex))+'</span>'+
+      '<button class="btn" id="tmReset">重新计时</button></div>';
+  }
+  var h='<div class="card"><span class="qtag">'+(KIND[S.tab]||'写作')+'</span>'+
     '<div class="bar mini" style="margin-top:9px">'+list.map(function(e,i){
       return '<button data-i="'+i+'" class="'+(e.id===ex.id?'on':'')+'">'+esc(e.name)+'</button>';
     }).join('')+'</div>'+
@@ -489,45 +807,52 @@ function renderEx(){
     '<h2 style="margin:6px 0 4px">'+esc(ex.name)+'</h2>'+
     '<div class="prompt">'+esc(ex.prompt)+'</div>'+
     '<div class="nav">'+ex.roles.map(function(r){return '<span class="pill">'+esc(r.name)+'</span>';}).join('')+'</div>'+
+    timerHtml+
     '</div>';
 
-  /* 关卡 ① 段落排序 */
+  /* 关卡 ① 段落排序（衔接词组没有这一关） */
   var od=orderDone(ex);
-  h+='<div class="card"><h2 style="margin-top:0">① 段落排序 '+(od?'<span style="color:var(--ok);font-size:13px">✓ 已完成</span>':'')+'</h2>'+
-    '<div class="note">段落库里混进了 '+ex.distract.length+' 段<b>不该出现</b>的段落（提建议的、写读后感的）。先点一张卡，再点一个位置放进去；点已放好的位置可以取回。<b>排完顺序点「检查」</b>才会告诉你对错。</div>';
-  h+='<div class="slots" id="slots">';
-  ex.roles.forEach(function(r,i){
-    var cid=slotCard(ex,i), card=null;
-    if(cid){ card=cards.filter(function(c){return c.id===cid;})[0]; }
-    var cls='slot '+(S._chk? (cid? (ex.paras[i].id===cid?'ok':'bad'):'bad') : '');
-    var inner = card
-      ? '<div class="body">'+showTxt(card.text)+'</div>'+
-        (S._chk && ex.paras[i].id!==cid ? '<span class="why">'+esc(wrongPlaceWhy(ex,i,cid))+'</span>' : '')
-      : '<div class="ph2">（把段落放到这里）</div>';
-    h+='<div class="'+cls+'" data-slot="'+i+'"><span class="role '+r.cls+'">'+esc(r.name)+'</span>'+
-       '<div>'+inner+'<div class="note" style="margin-top:4px">'+esc(r.quota)+'</div></div></div>';
-  });
-  h+='</div>';
-  h+='<div class="pool" id="pool">'+cards.map(function(c){
-      var used=Object.keys(placeOf(ex)).some(function(k){return placeOf(ex)[k]===c.id;});
-      return '<div class="pcard'+(used?' used':'')+'" data-card="'+c.id+'">'+showTxt(c.text)+'</div>';
-    }).join('')+'</div>';
-  h+='<div class="actions"><button class="btn primary" id="btnCheck">检查顺序</button>'+
-    '<button class="btn" id="btnSolve">直接看正确顺序</button>'+
-    (od?'<button class="btn" id="btnAgain">重排一遍</button>':'')+'</div>';
-  h+='</div>';
+  if(!ex.noOrder){
+    h+='<div class="card"><h2 style="margin-top:0">① 段落排序 '+
+      (od?'<span style="color:var(--ok);font-size:13px">✓ 已完成</span>':'')+'</h2>'+
+      '<div class="note">段落库里混进了 '+ex.distract.length+' 段<b>不该出现</b>的段落（提建议的、写读后感的）。先点一张卡，再点一个位置放进去；点已放好的位置可以取回。<b>排完顺序点「检查」</b>才会告诉你对错。</div>';
+    h+='<div class="slots" id="slots">';
+    ex.roles.forEach(function(r,i){
+      var cid=slotCard(ex,i), card=null;
+      if(cid){ card=cards.filter(function(c){return c.id===cid;})[0]; }
+      var cls='slot '+(S._chk? (cid? (ex.paras[i].id===cid?'ok':'bad'):'bad') : '');
+      var inner = card
+        ? '<div class="body">'+showTxt(card.text)+'</div>'+
+          (S._chk && ex.paras[i].id!==cid ? '<span class="why">'+esc(wrongPlaceWhy(ex,i,cid))+'</span>' : '')
+        : '<div class="ph2">（把段落放到这里）</div>';
+      h+='<div class="'+cls+'" data-slot="'+i+'"><span class="role '+r.cls+'">'+esc(r.name)+'</span>'+
+         '<div>'+inner+'<div class="note" style="margin-top:4px">'+esc(r.quota)+'</div></div></div>';
+    });
+    h+='</div>';
+    h+='<div class="pool" id="pool">'+cards.map(function(c){
+        var used=Object.keys(placeOf(ex)).some(function(k){return placeOf(ex)[k]===c.id;});
+        return '<div class="pcard'+(used?' used':'')+'" data-card="'+c.id+'">'+showTxt(c.text)+'</div>';
+      }).join('')+'</div>';
+    h+='<div class="actions"><button class="btn primary" id="btnCheck">检查顺序</button>'+
+      '<button class="btn" id="btnSolve">直接看正确顺序</button>'+
+      (od?'<button class="btn" id="btnAgain">重排一遍</button>':'')+'</div>';
+    h+='</div>';
+  }
 
   /* 关卡 ② 段内填空 */
-  var unlocked = od || S._skip;
-  h+='<div class="card"><h2 style="margin-top:0">② 段内选句 '+(blanksDone(ex)?'<span style="color:var(--ok);font-size:13px">✓ 已完成</span>':'')+'</h2>';
+  var unlocked = ex.noOrder ? true : (od || S._skip);
+  h+='<div class="card"><h2 style="margin-top:0">'+(ex.noOrder?'衔接词填空':'② 段内选句')+' '+(blanksDone(ex)?'<span style="color:var(--ok);font-size:13px">✓ 已完成</span>':'')+'</h2>';
   if(!unlocked){
     h+='<div class="note">先把上面的顺序排对，再练段内句子——否则这一段会直接告诉你段落的正确顺序。<br>'+
       '想跳过排序，点下面这个按钮。</div>'+
       '<div class="actions"><button class="btn" id="btnSkip">先跳过排序，直接练填空</button></div></div>';
   }else{
-    h+='<div class="note">点虚线处（＿）弹出四个选项。选对就填进去，选错会标红并说明<b>为什么这句话放这儿不行</b>。</div>';
+    h+=ex.noOrder
+      ? '<div class="note">点虚线处（＿）弹出四个连接词。选对就填进去，选错会标红并说明<b>这两个句子之间到底是什么关系</b>（并列？转折？递进？收口？）。</div>'
+      : '<div class="note">点虚线处（＿）弹出四个选项。选对就填进去，选错会标红并说明<b>为什么这句话放这儿不行</b>。</div>';
     ex.paras.forEach(function(p,i){
-      h+='<div class="para" data-pid="'+p.id+'"><span class="pno">'+esc(ex.roles[i].name.split(' ·')[0])+'</span>'+paraHtml(ex,p)+'</div>';
+      var pno = ex.noOrder ? ('段'+(i+1)) : (ex.roles[i]? ex.roles[i].name.split(' ·')[0] : ('段'+(i+1)));
+      h+='<div class="para" data-pid="'+p.id+'"><span class="pno">'+esc(pno)+'</span>'+paraHtml(ex,p)+'</div>';
     });
     h+='<div class="actions"><button class="btn primary" id="btnBAll">显示全部正确句子</button>'+
       (blanksDone(ex)?'<button class="btn" id="btnBAgain">重做填空</button>':'')+'</div>';
@@ -575,6 +900,13 @@ function renderEx(){
     for(var i=0;i<ex.paras.length;i++) p['s'+i]=ex.paras[i].id;
     S._chk=true; save(); renderEx(); stats();
   };
+  var ts=document.getElementById('tmStart');
+  if(ts) ts.onclick=function(){ startTimer(ex); };
+  var tr=document.getElementById('tmReset');
+  if(tr) tr.onclick=function(){
+    if(!window.confirm('重新计时会把这一篇的计时清零，作答保留。继续？')) return;
+    clearTimer(ex);
+  };
   var ba=document.getElementById('btnAgain');
   if(ba) ba.onclick=function(){ S.place[ex.id]={}; S._chk=false; save(); renderEx(); stats(); };
   var bk=document.getElementById('btnSkip');
@@ -609,25 +941,32 @@ function wrongPlaceWhy(ex,i,cid){
   return '这一段本身没写错，但它承担的是「'+ex.roles[real].name+'」的角色，应放在第 '+(real+1)+' 位。';
 }
 
-/* 段落文本 → 带占位的 HTML */
+/* 段落文本 → 带占位的 HTML（解释块统一放到段落末尾，避免插入句中打断行文） */
 function paraHtml(ex,p){
   var parts=p.text.split(/(\{\{b\d+\}\})/);
-  return parts.map(function(seg){
+  var whys=[];
+  var body=parts.map(function(seg){
     var m=seg.match(/^\{\{(b\d+)\}\}$/);
     if(!m) return esc(seg);
     var b=m[1], bd=ex.blanks[b], pick=blankPicked(ex,b);
     if(pick==null) return '<span class="blank" data-b="'+b+'">＿'+bd.kind+'＿</span>';
     var okk=(pick===R(bd));
-    var tail='';
-    if(okk) tail='<div class="blwhy">✓ '+esc(bd.opts[R(bd)].why)+'</div>';
-    else tail='<div class="blwhy bad">✗ '+esc(bd.opts[pick].why)+'<br>点这里可重选。</div>';
-    return '<span class="blank on'+(okk?'':' bad')+'" data-b="'+b+'">'+esc(bd.opts[pick].t)+'</span>'+tail;
+    if(okk){
+      whys.push('<div class="blwhy"><b>✓ '+esc(bd.kind)+'</b>　'+esc(bd.opts[R(bd)].why)+'</div>');
+    }else{
+      whys.push('<div class="blwhy bad"><b>✗ '+esc(bd.kind)+'</b>　'+esc(bd.opts[pick].why)+
+        '<br><span class="note">点这一处可以重选。</span></div>');
+    }
+    return '<span class="blank on'+(okk?'':' bad')+'" data-b="'+b+'">'+esc(bd.opts[pick].t)+'</span>';
   }).join('');
+  return body + (whys.length? '<div style="margin-top:6px">'+whys.join('')+'</div>' : '');
 }
 
 /* 底部抽屉 */
 var panel=document.getElementById('panel');
+var closeT=null;
 function openBlank(ex,b){
+  if(closeT){ clearTimeout(closeT); closeT=null; }
   var bd=ex.blanks[b], pick=blankPicked(ex,b);
   var idx=blanksOf(ex).indexOf(b)+1;
   var h='<div class="phd"><span class="pask">第 '+idx+' 处 / 共 '+blanksOf(ex).length+' 处 · '+esc(bd.kind)+'</span>'+
@@ -654,7 +993,7 @@ function openBlank(ex,b){
       save(); openBlank(ex,b); renderExKeepPanel();
       if(i===R(bd)){
         /* 选对：0.7 秒后收起抽屉，让人看见填进正文的那一句 */
-        setTimeout(function(){ panel.classList.remove('on'); }, 700);
+        closeT=setTimeout(function(){ panel.classList.remove('on'); closeT=null; }, 900);
       }
     };
   });
@@ -720,7 +1059,7 @@ function setTab(t){
 });
 document.getElementById('btnReset').onclick=function(){
   if(!window.confirm('清空本页全部作答与错题？')) return;
-  S={tab:S.tab,cur:{arg:0,essay:0},place:{},blanks:{},wrong:{},open:{}};
+  S={tab:S.tab,cur:{arg:0,essay:0,link:0},place:{},blanks:{},wrong:{},open:{},timers:{}};
   save(); setTab(S.tab);
 };
 setTab(S.tab||'arg');
