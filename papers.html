@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>写作全卷 · 中英六套精讲</title>
+<style>
+:root{
+  --bg:#f6f4ef; --fg:#1e211d; --mut:#6b7069; --line:#ddd8ce; --card:#fffdf8;
+  --accent:#2e6b4f; --warn:#a33f2e; --chip:#f0ece2;
+  --qi:#dff0e4; --cheng:#fbf1cf; --zhuan:#f8ddd6; --he:#cfe6d6; --blue:#dfe8f3;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+    --accent:#7fc9a2; --warn:#e0876f; --chip:#22261f;
+    --qi:#1d3325; --cheng:#3a3320; --zhuan:#3b241f; --he:#1b3026; --blue:#1b2636;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+  --accent:#7fc9a2; --warn:#e0876f; --chip:#22261f;
+  --qi:#1d3325; --cheng:#3a3320; --zhuan:#3b241f; --he:#1b3026; --blue:#1b2636;
+}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.8 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:900px;margin:0 auto;padding:20px 14px 90px}
+h1{font-size:23px;margin:0 0 4px}
+h2{font-size:17px;margin:20px 0 8px}
+h3{font-size:15px;margin:16px 0 6px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 14px}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.bar button{border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+.bar button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin:13px 0}
+.qtag{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
+.note{font-size:13px;color:var(--mut)}
+.mat{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:11px 13px;
+  font-size:14.5px;line-height:1.85;margin:9px 0}
+.mat p{margin:6px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.tbl th{background:var(--bg)}
+ul.tight{margin:6px 0 6px 18px;padding:0}
+ul.tight li{margin:5px 0;font-size:14.5px;line-height:1.8}
+.model{background:var(--card);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:10px 14px;margin:10px 0;font-size:15px;line-height:1.95}
+.model p{margin:8px 0}
+.model .ttl{font-weight:700;text-align:center;margin-bottom:10px}
+.en{font-family:Georgia,"Times New Roman",serif;font-size:15px;line-height:1.9}
+.para{display:grid;grid-template-columns:96px 1fr;gap:10px;margin:11px 0;align-items:start}
+.para .k{font-size:12px;font-weight:700;background:var(--chip);border-radius:7px;padding:3px 0;text-align:center;color:var(--fg)}
+.para .b{font-size:14.5px;line-height:1.85}
+.para .b b{background:var(--cheng);padding:0 3px;border-radius:4px}
+@media (prefers-color-scheme:dark){ .para .b b{color:#efe6cf} }
+.tr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.tr .s{font-size:14px;line-height:1.85;padding:9px 11px;border-radius:10px;background:var(--blue)}
+.tr .c{font-size:14.5px;line-height:1.85;padding:9px 11px;border-radius:10px;background:var(--he)}
+@media (prefers-color-scheme:dark){ .tr .s{color:#dfe4ee} .tr .c{color:#dfe9e2} }
+.warnbox{border-left:3px solid var(--warn);background:rgba(163,63,46,.08);border-radius:0 10px 10px 0;
+  padding:9px 13px;font-size:14px;line-height:1.8;margin:10px 0}
+.okbox{border-left:3px solid var(--accent);background:rgba(46,107,79,.08);border-radius:0 10px 10px 0;
+  padding:9px 13px;font-size:14px;line-height:1.8;margin:10px 0}
+.chip{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin:0 4px 4px 0;color:var(--mut)}
+code{background:var(--chip);border-radius:5px;padding:1px 5px;font-size:13px}
+@media (max-width:620px){
+  h1{font-size:20px} .card{padding:12px}
+  .tr{grid-template-columns:1fr}
+  .para{grid-template-columns:64px 1fr;gap:8px}
+  .tbl{font-size:12.5px} .tbl th,.tbl td{padding:6px 7px}
+}
+</style></head><body><div class="wrap">
+
+<h1>写作全卷 · 中英六套精讲</h1>
+<p class="sub">三套华章模拟卷，每套四部分：<b>论证有效性分析 · 论说文 · 英译汉 · 英语小/大作文</b>。中文题给「逐条漏洞 + 600/700 字范文」，英文题给「逐句译文 + 采分点 + 100/150 词范文」。</p>
+
+<div class="bar" id="tabs">
+  <button data-t="arg" class="on">① 论证有效性</button>
+  <button data-t="essay">② 论说文</button>
+  <button data-t="trans">③ 英译汉</button>
+  <button data-t="letter">④ 英语小作文</button>
+  <button data-t="chart">⑤ 英语大作文</button>
+  <button data-t="note">⑥ 你的标注</button>
+</div>
+
+<main id="view"></main>
+
+<p class="note" style="margin-top:24px">
+卷源说明：这三套按你上传的图片整理，抬头为「华章教育集团 · 上海华章翰章教育」，页码落在 14/15/19/20。已核对：2024 统考第 56 题是「人才培养与引进」、2025 是「沟通理解中的主观立场」、2026 是「以租代买」（PDF 文本层可查）。因此这三套按 <b>模拟卷</b> 处理，不标年份、不冒充真题；其中「产业迭代：顺势奔逐 vs 沉潜深耕」与 2026 论说文的长期／短期同题，可互为参照。
+</p>
+
+</div>
+<script>
+var ARG=[
+{nm:'卷 1 · 银发直播', src:'模拟卷 · 论证有效性分析',
+ mat:['近几年银发直播快速兴起，不少老年博主凭借短视频、直播收获大量粉丝。由此可见，所有老年人都适合入局直播行业。',
+  '老年人拥有丰富人生阅历，看待生活拥有独到见解。有几位老年知识博主凭借讲解文史科普收获大量点赞。这就证明，阅历丰富就一定可以做好直播。',
+  '老年人做直播不需要复杂的线下场地，在家就可以开播。如果老年人参与直播，就可以发挥自身阅历优势；发挥阅历优势，就能够吸引大量粉丝；吸引大量粉丝，就可以实现可观的直播收入。',
+  '同时，直播可以丰富老年人晚年生活。如果老年人不去做直播，闲暇时间就只能无所事事；如果无所事事，就容易精神空虚；精神空虚，就会加剧老年心理问题。',
+  '未来数字设备会更加简易，面向老年人的网络服务会持续完善。由此可以断定，大力鼓励老年人投身直播，既可以解决老年人精神孤独，还能显著提高全体老年群体的经济收入。'],
+ pts:[
+ {q:'不少老年博主收获大量粉丝 → 所有老年人都适合入局', err:'以偏概全 + 概念偷换',
+  why:'由“不少”推到“所有”，样本与总体之间没有任何桥梁；更关键的是把“收获粉丝”换成了“适合入局”——适合至少含精力、表达、平台规则、收益稳定性四件事，粉丝只是其中一环。而且我们看到的恰是被算法推到前台的成功者，大量零播放、零收益的尝试并不出现在推荐页里。',
+  fix:'即便有老年博主获得大量关注，也只能说明部分内容在特定人群中有需求，不能推出全体老年人具备从业条件。'},
+ {q:'有几位老年知识博主收获大量点赞 → 阅历丰富就一定可以做好直播', err:'样本过小 + 充分性误用',
+  why:'“几位”构不成归纳；点赞是内容层面的即时反馈，做好直播是持续经营，还隔着选品、合规、供应链与更新频率。阅历丰富最多是必要条件，不是充分条件。',
+  fix:'个别博主获得点赞，只能说明阅历在特定题材上具有价值，不构成“阅历丰富即可做好直播”的充分条件。'},
+ {q:'不需要复杂场地 → 参与直播就能发挥阅历优势 → 吸引大量粉丝 → 实现可观收入', err:'三段连锁推理，每环可断',
+  why:'不需要场地只是消除了一个门槛，并没有解决“如何把阅历转成可看的内容”；有优势不等于有人看，有人看不等于有收入——直播收入高度集中于头部，人气与收入之间还隔着商业转化。',
+  fix:'场地门槛的降低只说明入行更容易，不能逐环推出“优势—粉丝—收入”的必然链条。'},
+ {q:'不做直播 → 闲暇只能无所事事 → 精神空虚 → 加剧心理问题', err:'虚假二分 + 滑坡',
+  why:'老年人的闲暇还有书画、旅行、社区服务、家庭照料，这些同样带来社交与意义；把一种选择说成唯一出路，是把“不选 A”偷换成“什么都不做”。后两段“空虚→心理问题”也缺少经验支持。',
+  fix:'直播可以作为丰富晚年生活的一种方式，但把它设为唯一选项，并据以推演心理后果，属于虚假二分与滑坡。'},
+ {q:'设备更简易、服务更完善 → 应鼓励投身直播，可解决孤独并显著提高全体老年人收入', err:'条件不足 + 群体放大',
+  why:'技术易用只降低操作门槛，未触及内容能力、健康风险、隐私与权益保障；从“门槛下降”直接跳到“显著提高全体老年群体收入”，把个别成功放大成群体红利。',
+  fix:'技术条件的改善只能说明可行性提高，不能推出群体性的经济收益，更不能作为政策建议的充分依据。'},
+ {q:'全篇结构', err:'论证方式单一',
+  why:'通篇由“个案 + 链条”堆叠，没有反面证据，也未讨论失败者的成本（时间、隐私、被诱导消费）。600 字里点 4 条即可，第 5 条用来收尾最有力。',
+  fix:'（写在结尾）材料把可行性、有效性与普遍性混为一谈。'}],
+ model:['银发直播的兴起，不等于全体老年人的机会',
+  '近年银发直播兴起，有老年博主收获大量粉丝，材料据此断言所有老年人都适合入局。这一推断在概念、样本与条件三个层面都站不住。',
+  '第一，“适合入局”被偷换了。收获粉丝说明有内容获得关注，而“适合”至少包含精力、表达能力、平台规则与收益稳定性。把“有博主成功”读成“全体适合”，是以偏概全：我们看到的恰是被算法推到前台的成功者，大量零播放、零收益的尝试者并不出现在推荐页里。',
+  '第二，“阅历丰富就能做好直播”同样推不出。几位知识博主获得点赞，只能说明特定内容在特定人群中有需求，既不能证明阅历是充分条件，也不能证明点赞会转化为持续经营。何况直播收入高度集中于头部，人气与收入之间还隔着选品、合规与供应链。',
+  '第三，材料用“不做直播就只能无所事事”把自己逼进了虚假二分。老年人的闲暇还有书画、旅行、社区服务与家庭照料，这些同样能带来社交与意义。以“不直播—空虚—心理问题”的三段滑坡，把一种选择说成唯一出路，缺乏任何经验支持。',
+  '最后，即便设备更易用、服务更完善，那也只是降低了技术门槛，并未解决内容能力、健康风险与权益保障；由此推出“显著提高全体老年群体经济收入”，更是把个别成功放大成群体红利。',
+  '因此，鼓励老年人尝试直播可以，但把它说成“人人适合”的行业，是对现实分布的一次误读。']},
+
+{nm:'卷 2 · 一人创业 + AI', src:'模拟卷 · 论证有效性分析',
+ mat:['当下，人工智能工具快速普及，一人创业模式越来越多地出现在大众视野。由此可见，未来个体创业将彻底取代传统团队创业。',
+  '过去创办企业需要招募员工、租赁场地，要承担高昂的人力与场地成本。如今，不少创业者借助 AI 完成文案、设计、剪辑等大量工作，部分一人创业者取得了不错的收益。这意味着，只要用好 AI 工具，普通个人就一定能创业成功。',
+  '借助 AI，个人不用雇佣员工，就省去了一大笔工资支出；省去人力成本，就可以大幅压低经营成本；经营成本足够低，就可以在市场上获得价格优势；拥有价格优势，就必然抢占大量市场份额。',
+  '此外，一人创业组织简单，沟通内耗少。没有复杂的内部协调，就不会出现团队矛盾；不出现团队矛盾，企业就可以稳定持续盈利。',
+  '当然，一人创业也需要外部环境支持。未来 AI 大模型能力会持续迭代，各类 AI 工具的使用成本会越来越低。这样看来，一人创业的条件会越来越成熟，个体创业时代很快全面到来。'],
+ pts:[
+ {q:'一人创业越来越多 → 将彻底取代传统团队创业', err:'趋势外推 + 绝对化',
+  why:'“出现”不等于“取代”，更不等于“彻底”。复杂制造、医疗、金融等领域存在资质、责任与协作的硬约束，AI 降低的是执行成本，不是合规成本。以“越来越多”外推“彻底取代”，既忽略行业差异，也把趋势当成结局。',
+  fix:'一人创业的增多只反映组织形态的一种可能，不能据此断定团队创业将被彻底取代。'},
+ {q:'部分一人创业者取得不错收益 → 只要用好 AI 工具，普通个人就一定能成功', err:'幸存者偏差 + 充分性误用',
+  why:'可见的成功者是被报道筛选过的样本，沉默的大多数看不到。创业成功至少需要需求验证、渠道、信任与现金流，AI 只压缩了“执行”这一段；把“别人做成了”读成“我用好工具就能成”，是把必要条件当成充分条件。',
+  fix:'部分成功案例只能说明工具降低了执行门槛，不能推出普通个人必然成功。'},
+ {q:'省工资 → 成本低 → 价格优势 → 必然抢占大量份额', err:'连锁推理',
+  why:'四步连推，每环都可断：省人力不等于总成本更低（算力、流量、获客会补上来）；有价格优势不等于有份额（品牌与信任仍要时间）；有份额也不等于有利润（低价换量常伴随亏损）。',
+  fix:'成本结构的变化不等于竞争优势，更不等于市场份额的必然增长。'},
+ {q:'没有复杂协调 → 不会出现团队矛盾 → 稳定持续盈利', err:'因果错置 + 绝对化',
+  why:'“不会出现矛盾”过于绝对，一人组织同样要面对与客户、供应商、平台的矛盾；更根本的是，把内部和谐当成盈利原因——盈利取决于市场，而一人组织缺少互补与制衡，决策风险集中在一个人身上。',
+  fix:'组织内部的协调成本与企业的盈利能力之间，没有材料所暗示的因果关系。'},
+ {q:'工具成本越来越低 → 创业条件越来越成熟，个体创业时代很快全面到来', err:'单因归果 + 时间断言无依据',
+  why:'工具成本只是创业条件之一，获客成本、信任成本、合规成本往往更高；“很快”“全面”没有任何时间与范围上的支撑。',
+  fix:'工具价格的下降只说明技术门槛降低，不足以推出创业环境全面成熟。'},
+ {q:'概念', err:'核心概念未界定且前后混用',
+  why:'“创业成功”未界定是存活、盈利还是规模化；“一人创业”（组织形态）与“个体创业时代”（产业格局）被当成同一件事，全篇在两者之间滑动。',
+  fix:'（写在开头或结尾）材料的“成功”“时代”都缺少可操作的定义，结论因此无从检验。'}],
+ model:['一人加 AI，不等于创业成功',
+  '材料由“一人创业越来越多”推出“个体创业将彻底取代团队创业”，又由“部分人取得收益”推出“只要用好 AI 就一定能成功”。这两步都跳过了关键条件。',
+  '首先，“出现”不等于“取代”。复杂制造、医疗、金融等领域有资质、责任与协作的硬约束，AI 降低的是执行成本，不是合规成本。以“越来越多”外推“彻底取代”，既忽略了行业差异，也把趋势当成了结局。',
+  '其次，成功者的可见性制造了偏差。我们能看到的是已经跑出收益的一人创业者，看不到沉默的大多数。创业成功至少需要需求验证、渠道、信任与现金流，AI 只压缩了其中“执行”这一段。把“别人做成了”读成“我只要用好工具就能成”，是把必要条件当成了充分条件。',
+  '再次，材料那条成本链每一环都可断。省下工资不等于总成本更低，算力、流量与获客成本会补上来；有价格优势不等于有份额，品牌与信任仍要时间；有份额也不等于有利润。四步连推，任何一步失守，结论就不成立。',
+  '至于“组织简单就不会有团队矛盾，因而能稳定盈利”，更是把企业内部和谐当成了盈利原因。一人组织缺少互补与制衡，决策风险集中在一个人身上；盈利最终取决于市场，而不是内部是否安静。',
+  '“一人创业”与“个体创业时代”也是两个概念，前者是组织形态，后者是产业格局，材料混用了二者。',
+  '因此，AI 确实降低了一人创业的门槛，但门槛降低只意味着更多人能入场，不意味着更多人能留下。']},
+
+{nm:'卷 3 · 短视频替代读书', src:'模拟卷 · 论证有效性分析',
+ mat:['如今短视频平台知识类内容热度高涨，很多人习惯刷短视频获取各类知识。由此可见，碎片化短视频阅读可以完全替代深度书本阅读。',
+  '传统读书需要花费大量整块时间，很多人没有充足闲暇。短视频把大部头书籍拆解为几分钟的片段，时下不少年轻人依靠短视频了解历史、科普知识。这说明，人们通过短视频就可以掌握书本全部核心内容。',
+  '刷短视频获取知识门槛低，随时随地都可以学习。如果人们用短视频代替读书，就不必用大量整块时间；如果不用花费大量整块时间，就会有更多人愿意学习；如果更多人愿意学习，国民整体知识素养就会快速提升。',
+  '有人担忧短视频信息零散，不利于系统思考。但现实中，一些短视频创作者本身就是高校学者，产出的内容质量很高。既然有高质量短视频，那么碎片化学习就不会带来认知缺陷。',
+  '随着算法技术不断优化，未来平台推送的知识内容会越来越优质。因此，我们应当大力鼓励大众放弃传统读书，主要依靠短视频完成知识学习。'],
+ pts:[
+ {q:'很多人习惯刷短视频获取知识 → 可以完全替代深度书本阅读', err:'绝对化 + 习惯≠效果',
+  why:'人们愿意刷，只说明它方便，不说明它有效。把使用频率当成学习质量，是最常见的一次概念偷换；“完全替代”没有任何边界条件。',
+  fix:'使用习惯的改变只能说明形式被接受，不能推出功能上的完全替代。'},
+ {q:'把大部头拆成几分钟片段 → 掌握书本全部核心内容', err:'拆解≠理解',
+  why:'书本的核心内容往往是一套论证：前提、推理、边界与反例。片段给出的多是结论与情绪，删掉的正是论证过程。只记住结论的人，遇到新问题仍然无法判断。',
+  fix:'内容被拆成片段，恰恰可能失去支撑结论的推理链，因而难以等同于掌握核心内容。'},
+ {q:'门槛低 → 愿意学 → 国民素养快速提升', err:'把意愿、行为、能力混为一谈',
+  why:'愿意学是起点，坚持学需要反馈与结构，素养提升需要长期训练；三者之间没有自动传导。材料的连锁条件只覆盖了第一步。',
+  fix:'降低学习门槛只能提高尝试的意愿，不能逐环推出素养的快速提升。'},
+ {q:'有高校学者做短视频 → 碎片化学习不会带来认知缺陷', err:'个例推普遍 + 论证方向错误',
+  why:'个别高质量内容不能证明学习者的认知结构完整；更关键的是，算法倾向推送你已认同的观点，长期只接收同类片段，恰恰会强化既有偏见。用“供给端有优质内容”回答“需求端的认知风险”，是答非所问。',
+  fix:'内容供给的质量不能等同于学习效果的完整性，更无法排除算法强化偏好的风险。'},
+ {q:'算法更优 → 应当鼓励大众放弃传统读书', err:'由事实直接跳到价值',
+  why:'“推送更优质”是事实判断，“应当放弃读书”是价值判断，两者之间需要额外的前提——例如系统阅读已无不可替代的价值。而恰恰相反，判断力来自能自己搭结构，而不是接收别人搭好的结论。',
+  fix:'推送质量的提升不构成放弃系统阅读的充分理由，价值结论仍需独立论证。'},
+ {q:'全篇', err:'概念滑移',
+  why:'“短视频阅读”“碎片化学习”“知识获取”“素养提升”四个词在全篇被交替使用，实际含义并不相同，结论因此显得比实际更强。',
+  fix:'（写在结尾）材料在多个近义概念之间滑动，使论证在表面上覆盖了更多场景。'}],
+ model:['短视频能替代书本吗',
+  '材料由“很多人刷短视频学知识”，一路推到“碎片化阅读可以完全替代深度书本阅读”。这条推理的每一段，都需要额外条件。',
+  '其一，习惯不等于效果。人们愿意刷，只说明它方便，不说明它有效。把使用频率当成学习质量，是最常见的一次概念偷换。',
+  '其二，“拆成几分钟片段”与“掌握全部核心内容”之间隔着理解。书本的核心内容往往是一套论证：前提、推理、边界与反例。片段给出的多是结论与情绪，删掉的正是论证。只记住结论的人，遇到新问题仍然无法判断。',
+  '其三，那条“门槛低—愿意学—素养快速提升”的链条，把意愿、行为与能力混为一谈。愿意学是起点，坚持学需要反馈，素养提升需要长期训练；三者之间没有自动传导。',
+  '其四，材料用“有学者做短视频”来反驳“碎片化带来认知缺陷”。个别高质量内容不能证明整体结构完整；更何况算法倾向于推送你已认同的观点，长期只接收同类片段，恰恰会强化既有偏见，而不是纠正它。',
+  '最后，“算法更优，所以应当放弃传统读书”这一步，是从事实直接跳到价值。即便推送质量提高，也不构成放弃系统阅读的理由：判断力来自能自己搭结构，而不是接收别人搭好的结构。',
+  '所以，短视频可以是入口，但不能是终点。']}
+];
+
+var ESSAY=[
+{nm:'卷 1 · 产业迭代：顺势奔逐 vs 沉潜深耕', src:'模拟卷 · 论说文（与 2026 长期／短期同题）',
+ mat:'产业迭代浪潮之下，新赛道热点迭起。不少企业面临抉择：是顺势奔逐新兴风口，抢抓时代赋予的短期红利；还是沉潜深耕固有主业，淬炼难以被复制的核心禀赋。',
+ sides:['短期：抓红利、快决策、活下去','长期：淬核心、筑壁垒、走得远'],
+ thesis:'两者不是二选一，而是供养关系——用短期红利供长期投入，用核心禀赋定短期方向。',
+ paras:[
+ {k:'起', claim:'产业迭代之下，风口与主业常被摆成一道对立题。', ex:'（不举例）', back:'这个提法本身有问题：它们在时间上分工，在资源上互相供养。'},
+ {k:'正', claim:'短期突围提供生存资本，没有它，长期沉淀撑不到兑现。', ex:'比亚迪 2008 年推出首款量产插混、坚持电池自研，但并未立刻放弃燃油车；燃油车那几年的现金流，把三电的长期投入养到了 2022 年。', back:'同年 3 月停产燃油车、销量跃居全球前列，是同一年发生的事，不是更早。'},
+ {k:'反', claim:'没有核心禀赋，风口上的位置也守不住。', ex:'英伟达 2006 年推出 CUDA，此后十余年持续投入，长期不被看好；直到 2012 年后深度学习兴起才集中兑现。同期跟风者不少，能留下的是别人难以复制的那一层。', back:'靠的不是入场早，而是手里有沉淀。'},
+ {k:'合', claim:'二者是供养关系：短期是油箱，长期是发动机。', ex:'企业要分清哪笔钱买时间、哪笔钱买位置。', back:'买时间的钱可以快进快出，买位置的钱必须按年计。'},
+ {k:'例证', claim:'拒绝为“下一次形态”付学费的一方，账面赢当下，输掉之后。', ex:'2000 年 Netflix 濒临破产，提出以 5000 万美元卖给 Blockbuster 被拒；2010 年 Blockbuster 破产，Netflix 已转向流媒体。', back:'分水岭就是那笔被拒绝的收购。'}],
+ model:['定方向要慢，迈步子要快',
+  '产业迭代之下，企业常被摆成一道二选一：要么奔逐新风口，要么深耕老主业。这个提法本身有问题——短期红利与长期沉淀并非互斥，它们在时间上分工，在资源上互相供养。',
+  '短期突围提供的是生存资本。风口之所以诱人，是因为它能带来现金流与关注度，而这两样正是长期投入的燃料。比亚迪 2008 年推出首款量产插混、坚持电池自研，但它并没有立刻放弃燃油车；正是燃油车那几年的现金流，把电池、电机与电控的长期投入养到了 2022 年。2022 年 3 月停产燃油车，同年销量跃居全球前列，而不是更早。可见，没有短期兑现，长期沉淀撑不到兑现的那一天。',
+  '反过来说，没有核心禀赋，风口上的位置也守不住。英伟达 2006 年推出 CUDA，此后十余年持续投入让 GPU 可用于通用计算，这块业务长期不被看好；直到 2012 年之后深度学习兴起，沉淀才在一两年内集中兑现。若当年因为“没人用”而砍掉，今天的算力需求与它无关。同期的跟风者不少，能留下的，靠的不是入场早，而是别人难以复制的那一层。',
+  '由此，二者的关系不是取舍，而是供养：短期是油箱，长期是发动机；没有油跑不动，没有发动机跑不远。企业真正要做的判断，是分清哪一笔钱是“买时间”，哪一笔钱是“买位置”。买时间的钱可以快进快出，买位置的钱必须按年计。',
+  '反过来看 2000 年的 Netflix：它濒临破产，提出以 5000 万美元卖给 Blockbuster，被拒；十年后 Blockbuster 破产，Netflix 已转向流媒体。拒绝收购的那一方，账面上赢了当下；愿意为“下一次形态”提前付学费的那一方，赢下了之后。',
+  '所以，产业迭代中真正的分野，不在“投不投风口”，而在“知不知道自己在为什么付学费”。定方向要慢——慢到想清楚核心禀赋是什么；迈步子要快——快到红利出现时能立刻扑上去。快与慢各归其位，企业才既不会饿死，也不会走丢。']},
+
+{nm:'卷 2 · 园艺：繁茂与收敛', src:'模拟卷 · 论说文',
+ mat:'园艺实践之中，部分果树枝叶繁茂，蔚然可观，却结实寥寥；另有一类果树，主动抑止徒长冗枝，收敛外在的繁盛之态，将养分向内沉淀，终得累累硕果。',
+ sides:['张扬：占满空间、扩张生长','收敛：抑止冗余、集中结果'],
+ thesis:'繁茂是本能，收敛是判断；真正的生长不是占满空间，而是知道养分该往哪里流。',
+ paras:[
+ {k:'起', claim:'两类树的差别，不在长得好不好，而在养分投给了谁。', ex:'（不举例）', back:'长势与结果是两件事。'},
+ {k:'正', claim:'收敛是判断：把资源从“可见的繁茂”挪到“可交付的结果”。', ex:'比亚迪 2022 年 3 月宣布停产燃油车，砍掉的正是当时仍在贡献销量的业务，换来电池与三电的集中投入。', back:'放弃一条看着还行的枝，保住结果的那条。'},
+ {k:'反', claim:'但收敛本身不是美德，方向错了，收敛就是慢性死亡。', ex:'柯达 1975 年就做出数码相机，却把资源继续押在胶卷上；诺基亚在智能机到来时守住了功能机的产量与渠道。', back:'它们不是不聚焦，而是聚焦在了一条不会再结果的枝上。'},
+ {k:'合', claim:'标准不是“这条业务赚不赚钱”，而是“它是否在为不可替代的能力供能”。', ex:'（不举例，下判断）', back:'能供能，短期亏也值；不能供能，当期赚钱也该剪。'},
+ {k:'例证', claim:'抑枝要早，要连年。', ex:'英伟达 2010 年代退出手机基带，把资源收回 GPU 与 CUDA。', back:'等枝条木质化再剪，伤口大、恢复慢；等业务尾大不掉再收，组织已经不会做减法了。'}],
+ model:['结实寥寥，问题不在长势',
+  '园中果树有两类：一类枝叶蔚然，看着兴旺，却结实寥寥；一类主动抑止徒长冗枝，收敛外在的繁盛，把养分向内沉淀，终得累累硕果。这两类树的差别，不在长得好不好，而在养分投给了谁。',
+  '繁茂是本能。只要有光、有水、有空间，枝条就会往外长；企业也一样，只要有资源、有机会，业务就会往外铺。问题在于，资源是有限的，每多一根徒长枝，果实的份额就少一分。',
+  '收敛是判断。主动抑枝，意味着承认“长得好”和“结得多”不是一回事，然后把资源从“可见的繁茂”挪到“可交付的结果”。比亚迪 2022 年 3 月宣布停产燃油车，就是一次抑枝：砍掉的是当时仍在贡献销量的业务，换来的是电池与三电的集中投入。英伟达在 2010 年代退出手机基带，把资源收回 GPU 与 CUDA，也是同一种动作——放弃一条看着还行的枝，保住结果的那条。',
+  '但收敛本身不是美德，方向错了，收敛就是慢性死亡。柯达早在 1975 年就做出了数码相机，却把资源继续押在胶卷上；诺基亚在智能机到来时守住了功能机的产量与渠道。它们都不是不聚焦，而是聚焦在了一条不会再结果的枝上。可见，收敛的价值取决于一个判断：这条枝还能不能结果。',
+  '那么标准是什么？不是“这条业务赚不赚钱”，而是“它是否在为我们不可替代的那部分能力供能”。能供能，哪怕短期亏，也值得留；不能供能，哪怕当期赚钱，也该剪。剪枝的刀，握在“核心禀赋”这件事上，而不是握在当季报表上。',
+  '园艺的经验还有一层：抑枝要早，要连年。等到枝条木质化再剪，伤口大、恢复慢；等到业务尾大不掉再收，组织已经不会做减法了。',
+  '所以，真正的生长不是把每一寸空间都占满，而是知道养分该往哪里流。繁茂可以是一时的风景，结果才是树的答案。']},
+
+{nm:'卷 3 · 广纳众言与自我之守', src:'模拟卷 · 论说文（AI 议题，可迁移）',
+ mat:'有思想家言：“广纳众言，则可破一己之蔽；然随众俯仰，则易失自我之守。”身处多元信息交织的时代，个体与组织亦常面临此种困境。',
+ sides:['广纳：破蔽、纠偏、见反例','自守：判断、担责、不失位'],
+ thesis:'开放接收是前提，独立判断是底线；以我为主地接收，才既破蔽又不失守。',
+ paras:[
+ {k:'起', claim:'算法越精准，我们越容易只听见自己想听的。', ex:'（不举具体例）', back:'于是“广纳”与“自守”同时变难。'},
+ {k:'正', claim:'不广纳，就会蔽。', ex:'波普尔：一个判断之所以可靠，不在于它被证实过多少次，而在于它能不能说出“什么情况下我错”；而“什么情况下我错”往往要靠异见提供。', back:'关起门只读同类文章的人，不是在思考，是在给自己背书。'},
+ {k:'反', claim:'但广纳不等于交出判断；随众俯仰的可怕，是判断的动作停了。', ex:'阿伦特“平庸之恶”：艾希曼并非恶魔，只是停止思考、只执行流程。2023 年纽约一名律师用 ChatGPT 检索判例，提交了六个不存在的案例而被处罚。', back:'他“接收”了内容，却没做最关键的那道核验。'},
+ {k:'合', claim:'真正的功夫在“接收”与“采纳”之间那一步，我拆成三个动作。', ex:'一看来源（谁给的、有无动机）；二问反例（什么情况下不成立）；三落成自己的话（不用原文重述并说出边界）。', back:'三个动作都过，才算真的广纳；过不了，就只是被推送。'},
+ {k:'例证', claim:'守住判断权的人，可以改结论，不改资格。', ex:'维特根斯坦在《逻辑哲学论》里给出“语言是世界的图像”，十余年后在《哲学研究》里亲手推翻，改说“意义即用法”。', back:'修正的是结论，不是下判断的权力。'}],
+ model:['以我为主地听',
+  '思想家说：广纳众言，则可破一己之蔽；然随众俯仰，则易失自我之守。这两句话合起来，正说中了今天的处境——算法越精准，我们越容易只听见自己想听的；内容越丰富，我们越难分清哪些是自己想过的。',
+  '不广纳，就会蔽。一个人的判断再稳，也只是一副镜片。波普尔说过，一个判断之所以可靠，不在于它被证实过多少次，而在于它能不能说出“什么情况下我错”。而“什么情况下我错”，往往要靠异见来提供。关起门来只读同类文章的人，不是在思考，是在给自己背书。',
+  '但广纳不等于交出判断。随众俯仰的可怕，不在于观点错了，而在于判断的动作停了。阿伦特旁听艾希曼审判后提出“平庸之恶”：他并非恶魔，只是停止思考、只执行流程。今天这个位置换成了屏幕——2023 年纽约一名律师用 ChatGPT 检索判例，向法院提交了六个并不存在的案例，被处罚。他“接收”了内容，却没有做那道最关键的核验。',
+  '所以真正的功夫，在“接收”与“采纳”之间那一步。我把它拆成三个动作：一看来源，这条结论是谁给的、他有没有动机；二问反例，什么情况下这条结论会不成立；三落成自己的话，能不能不用原文、用自己的语言把它重述一遍并说出边界。三个动作都过了，才算真的“广纳”；过不了，就只是被推送。',
+  '维特根斯坦是个好例子。他在《逻辑哲学论》里给出“语言是世界的图像”，十余年后又在《哲学研究》里亲手推翻它，改说“意义即用法”。他听了足够多的反例，也守住了自己下判断的权力——修正的是结论，不是判断的资格。',
+  '多元信息交织的时代，个体与组织面临的困境其实一样：信息越多，越需要一个人替自己拍板。广纳众言是把自己的镜片擦干净，自我之守是确保擦镜片的人还是自己。',
+  '听，是为了看清；守，是为了不被看清的东西牵走。']}
+];
+
+var TRANS=[
+{nm:'卷 1 · 阳光愧疚', src:'英译汉 · 15 分',
+ en:['It is easy to curl up inside with a book or hours of watching TV shows when it is dull outside.',
+     'But being a homebody when it is beautiful outside?',
+     'If you feel guilty about lounging indoors when the weather is gorgeous, you are not alone.',
+     '“Sunshine guilt,” or the shame you feel when staying inside on a sunny day, is a common experience.',
+     'When it is nice out, people tend to feel like they should be making the most of the day.',
+     'If they do not, they might feel as though they are not properly taking care of themselves.',
+     'Another factor contributing to sunshine guilt is having a scarcity mindset, or believing the idea that there is a limited supply of something — in this case, sunny days.',
+     'This can, understandably, make people feel even more desperate for whatever the limited commodity is.',
+     'Although there are endless sunny days, a scarcity mindset can make you feel awful about letting even one day go to waste, pressuring you to get outside and enjoy it.'],
+ zh:['天气阴沉时，蜷在屋里看书，或连刷几小时剧集，是件轻松的事。',
+     '可如果外面阳光明媚，你还窝在家里呢？',
+     '如果天那么好，你却赖在室内而心生愧疚，那并不只有你一个人这样。',
+     '“阳光愧疚”，也就是在晴天待在室内时感到的那份羞愧，是一种很普遍的体验。',
+     '天气好的时候，人们往往觉得自己应该把这一天充分利用起来。',
+     '若没有做到，就会觉得自己好像没有好好照顾自己。',
+     '造成“阳光愧疚”的另一个因素，是稀缺心态，即相信某种东西——在这里是晴天——的供给是有限的。',
+     '这自然会让人对那样稀缺之物更加渴求，甚至近乎急迫。',
+     '尽管晴天多得数不完，稀缺心态仍会让你为哪怕浪费一天而难受，逼着你出门去享受它。'],
+ pts:[{k:'curl up', v:'蜷缩、窝着', t:'“cut up”在原卷上疑为 curl up，按语境译“蜷在屋里”；照字面译“切碎”整句就崩。'},
+     {k:'homebody', v:'宅家的人', t:'不要译成“家庭主妇”，它是“爱待在家”的人，男女皆可。'},
+     {k:'you are not alone', v:'并不孤单 / 并非个例', t:'这里是“有同感的人很多”，不是安慰语。'},
+     {k:'scarcity mindset', v:'稀缺心态', t:'固定译法，后文的 limited supply 就是它的解释。'},
+     {k:'desperate for', v:'极度渴望', t:'不是“绝望”，主语是对某物的态度。'},
+     {k:'letting even one day go to waste', v:'哪怕浪费一天', t:'even one 要译出“一天都舍不得”的强调。'}]},
+
+{nm:'卷 2 · 时间贫困与自然', src:'英译汉 · 15 分',
+ en:['For many of us, the combined demands of work, home and family mean that we are always feeling like we do not have enough time.',
+     'Time poverty has also been aggravated by digital technologies.',
+     'Recent research suggests that the cure for our lack of time may lie in the natural world.',
+     'Research shows that spending time in nature helps to shift our focus from the immediate moment towards our future needs.',
+     'This can help us to prioritise our actions so that we meet our long-term goals rather than living in a perpetual state of “just about keeping our head above water.”',
+     'This is in part because spending time in nature appears to make us less impulsive, enabling us to delay immediate satisfaction in favour of long-term rewards.',
+     'In the short term, being away from the demands of modern-day life may provide the breathing space needed to re-prioritise life, and reduce time pressure by focusing on what actually needs to be done.',
+     'In the longer term, time in nature may help to enhance our memory and attention capacity, making us better able to deal with the demands on our time.'],
+ zh:['对我们许多人来说，工作、家庭与家务的多重需求叠加，意味着我们总觉得自己时间不够用。',
+     '数字技术又进一步加剧了这种“时间贫困”。',
+     '近期研究表明，解决时间匮乏的办法，也许就在自然界之中。',
+     '研究显示，亲近自然有助于我们把注意力从当下转向未来的需要。',
+     '从而帮助我们分清事情的轻重缓急，去实现长期目标，而不是长期处在“勉强维持不沉下去”的状态里。',
+     '这在一定程度上是因为，身处自然似乎能让人不那么冲动，使我们得以推迟眼前的满足，以换取长远的回报。',
+     '短期内，远离现代生活的种种要求，可以提供必要的喘息空间，让我们重新安排生活的优先级；把精力集中在真正需要做的事情上，从而减轻时间压力。',
+     '从长远看，亲近自然还有助于增强我们的记忆力与注意力，使我们更能应对时间上的各种要求。'],
+ pts:[{k:'combined demands', v:'多重需求叠加', t:'combined 要译出“叠加”，不是“联合的”。'},
+     {k:'time poverty', v:'时间贫困', t:'术语，加引号更清楚。'},
+     {k:'aggravated', v:'加剧、恶化', t:'不要译“加重”，配“贫困”用“加剧”更顺。'},
+     {k:'the cure … may lie in', v:'解决办法也许在于', t:'may 不能丢，原文是推测不是断言。'},
+     {k:'prioritise our actions', v:'分清轻重缓急 / 排出优先顺序', t:'这是全段最容易被译丢的动作。'},
+     {k:'keeping our head above water', v:'勉强维持、不致沉没', t:'习语，意译；直译“把头露出水面”会生硬。'},
+     {k:'delay immediate satisfaction in favour of', v:'为长远回报推迟眼前满足', t:'satisfaction 原卷作 content，疑为误排；按“满足/享受”译。'},
+     {k:'breathing space', v:'喘息空间', t:'固定搭配。'},
+     {k:'memory and attention capacity', v:'记忆力与注意力', t:'不必硬译 capacity。'}]},
+
+{nm:'卷 3 · 批判性思维', src:'英译汉 · 15 分',
+ en:['Critical thinking is the process of analyzing facts to form a judgment.',
+     'Essentially, it involves thinking about thinking.',
+     'Historically, it dates back to the teachings of Socrates, as documented by Plato.',
+     'In this day and age, it is seen as a complex concept understood best by philosophers and psychologists.',
+     'Modern definitions include “reasonable, reflective thinking focused on deciding what to believe or do” and “deciding what is true and what you should do.”'],
+ zh:['批判性思维是分析事实以形成判断的过程。',
+     '从根本上说，它是对思考本身进行思考。',
+     '从历史上看，它可追溯到苏格拉底的教诲，这一点由柏拉图记录了下来。',
+     '在当今时代，它被视为一个复杂的概念，只有哲学家和心理学家才最为了解。',
+     '现代的定义包括“以决定相信什么或做什么为核心的、理性的、反思性的思考”，以及“判断何为真、以及你应当怎么做”。'],
+ pts:[{k:'form a judgment', v:'形成判断', t:'judgment 是“判断”，不是“审判”。'},
+     {k:'thinking about thinking', v:'对思考的思考', t:'同词复现要保留，这是本段的核心句。'},
+     {k:'dates back to', v:'可追溯到', t:'配“教诲”用“追溯”比“开始于”更准。'},
+     {k:'as documented by Plato', v:'由柏拉图记录/记载', t:'document 作动词，别译“文件化”。'},
+     {k:'In this day and age', v:'在当今时代', t:'固定说法。'},
+     {k:'reasonable, reflective thinking', v:'理性的、反思性的思考', t:'两个形容词都要译，且顺序按中文习惯调整。'},
+     {k:'focused on deciding', v:'以决定…为核心', t:'focused on 是修饰 thinking 的定语，别当成整句谓语。'}]}
+];
+
+var LETTER=[
+{nm:'卷 1 · 给外国朋友求职建议（书信）', src:'Part A · 100 词 · 10 分',
+ task:'A foreign friend of yours has recently graduated from college and intends to find a job in China. Write him/her an email to make some suggestions. Do not use your own name; use “Li Ming” instead.',
+ struct:['① 开门：听到你要留华求职，写这封邮件给你几条建议','② 建议一：先定行业再定城市（产业分布不均，广撒网效率低）','③ 建议二：现在就开始练口语（很多岗位要中文面试）','④ 建议三：用校友与实习（内推比海投有效）','⑤ 收尾：我可以帮你改简历、介绍朋友，随时说'],
+ phrases:['I am delighted to hear that …','It would be far more efficient to … than to …','I would suggest that you start … now','A referral is usually worth dozens of online applications.','I would be glad to … if you need.'],
+ model:['Dear John,',
+  'I am delighted to hear that you plan to stay in China and look for a job after graduation. Here are a few suggestions that may help.',
+  'First, decide on an industry before you decide on a city. Industries are unevenly distributed across China, so it is far more efficient to target the few cities where your field is strong than to apply everywhere.',
+  'Second, start improving your spoken Chinese now. Many positions expect you to interview and work in Chinese.',
+  'Third, use alumni and internships. A referral is usually worth dozens of online applications.',
+  'I would be glad to help you polish your CV or introduce you to friends in relevant industries. Just let me know.',
+  'Yours,',
+  'Li Ming']},
+
+{nm:'卷 2 · 歌唱比赛通知（Notice）', src:'Part A · 100 词 · 10 分',
+ task:'The students union of your university has assigned you to inform the international students about an upcoming singing contest. Write a notice in about 100 words. Do not use your own name in the notice.',
+ struct:['① 标题 Notice + 一句话说清办什么','② 时间、地点、对象','③ 参赛要求：曲目、语言、伴奏','④ 报名方式与截止时间','⑤ 奖励与期待'],
+ phrases:['The Students’ Union will hold … on … in …','All international students are welcome.','Registration is open until …','Please sign up at … or by email, stating …','We look forward to your performance.'],
+ model:['Notice',
+  'The Students’ Union will hold a singing contest for international students on December 20, in the university auditorium.',
+  'All international students are welcome to take part. Each contestant may sing one song, either in Chinese or in English, and may bring his or her own accompaniment.',
+  'Registration is open until December 10. Please sign up at the Students’ Union office or by email, stating your name, nationality and the title of your song.',
+  'Prizes will be awarded to the top three singers, and every participant will receive a small gift.',
+  'We look forward to your performance.',
+  'The Students’ Union']},
+
+{nm:'卷 3 · 双语辩论赛通知（Notice）', src:'Part A · 100 词 · 10 分',
+ task:'You are chairman of the students’ union and asked to write a notice to all of your schoolmates to 1) inform them that a bilingual debating league will be set in your university soon, and 2) invite some qualified members. Do not sign your own name or your university name in the notice. Use “Global University” instead.',
+ struct:['① 标题 + 目的（组建双语辩论联赛）','② 活动安排：频率、时间、语言','③ 报名条件：双语流利、肯备赛、能保证出场','④ 筛选方式：资格试讲','⑤ 报名方式与截止'],
+ phrases:['is going to set up a bilingual debating league','The league will meet twice a month …','Applicants should be able to … and be willing to …','No previous experience is required, but …','Those interested please register … before …'],
+ model:['Notice',
+  'The Students’ Union of Global University is going to set up a bilingual debating league and welcomes qualified members to join.',
+  'The league will meet twice a month on Friday evenings, and debates will be conducted in both Chinese and English.',
+  'Applicants should be able to speak both languages fluently, be willing to prepare in teams, and commit to at least one debate each month. No previous experience is required, but a short trial speech will be organized for all applicants.',
+  'Those interested please register at the Students’ Union office before November 30.',
+  'The Students’ Union']}
+];
+
+var CHART=[
+{nm:'卷 1 · 毕业生选择就业城市时关注的因素', src:'Part B · 150 词 · 15 分',
+ data:'就业机会 49.6%｜地理位置 38.1%｜经济实力 35.4%｜文化氛围 27.8%｜交通便利 18.3%',
+ desc:'The bar chart illustrates what graduates consider most important when choosing a city to work in. Employment opportunities rank first at 49.6%, followed by geographical location at 38.1% and economic strength at 35.4%. Cultural atmosphere accounts for 27.8%, while convenient transportation comes last at 18.3%.',
+ model:['The bar chart illustrates what graduates consider most important when choosing a city to work in. Employment opportunities rank first at 49.6%, followed by geographical location at 38.1% and economic strength at 35.4%. Cultural atmosphere accounts for 27.8%, while convenient transportation comes last at 18.3%.',
+  'Two points stand out. First, the top three factors are all about survival and development: whether a city can offer a job, a reasonable location and a decent income. Second, softer factors such as culture and transport, though not negligible, are clearly secondary.',
+  'This pattern suggests that graduates are, above all, practical. It also implies that cities hoping to attract young talent should not rely on cultural branding alone; creating jobs and keeping living costs manageable remain the decisive moves.']},
+{nm:'卷 2 · 某市居民短期休闲活动方式选择', src:'Part B · 150 词 · 15 分',
+ data:'城市漫步 53%｜展览馆 48%｜户外探险 40%｜郊区乡村游 23%',
+ desc:'The chart shows how residents of a certain city spend their short holidays. City walks are the most popular choice, selected by 53%, followed by museums and exhibitions at 48% and outdoor adventures at 40%. Suburban country trips come last at 23%.',
+ model:['The chart shows how residents of a certain city spend their short holidays. City walks are the most popular choice, selected by 53%, followed by museums and exhibitions at 48% and outdoor adventures at 40%. Suburban country trips come last at 23%.',
+  'The dominance of city walks and exhibitions is easy to explain: both are cheap, close and flexible, requiring neither long travel nor much planning. Outdoor adventures, by contrast, demand time, equipment and physical fitness, which explains the lower figure.',
+  'What the chart reveals is a shift in the idea of leisure. People no longer measure a holiday by distance but by whether it fits into a busy week. For city planners, the message is clear: walkable streets, free museums and green space may matter more than another theme park.']},
+{nm:'卷 3 · 十年间认可终身教育重要性的人数', src:'Part B · 150 词 · 15 分',
+ data:'2016–2025：2.68 → 4.16 → 4.69 → 5.27 → 5.7 → 7.33 → 8.54 → 9.04 → 10.36 → 12.12（亿人）',
+ desc:'The chart shows the number of people in China who consider lifelong education important over the past decade. It rose steadily from 268 million in 2016 to 1.212 billion in 2025, more than quadrupling within ten years.',
+ model:['The chart shows the number of people in China who consider lifelong education important over the past decade. It rose steadily from 268 million in 2016 to 1.212 billion in 2025, more than quadrupling within ten years.',
+  'Two forces are at work. On the supply side, online courses and short-video platforms have made learning cheap and accessible; on the demand side, rapid industrial upgrading has made continuous learning a condition for staying employed. Together they turned a personal virtue into a social norm.',
+  'The trend carries a warning as well. When almost everyone agrees that lifelong education matters, the real question becomes what is worth learning and who decides. Otherwise enthusiasm may turn into another form of consumption.']}
+];
+
+/* ---------- 渲染 ---------- */
+function esc(s){return s;}
+function tag(t){return '<span class="qtag">'+t+'</span>';}
+function card(inner){return '<div class="card">'+inner+'</div>';}
+
+function renderArg(){
+ var h=card('<b>怎么读这一栏：</b>左列是材料原句，中间是「错在哪」，右边是「怎么改」。考场上你只需要找 4 条，第 5 条用来收尾。<b>批改句要能独立成句</b>，不要把原文再抄一遍。'+
+  '<div class="note" style="margin-top:8px">评分重心：① 是否命中真正的逻辑错误（不是复述）② 每条是否有独立的批驳 ③ 结构是否有起承转合 ④ 语言是否准确。</div>');
+ ARG.forEach(function(a){
+  h+=card(tag(a.src)+'<h2 style="margin-top:10px">'+a.nm+'</h2>'+
+   '<div class="mat">'+a.mat.map(function(p,i){return '<p><b>'+(i+1)+'.</b> '+p+'</p>';}).join('')+'</div>'+
+   '<h3>逐条找点</h3><table class="tbl"><tr><th style="width:30%">材料原句</th><th style="width:34%">错在哪</th><th>怎么改（批改句）</th></tr>'+
+   a.pts.map(function(p){return '<tr><td>'+p.q+'</td><td><b>'+p.err+'</b><br>'+p.why+'</td><td>'+p.fix+'</td></tr>';}).join('')+
+   '</table><h3>参考范文（600 字）</h3><div class="model">'+
+   a.model.map(function(p,i){return i===0?'<p class="ttl">'+p+'</p>':'<p>'+p+'</p>';}).join('')+'</div>');
+ });
+ return h;
+}
+
+function renderEssay(){
+ var h=card('<b>论说文的分数不在例子，在「把例子折回判断」的那一句。</b>每一段我都给了 claim（分论点句）→ ex（例子）→ back（回扣句）三件套；范文里那三件套的位置就是打分点。'+
+  '<div class="note" style="margin-top:8px">结构纪律：起段 120 字内说清两边；正段、反段各 250 字左右，必须互相制约而不是各说各话；合段 100 字给边界，不给口号。</div>');
+ ESSAY.forEach(function(e){
+  h+=card(tag(e.src)+'<h2 style="margin-top:10px">'+e.nm+'</h2>'+
+   '<div class="mat"><p>'+e.mat+'</p></div>'+
+   '<div style="margin:8px 0"><span class="chip">A 边：'+e.sides[0]+'</span><span class="chip">B 边：'+e.sides[1]+'</span></div>'+
+   '<div class="okbox"><b>中心论点（把两边合成一句）：</b>'+e.thesis+'</div>'+
+   '<h3>段落到句子</h3>'+
+   e.paras.map(function(p){return '<div class="para"><div class="k">'+p.k+'</div><div class="b"><b>'+p.claim+'</b><br>'+
+     '<span class="note">例子：</span>'+p.ex+'<br><span class="note">回扣：</span>'+p.back+'</div></div>';}).join('')+
+   '<h3>参考范文（700 字）</h3><div class="model">'+
+   e.model.map(function(p,i){return i===0?'<p class="ttl">'+p+'</p>':'<p>'+p+'</p>';}).join('')+'</div>');
+ });
+ return h;
+}
+
+function renderTrans(){
+ var h=card('<b>翻译的采分点几乎全在「动词与习语」上。</b>专有名词不会错，错的是 curl up 译成“切碎”、keeping our head above water 译成“把头露出水面”。逐句对读，先看中文是否成句，再看关键词是否落地。');
+ TRANS.forEach(function(t){
+  h+=card(tag(t.src)+'<h2 style="margin-top:10px">'+t.nm+'</h2>');
+  t.en.forEach(function(s,i){
+   h+='<div class="tr"><div class="s en">'+s+'</div><div class="c">'+t.zh[i]+'</div></div>';
+  });
+  h+='<h3>采分点</h3><table class="tbl"><tr><th style="width:26%">原文</th><th style="width:24%">应译</th><th>说明</th></tr>'+
+   t.pts.map(function(p){return '<tr><td class="en">'+p.k+'</td><td>'+p.v+'</td><td>'+p.t+'</td></tr>';}).join('')+'</table>';
+ });
+ return h;
+}
+
+function renderLetter(){
+ var h=card('<b>小作文只考两件事：格式对不对、三句话有没有说清。</b>书信三件套＝称呼／正文三段／落款；Notice 三件套＝标题／正文（时间地点＋要求＋报名）／署名（用组织名，不签自己）。<br>'+
+  '<span class="note">字数控制：100 词上下，正文 5–6 句，宁短勿错。</span>');
+ LETTER.forEach(function(l){
+  h+=card(tag(l.src)+'<h2 style="margin-top:10px">'+l.nm+'</h2>'+
+   '<div class="mat"><p><b>题干：</b>'+l.task+'</p></div>'+
+   '<h3>结构</h3><ul class="tight">'+l.struct.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul>'+
+   '<h3>句式库</h3><div style="margin:6px 0">'+l.phrases.map(function(p){return '<span class="chip en">'+p+'</span>';}).join('')+'</div>'+
+   '<h3>范文（100 词）</h3><div class="model en">'+l.model.map(function(p){return '<p>'+p+'</p>';}).join('')+'</div>');
+ });
+ return h;
+}
+
+function renderChart(){
+ var h=card('<b>大作文只有三段：描述（不说原因）→ 分析（给两条）→ 结论（给一个判断）。</b>描述段用「总—极值—其余」三句法，别一个数据一句话地报。'+
+  '<div class="warnbox">最容易失分的一步：把描述写成评论。<b>第一段只准出现数据和“rank / followed by / comes last”，一个 because 都不许有。</b></div>');
+ CHART.forEach(function(c){
+  h+=card(tag(c.src)+'<h2 style="margin-top:10px">'+c.nm+'</h2>'+
+   '<div class="mat"><p>'+c.data+'</p></div>'+
+   '<h3>描述段（三句法）</h3><div class="model en"><p>'+c.desc+'</p></div>'+
+   '<h3>范文（150 词）</h3><div class="model en">'+c.model.map(function(p){return '<p>'+p+'</p>';}).join('')+'</div>');
+ });
+ return h;
+}
+
+function renderNote(){
+ return card('<h2 style="margin-top:0">你卷面上写了什么，我怎么用</h2>'+
+  '<table class="tbl"><tr><th style="width:22%">你的标注</th><th style="width:30%">我的解读</th><th>怎么用</th></tr>'+
+  '<tr><td>翻译旁「14:07–14:27　20 min」</td><td>英译汉给了 20 分钟</td><td>合理。翻译 15 分、段落 5–8 句，<b>20 分钟是上限</b>；建议 8 分钟读＋打草稿、10 分钟誊写、2 分钟查漏词。</td></tr>'+
+  '<tr><td>写作旁「14:18–14:39　10 min」</td><td>这一段时间跨了 21 分钟，却标了 10 min</td><td>大概率是「其中一篇 10 分钟」。<b>小作文 10 分钟可以，大作文必须 20–25 分钟</b>；若两篇共 21 分钟，大作文只剩 11 分钟，写不满 150 词。</td></tr>'+
+  '<tr><td>论证文里逐句编号「1.C　2.B　3.D…」与连线</td><td>你在边读边给材料分句、标候选错误</td><td>这个方法对，而且是最快的。<b>把它固化成动作：读完一遍立刻给每段圈 1 个点，最后只留 4 个写成段。</b>别一边读一边写句子。</td></tr>'+
+  '<tr><td>两处「A13-2」「A13 3」</td><td>像成绩或题号，语义不明</td><td>不硬解，不用它。</td></tr>'+
+  '<tr><td>论说文旁「10:30　11:30」「10:00」</td><td>像是给两篇写作排的时间块</td><td>如果这是你的实测：论证 30 分钟、论说 30 分钟，正好卡在 65 分内（含 5 分钟检查），<b>可直接保留</b>。</td></tr></table>'+
+  '<h3>我建议的写作 65 分钟分配</h3>'+
+  '<table class="tbl"><tr><th>环节</th><th style="width:16%">用时</th><th>动作</th></tr>'+
+  '<tr><td>论证：读材料 + 标点</td><td>8 分钟</td><td>逐段圈错，选 4 条，写下每条的“错误类型 + 批改句关键词”</td></tr>'+
+  '<tr><td>论证：成文</td><td>17 分钟</td><td>600 字，起段 2 句、每个错一段、结尾 1 句</td></tr>'+
+  '<tr><td>论说：审题 + 列纲</td><td>7 分钟</td><td>写死中心论点句 + 正反两个分论点句 + 三个例子名</td></tr>'+
+  '<tr><td>论说：成文</td><td>28 分钟</td><td>700 字，起 120 / 正 250 / 反 250 / 合 100</td></tr>'+
+  '<tr><td>检查</td><td>5 分钟</td><td>只看标题、错字、段落是否各说各话</td></tr></table>'+
+  '<div class="okbox"><b>一条纪律：</b>论说文的 700 字里，<b>承上启下句只占四分之一，剩下的靠例子回扣</b>。所以列纲时就要写下三个例子名——写不出来，说明分论点还太抽象，要先改分论点，而不是先动笔。</div>'+
+  '<h3>⚠️ 三个待你确认</h3><ul class="tight">'+
+  '<li>这三套卷是华章模拟卷（非统考真题），页眉与页码可证；其中的题目主题与 2024/2025/2026 统考均不重合。如果你手上有它们的<b>参考答案</b>，给我一张图，我按参考答案校准我写的漏洞点。</li>'+
+  '<li>「阳光愧疚」那段原卷疑似把 curl up 排成 cut up，我按 curl up 处理；「时间贫困」那段 delay immediate content 疑为 satisfaction。若你能拍到更清晰的原文，我改。</li>'+
+  '<li>卷 1 的论说文与 2026 统考论说文同题（长期／短期）。<b>2026 论说文的原文我这边仍只有回忆版</b>，若你拍到真题原文，我按原文重写一版。</li></ul>');
+}
+
+var TABS={arg:renderArg, essay:renderEssay, trans:renderTrans, letter:renderLetter, chart:renderChart, note:renderNote};
+var view=document.getElementById('view');
+function setTab(t){
+ [].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.classList.toggle('on', b.dataset.t===t); });
+ view.innerHTML=TABS[t]();
+ window.scrollTo(0,0);
+}
+[].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.onclick=function(){ setTab(b.dataset.t); }; });
+setTab('arg');
+</script>
+</body></html>
