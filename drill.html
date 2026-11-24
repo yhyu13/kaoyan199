@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>拼骨架 · 三套卷论证与论说</title>
+<style>
+:root{
+  --bg:#f6f4ef; --fg:#1e211d; --mut:#6b7069; --line:#ddd8ce; --card:#fffdf8;
+  --accent:#2e6b4f; --warn:#a33f2e; --ok:#2e6b4f; --chip:#f0ece2;
+  --qi:#dff0e4; --cheng:#fbf1cf; --zhuan:#f8ddd6; --he:#cfe6d6;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+    --accent:#7fc9a2; --warn:#e0876f; --ok:#7fc9a2; --chip:#22261f;
+    --qi:#1d3325; --cheng:#3a3320; --zhuan:#3b241f; --he:#1b3026;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+  --accent:#7fc9a2; --warn:#e0876f; --ok:#7fc9a2; --chip:#22261f;
+  --qi:#1d3325; --cheng:#3a3320; --zhuan:#3b241f; --he:#1b3026;
+}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.8 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:880px;margin:0 auto;padding:20px 14px 110px}
+h1{font-size:23px;margin:0 0 4px}
+h2{font-size:17px;margin:18px 0 8px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 12px}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.bar button{border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+.bar button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.bar.mini button{font-size:12.5px;padding:5px 11px;border-radius:9px;text-align:left}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
+.qtag{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
+.note{font-size:13px;color:var(--mut)}
+.idxline{font-size:12.5px;color:var(--mut)}
+.material{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:11px 13px;
+  font-size:14.5px;line-height:1.85;margin:9px 0}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin:11px 0;background:var(--bg)}
+.step.done{border-color:var(--ok)}
+.stephd{display:flex;gap:9px;align-items:center;font-size:14px;font-weight:700;flex-wrap:wrap}
+.stepno{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;
+  font:700 12.5px/24px ui-monospace,Consolas,monospace;text-align:center;flex:none}
+.stepask{font-size:14.5px;margin:9px 0 9px;color:var(--fg)}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;line-height:1.7;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--ok);background:var(--he);font-weight:700}
+.opt.wrong{border-color:var(--warn);background:var(--zhuan);text-decoration:line-through}
+@media (prefers-color-scheme:dark){ .opt.right{color:#dfe9e2} .opt.wrong{color:#f2dcd5} }
+.ans{display:none;margin-top:10px;font-size:13.5px;line-height:1.8;border-top:1px dashed var(--line);padding-top:9px}
+.ans.on{display:block}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;
+  padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.olrow{display:grid;grid-template-columns:96px 1fr;gap:10px;margin:8px 0;align-items:start}
+.olseg{font-size:12px;font-weight:700;border-radius:7px;padding:3px 0;text-align:center;display:block}
+.olqi{background:var(--qi)} .olcheng{background:var(--cheng)} .olzhuan{background:var(--zhuan)} .olhe{background:var(--he)}
+@media (prefers-color-scheme:dark){ .olseg{color:#dfe9e2} }
+.olbody{font-size:14px;line-height:1.75}
+.olbody .fill{font-weight:700}
+.olbody .ph{color:var(--mut)}
+.quota{font-size:11.5px;color:var(--mut);margin-left:7px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.warnbox{border-left:3px solid var(--warn);background:rgba(163,63,46,.08);border-radius:0 10px 10px 0;
+  padding:9px 13px;font-size:14px;line-height:1.8;margin:10px 0}
+.okbox{border-left:3px solid var(--accent);background:rgba(46,107,79,.08);border-radius:0 10px 10px 0;
+  padding:9px 13px;font-size:14px;line-height:1.8;margin:10px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.tbl th{background:var(--bg)}
+code{background:var(--chip);border-radius:5px;padding:1px 5px;font-size:13px}
+@media (max-width:620px){
+  h1{font-size:20px} .card{padding:12px}
+  .olrow{grid-template-columns:66px 1fr;gap:8px}
+  .opt{font-size:13.5px;padding:8px 10px}
+}
+</style></head><body><div class="wrap">
+
+<h1>拼骨架 · 三套卷</h1>
+<p class="sub">每一步 4 个选项，结构固定：<b>1 个正确 + 1 个强混淆 + 2 个一眼可排除</b>。选对才填进下面的骨架——六步走完，一篇 600／700 字的骨架就立起来了。</p>
+
+<div class="bar" id="tabs">
+  <button data-t="arg" class="on">① 论证文 · 拼骨架</button>
+  <button data-t="essay">② 论说文 · 拼骨架</button>
+  <button data-t="how">③ 选项怎么用</button>
+</div>
+
+<main id="view"></main>
+
+</div>
+<script>
+/* ============ 数据 ============ */
+var BANK={
+
+arg:{label:'论证有效性分析', intro:'五步对应五个位置：起（把结论压成靶子）→ 打点 1 / 2 / 3（每条一个错误）→ 收束（回到判断，不喊口号）。每条打点只做一件事：指出跳在哪，不替作者想办法。',
+ outline:[
+  {seg:'① 起', cls:'olqi',   quota:'120 字', use:'open'},
+  {seg:'② 打点1', cls:'olcheng', quota:'130 字', use:'p1'},
+  {seg:'③ 打点2', cls:'olcheng', quota:'130 字', use:'p2'},
+  {seg:'④ 打点3', cls:'olzhuan', quota:'130 字', use:'p3'},
+  {seg:'⑤ 收束', cls:'olhe',  quota:'100 字', use:'end'}
+ ],
+ items:[
+ {name:'卷 1 · 银发直播', source:'模拟卷 · 论证有效性分析（华章）',
+  material:'近几年银发直播快速兴起，不少老年博主凭借短视频、直播收获大量粉丝，由此可见，所有老年人都适合入局直播行业。老年人拥有丰富人生阅历……有几位老年知识博主凭借讲解文史科普收获大量点赞，这就证明，阅历丰富就一定可以做好直播。老年人做直播不需要复杂的线下场地……如果老年人参与直播，就可以发挥自身阅历优势；发挥阅历优势，就能够吸引大量粉丝；吸引大量粉丝，就可以实现可观的直播收入。……如果老年人不去做直播，闲暇时间就只能无所事事；如果无所事事，就容易精神空虚；精神空虚，就会加剧老年心理问题。……由此可见，大力鼓励老年人投身直播，既可以解决老年人精神孤独，还能显著提高全体老年群体的经济收入。',
+  steps:[
+  {k:'open', name:'起段：把结论压成靶子', ask:'起段该写哪一句？', right:0,
+   opts:['材料由「不少老年博主走红」一路推到「所有老年人都适合入局」，又推到「能提高全体老年人收入」；这条链上的每一步都需要条件。',
+         '材料讨论了银发直播快速兴起的现象及其利弊，值得分析。',
+         '我认为老年人不适合做直播，因为直播很辛苦，对身体不好。',
+         '随着人口老龄化加剧，银发经济越来越受关注。'],
+   why:'A 是靶心：一句话把材料的三级结论串起来，后面三段正好逐个打。B 只是描述，没有可攻击的判断；C 是你自己在表观点，论证文不做这个；D 是背景，与结论无关。',
+   fill:'材料由「不少老年博主走红」一路推到「所有老年人都适合入局」，又推到「能提高全体老年人收入」；这条链上的每一步都需要条件。'},
+  {k:'p1', name:'打点 1：样本与概念', ask:'第一条该打哪个漏洞？', right:1,
+   opts:['材料说「不少」，但没有给出具体人数，数据不够详实。',
+         '由「不少老年博主收获粉丝」推出「所有老年人都适合入局」，是以偏概全：被看见的成功者恰是被算法筛选过的样本，而且「收获粉丝」也不等于「适合入局」。',
+         '老年人体力不好，无法长时间直播。',
+         '建议平台出台规范，保护老年主播的权益。'],
+   why:'B 同时点中了「样本」和「概念偷换」两个要害。A 抓了细节但没有指出推理错误，属于「说数据不全」的万能批；C 引入了材料外的生理事实，等于换题；D 是提建议——论证文最忌讳的动作。',
+   fill:'由「不少老年博主收获粉丝」推出「所有老年人都适合入局」，是以偏概全：被看见的成功者恰是被算法筛选过的样本，而且「收获粉丝」也不等于「适合入局」。'},
+  {k:'p2', name:'打点 2：链条与充分性', ask:'第二条该打哪一处？', right:1,
+   opts:['「不需要复杂场地」被当成了参与直播的充分条件，这一跳跃缺少论证。',
+         '「不需要场地」只消除了一个门槛，推不出「发挥优势—涨粉—收入」的必然链条：优势不等于有人看，有人看不等于有收入，而收入高度集中在头部。',
+         '老年人不会用智能手机，直播对他们不现实。',
+         '直播平台应当优化面向老年人的界面。'],
+   why:'B 说出了链条上每一环的断点，这才是「充分性」的落点。A 用了「充分条件」这个词，但没指出断在哪一环，属于半对的空批；C、D 都是材料外的事实或建议。',
+   fill:'「不需要场地」只消除了一个门槛，推不出「发挥优势—涨粉—收入」的必然链条：优势不等于有人看，有人看不等于有收入，而收入高度集中在头部。'},
+  {k:'p3', name:'打点 3：虚假二分与滑坡', ask:'第三条该打哪一处？', right:2,
+   opts:['老年人的精神生活确实需要社会关注。',
+         '直播会让老年人沉迷，反而影响健康。',
+         '「不做直播就只能无所事事」是虚假二分：闲暇还有书画、旅行、社区服务；再接「空虚—心理问题」，是缺少支持的滑坡。',
+         '子女应该多陪伴老人，减少孤独。'],
+   why:'C 一句话点了两个错（虚假二分 + 滑坡），是标准打法。A 是同向赞同，等于替材料说话；B 与 D 都是材料外的主张。',
+   fill:'「不做直播就只能无所事事」是虚假二分：闲暇还有书画、旅行、社区服务；再接「空虚—心理问题」，是缺少支持的滑坡。'},
+  {k:'end', name:'收束：回到判断', ask:'最后一段该写哪一句？', right:0,
+   opts:['因此，材料把「部分可行」写成了「人人适合」，把「门槛降低」当成了「收益必然」，结论的普遍性缺乏支撑。',
+         '综上所述，银发直播有利有弊，我们应该辩证地看待。',
+         '所以我们要坚决反对老年人做直播。',
+         '希望有关部门加强监管，规范直播行业。'],
+   why:'A 回到判断，且指出了「普遍性」这个总病根。B 是万能套话，等于没结论；C 是极端表态；D 是建议。收束段只做一件事：把前面的批驳收成一句判断。',
+   fill:'因此，材料把「部分可行」写成了「人人适合」，把「门槛降低」当成了「收益必然」，结论的普遍性缺乏支撑。'}
+  ]},
+
+ {name:'卷 2 · 一人创业 + AI', source:'模拟卷 · 论证有效性分析（华章）',
+  material:'当下，人工智能工具快速普及，一人创业模式越来越多地出现在大众视野。由此可见，未来个体创业将彻底取代传统团队创业。……部分一人创业者取得了不错的收益。这意味着，只要用好 AI 工具，普通个人就一定能创业成功。……省去人力成本，就可以大幅压低经营成本；经营成本足够低，就可以在市场上获得价格优势；拥有价格优势，就必然抢占大量市场份额。……没有复杂的内部协调，就不会出现团队矛盾；不出现团队矛盾，企业就可以稳定持续盈利。……一人创业的条件会越来越成熟，个体创业时代很快全面到来。',
+  steps:[
+  {k:'open', name:'起段：把结论压成靶子', ask:'起段该写哪一句？', right:1,
+   opts:['材料分析了 AI 对创业方式的影响，观点鲜明，值得讨论。',
+         '材料先由「一人创业增多」推出「将彻底取代团队创业」，又由「部分人成功」推出「用好 AI 就一定能成功」；两个「必然」都需要额外条件。',
+         'AI 时代人人都应该尝试创业，抓住机会。',
+         '一人创业节省成本，值得大力提倡。'],
+   why:'B 把两个「必然」同时抓住，后面正好一段打一个。A 是描述；C 是主张；D 是表态——都不是「靶子」。',
+   fill:'材料先由「一人创业增多」推出「将彻底取代团队创业」，又由「部分人成功」推出「用好 AI 就一定能成功」；两个「必然」都需要额外条件。'},
+  {k:'p1', name:'打点 1：趋势外推', ask:'第一条该打哪个漏洞？', right:0,
+   opts:['「越来越多」推「彻底取代」，是把趋势当结局：复杂制造、医疗、金融有资质与责任约束，AI 降低的是执行成本，不是合规成本。',
+         '「彻底」这个词太绝对了，世上没有绝对的事。',
+         '团队创业更容易成功，因为人多力量大。',
+         '政府应当出台政策，鼓励一人创业。'],
+   why:'A 给了具体理由（哪些领域、降的是哪种成本）。B 只抓了绝对词，属于空批；C 是反向表态；D 是建议。',
+   fill:'「越来越多」推「彻底取代」，是把趋势当结局：复杂制造、医疗、金融有资质与责任约束，AI 降低的是执行成本，不是合规成本。'},
+  {k:'p2', name:'打点 2：幸存者偏差', ask:'第二条该打哪一处？', right:1,
+   opts:['一人创业的成功率很低，大多数人都会失败。',
+         '用「部分人取得不错收益」推「普通个人一定成功」，是幸存者偏差：失败者不可见；而且创业还需需求验证、渠道、信任与现金流，AI 只压缩了执行这一段。',
+         '创业风险太大，不建议普通人尝试。',
+         '应当先统计创业成功率，再下结论。'],
+   why:'B 既命名了偏差，又说明了「工具只解决其中一段」。A 只是给结论，且「大多数人」无据；C 是建议；D 是把活推给别人。',
+   fill:'用「部分人取得不错收益」推「普通个人一定成功」，是幸存者偏差：失败者不可见；而且创业还需需求验证、渠道、信任与现金流，AI 只压缩了执行这一段。'},
+  {k:'p3', name:'打点 3：连锁与因果错置', ask:'第三条该打哪一处？', right:2,
+   opts:['企业经营成本包括很多方面，不只是人力成本。',
+         '垄断会损害消费者利益。',
+         '「省工资—成本低—价格优势—必然抢占份额」是四步连锁，每环可断：算力与获客会补上成本，份额也未必带来利润；「无内部矛盾—稳定盈利」更把内部和谐当成了盈利原因。',
+         '一人公司很难管理，容易出问题。'],
+   why:'C 说清了「连锁」这个结构，并另点了因果错置。A 只到常识层面，没指出链式结构；B 与材料无关；D 是泛论。',
+   fill:'「省工资—成本低—价格优势—必然抢占份额」是四步连锁，每环可断：算力与获客会补上成本，份额也未必带来利润；「无内部矛盾—稳定盈利」更把内部和谐当成了盈利原因。'},
+  {k:'end', name:'收束：回到判断', ask:'最后一段该写哪一句？', right:0,
+   opts:['因此，材料把「门槛下降」等同于「成功必然」，把「组织形态」混同于「产业格局」，结论超出了论据能支撑的范围。',
+         '总之，AI 创业有利有弊，需要辩证看待。',
+         '所以建议大家谨慎创业，不要盲目跟风。',
+         '未来已来，我们应当积极拥抱变化。'],
+   why:'A 收在两个概念问题上，与前文不重复。B 是套话；C 是劝告；D 是口号。',
+   fill:'因此，材料把「门槛下降」等同于「成功必然」，把「组织形态」混同于「产业格局」，结论超出了论据能支撑的范围。'}
+  ]},
+
+ {name:'卷 3 · 短视频替代读书', source:'模拟卷 · 论证有效性分析（华章）',
+  material:'如今短视频平台知识类内容热度高涨，很多人习惯刷短视频获取各类知识。由此可见，碎片化短视频阅读可以完全替代深度书本阅读。……短视频把大部头书籍拆解为几分钟的片段……这说明，人们通过短视频就可以掌握书本全部核心内容。……门槛低，随时随地都可以学习……就会有更多人愿意学习；如果更多人愿意学习，国民整体知识素养就会快速提升。……一些短视频创作者本身就是高校学者，产出的内容质量很高。既然有高质量短视频，那么碎片化学习就不会带来认知缺陷。……随着算法技术不断优化，未来平台推送的知识内容会越来越优质。因此，我们应当大力鼓励大众放弃传统读书。',
+  steps:[
+  {k:'open', name:'起段：把结论压成靶子', ask:'起段该写哪一句？', right:1,
+   opts:['材料讨论了短视频对阅读习惯的影响，这一现象值得关注。',
+         '材料由「很多人刷短视频学知识」推到「可以完全替代深度阅读」，中间隔着理解、系统性与价值判断三道槛，最后还从事实跳到了「应当」。',
+         '我认为读书比刷短视频更有价值。',
+         '短视频是技术发展的产物，无法阻挡。'],
+   why:'B 一次把「三道槛 + 事实到价值」全部点名，后面三段正好分配。A 是描述；C 是表态；D 是背景。',
+   fill:'材料由「很多人刷短视频学知识」推到「可以完全替代深度阅读」，中间隔着理解、系统性与价值判断三道槛，最后还从事实跳到了「应当」。'},
+  {k:'p1', name:'打点 1：拆解不等于理解', ask:'第一条该打哪个漏洞？', right:2,
+   opts:['短视频的内容太浅，学不到什么东西。',
+         '很多短视频是娱乐内容，算不上知识。',
+         '「拆成几分钟片段」推不出「掌握全部核心内容」：书本的核心往往是一套论证——前提、推理、边界与反例；片段给出的多是结论，删掉的正是论证。',
+         '应当限制每天刷短视频的时间。'],
+   why:'C 说清了「被删掉的是什么」，这是本题的核心。A 是结论式判断，没有机制；B、D 都离开了材料的推理。',
+   fill:'「拆成几分钟片段」推不出「掌握全部核心内容」：书本的核心往往是一套论证——前提、推理、边界与反例；片段给出的多是结论，删掉的正是论证。'},
+  {k:'p2', name:'打点 2：意愿不等于能力', ask:'第二条该打哪一处？', right:0,
+   opts:['「门槛低—愿意学—素养快速提升」把意愿、行为与能力混为一谈：愿意是起点，坚持要反馈，素养提升要长期训练，三者没有自动传导。',
+         '学习需要长期坚持，刷短视频容易让人分心。',
+         '国民素养还取决于学校教育和社会环境。',
+         '短视频平台应当增加知识类内容的比例。'],
+   why:'A 逐一拆开了三个词，指出「没有传导」。B 是常识；C 是引入他因但没打材料；D 是建议。',
+   fill:'「门槛低—愿意学—素养快速提升」把意愿、行为与能力混为一谈：愿意是起点，坚持要反馈，素养提升要长期训练，三者没有自动传导。'},
+  {k:'p3', name:'打点 3：个例与答非所问', ask:'第三条该打哪一处？', right:1,
+   opts:['高校学者做短视频是好事，有助于知识普及。',
+         '用「有学者做短视频」反驳「碎片化带来认知缺陷」，是个例推普遍；而且用供给端的质量回答需求端的风险，答非所问——算法偏好还会强化既有偏见。',
+         '短视频创作者的水平参差不齐，好坏都有。',
+         '应当鼓励更多专家参与短视频创作。'],
+   why:'B 一次点了两件事：个例推普遍 + 两侧错位。A 是同向赞同；C 是事实描述；D 是建议。',
+   fill:'用「有学者做短视频」反驳「碎片化带来认知缺陷」，是个例推普遍；而且用供给端的质量回答需求端的风险，答非所问——算法偏好还会强化既有偏见。'},
+  {k:'end', name:'收束：回到判断', ask:'最后一段该写哪一句？', right:2,
+   opts:['总之，短视频学习有利有弊。',
+         '我们要拒绝碎片化学习，回归纸质书。',
+         '因此，材料把「使用频率」当成「学习质量」，把「内容供给」当成「学习效果」，最后又把事实判断直接换成了价值主张。',
+         '相信随着技术发展，这些问题都会解决。'],
+   why:'C 把三处偷换收成一句，且落在「事实→价值」这个最硬的错上。A 是套话；B 是表态；D 是期待，不是分析。',
+   fill:'因此，材料把「使用频率」当成「学习质量」，把「内容供给」当成「学习效果」，最后又把事实判断直接换成了价值主张。'}
+  ]}
+ ]},
+
+essay:{label:'论说文', intro:'六步对应六个位置：标题（两边都要出现）→ 起（给判断，不给「都有道理」）→ 正（缺了 A，B 就失效）→ 反（缺了 B，A 就失效）→ 合（给边界，不给口号）→ 例证（配位：这个例子该放哪段、回扣什么）。',
+ outline:[
+  {seg:'标题', cls:'olqi', quota:'—', use:'title'},
+  {seg:'① 起', cls:'olqi', quota:'120 字', use:'open'},
+  {seg:'② 正', cls:'olcheng', quota:'250 字', use:'pos'},
+  {seg:'③ 反', cls:'olzhuan', quota:'250 字', use:'neg'},
+  {seg:'④ 合', cls:'olhe', quota:'100 字', use:'edge'},
+  {seg:'例证', cls:'olhe', quota:'正反共用', use:'ex'}
+ ],
+ items:[
+ {name:'卷 1 · 产业迭代：顺势 vs 深耕', source:'模拟卷 · 论说文（与 2026 长期／短期同题）',
+  material:'产业迭代浪潮之下，新赛道热点迭起。不少企业面临抉择：是顺势奔逐新兴风口，抢抓时代赋予的短期红利；还是沉潜深耕固有主业，淬炼难以被复制的核心禀赋。',
+  steps:[
+  {k:'title', name:'标题', ask:'标题该起成哪一句？', right:1,
+   opts:['论长期主义的重要性',
+         '定方向要慢，迈步子要快',
+         '企业如何应对产业迭代',
+         '顺势与深耕'],
+   why:'B 两边都在，而且给出了关系（方向慢 / 步子快）。A 只写一边；C 换成了「怎么办」；D 只是把两个词并排放着，没有关系——这是最常见的跑题标题。',
+   fill:'定方向要慢，迈步子要快'},
+  {k:'open', name:'起段判断', ask:'第 1 段（120 字）该写哪一句？', right:0,
+   opts:['二者并非二选一，而是供养关系：短期提供现金流，长期提供方向与壁垒。',
+         '这两种观点都有道理，我们应当辩证地看待。',
+         '长期主义更重要，因为根基决定一切。',
+         '企业应当同时重视长期与短期。'],
+   why:'A 给了判断，而且给了「供养」这个关系词。B 是「都有道理」的空判断；C 选边，等于没回答题眼；D 是折中，没有内容。',
+   fill:'二者并非二选一，而是供养关系：短期提供现金流，长期提供方向与壁垒。'},
+  {k:'pos', name:'正段分论点', ask:'第 2 段（250 字）的分论点该写哪一句？', right:2,
+   opts:['短期突围能够带来现金流，所以非常重要。',
+         '华为的长期投入证明了长期主义的有效性。',
+         '没有短期兑现，长期沉淀就撑不到兑现的那一天：定力要靠现金流供养。',
+         '现金流是企业的血液。'],
+   why:'C 写出「缺了 A，B 就失效」，这是二类与三类卷的分水岭。A 只是「很重要」；B 是例子；D 是比喻，没有推进。',
+   fill:'没有短期兑现，长期沉淀就撑不到兑现的那一天：定力要靠现金流供养。'},
+  {k:'neg', name:'反段分论点', ask:'第 3 段（250 字）的分论点该写哪一句？', right:1,
+   opts:['长期主义同样重要，企业要有耐心。',
+         '没有核心禀赋，风口上的位置就守不住：红利会被同样入场的人迅速摊薄。',
+         '柯达因为固守胶卷而失败。',
+         '风口往往伴随着泡沫。'],
+   why:'B 与正段互相制约：正段说没有短期活不到，反段说没有长期守不住。A 是「也重要」；C 是例子，且方向用错了段；D 是泛论。',
+   fill:'没有核心禀赋，风口上的位置就守不住：红利会被同样入场的人迅速摊薄。'},
+  {k:'edge', name:'合段：给边界', ask:'第 4 段（100 字）该写哪一句？', right:0,
+   opts:['定方向要慢，迈步子要快：买时间的钱可以快进快出，买位置的钱必须按年计。',
+         '因此企业要兼顾长期与短期，才能行稳致远。',
+         '所以我们要大力提倡长期主义。',
+         '时代在变，企业也要变。'],
+   why:'A 把两段收成一个可执行的分界（哪笔钱怎么花）。B 是口号式折中；C 是选边；D 是空话。',
+   fill:'定方向要慢，迈步子要快：买时间的钱可以快进快出，买位置的钱必须按年计。'},
+  {k:'ex', name:'例证配位', ask:'下面哪个例子配得对？', right:0,
+   opts:['比亚迪：用燃油车现金流养三电到 2022 年 —— 放正段，回扣「短期供养长期」。',
+         '比亚迪：2022 年新能源销量全球第一 —— 放正段，回扣「短期重要」。',
+         '柯达：1975 年做出数码相机却押注胶卷 —— 放正段，回扣「短期重要」。',
+         '马云：今天很残酷，明天更残酷 —— 放合段，回扣「坚持」。'],
+   why:'A 的「动作」与正段论点同构。B 讲的是结果，回扣不上「供养」；C 应放反段（方向错的收敛）；D 是名言，不是例子，且与「慢/快」无关。',
+   fill:'比亚迪：用燃油车现金流养三电到 2022 年 —— 放正段，回扣「短期供养长期」。'}
+  ]},
+
+ {name:'卷 2 · 园艺：繁茂与收敛', source:'模拟卷 · 论说文（华章）',
+  material:'园艺实践之中，部分果树枝叶繁茂，蔚然可观，却结实寥寥；另有一类果树，主动抑止徒长冗枝，收敛外在的繁盛之态，将养分向内沉淀，终得累累硕果。',
+  steps:[
+  {k:'title', name:'标题', ask:'标题该起成哪一句？', right:2,
+   opts:['论专注的重要性',
+         '果树种植的启示',
+         '结实寥寥，问题不在长势',
+         '繁茂与收敛'],
+   why:'C 有判断：问题不在长势，而在养分分配——正好接全文。A 只写一边且抽象；B 是「启示」类跑题；D 是两个词并列，没有关系。',
+   fill:'结实寥寥，问题不在长势'},
+  {k:'open', name:'起段判断', ask:'第 1 段该写哪一句？', right:0,
+   opts:['长势与结果是两件事，差别在于养分投给了谁。',
+         '材料用果树比喻人生，说得很形象。',
+         '做事要专注，才能取得成功。',
+         '我们应当学习果树的智慧。'],
+   why:'A 立刻把比喻翻译成判断（养分 → 资源分配）。B 只夸不讲；C、D 是口号，任何题都能套。',
+   fill:'长势与结果是两件事，差别在于养分投给了谁。'},
+  {k:'pos', name:'正段分论点', ask:'第 2 段（250 字）的分论点该写哪一句？', right:1,
+   opts:['专注让人更容易成功。',
+         '不抑枝，资源就被徒长枝分走：每多一根枝，果实的份额就少一分。',
+         '苹果砍掉大部分产品线后起死回生。',
+         '人的精力是有限的。'],
+   why:'B 是机制，能推出因果。A 是结论；C 是例子；D 是常识，没有推进。',
+   fill:'不抑枝，资源就被徒长枝分走：每多一根枝，果实的份额就少一分。'},
+  {k:'neg', name:'反段分论点', ask:'第 3 段（250 字）的分论点该写哪一句？', right:2,
+   opts:['但也不能只专注一个方向，要多尝试。',
+         '诺基亚倒闭是因为不创新。',
+         '方向错了，收敛就是慢性死亡：柯达、诺基亚都极其聚焦，却聚焦在一条不再结果的枝上。',
+         '多元化经营可以分散风险。'],
+   why:'C 与正段互相制约：正段说该剪，反段说剪错方向更危险。A 是「也要」式折中；B 是单因归因；D 与题意反向。',
+   fill:'方向错了，收敛就是慢性死亡：柯达、诺基亚都极其聚焦，却聚焦在一条不再结果的枝上。'},
+  {k:'edge', name:'合段：给边界', ask:'第 4 段该写哪一句？', right:0,
+   opts:['剪枝的标准不是「这条枝好不好看、赚不赚钱」，而是「它是否在为不可替代的能力供能」。',
+         '因此要适度收敛，也要适度扩张。',
+         '所以我们要学会取舍。',
+         '人生如树，需要修剪。'],
+   why:'A 给出可操作的判断标准。B 是「适度」式空话；C 太抽象；D 是比喻收尾，最容易被判三类卷。',
+   fill:'剪枝的标准不是「这条枝好不好看、赚不赚钱」，而是「它是否在为不可替代的能力供能」。'},
+  {k:'ex', name:'例证配位', ask:'下面哪个例子配得对？', right:1,
+   opts:['英伟达市值全球第一 —— 放正段，回扣「抑枝带来结果」。',
+         '英伟达 2010 年代退出手机基带，把资源收回 GPU 与 CUDA —— 放正段，回扣「抑枝」。',
+         '亚马逊不断扩张业务 —— 放反段，回扣「扩张也重要」。',
+         '爱迪生试了上千种材料 —— 放正段，回扣「坚持」。'],
+   why:'B 是「动作」，和正段的「抑枝」同构。A 是结果；C 放反段但回扣的是扩张，与反段的「剪错枝」相反；D 是万能例子，本题用不上。',
+   fill:'英伟达 2010 年代退出手机基带，把资源收回 GPU 与 CUDA —— 放正段，回扣「抑枝」。'}
+  ]},
+
+ {name:'卷 3 · 广纳众言与自我之守', source:'模拟卷 · 论说文（华章，AI 议题可迁移）',
+  material:'有思想家言：「广纳众言，则可破一己之蔽；然随众俯仰，则易失自我之守。」身处多元信息交织的时代，个体与组织亦常面临此种困境。',
+  steps:[
+  {k:'title', name:'标题', ask:'标题该起成哪一句？', right:0,
+   opts:['以我为主地听',
+         '论广纳众言的重要性',
+         '信息时代的困境',
+         '广纳与自守'],
+   why:'A 把两边合成一个动作（听，但以我为主）。B 只写一边；C 是背景题；D 只是并列，没给关系。',
+   fill:'以我为主地听'},
+  {k:'open', name:'起段判断', ask:'第 1 段该写哪一句？', right:1,
+   opts:['这句话很有道理，值得我们深思。',
+         '开放接收是前提，独立判断是底线；二者缺一，广纳就变成了被推送。',
+         '我们要多听别人的意见。',
+         '信息时代要学会独立思考。'],
+   why:'B 给了「前提 / 底线」这个层级关系，后面两段正好各写一头。A 是赞语；C、D 各只说一边，且没有关系。',
+   fill:'开放接收是前提，独立判断是底线；二者缺一，广纳就变成了被推送。'},
+  {k:'pos', name:'正段分论点', ask:'第 2 段（250 字）的分论点该写哪一句？', right:0,
+   opts:['不广纳就会蔽：判断是否可靠，取决于能否说出「什么条件下我错」，而这往往要靠异见提供。',
+         '多听别人的意见可以避免犯错。',
+         '兼听则明，偏信则暗。',
+         '现在网上的信息很多。'],
+   why:'A 给了机制（可靠性的判据 + 异见的作用）。B 是常识；C 是成语，没有解释；D 是背景。',
+   fill:'不广纳就会蔽：判断是否可靠，取决于能否说出「什么条件下我错」，而这往往要靠异见提供。'},
+  {k:'neg', name:'反段分论点', ask:'第 3 段（250 字）的分论点该写哪一句？', right:2,
+   opts:['但也不能什么都听，要有自己的主见。',
+         '有的人盲目跟风，很不好。',
+         '随众俯仰的可怕不是观点错，而是判断的动作停了：内容接收了，核验没做。',
+         '网络谣言很多，要小心。'],
+   why:'C 指出了「停的是什么动作」，比「要有主见」深一层。A 是「但也要」式；B 是道德评价；D 是提醒，不是论证。',
+   fill:'随众俯仰的可怕不是观点错，而是判断的动作停了：内容接收了，核验没做。'},
+  {k:'edge', name:'合段：给边界', ask:'第 4 段该写哪一句？', right:1,
+   opts:['所以要既广纳又自守，二者结合。',
+         '真功夫在「接收」与「采纳」之间：一看来源、二问反例、三用自己的话重述并说出边界。',
+         '我们要提高媒介素养。',
+         '多读书，多思考。'],
+   why:'B 给的是可执行的三步。A 是口号式结合；C 是术语，没落地；D 是劝告。',
+   fill:'真功夫在「接收」与「采纳」之间：一看来源、二问反例、三用自己的话重述并说出边界。'},
+  {k:'ex', name:'例证配位', ask:'下面哪个例子配得对？', right:0,
+   opts:['2023 年纽约律师用 ChatGPT 提交 6 个不存在的判例被罚 —— 放反段，回扣「接收了但没核验」。',
+         'ChatGPT 会编造内容 —— 放正段，回扣「信息不可靠所以要广纳」。',
+         '维特根斯坦推翻自己前期学说 —— 放正段，回扣「听异见」。',
+         '苏格拉底说「认识你自己」—— 放合段，回扣「自守」。'],
+   why:'A 的落点正是反段的「判断动作停了」。B 把工具问题当成判断问题，主体错；C 其实更像合段（能自我修正）；D 是名言，且与「接收」无关。',
+   fill:'2023 年纽约律师用 ChatGPT 提交 6 个不存在的判例被罚 —— 放反段，回扣「接收了但没核验」。'}
+  ]}
+ ]}
+};
+
+/* ============ 引擎 ============ */
+var KEY='kaoyan.papers.drill.v2';
+var S={tab:'arg', cur:{arg:0, essay:0}, res:{}, wrong:{}};
+try{ var raw=localStorage.getItem(KEY); if(raw){ var o=JSON.parse(raw); S.cur=o.cur||S.cur; S.res=o.res||{}; S.wrong=o.wrong||{}; } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({cur:S.cur,res:S.res,wrong:S.wrong})); }catch(e){} }
+function keyOf(item,st){ return item.name+'|'+st.k; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+var view=document.getElementById('view');
+
+function renderTrack(t){
+  var tr=BANK[t], idx=S.cur[t]||0, item=tr.items[idx];
+  var html='<div class="card"><span class="qtag">'+tr.label+'</span>'+
+    '<p class="note" style="margin:8px 0 0">'+esc(tr.intro)+'</p>'+
+    '<div class="bar mini" style="margin:10px 0 0" id="items">'+tr.items.map(function(it,i){
+      var done=it.steps.filter(function(st){return S.res[keyOf(it,st)]===1;}).length;
+      return '<button data-i="'+i+'" class="'+(i===idx?'on':'')+'">'+esc(it.name)+'<br><span class="note">'+done+'/'+it.steps.length+'</span></button>';
+    }).join('')+'</div></div>';
+  html+='<div class="card"><div class="idxline">'+esc(item.source)+'</div>'+
+    '<h2 style="margin:2px 0 8px">'+esc(item.name)+'</h2>'+
+    '<div class="material">'+esc(item.material)+'</div></div>';
+  html+='<div id="steps"></div><div class="card" id="ol"></div>';
+  view.innerHTML=html;
+  [].slice.call(document.querySelectorAll('#items button')).forEach(function(b){
+    b.onclick=function(){ S.cur[t]=+b.dataset.i; save(); renderTrack(t); };
+  });
+  var box=document.getElementById('steps');
+  item.steps.forEach(function(st,si){ box.appendChild(stepEl(item,st,si)); });
+  drawOutline(item);
+}
+
+function stepEl(item,st,si){
+  var k=keyOf(item,st), rec=S.res[k];
+  var answered=(rec!=null);
+  var picked = answered ? (rec>1 ? rec-100 : st.right) : null;
+  var ok = answered && rec===1;
+
+  var d=document.createElement('div');
+  d.className='step'+(ok?' done':'');
+  var head='<div class="stephd"><span class="stepno">'+(si+1)+'</span><span>'+esc(st.name)+'</span>'+
+    (ok?'<span style="color:var(--ok);font-weight:700">✓ 已答对</span>':(answered?'<span style="color:var(--warn);font-weight:700">✗ 答错过，可重试</span>':''))+'</div>';
+  var body='<div class="stepask">'+esc(st.ask)+'</div>';
+  var opts='<div class="opts">'+st.opts.map(function(o,i){
+      var cls='opt';
+      if(answered){ if(i===st.right) cls+=' right'; else if(i===picked) cls+=' wrong'; }
+      return '<button class="'+cls+'" data-i="'+i+'"'+(answered?' disabled':'')+'>'+
+        'ABCD'.charAt(i)+'　'+esc(o)+'</button>';
+    }).join('')+'</div>';
+  var tail='<div class="ans'+(answered?' on':'')+'"></div>';
+  d.innerHTML=head+body+opts+tail;
+  var btns=[].slice.call(d.querySelectorAll('.opt'));
+  var ansEl=d.querySelector('.ans');
+
+  function paint(){
+    ansEl.innerHTML='<b>'+(ok?'✓ 对':'✗ 错')+'</b>　正确答案：'+'ABCD'.charAt(st.right)+
+      '<br>'+esc(st.why)+
+      (ok?'<br><br><b>已填入骨架：</b>'+esc(st.fill):'');
+    ansEl.classList.add('on');
+    if(!ok){
+      var btn=document.createElement('button'); btn.className='btn'; btn.textContent='再试一次';
+      btn.style.marginTop='10px';
+      btn.onclick=function(){ delete S.res[k]; save(); renderTrack(S.tab); };
+      ansEl.appendChild(btn);
+    }
+  }
+  if(answered){ paint(); }
+  else{
+    btns.forEach(function(b){
+      b.onclick=function(){
+        picked=+b.dataset.i; ok=(picked===st.right);
+        S.res[k]= ok?1:(picked+100);
+        if(!ok) S.wrong[k]=1;
+        save();
+        btns.forEach(function(x){
+          var i=+x.dataset.i; x.disabled=true;
+          if(i===st.right) x.classList.add('right'); else if(i===picked) x.classList.add('wrong');
+        });
+        d.classList.toggle('done', ok);
+        paint(); drawOutline(item); bar();
+      };
+    });
+  }
+  return d;
+}
+
+function drawOutline(item){
+  var tr=BANK[S.tab]||BANK.arg;
+  var rows=item.outline||tr.outline;
+  var html='<span class="qtag">实时骨架</span><div class="note" style="margin:7px 0 10px">每答对一步，对应位置就被填上。灰色的「待定」表示还没答对——全部走完，这就是可以直接动笔的骨架。</div>';
+  rows.forEach(function(r){
+    var st=item.steps.filter(function(x){return x.k===r.use;})[0];
+    var rec=st?S.res[keyOf(item,st)]:null;
+    var txt=(st&&rec===1)?'<span class="fill">'+esc(st.fill)+'</span>':'<span class="ph">待定</span>';
+    html+='<div class="olrow"><div><span class="olseg '+r.cls+'">'+esc(r.seg)+'</span></div>'+
+      '<div class="olbody">'+txt+'<span class="quota">'+esc(r.quota)+'</span></div></div>';
+  });
+  var all=item.steps.every(function(st){return S.res[keyOf(item,st)]===1;});
+  html+='<div class="actions">'+
+    (all?'':'<button class="btn primary" id="btnAll">一键填入完整骨架</button>')+
+    '<button class="btn'+(all?' primary':'')+'" id="btnCopy">复制这份骨架</button>'+
+    (all?'<button class="btn" id="btnClear">清空本组，重做</button>':'')+'</div>';
+  var ol=document.getElementById('ol'); ol.innerHTML=html;
+  if(!all){
+    document.getElementById('btnAll').onclick=function(){
+      item.steps.forEach(function(st){ if(S.res[keyOf(item,st)]!==1) S.res[keyOf(item,st)]=1; });
+      save(); renderTrack(S.tab);
+    };
+  }else{
+    document.getElementById('btnClear').onclick=function(){
+      item.steps.forEach(function(st){ delete S.res[keyOf(item,st)]; });
+      save(); renderTrack(S.tab);
+    };
+  }
+  document.getElementById('btnCopy').onclick=function(){
+    var txt=item.name+'\n';
+    rows.forEach(function(r){
+      var st=item.steps.filter(function(x){return x.k===r.use;})[0];
+      txt+=r.seg+'（'+r.quota+'）：'+((st&&S.res[keyOf(item,st)]===1)?st.fill:'（待定）')+'\n';
+    });
+    copyText(txt);
+    this.textContent='已复制 ✓';
+  };
+}
+
+function copyText(txt){
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).catch(function(){ fallback(txt); }); }
+  else fallback(txt);
+  function fallback(s){
+    var ta=document.createElement('textarea'); ta.value=s; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+
+function bar(){
+  var total=0, done=0;
+  ['arg','essay'].forEach(function(t){
+    BANK[t].items.forEach(function(it){
+      it.steps.forEach(function(st){ total++; if(S.res[keyOf(it,st)]===1) done++; });
+    });
+  });
+  var el=document.getElementById('prog');
+  if(el) el.textContent='总进度 '+done+' / '+total+' 步';
+}
+
+function renderHow(){
+  return '<div class="card"><h2 style="margin-top:0">这 4 个选项是怎么排的</h2>'+
+   '<p style="margin:6px 0 10px">每一步都是同一套结构，练的是「认出来 + 划掉」：</p>'+
+   '<table class="tbl"><tr><th style="width:20%">位置</th><th style="width:26%">它是谁</th><th>长什么样</th></tr>'+
+   '<tr><td><b>1 个正确</b></td><td>能落地的判断</td><td>它一定说出了「断在哪一环」，或者给出了可执行的标准</td></tr>'+
+   '<tr><td><b>1 个强混淆</b></td><td>半对</td><td>术语对了、结论对了，但没指出机制；或者只抓了绝对词、只给了结论、只说了「也重要」</td></tr>'+
+   '<tr><td><b>2 个送分</b></td><td>一眼可排除</td><td>提建议（「应当出台政策」）、道德评价（「很不好」）、复述材料、引入材料外的事实、名言套用</td></tr></table>'+
+   '<div class="warnbox"><b>考场上最耗时间的就是那个「强混淆」。</b>它看起来像标准答案，因为它用了正确的术语。'+
+   '分辨方法只有一条：<b>问它有没有说出「断在哪一环」</b>——说了就是答案，没说就是混淆。</div></div>'+
+   '<div class="card"><h3 style="margin-top:0">论证文的三个「不许」</h3><ul class="tbl" style="list-style:none;padding:0;margin:0">'+
+   '<li style="padding:7px 9px;border-bottom:1px solid var(--line)">不许提建议——你分析的是论证，不是替作者出方案。</li>'+
+   '<li style="padding:7px 9px;border-bottom:1px solid var(--line)">不许复述材料——把原句抄一遍不算找点。</li>'+
+   '<li style="padding:7px 9px">不许只骂「太绝对」——要说出在什么条件下它不成立。</li></ul></div>'+
+   '<div class="card"><h3 style="margin-top:0">论说文的三个「必须有」</h3><ul style="margin:6px 0 6px 18px;padding:0;font-size:14.5px;line-height:1.85">'+
+   '<li>标题必须两边都在，并给出关系。</li>'+
+   '<li>正段与反段必须互相制约（缺 A 则 B 失效 / 缺 B 则 A 失效），不是各夸一遍。</li>'+
+   '<li>合段必须给边界或标准，不能给「要兼顾」。</li></ul>'+
+   '<div class="okbox">例证那一题是本次新加的：<b>例子不是越多越好，配错段比不写更亏</b>。判断标准只有一个——这个例子的「动作」能不能和那一段的分论点对上。</div></div>'+
+   '<div class="card"><h3 style="margin-top:0">进度</h3><p class="note" id="prog"></p>'+
+   '<div class="actions"><button class="btn" id="resetAll">清空全部作答</button></div></div>';
+}
+
+function setTab(t){
+  S.tab=t;
+  [].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.classList.toggle('on', b.dataset.t===t); });
+  if(t==='how'){ view.innerHTML=renderHow(); bar();
+    document.getElementById('resetAll').onclick=function(){
+      S.res={}; S.wrong={}; save(); renderTrack('arg'); setTab('arg');
+    };
+  } else { renderTrack(t); }
+  window.scrollTo(0,0);
+}
+[].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.onclick=function(){ setTab(b.dataset.t); }; });
+setTab('arg');
+</script>
+</body></html>
