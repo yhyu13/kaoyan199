@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>模考档案 · 2A / 3A 两卷统筹</title>
+<style>
+:root{
+  --bg:#f6f4ef; --fg:#1e211d; --mut:#6b7069; --line:#ddd8ce; --card:#fffdf8;
+  --accent:#2e6b4f; --warn:#a33f2e; --chip:#f0ece2;
+  --a:#d8ecdf; --b:#fbf0cf; --c:#f6ddd6;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+    --accent:#7fc9a2; --warn:#e0876f; --chip:#22261f;
+    --a:#1d3325; --b:#3a3320; --c:#3b241f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+  --accent:#7fc9a2; --warn:#e0876f; --chip:#22261f;
+  --a:#1d3325; --b:#3a3320; --c:#3b241f;
+}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.8 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:920px;margin:0 auto;padding:20px 14px 90px}
+h1{font-size:23px;margin:0 0 4px}
+h2{font-size:17px;margin:18px 0 8px}
+h3{font-size:15px;margin:15px 0 6px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 14px}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.bar button{border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+.bar button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.bar.mini button{font-size:12.5px;padding:5px 11px;border-radius:9px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
+.qtag{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
+.note{font-size:13px;color:var(--mut)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.tbl th{background:var(--bg)}
+ul.tight{margin:6px 0 6px 18px;padding:0}
+ul.tight li{margin:5px 0;font-size:14.5px;line-height:1.8}
+.warnbox{border-left:3px solid var(--warn);background:rgba(163,63,46,.08);border-radius:0 10px 10px 0;
+  padding:9px 13px;font-size:14px;line-height:1.8;margin:10px 0}
+.okbox{border-left:3px solid var(--accent);background:rgba(46,107,79,.08);border-radius:0 10px 10px 0;
+  padding:9px 13px;font-size:14px;line-height:1.8;margin:10px 0}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 8px}
+.tA{background:var(--a)} .tB{background:var(--b)} .tC{background:var(--c)}
+@media (prefers-color-scheme:dark){ .pill{color:#dfe9e2} }
+.big{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.big .b{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px}
+.big .v{font:700 22px/1.2 ui-monospace,Consolas,monospace}
+.big .k{font-size:12.5px;color:var(--mut);margin-top:3px}
+.bar2{height:8px;background:var(--chip);border-radius:999px;overflow:hidden;margin:4px 0 8px}
+.bar2 i{display:block;height:100%;background:var(--accent);border-radius:999px}
+code{background:var(--chip);border-radius:5px;padding:1px 5px;font-size:13px}
+.up{color:var(--accent);font-weight:700}
+.down{color:var(--mut)}
+@media (max-width:620px){
+  h1{font-size:20px} .card{padding:12px}
+  .tbl{font-size:12.5px} .tbl th,.tbl td{padding:6px 7px}
+  .big{grid-template-columns:1fr}
+}
+</style></head><body><div class="wrap">
+
+<h1>模考档案 · 2A / 3A 两卷统筹</h1>
+<p class="sub">两套华章管综卷，数学各 25 题、分析推理各 17 题。目标：非写作部分 90 分。同一套档位口径（A 必拿 / B 可选 / C 该跳）。</p>
+
+<div class="bar" id="tabs">
+  <button data-t="over" class="on">① 两卷对比</button>
+  <button data-t="kp">② 必考点矩阵</button>
+  <button data-t="math">③ 数学逐题</button>
+  <button data-t="lg">④ 分析推理</button>
+  <button data-t="cut">⑤ 取舍与分数账</button>
+</div>
+
+<main id="view"></main>
+
+<p class="note" style="margin-top:22px">
+口径：「我推」＝我独立算出的答案，以官方解析为准。3A 的第 7、8、11 题是图形题、第 25 题题干需再核，这四处不做答案结论。3A 逻辑只上传了 26–28、42–47、50–55，29–41 未提供，所以分析推理统计按已上传部分计。
+</p>
+
+</div>
+<script>
+/* ============ 数据 ============ */
+var A2=[
+ {n:1, kp:'M6 方程·绝对值', t:'A', ans:'B（7）', act:'分 a−1 正负，再用 b>ab 定 b 符号。'},
+ {n:2, kp:'M6 方程·线性', t:'A', ans:'B（1）', act:'凑目标系数，不解方程。'},
+ {n:3, kp:'M8 不等式·比较', t:'B', ans:'C（丙）', act:'两次提价都是 (1+p)(1+q)，丙多 (p−q)²/4。'},
+ {n:4, kp:'M7 数列·等差', t:'A', ans:'B（100）', act:'两式相减得 d。'},
+ {n:5, kp:'M7 数列·递推', t:'B', ans:'D（9）', act:'aₙ 为前 n−1 项均值 → 从 a₃ 起常数。'},
+ {n:6, kp:'M5 解析·线性目标', t:'A', ans:'C（2+√2）', act:'圆心加半径方向。'},
+ {n:7, kp:'M10 概率·分组', t:'B', ans:'E（1/2）', act:'首轮 1/3 ＋ 决赛 1/6；只问首轮才是 1/3。'},
+ {n:8, kp:'M8 不等式·恒成立', t:'B', ans:'C（m≤9）', act:'开区间端点取不到，能取等号。'},
+ {n:9, kp:'M3 平面几何·图', t:'C', ans:'—', act:'读图超 90 秒就跳。'},
+ {n:10, kp:'M6 方程·双绝对值', t:'C', ans:'E（8）', act:'四解两两对称，4×2=8。'},
+ {n:11, kp:'M10 计数·分组分配', t:'B', ans:'C（100）', act:'非空总数 150 减护士在 A 的 50。'},
+ {n:12, kp:'M4 立体·相切', t:'B', ans:'E（3−2√2）', act:'水平 1−r、高 r、心距 1+r，勾股一次。'},
+ {n:13, kp:'M1 行程', t:'A', ans:'A（286）', act:'速度差×时间＝车长，先换 m/s。'},
+ {n:14, kp:'M8 不等式·应用', t:'B', ans:'E（16:53）', act:'两个「超过」夹出 15<x<17。'},
+ {n:15, kp:'M1 比例·整数解', t:'A', ans:'A（24）', act:'a=17k、b=7k，「不到 20」锁 k=1。'},
+ {n:16, kp:'M6 韦达（充分性）', t:'C', ans:'E', act:'式子不对称，两根互换就换值。'},
+ {n:17, kp:'M2 集合·百分比', t:'B', ans:'B', act:'设总数 100，条件 2 才凑出 7:30。'},
+ {n:18, kp:'题干残缺', t:'C', ans:'—', act:'不做，考场 30 秒跳。'},
+ {n:19, kp:'M8 数论·质因数', t:'B', ans:'B', act:'1350=2·3³·5²，质数分解唯一。'},
+ {n:20, kp:'M5 直线与圆', t:'A', ans:'A', act:'圆心距 < 半径 → a<0。'},
+ {n:21, kp:'M10 概率·比较', t:'B', ans:'C', act:'P、Q 各缺一个，必须联合。'},
+ {n:22, kp:'M8 恒等变形', t:'C', ans:'B', act:'条件 2 配方成平方和，只学这半。'},
+ {n:23, kp:'M1 浓度', t:'A', ans:'D', act:'只算溶质。'},
+ {n:24, kp:'M3 三角形·最值', t:'B', ans:'C', act:'AB=2S/h，单独不够，必须联合。'},
+ {n:25, kp:'M6 因式定理', t:'A', ans:'D', act:'单个因式正好给 a+b。'}
+];
+
+var A3=[
+ {n:1, kp:'M6 多项式整除', t:'A', ans:'C（1/2）', act:'设 (x²−x−1)(ax+c)，比对系数→a=−1,b=2。'},
+ {n:2, kp:'M1 折扣涨价', t:'A', ans:'A（涨 2%）', act:'1.2×0.85=1.02，一步出。'},
+ {n:3, kp:'M1 浓度·两次倒出', t:'B', ans:'C（60）', act:'(V−10)(V−6)/V²=3/4，解二次。'},
+ {n:4, kp:'M8 不等式解集', t:'A', ans:'A（5/2）', act:'根是 4a 与 −2a，间距 6a=15。'},
+ {n:5, kp:'M10 概率·对立事件', t:'A', ans:'E（0.488）', act:'1−0.8³，别正着算。'},
+ {n:6, kp:'M9 函数·对称配对', t:'B', ans:'A（7/2）', act:'f(x)+f(1/x)=1，配对后只算 f(1)。'},
+ {n:7, kp:'M3 平面几何·图', t:'C', ans:'—', act:'图题，取 a=1 代值；超时就跳。'},
+ {n:8, kp:'M2 路线·标数法', t:'B', ans:'—', act:'每个节点＝上层可达之和，逐层累加。'},
+ {n:9, kp:'M1 整数方程', t:'A', ans:'B（10）', act:'两式相减：5z−5x=50。'},
+ {n:10, kp:'M8 绝对值不等式', t:'C', ans:'E（1/3,1）', act:'左边最小值＝|a|，再解 |a|>|2a−1|。'},
+ {n:11, kp:'M3 相似三角形', t:'C', ans:'—', act:'图题，找两对相似；链路长，优先跳。'},
+ {n:12, kp:'M6 恒等式+直线', t:'B', ans:'A（一二三）', act:'√+(n−3)² 非负 → m=2,n=3；三式相加得 k=2。'},
+ {n:13, kp:'M10 概率·分组', t:'B', ans:'D（3/5）', act:'2+2+1 型 90 种 ÷ 非空总数 150。'},
+ {n:14, kp:'M5 圆上动点', t:'A', ans:'D（18）', act:'BD 最大 6，S=BD²/2。'},
+ {n:15, kp:'M1 行程·两次相距', t:'A', ans:'E（288）', act:'相遇前 48、相遇后 48，两式相加求 v。'},
+ {n:16, kp:'M7 数列·Sn 最大（充分性）', t:'B', ans:'B', act:'a₁=23, d=−4 → 前 6 项正，S₆ 最大。'},
+ {n:17, kp:'M5 直线垂直/平行', t:'A', ans:'A', act:'垂直用点积，平行用行列式＝0。'},
+ {n:18, kp:'M8 最值（充分性）', t:'B', ans:'B', act:'条件 2 是 1/a+4/b 的柯西型，最小值 9/2。'},
+ {n:19, kp:'M6 绝对值方程', t:'C', ans:'E', act:'需 |a+1|=|a|+1，只有 a≥0 成立。'},
+ {n:20, kp:'M4 圆柱展开', t:'A', ans:'D', act:'比值与 r 无关，恒为 4π:1，两个条件都充分。'},
+ {n:21, kp:'M1 工程', t:'A', ans:'D', act:'两个条件都能反解乙的效率。'},
+ {n:22, kp:'M7 等比数列', t:'A', ans:'A', act:'a₅>a₇ → a₁q⁴(1−q²)>0 → 1−q²>0。'},
+ {n:23, kp:'M8 不等式（充分性）', t:'C', ans:'E', act:'取 m=−3,n=1 一验就倒。'},
+ {n:24, kp:'M10 排列·禁位', t:'B', ans:'B', act:'容斥：5!−2·4!+3!=78。'},
+ {n:25, kp:'M10 概率·序贯抽样', t:'C', ans:'待核', act:'「第 5 次找全」按次品位置组合算，题干需再核。'}
+];
+
+var LG2=[
+ {n:32,kp:'削弱题',t:'B',act:'打结论的机制链，量化否定优先。'},
+ {n:33,kp:'假设题',t:'A',act:'取反代回，结论塌掉才是答案。'},
+ {n:34,kp:'削弱题',t:'A',act:'先找「免费→入学率」的隐含前提再打。'},
+ {n:37,kp:'假设题',t:'A',act:'事故率低≠更安全，缺「里程/暴露量」。'},
+ {n:38,kp:'削弱题',t:'B',act:'找替代解释（光照本身影响睡眠）。'}
+];
+var LG3=[
+ {n:26,kp:'削弱题',t:'A',act:'专家主张「必须升级监测」，削弱＝有别的路更有效，或升级不可行。'},
+ {n:27,kp:'削弱题',t:'B',act:'新药降低感染率 → 打「相关≠因果」或「样本不具代表性」。'}
+];
+
+var LY2=[
+ {g:'39',type:'分组·数量',t:'A'},{g:'40',type:'数字·排除',t:'B'},
+ {g:'41',type:'匹配·人名',t:'A'},{g:'42',type:'排位·五展厅',t:'A'},
+ {g:'43',type:'排位·六工位',t:'B'},{g:'44',type:'组合·七选三',t:'B'},
+ {g:'45',type:'排位·双店',t:'B'},{g:'46',type:'匹配·五城',t:'A'},
+ {g:'47',type:'匹配·四分工',t:'A'},{g:'48-50',type:'一拖三·项目',t:'B'},
+ {g:'51',type:'一拖二·工位',t:'A'},{g:'52-53',type:'一拖二·办公室',t:'B'},
+ {g:'54-55',type:'一拖二·五地点',t:'B'}
+];
+var LY3=[
+ {g:'28',type:'组合·六门课',t:'B'},{g:'42',type:'分组·七社团',t:'A'},
+ {g:'43-44',type:'排期·六天七产品',t:'B'},{g:'45',type:'匹配·六人六项',t:'A'},
+ {g:'46',type:'数字·五位置',t:'B'},{g:'47',type:'排位·五部门五层',t:'A'},
+ {g:'50-51',type:'表格·得分反推',t:'B'},{g:'52',type:'形式逻辑·三段论',t:'A'},
+ {g:'53',type:'匹配·五色衣',t:'A'},{g:'54-55',type:'组合·六项服务',t:'B'}
+];
+
+/* 考点两卷合计 */
+var KP=[
+ {k:'M1',name:'比例与速率',a:4,b:5,judge:'核心'},
+ {k:'M8',name:'不等式与最值',a:5,b:4,judge:'核心'},
+ {k:'M6',name:'方程与判别式',a:5,b:3,judge:'核心'},
+ {k:'M10',name:'概率与计数',a:3,b:4,judge:'核心'},
+ {k:'M5',name:'解析几何',a:2,b:2,judge:'核心'},
+ {k:'M3',name:'平面几何',a:2,b:2,judge:'次核心'},
+ {k:'M7',name:'数列',a:2,b:2,judge:'次核心'},
+ {k:'M2',name:'集合与计数',a:1,b:1,judge:'认得即可'},
+ {k:'M4',name:'立体几何',a:1,b:1,judge:'认得即可'},
+ {k:'M9',name:'函数性质',a:0,b:1,judge:'认得即可'}
+];
+
+var TABS={};
+
+TABS.over=function(){
+ return '<div class="card"><span class="qtag">两卷对比</span>'+
+  '<h2 style="margin-top:10px">两卷放在一起，结论比单卷硬得多</h2>'+
+  '<div class="big">'+
+   '<div class="b"><div class="v">37 / 50</div><div class="k">5 个考点覆盖两卷数学题（74%）</div></div>'+
+   '<div class="b"><div class="v">15 / 20</div><div class="k">必拿分（A 档）里，M1+M6+M5 占 75%</div></div>'+
+   '<div class="b"><div class="v">3 类</div><div class="k">两卷分析推理共用三种模板</div></div>'+
+  '</div>'+
+  '<div class="bar2"><i style="width:74%"></i></div>'+
+  '<div class="note">74% = 37/50。也就是说：<b>把这 5 个练熟，两卷各有 18–19 题是「见过就会」的</b>。</div></div>'+
+
+  '<div class="card"><h3 style="margin-top:0">两份卷子到底在考同一件事吗？—— 是</h3>'+
+  '<table class="tbl"><tr><th>观察</th><th>2A</th><th>3A</th><th>说明</th></tr>'+
+  '<tr><td>最高频考点</td><td>M8、M6（各 5）</td><td>M1（5）、M8/M10（各 4）</td><td>排序在换，<b>但始终是同一批</b></td></tr>'+
+  '<tr><td>A 档主力</td><td>M6、M1、M5</td><td>M1、M5、M6</td><td>必拿分高度重合</td></tr>'+
+  '<tr><td>条件充分性</td><td>A 3 / B 4 / C 3</td><td>A 4 / B 3 / C 3</td><td>两卷都是「一半能拿」</td></tr>'+
+  '<tr><td>分析推理题量</td><td>17 题</td><td>已上传 10 组（含一拖多）</td><td>模板完全一致</td></tr></table>'+
+  '<div class="okbox"><b>为什么这个结论重要：</b>单看 2A，你会以为「M7 数列只值 6 分」；单看 3A，你会以为「M9 函数性质可以放弃」。'+
+  '两卷并排才看得清——<b>真正稳定的是 M1/M8/M6/M10/M5，其余 5 个是轮换位</b>。</div></div>'+
+
+  '<div class="card"><h3 style="margin-top:0">两卷档位分布</h3>'+
+  '<table class="tbl"><tr><th>卷</th><th>A 必拿</th><th>B 可选</th><th>C 该跳</th><th>A 档占比</th></tr>'+
+  '<tr><td>2A</td><td>9 题 = 27 分</td><td>11 题 = 33 分</td><td>5 题 = 15 分</td><td>36%</td></tr>'+
+  '<tr><td>3A</td><td>11 题 = 33 分</td><td>8 题 = 24 分</td><td>6 题 = 18 分</td><td>44%</td></tr></table>'+
+  '<div class="note">3A 的 A 档更多，说明这套卷子的基础题更「给分」。两卷平均 A 档 10 题 = 30 分，是 90 分目标的第一块砖。</div></div>';
+};
+
+TABS.kp=function(){
+ var rows=KP.slice().sort(function(x,y){return (y.a+y.b)-(x.a+x.b);});
+ var tot=0; rows.forEach(function(r){ tot+=r.a+r.b; });
+ var h='<div class="card"><span class="qtag">必考点矩阵</span>'+
+  '<h2 style="margin-top:10px">20 个必考点 × 两卷命中</h2>'+
+  '<p style="margin:6px 0 0" class="note">按两卷合计排序。数字是该考点在两卷中出现的题数。</p>'+
+  '<table class="tbl"><tr><th style="width:8%">考点</th><th style="width:26%">名称</th><th style="width:10%">2A</th><th style="width:10%">3A</th><th style="width:12%">合计</th><th>判断</th></tr>'+
+  rows.map(function(r){
+    var s=r.a+r.b;
+    return '<tr><td><b>'+r.k+'</b></td><td>'+r.name+'</td><td>'+r.a+'</td><td>'+r.b+'</td>'+
+      '<td><b>'+s+'</b>　<span class="note">'+Math.round(s*100/tot)+'%</span></td><td>'+r.judge+'</td></tr>';
+  }).join('')+
+  '</table></div>';
+
+ h+='<div class="card"><h3 style="margin-top:0">(a) 20 个里哪些是「重复的」</h3>'+
+  '<p style="margin:6px 0"><b>不是 20 个都在重复，是 5 个在重复。</b></p>'+
+  '<table class="tbl"><tr><th style="width:24%">层</th><th style="width:14%">数量</th><th>覆盖</th></tr>'+
+  '<tr><td><b>核心 5</b>：M1 M8 M6 M10 M5</td><td>5 个</td><td>两卷 37/50 题 = <b>74%</b>；A 档 15/20 题</td></tr>'+
+  '<tr><td><b>次核心 2</b>：M3 M7</td><td>2 个</td><td>两卷各 4 题，合计 8 题 = 16%</td></tr>'+
+  '<tr><td><b>轮换 3</b>：M2 M4 M9</td><td>3 个</td><td>两卷各 1–2 题；<b>2A 的 M9 是 0，3A 却有 1</b></td></tr></table>'+
+  '<div class="warnbox"><b>M9 是这次最重要的发现。</b>2A 卷命中 0，3A 卷命中 1 题，而上一份 2026 真题考了 2 题。'+
+  '如果你按 2A 的命中率删掉 M9，真题上就会丢 6 分。<b>「本卷没考」不等于「不会考」——轮换位的三个考点，认得判定特征就行，不要花时间刷熟练度。</b></div></div>';
+
+ h+='<div class="card"><h3 style="margin-top:0">(b)(c)(d) 三段结论</h3>'+
+  '<table class="tbl"><tr><th style="width:22%">问题</th><th>答案</th></tr>'+
+  '<tr><td><b>(b) 不常考但动脑可解</b></td><td>质因数分解（2A 19）、集合百分比（2A 17）、因式定理（2A 25 / 3A 1）、三角形 ½ah（2A 24）、圆柱展开比（3A 20）、函数配对 f(x)+f(1/x)（3A 6）。<b>共同点：方法唯一、计算量小</b>。</td></tr>'+
+  '<tr><td><b>(c) 基本不让人过</b></td><td>双绝对值套嵌（2A 10）、不对称韦达（2A 16）、分类恒等变形（2A 22）、图形分割（2A 9 / 3A 7、11）、题干不全（2A 18）、序贯抽样表述含混（3A 25）。<b>处理方式：30 秒识别 + 立刻跳</b>。</td></tr>'+
+  '<tr><td><b>(d) 20 之外的拔分点</b></td><td>① 条件充分性判定顺序（两卷各 30 分）② 特殊值/极端化/图形化 ③ 选项反代 ④ 单位换算（2A 13）⑤ 分组 vs 分配（2A 11、3A 13）。<b>合计约 12–15 分</b>。</td></tr></table></div>';
+ return h;
+};
+
+TABS.math=function(){
+ var h='<div class="card"><span class="qtag">数学逐题</span>'+
+  '<div class="bar mini" id="pick" style="margin:10px 0 4px">'+
+   '<button data-v="2" class="on">2A</button><button data-v="3">3A</button></div>'+
+  '<div class="note"><span class="pill tA">A 必拿</span> <span class="pill tB">B 可选</span> <span class="pill tC">C 该跳</span>　「我推」以官方解析为准。</div>'+
+  '<div id="mtable"></div></div>';
+ return h;
+};
+
+TABS.lg=function(){
+ var h='<div class="card"><span class="qtag">分析推理</span>'+
+  '<h2 style="margin-top:10px">两卷的分析推理，是同一套模板</h2>'+
+  '<table class="tbl"><tr><th style="width:24%">类型</th><th style="width:16%">2A</th><th style="width:20%">3A</th><th>动作</th></tr>'+
+  '<tr><td><b>排位 / 排期</b></td><td>6 题</td><td>43-44、47</td><td>一条轴，先填「一定在哪」，再处理「相邻/隔几」</td></tr>'+
+  '<tr><td><b>匹配</b>（人–物）</td><td>5 题</td><td>45、53</td><td>二维表，逐格 √/×/?；「只有…才」立刻落格</td></tr>'+
+  '<tr><td><b>组合 / 多选</b></td><td>2 题</td><td>28、54-55</td><td>先列互斥对，再用「至多/至少」剪枝</td></tr>'+
+  '<tr><td><b>分组</b></td><td>2 题</td><td>42</td><td>「每组至少 1 个」当计数器</td></tr>'+
+  '<tr><td><b>表格反推</b></td><td>—</td><td>50-51</td><td>得分表逐题标「必对/必错/不确定」，再联立</td></tr>'+
+  '<tr><td><b>数字 / 密码</b></td><td>1 题（40）</td><td>1 题（46）</td><td>列「几个对 / 几个位对」的表，先定位数</td></tr></table>'+
+  '<div class="okbox"><b>3A 新增了一个值得单独练的题型：表格反推（50-51）。</b>给几个人的答题卡与总分，反推标准答案。'+
+  '动作只有三步：① 每人得分＝答对数；② 逐题标「某人必对/必错」；③ 用「丙没有连续三题都错」这类附加条件收口。</div></div>';
+
+ h+='<div class="card"><h3 style="margin-top:0">(a) 提分点：四条，两卷通用</h3>'+
+  '<ul class="tight">'+
+  '<li><b>① 硬约束优先</b>：「一定 / 不能 / 相邻 / 不在一组」先落表，一次砍掉一半可能。</li>'+
+  '<li><b>② 表格化</b>：五人五物一律画表。3A 第 47 题你在卷面画了连线图——那是对的，但要画成表，连线的信息量不够。</li>'+
+  '<li><b>③ 选项反代</b>：问「可能为真」时把选项代进条件试，比正向推快三倍。</li>'+
+  '<li><b>④ 先「可能」后「一定」</b>：一拖多里两问性质不同，顺序反了会白耗时间。</li></ul>'+
+  '<div class="warnbox"><b>两卷共同的坑：</b>把上一问的临时假设带到下一问。3A 的 54-55、2A 的 52-53 都是这样设计的——<b>除非题干说「共用条件」，每问重新落表</b>。</div></div>';
+
+ h+='<div class="card"><h3 style="margin-top:0">(b) 一周滚瓜烂熟清单</h3>'+
+  '<table class="tbl"><tr><th style="width:12%">天</th><th style="width:24%">题型</th><th>练到什么程度（可判定）</th></tr>'+
+  '<tr><td>D1–D2</td><td><b>排位</b></td><td>2A 43/51、3A 43-44/47，<b>6 分钟内做完一拖二</b></td></tr>'+
+  '<tr><td>D3</td><td><b>匹配</b></td><td>2A 41/46/47、3A 45/53，看到「只有…才」能立刻落格</td></tr>'+
+  '<tr><td>D4</td><td><b>组合 + 分组</b></td><td>2A 44、3A 28/42/54-55，能写出候选集而不是逐个试</td></tr>'+
+  '<tr><td>D5</td><td><b>表格反推</b></td><td>3A 50-51，先做「一定为真」，再做「一定为假」</td></tr>'+
+  '<tr><td>D6</td><td><b>数字 / 密码</b></td><td>2A 40、3A 46，列「几个对几个位对」的表</td></tr>'+
+  '<tr><td>D7</td><td><b>混合限时</b></td><td>挑 17 题按 40 分钟走一遍，只统计超时题属于哪类</td></tr></table>'+
+  '<div class="okbox"><b>为什么一周够：</b>这些题的输入输出完全固定（给条件 → 填表 → 唯一解），练的是<b>肌肉记忆</b>。'+
+  '论证题（26/27/32/33 那种削弱与假设）练的是「找缺口」的指向性判断，一周出不了稳定手感，放在之后补。</div></div>';
+ return h;
+};
+
+TABS.cut=function(){
+ return '<div class="card"><span class="qtag">取舍与分数账</span>'+
+  '<h2 style="margin-top:10px">90 分怎么凑：两卷平均口径</h2>'+
+  '<div class="big">'+
+   '<div class="b"><div class="v">135</div><div class="k">非写作满分</div></div>'+
+   '<div class="b"><div class="v">90</div><div class="k">目标</div></div>'+
+   '<div class="b"><div class="v">67%</div><div class="k">允许错三成</div></div>'+
+  '</div>'+
+  '<table class="tbl"><tr><th>科目</th><th>A 必拿</th><th>B 可选</th><th>C 该跳</th><th>现实目标</th></tr>'+
+  '<tr><td>数学（25×3）</td><td>10 题 = 30</td><td>9 题 = 27</td><td>6 题 = 18</td><td>A 全对 + B 拿 6 题 = <b>48</b></td></tr>'+
+  '<tr><td>论证逻辑（5×2）</td><td>3 题</td><td>2 题</td><td>—</td><td>拿 4 题 = <b>8</b></td></tr>'+
+  '<tr><td>分析推理（17×2）</td><td>6 题</td><td>11 题</td><td>—</td><td>拿 11 题 = <b>22</b></td></tr>'+
+  '<tr><td colspan="4"><b>合计</b></td><td><b>78</b>（差 12）</td></tr></table>'+
+  '<div class="warnbox">78 到 90 的 12 分，三条路（按性价比）：<br>'+
+  '① <b>数学 B 档多拿 2 题</b>（+6）——B 档大半落在 M8 与 M10，这两块是「有固定动作」的；<br>'+
+  '② <b>分析推理多拿 3 题</b>（+6）——17 题里至少 10 题是「画表 + 反代」同一个动作；<br>'+
+  '③ <b>C 档蒙对 2 题</b>（+6）——条件充分性里「两条件互斥」基本是 E，认出来就白拿。</div></div>'+
+
+  '<div class="card"><h3 style="margin-top:0">按优先级排的复习顺序（两卷共识）</h3>'+
+  '<table class="tbl"><tr><th style="width:8%">序</th><th style="width:30%">做什么</th><th>为什么排这里</th></tr>'+
+  '<tr><td>1</td><td><b>M1 比例速率 + M6 方程</b></td><td>A 档里这两块最多（两卷合计 11 题 A 档），是 30 分的地基</td></tr>'+
+  '<tr><td>2</td><td><b>M5 解析几何</b></td><td>A 档 4 题，且方法高度统一（圆心到直线距离、圆上动点）</td></tr>'+
+  '<tr><td>3</td><td><b>M8 + M10</b></td><td>决定 B 档能拿几题，也是 78→90 的主战场</td></tr>'+
+  '<tr><td>4</td><td><b>条件充分性判定顺序</b></td><td>不是考点，是壳；练熟后同一道题能省 2 分钟</td></tr>'+
+  '<tr><td>5</td><td><b>分析推理三类模板</b></td><td>一周可练熟，34 分里能稳拿 22</td></tr>'+
+  '<tr><td>6</td><td><b>M3 / M7</b></td><td>各 4 题，只学最省的动作（面积×高、等差两式相减）</td></tr>'+
+  '<tr><td>7</td><td><b>M2 / M4 / M9</b></td><td>认得判定特征即可，不刷熟练度</td></tr>'+
+  '<tr><td>8</td><td><b>论证逻辑 5 题</b></td><td>最后补，单题 2 分钟，找不到缺口就跳</td></tr></table></div>'+
+
+  '<div class="card"><h3 style="margin-top:0">从两卷卷面读出的四件事</h3>'+
+  '<ul class="tight">'+
+  '<li><b>2A 第 7 题（概率）</b>：你选 1/3。若问整个赛程相遇，应是 1/2（首轮 1/3 + 决赛 1/6）。</li>'+
+  '<li><b>2A 第 8 题（恒成立）</b>：你选 m&lt;9。开区间端点取不到，m=9 也成立 → m≤9。</li>'+
+  '<li><b>3A 第 3 题（两次倒出）</b>：这类题的固定动作是「算剩余溶质占比」，不要每步都算浓度。</li>'+
+  '<li><b>3A 第 47 题（五部门五层）</b>：你在卷面画了连线——信息量不够，<b>换成 5×5 的表格，把「非 A 即 B」写成 √/×</b>，会发现第 2 条条件直接把行政部锁死在 5 楼。</li></ul>'+
+  '<div class="note">以上都是从卷面标注读的，若我看错你的圈选，告诉我改。</div></div>';
+};
+
+/* ---------- 渲染 ---------- */
+function table(list, title){
+ var h='<h3 style="margin:10px 0 6px">'+title+'</h3>';
+ h+='<table class="tbl"><tr><th style="width:6%">题</th><th style="width:24%">考点</th><th style="width:8%">档</th><th style="width:12%">我推</th><th>动作</th></tr>';
+ h+=list.map(function(r){
+   return '<tr><td><b>'+r.n+'</b></td><td>'+r.kp+'</td><td><span class="pill t'+r.t+'">'+r.t+'</span></td><td>'+r.ans+'</td><td>'+r.act+'</td></tr>';
+ }).join('');
+ h+='</table>';
+ return h;
+}
+
+var mathVer='2';
+function paintMath(){
+ var box=document.getElementById('mtable');
+ if(!box) return;
+ var list = mathVer==='2'?A2:A3;
+ var cnt={A:0,B:0,C:0};
+ list.forEach(function(r){cnt[r.t]++;});
+ box.innerHTML = '<div class="note" style="margin:6px 0 8px">本卷：A '+cnt.A+' 题 / B '+cnt.B+' 题 / C '+cnt.C+' 题</div>'+table(list, mathVer==='2'?'模考 2A · 数学 25 题':'模考 3A · 数学 25 题');
+ [].slice.call(document.querySelectorAll('#pick button')).forEach(function(b){ b.classList.toggle('on', b.dataset.v===mathVer); });
+}
+
+var view=document.getElementById('view');
+function setTab(t){
+ [].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.classList.toggle('on', b.dataset.t===t); });
+ view.innerHTML=TABS[t]();
+ if(t==='math'){
+   paintMath();
+   [].slice.call(document.querySelectorAll('#pick button')).forEach(function(b){
+     b.onclick=function(){ mathVer=b.dataset.v; paintMath(); };
+   });
+ }
+ window.scrollTo(0,0);
+}
+[].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.onclick=function(){ setTab(b.dataset.t); }; });
+setTab('over');
+</script>
+</body></html>
