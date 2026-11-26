@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>写作拆解 · 6 套题逐段拆开</title>
+<style>
+:root{
+  --bg:#f6f4ef; --fg:#1e211d; --mut:#6b7069; --line:#ddd8ce; --card:#fffdf8;
+  --accent:#2e6b4f; --warn:#a33f2e; --chip:#f0ece2;
+  --qi:#dff0e4; --cheng:#fbf1cf; --zhuan:#f8ddd6; --he:#cfe6d6;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+    --accent:#7fc9a2; --warn:#e0876f; --chip:#22261f;
+    --qi:#1d3325; --cheng:#3a3320; --zhuan:#3b241f; --he:#1b3026;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141613; --fg:#e9e7e1; --mut:#9aa09a; --line:#2c2f2a; --card:#1c1f1b;
+  --accent:#7fc9a2; --warn:#e0876f; --chip:#22261f;
+  --qi:#1d3325; --cheng:#3a3320; --zhuan:#3b241f; --he:#1b3026;
+}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.8 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:900px;margin:0 auto;padding:20px 14px 110px}
+h1{font-size:23px;margin:0 0 4px}
+h2{font-size:17px;margin:16px 0 8px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 12px}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.bar button{border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+.bar button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.bar.mini button{font-size:12.5px;padding:5px 11px;border-radius:9px;text-align:left}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
+.qtag{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
+.note{font-size:13px;color:var(--mut)}
+.idxline{font-size:12.5px;color:var(--mut)}
+.material{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:11px 13px;
+  font-size:14.5px;line-height:1.85;margin:9px 0}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin:11px 0;background:var(--bg)}
+.step.done{border-color:var(--ok)}
+.stephd{display:flex;gap:9px;align-items:center;font-size:14px;font-weight:700;flex-wrap:wrap}
+.stepno{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;
+  font:700 12.5px/24px ui-monospace,Consolas,monospace;text-align:center;flex:none}
+.stepask{font-size:14.5px;margin:9px 0 9px;color:var(--fg)}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;line-height:1.7;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--ok);background:var(--he);font-weight:700}
+.opt.wrong{border-color:var(--warn);background:var(--zhuan);text-decoration:line-through}
+@media (prefers-color-scheme:dark){ .opt.right{color:#dfe9e2} .opt.wrong{color:#f2dcd5} }
+.ans{display:none;margin-top:10px;font-size:13.5px;line-height:1.8;border-top:1px dashed var(--line);padding-top:9px}
+.ans.on{display:block}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;
+  padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.olrow{display:grid;grid-template-columns:92px 1fr;gap:10px;margin:8px 0;align-items:start}
+.olseg{font-size:12px;font-weight:700;border-radius:7px;padding:3px 0;text-align:center;display:block}
+.olqi{background:var(--qi)} .olcheng{background:var(--cheng)} .olzhuan{background:var(--zhuan)} .olhe{background:var(--he)}
+@media (prefers-color-scheme:dark){ .olseg{color:#dfe9e2} }
+.olbody{font-size:14px;line-height:1.75}
+.olbody .fill{font-weight:700}
+.olbody .ph{color:var(--mut)}
+.quota{font-size:11.5px;color:var(--mut);margin-left:7px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+/* Easy Mode */
+.ezbox{margin:8px 0 2px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ez-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;
+  padding:7px 11px;font-size:13.5px;line-height:1.7;border-bottom:1px solid var(--line)}
+.ez-row:last-child{border-bottom:0}
+.ez-row b{font-size:12.5px;font-weight:700;opacity:.9;padding-top:1px}
+.ez-key{background:rgba(80,120,200,.14)}
+.ez-kill{background:rgba(199,152,26,.18)}
+.ez-trap{background:rgba(163,63,46,.15)}
+.ez-kp{background:rgba(46,107,79,.15)}
+.ez-kp .kptag{display:inline-block;font-size:12px;border:1px solid var(--line);
+  border-radius:999px;padding:0 8px;margin:2px 5px 0 0;background:var(--card)}
+@media (max-width:620px){
+  h1{font-size:20px} .card{padding:12px}
+  .olrow{grid-template-columns:64px 1fr;gap:8px}
+  .opt{font-size:13.5px;padding:8px 10px}
+  .ez-row{grid-template-columns:minmax(0,1fr);gap:2px}
+  .ez-row b{font-size:12px}
+}
+</style></head><body><div class="wrap">
+
+<h1>写作拆解 · 6 套题逐段拆开</h1>
+<p class="sub">论证文按〈引〉〈析〉〈评〉逐段拼，论说文按「观点→例子→回扣」逐段拼，另外五栏补考场规则、翻译要点、小作文 8→9、图表六句法。<b>每一步 4 个选项：1 正确 + 1 强混淆 + 2 送分。</b></p>
+
+<div class="bar" id="tabs">
+  <button data-t="arg" class="on">① 论证文</button>
+  <button data-t="essay">② 论说文</button>
+  <button data-t="rule">③ 考场规则</button>
+  <button data-t="trans">④ 英译汉</button>
+  <button data-t="letter">⑤ 小作文 8→9</button>
+  <button data-t="chart">⑥ 图表六句</button>
+</div>
+
+<div class="bar" style="margin-bottom:10px">
+  <button class="btn" type="button" id="btnEasy" aria-pressed="false">Easy Mode</button>
+  <span class="note" style="align-self:center">开启后：题干关键句高亮 + 显示「关键 / 秒杀 / 陷阱 / 考点」，<b>但不显示答案</b>。</span>
+</div>
+
+<main id="view"></main>
+
+<p class="note" style="margin-top:24px">
+卷源：三套华章模拟卷（2A/3A 及同批），非统考真题；题目原文见「写作全卷」。这里的 fill 就是可以直接抄进作文的句子。
+</p>
+
+</div>
+<script>
+/* ================= 数据 ================= */
+var D={};
+
+/* ---------- ① 论证文：6 步 × 3 套 ---------- */
+D.arg={label:'论证文', intro:'标题（一句反驳）→ 靶子（材料想证什么）→ 打点 1 → 打点 2 → 错误类型复盘 → 收束。每个打点都必须写成〈引〉抄半句、〈析〉为什么推不出、〈评〉所以不成立。',
+ outline:[
+  {seg:'标题',cls:'olqi',quota:'一句反驳',use:'title'},
+  {seg:'① 引',cls:'olcheng',quota:'70 字',use:'target'},
+  {seg:'② 析1',cls:'olcheng',quota:'150 字',use:'f1'},
+  {seg:'③ 析2',cls:'olzhuan',quota:'150 字',use:'f2'},
+  {seg:'④ 评',cls:'olhe',quota:'60 字',use:'line'}
+ ],
+ items:[
+ {name:'卷 1 · 银发直播', src:'模拟卷 · 论证有效性分析',
+  material:'近几年银发直播快速兴起，不少老年博主凭借短视频、直播收获大量粉丝，由此可见，所有老年人都适合入局直播行业。……有几位老年知识博主凭借讲解文史科普收获大量点赞，这就证明，阅历丰富就一定可以做好直播。……如果老年人参与直播，就可以发挥自身阅历优势；发挥阅历优势，就能够吸引大量粉丝；吸引大量粉丝，就可以实现可观的直播收入。……如果老年人不去做直播，闲暇时间就只能无所事事；如果无所事事，就容易精神空虚；精神空虚，就会加剧老年心理问题。……既可以解决老年人精神孤独，还能显著提高全体老年群体的经济收入。',
+  steps:[
+  {k:'title',name:'标题',ask:'论证文的标题该写哪一句？',right:1,
+   opts:['论银发直播的兴起','银发直播盛行，不等于人人适合','银发直播的利与弊','老年人该不该做直播'],
+   why:'B 是一句反驳，且直接否定材料最硬的断言（人人适合）。A、C 是话题，D 是设问——都没有立场。',
+   fill:'银发直播盛行，不等于人人适合',
+   ez:{h:'标题只写一句反驳，不写「论…」，不写问句。',s:'把材料的结论翻过来，就是一个好标题。',t:'「论…的兴起」「…的利与弊」是话题，不是判断。',p:['标题写法','论点句提取']}},
+  {k:'target',name:'靶子句',ask:'开头第一句（复述靶子）该写哪一句？',right:0,
+   opts:['材料试图论证「所有老年人都适合入局直播，并能提高全体老年人收入」，然而这条推理在样本、链条与分类三处失守。',
+         '材料讨论了银发直播这一新兴现象，观点鲜明。',
+         '随着人口老龄化加剧，银发经济越来越受关注。',
+         '我认为老年人做直播对身体不好。'],
+   why:'A 含「材料试图论证 + 结论 + 后面要打哪三处」，一句话定了全文骨架。B 只是描述；C 是背景；D 是你自己的观点。',
+   fill:'材料试图论证「所有老年人都适合入局直播，并能提高全体老年人收入」，然而这条推理在样本、链条与分类三处失守。',
+   ez:{h:'靶子句＝「材料试图论证 X」＋ X 必须是材料的结论句。',s:'先找「由此可见/因此/说明」后面那句，那就是靶子。',t:'把背景句、数据句当靶子，后面就打空了。',p:['结论识别']}},
+  {k:'f1',name:'打点 1（样本与概念）',ask:'第一条该怎么落笔？',right:1,
+   opts:['材料说「不少」，但没给具体人数，数据不够详实。',
+         '〈引〉材料由「不少老年博主收获大量粉丝」推出「所有老年人都适合入局」。〈析〉这是以偏概全：被看见的成功者恰是被算法筛选过的样本，且「收获粉丝」不等于「适合入局」。〈评〉因此该推论不能成立。',
+         '老年人体力不好，无法长时间直播。',
+         '建议平台出台规范，保护老年主播权益。'],
+   why:'B 三件套齐全：引原句、命名谬误、说出为什么推不出。A 抓了细节但没命名谬误；C 引入材料外事实；D 是建议。',
+   fill:'〈引〉材料由「不少老年博主收获大量粉丝」推出「所有老年人都适合入局」。〈析〉这是以偏概全：被看见的成功者恰是被算法筛选过的样本，且「收获粉丝」不等于「适合入局」。〈评〉因此该推论不能成立。',
+   ez:{h:'〈引〉抄原句（可截半句）→〈析〉命名谬误 + 说为什么 →〈评〉因此不成立。',s:'三个动作缺一个就掉档：没引原句＝空谈，没命名＝外行，没说明＝喊口号。',t:'「数据不详」「不符合事实」都不算谬误名。',p:['以偏概全','概念偷换','引析评']}},
+  {k:'f2',name:'打点 2（链条与条件）',ask:'第二条该怎么落笔？',right:2,
+   opts:['老年人不会用智能手机，直播对他们不现实。',
+         '直播平台应当优化面向老年人的界面。',
+         '〈引〉材料由「不需要复杂场地」一路推到「发挥优势—涨粉—可观收入」。〈析〉这是条件误用：不需要场地只消除了入行门槛，优势不等于有人看，有人看不等于有收入，而收入高度集中在头部。〈评〉因此这条链每一环都缺条件。',
+         '材料把直播收入说得太容易了。'],
+   why:'C 用「条件误用」+ 逐环说明，且点名了收入分布这一硬事实。A、B 在材料外；D 只表态没分析。',
+   fill:'〈引〉材料由「不需要复杂场地」一路推到「发挥优势—涨粉—可观收入」。〈析〉这是条件误用：不需要场地只消除了入行门槛，优势不等于有人看，有人看不等于有收入，而收入高度集中在头部。〈评〉因此这条链每一环都缺条件。',
+   ez:{h:'链条题：把 A→B→C→D 写出来，逐环问「这一步凭什么」。',s:'链条越长越好打，最短的那一环就是你的打点。',t:'只说「太绝对」而不说断在哪一环，是半对。',p:['条件误用','连锁推理','必要/充分条件']}},
+  {k:'type',name:'错误类型复盘',ask:'材料里「不直播就只能无所事事 → 空虚 → 心理问题」属于哪一类？',right:0,
+   opts:['虚假二分 + 滑坡','强加因果','以偏概全','单因归谬'],
+   why:'A 对：先把两种选择人为缩成两种（虚假二分），再一级一级往下推（滑坡）。B 是两事并存硬说因果；C 是部分推全体；D 是多元结果归给单一原因。',
+   fill:'该段属于虚假二分 + 滑坡：老年人的闲暇还有书画、旅行、社区服务，不是「只有直播」与「无所事事」二选一；后接三级推断，也缺少支持。',
+   ez:{h:'六类要能一眼分：以偏概全（部分→全体）｜强加因果（相关≠因果）｜因果倒置（果当因）｜单因归谬（多因→一因）｜滑坡（一级推到灾难）｜条件误用（充分当必要）。',s:'先问「它把什么当成了什么」，再对号。',t:'虚假二分常和滑坡连用，两个名字都要写。',p:['六类谬误','虚假二分']}},
+  {k:'line',name:'收束句',ask:'结尾该写哪一句？',right:1,
+   opts:['因此，我们要坚决反对老年人做直播。','综上，材料把「部分可行」写成了「人人适合」，把「门槛降低」当成了「收益必然」，结论的普遍性缺乏支撑。','综上所述，银发直播有利有弊。','希望有关部门加强监管。'],
+   why:'B 回到靶子，用两个「把…写成…」收住两处打点。A 是表态；C 是套话；D 是建议。',
+   fill:'综上，材料把「部分可行」写成了「人人适合」，把「门槛降低」当成了「收益必然」，结论的普遍性缺乏支撑。',
+   ez:{h:'收束只做一件事：回到靶子说「推不出」。',s:'用「把 A 写成 B」的句式，两处打点一次收住。',t:'「有利有弊」「辩证看待」＝没结论，直接三类卷。',p:['收束写法']}}
+  ]},
+
+ {name:'卷 2 · 一人创业 + AI', src:'模拟卷 · 论证有效性分析',
+  material:'一人创业模式越来越多地出现在大众视野。由此可见，未来个体创业将彻底取代传统团队创业。……部分一人创业者取得了不错的收益。这意味着，只要用好 AI 工具，普通个人就一定能创业成功。……省去人力成本，就可以大幅压低经营成本；经营成本足够低，就可以在市场上获得价格优势；拥有价格优势，就必然抢占大量市场份额。……没有复杂的内部协调，就不会出现团队矛盾；不出现团队矛盾，企业就可以稳定持续盈利。',
+  steps:[
+  {k:'title',name:'标题',ask:'标题该写哪一句？',right:0,
+   opts:['一人加 AI，不等于创业成功','论 AI 时代的一人创业','一人创业的机遇与挑战','AI 会取代团队吗'],
+   why:'A 同时否定了材料两个「必然」的核心。B、C 是话题；D 换成了「AI 与团队」这个更大的题。',
+   fill:'一人加 AI，不等于创业成功',
+   ez:{h:'标题＝把材料最硬的断言翻过来。',s:'材料有两个「必然」时，标题可以一并否掉。',t:'「机遇与挑战」是万能话题，没有立场。',p:['标题写法']}},
+  {k:'target',name:'靶子句',ask:'开头第一句该写哪一句？',right:1,
+   opts:['AI 工具正在改变创业方式。','材料试图论证「个体创业将彻底取代团队创业」，以及「只要用好 AI，普通个人就一定能成功」，这两步都跳过了关键条件。','一人创业的成本比团队创业低。','我认为一人创业风险很大。'],
+   why:'B 一次抓住两个结论，并预告「跳过条件」。A 是背景；C 是材料的分论点；D 是你的观点。',
+   fill:'材料试图论证「个体创业将彻底取代团队创业」，以及「只要用好 AI，普通个人就一定能成功」，这两步都跳过了关键条件。',
+   ez:{h:'一段材料有两个结论，就写两个靶子，后面一段打一个。',s:'用「以及」把两个结论串起来。',t:'只打一个，另一段就没地方落脚。',p:['多结论材料']}},
+  {k:'f1',name:'打点 1（趋势外推）',ask:'第一条该怎么落笔？',right:2,
+   opts:['「彻底」这个词太绝对了。','团队创业更容易成功。','〈引〉材料由「一人创业越来越多」推出「将彻底取代团队创业」。〈析〉这是把趋势当结局：复杂制造、医疗、金融有资质与责任约束，AI 降低的是执行成本，不是合规成本。〈评〉因此「取代」的结论下得过早。','政府应当鼓励一人创业。'],
+   why:'C 给的是「哪个领域、降的是哪种成本」这类具体理由。A 只抓绝对词；B、D 都在材料外。',
+   fill:'〈引〉材料由「一人创业越来越多」推出「将彻底取代团队创业」。〈析〉这是把趋势当结局：复杂制造、医疗、金融有资质与责任约束，AI 降低的是执行成本，不是合规成本。〈评〉因此「取代」的结论下得过早。',
+   ez:{h:'趋势题的打法是「举反例领域」——哪个行业它进不去。',s:'「降低执行成本 ≠ 降低合规成本」是最好用的一句。',t:'只说「太绝对」，评卷看不到分析。',p:['趋势外推','绝对化']}},
+  {k:'f2',name:'打点 2（幸存者偏差）',ask:'第二条该怎么落笔？',right:1,
+   opts:['一人创业的成功率很低。','〈引〉材料由「部分一人创业者取得不错收益」推出「普通个人用好 AI 就一定能成功」。〈析〉这是幸存者偏差：失败者不可见；且创业还需需求验证、渠道、信任与现金流，AI 只压缩了执行这一段。〈评〉因此「一定能成功」缺乏依据。','创业风险大，不建议普通人尝试。','应当先统计创业成功率。'],
+   why:'B 命名了偏差，并指出「工具只解决其中一段」。A 给结论无据；C 是劝告；D 是把活推给别人。',
+   fill:'〈引〉材料由「部分一人创业者取得不错收益」推出「普通个人用好 AI 就一定能成功」。〈析〉这是幸存者偏差：失败者不可见；且创业还需需求验证、渠道、信任与现金流，AI 只压缩了执行这一段。〈评〉因此「一定能成功」缺乏依据。',
+   ez:{h:'看到「有人做成了」，先问「没做成的人在哪」。',s:'把成功拆成四段：需求、渠道、信任、现金流——AI 只占一段。',t:'说「成功率低」但没挂在材料的推理上，是另起话题。',p:['幸存者偏差','以偏概全']}},
+  {k:'type',name:'错误类型复盘',ask:'「省工资→成本低→价格优势→必然抢占份额」属于哪一类？',right:1,
+   opts:['因果倒置','连锁推理（每环可断）','单因归谬','强加因果'],
+   why:'B 对：四步连推，每环都只是可能。因果倒置是把果当因；单因归谬是把多因结果归给单一原因；强加因果是两事并无因果却硬连——这三类都不套「四步链」。',
+   fill:'该段属于连锁推理：四步连推、每环都可断——算力与获客会补上成本，份额也未必带来利润，故不能推出「必然抢占份额」。',
+   ez:{h:'四步以上、每步都用「就可以/就必然」连接的，是连锁推理。',s:'数一数有几个箭头，箭头越多越好打。',t:'把它叫「强加因果」会被扣分——强加因果只有一环。',p:['连锁推理','六类谬误']}},
+  {k:'line',name:'收束句',ask:'结尾该写哪一句？',right:0,
+   opts:['综上，材料把「门槛下降」等同于「成功必然」，把「组织形态」混同于「产业格局」，结论超出了论据能支撑的范围。','总之，AI 创业有利有弊。','所以建议大家谨慎创业。','未来已来，应当拥抱变化。'],
+   why:'A 收在两个概念混用上，与前文不重复。B、C、D 分别是套话、劝告、口号。',
+   fill:'综上，材料把「门槛下降」等同于「成功必然」，把「组织形态」混同于「产业格局」，结论超出了论据能支撑的范围。',
+   ez:{h:'收束要能一句话概括全文两处打点。',s:'「把 A 等同于 B」是最好用的收束骨架。',t:'「拥抱变化」「未来已来」是零分句。',p:['收束写法']}}
+  ]},
+
+ {name:'卷 3 · 短视频替代读书', src:'模拟卷 · 论证有效性分析',
+  material:'很多人习惯刷短视频获取各类知识。由此可见，碎片化短视频阅读可以完全替代深度书本阅读。……短视频把大部头书籍拆解为几分钟的片段……这说明，人们通过短视频就可以掌握书本全部核心内容。……如果更多人愿意学习，国民整体知识素养就会快速提升。……一些短视频创作者本身就是高校学者，产出的内容质量很高。既然有高质量短视频，那么碎片化学习就不会带来认知缺陷。……我们应当大力鼓励大众放弃传统读书。',
+  steps:[
+  {k:'title',name:'标题',ask:'标题该写哪一句？',right:1,
+   opts:['论短视频时代的学习','短视频能替代书本吗','碎片化学习的利与弊','读书与刷视频'],
+   why:'B 是一句设问式反驳，且直指「替代」这个断言。A、C、D 都是把两个对象摆在一起，没有判断。',
+   fill:'短视频替代不了深度阅读',
+   ez:{h:'设问也可以，但必须指向材料的断言。',s:'「X 替代不了 Y」比「X 与 Y」有力。',t:'「…的利与弊」是三类卷标题。',p:['标题写法']}},
+  {k:'target',name:'靶子句',ask:'开头第一句该写哪一句？',right:0,
+   opts:['材料由「很多人刷短视频学知识」推到「可以完全替代深度阅读」，中间隔着理解、系统性与价值判断三道槛。','材料讨论了短视频对学习方式的影响。','短视频已成为主要的信息获取渠道。','我认为读书更有价值。'],
+   why:'A 复述结论 + 预告三道槛。B 描述；C 背景；D 是你的立场。',
+   fill:'材料由「很多人刷短视频学知识」推到「可以完全替代深度阅读」，中间隔着理解、系统性与价值判断三道槛。',
+   ez:{h:'靶子句要写「由 X 推到 Y」，X 与 Y 都取自原文。',s:'结尾预告你要打几处，全文就有了骨架。',t:'只写「材料讨论了…」不是靶子。',p:['结论识别']}},
+  {k:'f1',name:'打点 1（拆解≠理解）',ask:'第一条该怎么落笔？',right:2,
+   opts:['短视频内容太浅，学不到东西。','很多短视频是娱乐内容。','〈引〉材料由「拆成几分钟片段」推出「掌握书本全部核心内容」。〈析〉这是把拆解当成理解：书本的核心往往是一套论证——前提、推理、边界与反例，片段给出的多是结论，删掉的正是论证。〈评〉因此「全部核心内容」无从谈起。','应当限制刷短视频的时间。'],
+   why:'C 说清了「被删掉的是什么」，这是本题的核心。A 是结论式判断；B、D 离开推理。',
+   fill:'〈引〉材料由「拆成几分钟片段」推出「掌握书本全部核心内容」。〈析〉这是把拆解当成理解：书本的核心往往是一套论证——前提、推理、边界与反例，片段给出的多是结论，删掉的正是论证。〈评〉因此「全部核心内容」无从谈起。',
+   ez:{h:'「拆解」类题的关键词是「删掉了什么」。',s:'一句「删掉的正是论证」就能立住。',t:'说「内容浅」是价值判断，不是推理分析。',p:['概念偷换','拆解≠理解']}},
+  {k:'f2',name:'打点 2（强加因果/答非所问）',ask:'第二条该怎么落笔？',right:0,
+   opts:['〈引〉材料用「一些创作者是高校学者、内容质量高」来反驳「碎片化带来认知缺陷」。〈析〉这是个例推普遍，且用供给端质量回答需求端风险——算法偏好还会强化既有偏见。〈评〉因此该反驳无效。','高校学者做短视频是好事。','短视频创作者水平参差不齐。','应当鼓励更多专家拍短视频。'],
+   why:'A 同时点了「个例推普遍」与「两侧错位」两个动作。B 同向赞同；C 是事实描述；D 是建议。',
+   fill:'〈引〉材料用「一些创作者是高校学者、内容质量高」来反驳「碎片化带来认知缺陷」。〈析〉这是个例推普遍，且用供给端质量回答需求端风险——算法偏好还会强化既有偏见。〈评〉因此该反驳无效。',
+   ez:{h:'「有人做得好」不能证明「所以你学了没事」——供给≠需求。',s:'补一句「算法强化偏见」，反打得更狠。',t:'只写「水平参差不齐」是描述，不是分析。',p:['个例推普遍','答非所问']}},
+  {k:'type',name:'错误类型复盘',ask:'「门槛低→愿意学→素养快速提升」属于哪一类？',right:2,
+   opts:['以偏概全','强加因果','把意愿、行为、能力混为一谈（滑坡）','因果倒置'],
+   why:'C 对：三级链条，且每一级换了一个概念（愿意≠做到≠会）。以偏概全是部分推全体；强加因果只有两环；因果倒置是顺序反了。',
+   fill:'该段属于滑坡并混用了三个概念：愿意学是起点，坚持学需要反馈，素养提升需要长期训练，三者之间没有自动传导。',
+   ez:{h:'每升一级就换一个词的链，既是滑坡也是概念混用。',s:'指出「愿意≠做到≠会」三个词，比只说滑坡更深。',t:'只说「太理想化」不算命名。',p:['滑坡','概念混用']}},
+  {k:'line',name:'收束句',ask:'结尾该写哪一句？',right:1,
+   opts:['总之，短视频学习有利有弊。','因此，材料把「使用频率」当成「学习质量」，把「内容供给」当成「学习效果」，最后又把事实判断直接换成了价值主张。','我们要拒绝碎片化学习。','相信技术会解决这些问题。'],
+   why:'B 三处收成一句，且落在「事实→价值」这个最硬的错上。A 套话；C 表态；D 是期待。',
+   fill:'因此，材料把「使用频率」当成「学习质量」，把「内容供给」当成「学习效果」，最后又把事实判断直接换成了价值主张。',
+   ez:{h:'最后一处错如果是「应当」，一定要点「事实推不出价值」。',s:'「由事实直接跳到价值」是加分句。',t:'「拒绝碎片化」是你自己的主张。',p:['事实与价值','收束写法']}}
+  ]}
+ ]};
+
+/* ---------- ② 论说文：7 步 × 3 套 ---------- */
+D.essay={label:'论说文', intro:'标题（两边都要在）→ 起（给判断）→ 正段观点 → 正段例子+回扣 → 反段观点 → 反段例子+回扣 → 合（升华）。正反必须互相制约，合段给边界而不是口号。',
+ outline:[
+  {seg:'标题',cls:'olqi',quota:'两边+关系',use:'title'},
+  {seg:'① 起',cls:'olqi',quota:'120 字',use:'open'},
+  {seg:'② 正·观点',cls:'olcheng',quota:'80 字',use:'pos'},
+  {seg:'② 正·例',cls:'olcheng',quota:'170 字',use:'posex'},
+  {seg:'③ 反·观点',cls:'olzhuan',quota:'80 字',use:'neg'},
+  {seg:'③ 反·例',cls:'olzhuan',quota:'170 字',use:'negex'},
+  {seg:'④ 合',cls:'olhe',quota:'100 字',use:'edge'}
+ ],
+ items:[
+ {name:'卷 1 · 产业迭代：顺势 vs 深耕', src:'模拟卷 · 论说文（与 2026 长期/短期同题）',
+  material:'产业迭代浪潮之下，新赛道热点迭起。不少企业面临抉择：是顺势奔逐新兴风口，抢抓时代赋予的短期红利；还是沉潜深耕固有主业，淬炼难以被复制的核心禀赋。',
+  steps:[
+  {k:'title',name:'标题',ask:'标题该起成哪一句？',right:1,
+   opts:['论长期主义的重要性','定方向要慢，迈步子要快','企业如何应对产业迭代','顺势与深耕'],
+   why:'B 两边都在，且给了关系（方向慢 / 步子快）。A 只写一边；C 换成「怎么办」；D 只是两个词并列。',
+   fill:'定方向要慢，迈步子要快',
+   ez:{h:'标题必须同时出现两边，并给出关系。',s:'「A 要慢，B 要快」这种对仗最好用。',t:'只写「论 X 的重要性」＝只写一边，直接二类。',p:['双边标题']}},
+  {k:'open',name:'起段判断',ask:'第 1 段该写哪一句？',right:0,
+   opts:['二者并非二选一，而是供养关系：短期提供现金流，长期提供方向与壁垒。','这两种观点都有道理，应当辩证看待。','长期主义更重要，因为根基决定一切。','企业应当同时重视长期与短期。'],
+   why:'A 给了判断，并给出「供养」这个关系词，后文两段正好各写一头。B 是空判断；C 选边；D 是折中无内容。',
+   fill:'二者并非二选一，而是供养关系：短期提供现金流，长期提供方向与壁垒。',
+   ez:{h:'起段只做两件事：复述张力 + 立刻给判断。',s:'判断句里要有一个「关系词」：供养 / 前提 / 底线 / 边界。',t:'「都有道理」「辩证看待」＝没判断。',p:['起段写法','关系句']}},
+  {k:'pos',name:'正段观点',ask:'第 2 段的分论点该写哪一句？',right:0,
+   opts:['没有短期兑现，长期沉淀就撑不到兑现那一天：定力要靠现金流供养。','短期突围能带来现金流，所以很重要。','华为的长期投入证明了长期主义有效。','现金流是企业的血液。'],
+   why:'A 写出「缺了 A，B 就失效」，这是二类与三类的分水岭。B 只是「很重要」；C 是例子；D 是比喻。',
+   fill:'没有短期兑现，长期沉淀就撑不到兑现那一天：定力要靠现金流供养。',
+   ez:{h:'正段句式：「没有 A，B 就失效」。',s:'套进去就是一句合格分论点。',t:'「A 很重要」是二类卷的典型句。',p:['分论点句式','缺A则B失效']}},
+  {k:'posex',name:'正段例子 + 回扣',ask:'正段该用哪个例子、怎么回扣？',right:1,
+   opts:['比亚迪 2022 年销量全球第一，说明短期突围很有效。','比亚迪用燃油车现金流养三电到 2022 年，直到那年才停产燃油车——回扣：短期的钱，供养了长期的投入。','举马云创业的例子，说明坚持就能成功。','引用「不积跬步无以至千里」。'],
+   why:'B 的「动作」与正段论点同构（现金流供养长期）。A 是结果，回扣不上「供养」；C 是万能例子；D 是名言不是例子。',
+   fill:'比亚迪用燃油车现金流养三电到 2022 年，直到那年才停产燃油车——回扣：短期的钱，供养了长期的投入。',
+   ez:{h:'例子三句话：谁·什么时候·做了什么 → 结果 → 回扣。',s:'回扣句里必须出现分论点的原词（供养）。',t:'写「市值第一」「销量第一」是结果，回扣不上动作。',p:['例子回扣','同构读法']}},
+  {k:'neg',name:'反段观点',ask:'第 3 段的分论点该写哪一句？',right:1,
+   opts:['长期主义同样重要，企业要有耐心。','没有核心禀赋，风口上的位置就守不住：红利会被同样入场的人迅速摊薄。','柯达因为固守胶卷而失败。','风口往往伴随着泡沫。'],
+   why:'B 与正段互相制约：正段说没有短期活不到，反段说没有长期守不住。A 是「也重要」；C 是例子；D 是泛论。',
+   fill:'没有核心禀赋，风口上的位置就守不住：红利会被同样入场的人迅速摊薄。',
+   ez:{h:'反段必须和正段「咬合」：一个说缺 A 不行，一个说缺 B 不行。',s:'两段各写一头，就叫「正着说、反着说」。',t:'「也很重要」＝各夸一遍，不是互相制约。',p:['正反咬合']}},
+  {k:'negex',name:'反段例子 + 回扣',ask:'反段该用哪个例子、怎么回扣？',right:0,
+   opts:['英伟达 2006 年起做 CUDA，十余年不被看好，2012 年后才集中兑现——回扣：沉淀决定你能不能守住位置。','英伟达市值全球第一，说明长期投入有回报。','诺基亚因为不创新而倒闭。','亚马逊不断扩张，说明要敢于尝试。'],
+   why:'A 是动作 + 时间跨度 + 回扣。B 是结果；C 是单因归因；D 与本题反向。',
+   fill:'英伟达 2006 年起做 CUDA，十余年不被看好，2012 年后才集中兑现——回扣：沉淀决定你能不能守住位置。',
+   ez:{h:'反段例子要和正段例子「反向对称」：一个证明短期必要，一个证明长期必要。',s:'时间跨度（十余年）比数字更有说服力。',t:'「市值第一」不能证明「沉淀」，只能证明结果。',p:['例子回扣','反向对称']}},
+  {k:'edge',name:'合段（升华/边界）',ask:'第 4 段该写哪一句？',right:0,
+   opts:['定方向要慢，迈步子要快：买时间的钱可以快进快出，买位置的钱必须按年计。','因此企业要兼顾长期与短期，才能行稳致远。','所以我们要大力提倡长期主义。','时代在变，企业也要变。'],
+   why:'A 给出可执行的判准（哪笔钱怎么花），这就是「升华」——把两者的关系落成一个标准。B 是口号；C 选边；D 空话。',
+   fill:'定方向要慢，迈步子要快：买时间的钱可以快进快出，买位置的钱必须按年计。',
+   ez:{h:'合段要给「边界」或「标准」，不给「要兼顾」。',s:'能落成「哪笔钱怎么花」这种判准，就是升华。',t:'「行稳致远」「兼顾两者」是三类卷结尾。',p:['合段写法','升华']}}
+  ]},
+
+ {name:'卷 2 · 园艺：繁茂与收敛', src:'模拟卷 · 论说文',
+  material:'园艺实践之中，部分果树枝叶繁茂，蔚然可观，却结实寥寥；另有一类果树，主动抑止徒长冗枝，收敛外在的繁盛之态，将养分向内沉淀，终得累累硕果。',
+  steps:[
+  {k:'title',name:'标题',ask:'标题该起成哪一句？',right:2,
+   opts:['论专注的重要性','果树种植的启示','结实寥寥，问题不在长势','繁茂与收敛'],
+   why:'C 有判断：问题不在长势而在养分分配。A 只写一边且抽象；B 是跑题；D 是并列无关系。',
+   fill:'结实寥寥，问题不在长势',
+   ez:{h:'标题最好自带否定/转折，比「论 X」有力。',s:'「问题不在 A」这种句式能立住判断。',t:'「…的启示」是万能跑题标题。',p:['标题写法']}},
+  {k:'open',name:'起段判断',ask:'第 1 段该写哪一句？',right:0,
+   opts:['长势与结果是两件事，差别在于养分投给了谁。','材料用果树比喻人生，说得很形象。','做事要专注，才能取得成功。','我们应当学习果树的智慧。'],
+   why:'A 把比喻翻译成判断（养分→资源分配）。B 只夸不讲；C、D 是任何题都能套的口号。',
+   fill:'长势与结果是两件事，差别在于养分投给了谁。',
+   ez:{h:'材料是比喻，起段必须完成「比喻→判断」的翻译。',s:'找出比喻里的核心名词（养分），它就是你的论题词。',t:'「很有道理」「学习智慧」＝没有翻译。',p:['比喻题','起段写法']}},
+  {k:'pos',name:'正段观点',ask:'第 2 段的分论点该写哪一句？',right:1,
+   opts:['专注让人更容易成功。','不抑枝，资源就被徒长枝分走：每多一根枝，果实的份额就少一分。','苹果砍掉大部分产品线后起死回生。','人的精力是有限的。'],
+   why:'B 是机制，能推出因果。A 是结论；C 是例子；D 是常识。',
+   fill:'不抑枝，资源就被徒长枝分走：每多一根枝，果实的份额就少一分。',
+   ez:{h:'分论点要有「为什么」，不能只有「所以」。',s:'用「每多一根枝…就少一分」把机制写出来。',t:'「精力有限」是常识，不是分论点。',p:['分论点句式']}},
+  {k:'posex',name:'正段例子 + 回扣',ask:'正段该用哪个例子？',right:1,
+   opts:['英伟达市值全球第一，说明抑枝有效。','英伟达在 2010 年代退出手机基带，把资源收回 GPU 与 CUDA——回扣：剪掉一根看着还行的枝，保住结果的那根。','爱迪生试了上千种材料，说明坚持。','亚马逊不断扩张，说明要多线并进。'],
+   why:'B 是动作，与「抑枝」同构。A 是结果；C 是万能例子；D 与题意相反。',
+   fill:'英伟达在 2010 年代退出手机基带，把资源收回 GPU 与 CUDA——回扣：剪掉一根看着还行的枝，保住结果的那根。',
+   ez:{h:'「砍业务」类例子最适合本题。',s:'回扣要出现「剪/收/抑」这类动作词。',t:'「市值第一」是结果，不是剪枝。',p:['例子回扣']}},
+  {k:'neg',name:'反段观点',ask:'第 3 段的分论点该写哪一句？',right:2,
+   opts:['但也不能只专注一个方向，要多尝试。','诺基亚倒闭是因为不创新。','方向错了，收敛就是慢性死亡：柯达、诺基亚都极其聚焦，却聚焦在一条不再结果的枝上。','多元化经营可以分散风险。'],
+   why:'C 与正段咬合：正段说该剪，反段说剪错更危险。A 是折中；B 是单因归因；D 反向。',
+   fill:'方向错了，收敛就是慢性死亡：柯达、诺基亚都极其聚焦，却聚焦在一条不再结果的枝上。',
+   ez:{h:'反段要写「收敛本身不是美德」。',s:'「聚焦在一条不再结果的枝上」是本题最漂亮的一句。',t:'说「诺基亚不创新」会输掉，因为它恰恰很聚焦。',p:['正反咬合']}},
+  {k:'negex',name:'反段例子 + 回扣',ask:'反段该用哪个例子？',right:0,
+   opts:['柯达 1975 年就做出数码相机，却把资源继续押在胶卷上——回扣：不是不聚焦，是聚焦错了枝。','柯达太保守，不敢创新。','苹果靠创新成为最值钱的公司。','摩托罗拉被收购说明技术更新快。'],
+   why:'A 是动作 + 回扣。B 是评价（且不准确）；C、D 都与「剪错枝」无关。',
+   fill:'柯达 1975 年就做出数码相机，却把资源继续押在胶卷上——回扣：不是不聚焦，是聚焦错了枝。',
+   ez:{h:'反段例子要证明「方向错＝慢性死亡」。',s:'「不是不聚焦，是聚焦错」一句话就把反段立住。',t:'「不敢创新」是粗糙归因，容易被反驳。',p:['例子回扣']}},
+  {k:'edge',name:'合段（升华/边界）',ask:'第 4 段该写哪一句？',right:0,
+   opts:['剪枝的标准不是「这条枝好不好看、赚不赚钱」，而是「它是否在为不可替代的能力供能」。','因此要适度收敛，也要适度扩张。','所以我们要学会取舍。','人生如树，需要修剪。'],
+   why:'A 给出可操作标准。B 是「适度」式空话；C 抽象；D 是比喻收尾，三类卷典型。',
+   fill:'剪枝的标准不是「这条枝好不好看、赚不赚钱」，而是「它是否在为不可替代的能力供能」。',
+   ez:{h:'合段给标准，标准要能被下一句执行。',s:'「不是 A，而是 B」句式最适合给标准。',t:'「人生如树」是零分句。',p:['合段写法','升华']}}
+  ]},
+
+ {name:'卷 3 · 广纳众言与自我之守', src:'模拟卷 · 论说文（AI 议题可迁移）',
+  material:'有思想家言：「广纳众言，则可破一己之蔽；然随众俯仰，则易失自我之守。」身处多元信息交织的时代，个体与组织亦常面临此种困境。',
+  steps:[
+  {k:'title',name:'标题',ask:'标题该起成哪一句？',right:0,
+   opts:['以我为主地听','论广纳众言的重要性','信息时代的困境','广纳与自守'],
+   why:'A 把两边合成一个动作（听，但以我为主）。B 只写一边；C 是背景题；D 并列无关系。',
+   fill:'以我为主地听',
+   ez:{h:'引语型材料，标题可以把两个动作合成一个短语。',s:'「以我为主地 X」是很好用的合成式。',t:'「广纳与自守」只是并列，没给关系。',p:['引语题','双边标题']}},
+  {k:'open',name:'起段判断',ask:'第 1 段该写哪一句？',right:1,
+   opts:['这句话很有道理，值得深思。','开放接收是前提，独立判断是底线：二者缺一，广纳就变成了被推送。','我们要多听别人的意见。','信息时代要学会独立思考。'],
+   why:'B 给了「前提/底线」的层级关系。A 是赞语；C、D 各说一边且无关系。',
+   fill:'开放接收是前提，独立判断是底线：二者缺一，广纳就变成了被推送。',
+   ez:{h:'引语题起段，要把两句话合并成一个关系。',s:'「A 是前提，B 是底线」能把两句原话接住。',t:'「很有道理」是零分起段。',p:['引语题','关系句']}},
+  {k:'pos',name:'正段观点',ask:'第 2 段的分论点该写哪一句？',right:0,
+   opts:['不广纳就会蔽：判断是否可靠，取决于能否说出「什么条件下我错」，而这往往要靠异见提供。','多听别人的意见可以避免犯错。','兼听则明，偏信则暗。','现在网上的信息很多。'],
+   why:'A 给了机制（可靠性的判据 + 异见的作用）。B 是常识；C 是成语；D 是背景。',
+   fill:'不广纳就会蔽：判断是否可靠，取决于能否说出「什么条件下我错」，而这往往要靠异见提供。',
+   ez:{h:'「破蔽」要落成一个可检验的判据。',s:'波普尔的「什么条件下我错」就是现成判据。',t:'「兼听则明」是成语，评卷不认。',p:['分论点句式','可证伪']}},
+  {k:'posex',name:'正段例子 + 回扣',ask:'正段该用哪个例子？',right:2,
+   opts:['孔子说「三人行必有我师」。','我身边有朋友因为不听劝而失败。','波普尔：一个理论是否科学，要看它是否允许被证伪——回扣：能说出自己错在哪，才需要异见来校准。','某专家说要多听意见。'],
+   why:'C 是理论 + 动作 + 回扣。A 是名言；B 是个案；D 是诉诸权威。',
+   fill:'波普尔：一个理论是否科学，要看它是否允许被证伪——回扣：能说出自己错在哪，才需要异见来校准。',
+   ez:{h:'哲学例子只留一句结论 + 一个动作。',s:'「允许被证伪」正好对应「需要异见」。',t:'名言不是例子，除非你解释它。',p:['哲学例子','例子回扣']}},
+  {k:'neg',name:'反段观点',ask:'第 3 段的分论点该写哪一句？',right:2,
+   opts:['但也不能什么都听，要有自己的主见。','有的人盲目跟风，很不好。','随众俯仰的可怕不是观点错，而是判断的动作停了：内容接收了，核验没做。','网络谣言很多，要小心。'],
+   why:'C 指出了「停的是什么动作」，比「要有主见」深一层。A 是折中；B 是道德评价；D 是提醒。',
+   fill:'随众俯仰的可怕不是观点错，而是判断的动作停了：内容接收了，核验没做。',
+   ez:{h:'「失守」要写成「某个动作停了」，才可检验。',s:'「接收了，核验没做」是本题最准的一句。',t:'「要有主见」是三类卷反段。',p:['正反咬合']}},
+  {k:'negex',name:'反段例子 + 回扣',ask:'反段该用哪个例子？',right:0,
+   opts:['2023 年纽约一名律师用 ChatGPT 提交 6 个不存在的判例，被法院处罚——回扣：他接收了内容，却没做核验。','ChatGPT 会编造内容，很危险。','某大学生抄袭论文被处分。','网络上谣言传播很快。'],
+   why:'A 的落点正是「判断动作停了」。B 把工具问题当成判断问题；C 是诚信问题；D 是现象。',
+   fill:'2023 年纽约一名律师用 ChatGPT 提交 6 个不存在的判例，被法院处罚——回扣：他接收了内容，却没做核验。',
+   ez:{h:'例子必须能落到「没核验」这个动作上。',s:'把「被罚」写成「核验缺位的代价」。',t:'说「AI 会编造」是把责任推给工具。',p:['例子回扣','责任归属']}},
+  {k:'edge',name:'合段（升华/边界）',ask:'第 4 段该写哪一句？',right:1,
+   opts:['所以要既广纳又自守，二者结合。','真功夫在「接收」与「采纳」之间：一看来源、二问反例、三用自己的话重述并说出边界。','我们要提高媒介素养。','多读书，多思考。'],
+   why:'B 给的是可执行三步。A 是口号；C 是术语没落地；D 是劝告。',
+   fill:'真功夫在「接收」与「采纳」之间：一看来源、二问反例、三用自己的话重述并说出边界。',
+   ez:{h:'合段给「可执行的动作」，不是给「态度」。',s:'三个动作能直接照着做，就是升华。',t:'「提高素养」「多读书」是劝告。',p:['合段写法','可执行标准']}}
+  ]}
+ ]};
+
+/* ---------- ③ 考场规则 ---------- */
+D.rule={label:'考场规则', intro:'这一栏专练「下笔前 30 秒」：标题怎么写、第一句怎么写、段落三件套怎么排。每一题都是一个可直接照抄的公式。',
+ outline:[
+  {seg:'论证标题',cls:'olqi',quota:'一句反驳',use:'rt'},
+  {seg:'论证首句',cls:'olcheng',quota:'含结论',use:'ro'},
+  {seg:'论证段落',cls:'olcheng',quota:'引析评',use:'rp'},
+  {seg:'论说标题',cls:'olqi',quota:'两边+关系',use:'et'},
+  {seg:'论说首句',cls:'olqi',quota:'给判断',use:'eo'},
+  {seg:'论说正反合',cls:'olhe',quota:'咬合+边界',use:'eb'}
+ ],
+ items:[
+ {name:'下笔前 30 秒 · 六道规则题', src:'考场规则 · 两篇通用',
+  material:'论证有效性分析 30 分、论说文 35 分，合计 65 分、约 60 分钟。下面六题决定你在这 60 分钟里「第一句写什么」。',
+  steps:[
+  {k:'rt',name:'论证标题',ask:'论证文的标题，正确写法是哪一个？',right:2,
+   opts:['论以租代买的利与弊','关于以租代买的思考','以租代买未必值得提倡','浅谈以租代买'],
+   why:'C 是一句反驳，直接否定材料结论。A、B、D 都是话题式标题，读完不知道你站哪边——论证文的标题必须是判断。',
+   fill:'公式：把材料结论翻过来写，去掉「论/浅谈/关于」，保留一个否定词（未必/不能/不等于）。',
+   ez:{h:'论证文标题＝一句反驳。',s:'材料说「值得提倡」，你就写「未必值得提倡」。',t:'「论…」「浅谈…」「关于…的思考」全部零分。',p:['标题写法']}},
+  {k:'ro',name:'论证首句',ask:'论证文第一句，必须包含什么？',right:0,
+   opts:['「材料试图论证 X」＋ X 是材料结论句','对材料的总体评价（如「漏洞百出」）','材料的主要论据清单','你的个人观点'],
+   why:'A 对：第一句要复述靶子，且靶子只能是结论句。B 是空评价；C 是罗列；D 是把自己的观点当靶子。',
+   fill:'公式：材料试图论证「＋结论原句＋」。然而其论证在样本、条件、推论三处失守。',
+   ez:{h:'首句定靶子，靶子定全文。',s:'先找「由此可见/因此」后面那句，抄进来。',t:'抄论据句当靶子，后面两段就打空了。',p:['结论识别','首句公式']}},
+  {k:'rp',name:'论证段落三件套',ask:'一个打点段，三段式的正确顺序是？',right:1,
+   opts:['观点 → 例子 → 结论','〈引〉抄原句 →〈析〉命名谬误并说明推不出 →〈评〉因此不成立','背景 → 问题 → 建议','现象 → 原因 → 对策'],
+   why:'B 对：引、析、评。A 缺谬误命名；C、D 是「提建议」的结构，论证文禁止。',
+   fill:'〈引〉材料由「…」推出「…」。〈析〉这是〔谬误名〕：……。〈评〉因此……不能成立。',
+   ez:{h:'三段式＝引（抄）＋析（命名+说明）＋评（收）。',s:'缺「命名」＝外行；缺「说明」＝喊口号。',t:'写「应该出台政策」＝直接掉到三类卷。',p:['引析评','六类谬误']}},
+  {k:'et',name:'论说标题',ask:'论说文的标题，正确写法是哪一个？',right:1,
+   opts:['论坚持的重要性','宁慢一步，不偏一路','坚持与放弃','我们该如何选择'],
+   why:'B 两边都在，且给了关系（慢 / 偏）。A 只写一边；C 只是并列；D 是设问且换题。',
+   fill:'公式：两边各出一个词，中间给关系（而/要/不等于/以…换…）。',
+   ez:{h:'标题里必须能数出两个概念。',s:'用「不…不…」「以 A 换 B」把关系写死。',t:'只写一边＝二类封顶。',p:['双边标题']}},
+  {k:'eo',name:'论说首句',ask:'论说文第一句，正确写法是哪一个？',right:0,
+   opts:['二者不是二选一，而是 X 供养 Y。','这两种说法都有道理，我们应当辩证看待。','我认为 A 更重要。','随着时代发展，这个问题越来越突出。'],
+   why:'A 给出判断 + 关系。B 是空判断；C 选边，等于没回答题眼；D 是背景铺陈，浪费字数。',
+   fill:'公式：二者并非〔二选一/对立〕，而是〔关系词：供养/前提/底线/边界〕。',
+   ez:{h:'首句必须给判断，不能只复述。',s:'一个「而是」就把关系立起来。',t:'「都有道理」是三类卷首句。',p:['起段写法']}},
+  {k:'eb',name:'论说正反合',ask:'「正着说、反着说」的正确做法是？',right:2,
+   opts:['正段夸 A，反段夸 B，合段说两者都重要','正段举例支持，反段举例反对，合段下结论','正段说「没有 A，B 就失效」，反段说「没有 B，A 就守不住」，合段给一条边界或标准','正段写优点，反段写缺点，合段写建议'],
+   why:'C 对：正反必须互相制约，合段给判准。A 是各夸一遍；B 是正反打架；D 是「优缺点+建议」的套路，论证文才禁止建议，论说文也不该以建议收尾。',
+   fill:'正段：没有 A，B 就失效。反段：没有 B，A 就守不住。合段：所以真正的标准是……',
+   ez:{h:'正反要「咬合」，不是「对立」。',s:'两段都用「没有 X，Y 就失效」的句式，自动咬合。',t:'「A 很重要 / B 也很重要」＝两个三类段。',p:['正反咬合','合段写法']}}
+  ]}
+ ]};
+
+/* ---------- ④ 英译汉 ---------- */
+D.trans={label:'英译汉', intro:'采分点几乎全在动词与习语上。三段各三题：先抓关键词，再定语序，最后查漏。',
+ outline:[
+  {seg:'段1 关键词',cls:'olqi',quota:'15 分',use:'t1'},
+  {seg:'段1 语序',cls:'olcheng',quota:'—',use:'t2'},
+  {seg:'段1 查漏',cls:'olcheng',quota:'—',use:'t3'},
+  {seg:'段2 关键词',cls:'olqi',quota:'—',use:'t4'},
+  {seg:'段2 语序',cls:'olcheng',quota:'—',use:'t5'},
+  {seg:'段2 查漏',cls:'olcheng',quota:'—',use:'t6'},
+  {seg:'段3 关键词',cls:'olqi',quota:'—',use:'t7'},
+  {seg:'段3 语序',cls:'olcheng',quota:'—',use:'t8'},
+  {seg:'段3 查漏',cls:'olcheng',quota:'—',use:'t9'}
+ ],
+ items:[
+ {name:'三段翻译 · 九个采分动作', src:'英译汉 · 15 分',
+  material:'段1：sunshine guilt / scarcity mindset　段2：time poverty / prioritise our actions / keeping our head above water　段3：thinking about thinking / as documented by Plato / focused on deciding',
+  steps:[
+  {k:'t1',name:'段1 关键词',ask:'“you are not alone” 在这里该译成？',right:1,
+   opts:['你并不孤单（安慰语）','有这种感受的人不止你一个','你一个人待着','你不孤独终老'],
+   why:'B 对：语境是「很多人都有阳光愧疚」，不是安慰。A 是字面直译；C 误解结构；D 加戏。',
+   fill:'you are not alone → 有这种感受的人不止你一个（并非个例）。',
+   ez:{h:'先看上下文，再决定译法。',s:'「not alone」在统计语境里＝「并非个例」。',t:'直译成「你并不孤单」在说明文里会很怪。',p:['语境义']}},
+  {k:'t2',name:'段1 语序',ask:'“Another factor contributing to sunshine guilt is having a scarcity mindset” 的正确语序是？',right:0,
+   opts:['造成阳光愧疚的另一个因素，是稀缺心态','另一个因素贡献给阳光愧疚是有一个稀缺心态','稀缺心态是另一个因素，它贡献阳光愧疚','阳光愧疚的另一个因素正在拥有稀缺心态'],
+   why:'A 对：中文先「因素」后「是」，定语前置。B 是逐词直译；C 拆错主干；D 主语错位。',
+   fill:'Another factor contributing to X is Y → 造成 X 的另一个因素，是 Y。',
+   ez:{h:'英文「A is B」译成中文常要倒成「B，是 A」的定语结构。',s:'先找主干（factor is mindset），再把修饰挂回去。',t:'逐词对译一定不通。',p:['定语处理','语序重组']}},
+  {k:'t3',name:'段1 查漏',ask:'“letting even one day go to waste” 中的 even 该怎么处理？',right:2,
+   opts:['可以不译','译成「甚至浪费一天」','译出「哪怕一天都舍不得」的强调','译成「即使」'],
+   why:'C 对：even 在这里是强调「一天都不行」。A 丢信息；B 生硬；D 改变逻辑关系。',
+   fill:'letting even one day go to waste → 哪怕浪费一天（都舍不得）。',
+   ez:{h:'even 往往要译成「哪怕…都」。',s:'查漏时专挑 even/only/just 这类小词。',t:'漏译 even 会扣「准确」分。',p:['强调词']}},
+  {k:'t4',name:'段2 关键词',ask:'“keeping our head above water” 该译成？',right:1,
+   opts:['把头露出水面','勉强维持、不致沉没','保持清醒','浮在水面呼吸'],
+   why:'B 对：习语，意译。A 是字面；C、D 都是误读。',
+   fill:'just about keeping our head above water → 勉强维持、不致沉没。',
+   ez:{h:'习语一律意译，宁可不美不可不通。',s:'head above water＝不欠债、能撑住。',t:'直译「把头露出水面」会闹笑话。',p:['习语']}},
+  {k:'t5',name:'段2 语序',ask:'“Recent research suggests that the cure for our lack of time may lie in the natural world” 的正确译法是？',right:0,
+   opts:['近期研究表明，解决时间匮乏的办法，也许就在自然界之中','近期研究建议治疗我们缺少时间可能躺在自然界','最近的研究暗示治愈躺在大自然','研究表明自然世界可能有时间'],
+   why:'A 对：suggests 译「表明」、cure 译「解决办法」、may 保留。B 逐词；C 丢 may；D 主干丢了。',
+   fill:'suggests → 表明；the cure for X may lie in Y → 解决 X 的办法也许就在 Y。',
+   ez:{h:'suggest 在学术语境＝表明，不是建议。',s:'may 不能丢，原文是推测。',t:'把 cure 译成「治疗」在抽象语境会很怪。',p:['学术动词','情态词']}},
+  {k:'t6',name:'段2 查漏',ask:'“prioritise our actions” 的采分动作是？',right:1,
+   opts:['优先我们行动','分清事情的轻重缓急','把行动放在前面','给行动排序号'],
+   why:'B 对：prioritise＝排优先级。A 直译不成句；C 只译了「前」；D 太机械。',
+   fill:'prioritise our actions → 分清事情的轻重缓急（排出优先级）。',
+   ez:{h:'prioritise 是全段最容易被译丢的动作。',s:'译成「分清轻重缓急」最自然。',t:'漏掉它，这句就只剩「帮助」两个动词。',p:['关键动词']}},
+  {k:'t7',name:'段3 关键词',ask:'“thinking about thinking” 该译成？',right:0,
+   opts:['对思考本身进行思考','思考关于思考','想着思考这件事','反思'],
+   why:'A 对：保留同词复现。B 生硬；C 口语化；D 丢了结构。',
+   fill:'thinking about thinking → 对思考本身进行思考。',
+   ez:{h:'同词复现要保留，这是本段的核心句。',s:'「对 X 本身进行 X」是好用的译法。',t:'译成「反思」会丢掉「thinking about thinking」的形式感。',p:['同词复现']}},
+  {k:'t8',name:'段3 语序',ask:'“it dates back to the teachings of Socrates, as documented by Plato” 的正确译法是？',right:2,
+   opts:['它可以回溯到苏格拉底的教导，像柏拉图记录的那样','它日期回到苏格拉底教导，被柏拉图文件化','它可追溯到苏格拉底的教诲，这一点由柏拉图记录了下来','它回到苏格拉底教的东西，柏拉图写的'],
+   why:'C 对：dates back to＝追溯；documented＝记录。A 生硬；B 把 document 当名词；D 丢信息。',
+   fill:'dates back to → 可追溯到；as documented by → 这一点由…记录了下来。',
+   ez:{h:'document 作动词＝记录，不是「文件化」。',s:'as documented by 常译成「这一点由…记载」。',t:'逐词译「日期回到」必扣分。',p:['动词辨义']}},
+  {k:'t9',name:'段3 查漏',ask:'“reasonable, reflective thinking focused on deciding what to believe or do” 中 focused on 修饰谁？',right:1,
+   opts:['修饰 deciding','修饰 thinking（作后置定语）','修饰 reasonable','修饰 what'],
+   why:'B 对：focused on 修饰 thinking，译作定语。A 会拆错结构；C、D 都不可能。',
+   fill:'…thinking（that is）focused on deciding… → 以决定…为核心的思考。',
+   ez:{h:'长句先找主干：thinking focused on deciding。',s:'分词短语作定语，译成「以…为核心的」。',t:'把 focused on 当谓语，整句就散了。',p:['分词定语','主干识别']}}
+  ]}
+ ]};
+
+/* ---------- ⑤ 小作文 8→9 ---------- */
+D.letter={label:'小作文 8→9', intro:'小作文 10 分：8 分是「格式对、话说清」，9 分是「多一个具体动作 / 少一句废话」。六题分别对应三个体裁的两个提分点。',
+ outline:[
+  {seg:'书信·格式',cls:'olqi',quota:'10 分',use:'l1'},
+  {seg:'书信·提分',cls:'olcheng',quota:'8→9',use:'l2'},
+  {seg:'Notice·格式',cls:'olqi',quota:'—',use:'l3'},
+  {seg:'Notice·提分',cls:'olcheng',quota:'—',use:'l4'},
+  {seg:'通知·格式',cls:'olqi',quota:'—',use:'l5'},
+  {seg:'通知·提分',cls:'olcheng',quota:'—',use:'l6'}
+ ],
+ items:[
+ {name:'三种体裁 · 六个提分点', src:'Part A · 100 词 · 10 分',
+  material:'① 给外国朋友写求职建议信（署名 Li Ming）　② 学生会告知国际学生歌唱比赛（Notice）　③ 学生会主席通知双语辩论赛（Notice，署 Global University）',
+  steps:[
+  {k:'l1',name:'书信 · 格式',ask:'建议信的格式，哪一项是 8 分与 7 分的分界？',right:3,
+   opts:['有称呼和落款','正文分三段','有开头问候','称呼 + 三段（开门/建议/收尾）+ 落款，四件齐全'],
+   why:'D 对：七分卷常见是「缺收尾段」或「缺落款」。A、B、C 各只覆盖一部分。',
+   fill:'书信四件：Dear X, ／开门 1 句 ／主体 3 句 ／收尾 1 句 ／Yours, Li Ming。',
+   ez:{h:'格式分是「有没有」，不是「好不好」。',s:'四件套缺一件就掉到 7 分。',t:'漏落款是最常见的 7 分卷。',p:['书信格式']}},
+  {k:'l2',name:'书信 · 8→9',ask:'建议信从 8 分到 9 分，最有效的动作是？',right:1,
+   opts:['多用高级词汇','每条建议后补一句「为什么」或「怎么做」','把三段写成五段','加一句名言'],
+   why:'B 对：8 分卷的建议停在「You should...」，9 分卷会补半句理由或具体做法。A 风险高；C 破坏结构；D 跑题。',
+   fill:'建议句后加半句：which is far more efficient than…／because many positions expect…',
+   ez:{h:'提分点＝「多一个具体动作」，不是「换更难的词」。',s:'每条建议补 because/which 从句，立刻到 9 分。',t:'堆高级词容易语法出错，反而掉分。',p:['内容分','提分句']}},
+  {k:'l3',name:'Notice · 格式',ask:'Notice 必须有、而书信不要求的一项是？',right:2,
+   opts:['称呼','落款签名','标题（Notice）','正文分段'],
+   why:'C 对：Notice 以标题起，书信以称呼起。A、B 两者都有；D 两者都建议。',
+   fill:'Notice 四件：标题 Notice ／做什么+时间地点 ／要求与报名 ／署名（组织名）。',
+   ez:{h:'Notice 的第一行就是 Notice。',s:'没标题直接算格式不全。',t:'用「Dear students」开头是书信格式，Notice 不这么写。',p:['Notice 格式']}},
+  {k:'l4',name:'Notice · 8→9',ask:'歌唱比赛通知要拿 9 分，必须补上哪一条？',right:0,
+   opts:['报名截止时间与报名方式','比赛的历史','评委名单','去年的获奖者'],
+   why:'A 对：通知的实用分全在「怎么参加」。B、C、D 都是无关信息，写进去反而挤掉要点。',
+   fill:'Registration is open until Dec 10; please sign up at … or by email, stating name, nationality and song title.',
+   ez:{h:'通知的信息分＝时间、地点、条件、报名。',s:'缺报名方式，实用分扣一半。',t:'写背景与历史不加分。',p:['信息完整度']}},
+  {k:'l5',name:'通知 · 格式',ask:'双语辩论赛通知，署名该写什么？',right:1,
+   opts:['自己的名字','Global University / The Students’ Union','不署名','写指导老师名字'],
+   why:'B 对：题面明确「不要签自己的名字，用 Global University」，且通知惯例署组织。A 直接违反题干；C 格式不全；D 凭空加人。',
+   fill:'署名用组织：The Students’ Union（题面要求时用 Global University）。',
+   ez:{h:'题面写了「不要署自己名字」就一定不能署。',s:'通知的落款是组织，不是个人。',t:'署自己名字＝直接扣格式分。',p:['署名规则']}},
+  {k:'l6',name:'通知 · 8→9',ask:'邀请「合格成员」这一类通知，9 分卷会多写什么？',right:2,
+   opts:['多写几句欢迎辞','把活动意义写满一段','写清「合格」的判据与筛选方式','引用一句名言'],
+   why:'C 对：「qualified」是题干关键词，9 分卷会把它落成可核对的条目（双语流利、能保证出场、需试讲）。A、B、D 都是虚的。',
+   fill:'Applicants should be able to speak both languages fluently, commit to one debate a month; a short trial speech will be organized.',
+   ez:{h:'题干里的限定词（qualified）就是提分点。',s:'把形容词换成三条可核对的条件。',t:'欢迎辞不加分，还占字数。',p:['题干关键词','具体化']}}
+  ]}
+ ]};
+
+/* ---------- ⑥ 图表六句 ---------- */
+D.chart={label:'图表六句', intro:'150 词只有六句话的位置：第一句点题、第二句给极值、第三句补中间、第四句转折、第五句归因、第六句结论。每句一个功能，不许串岗。',
+ outline:[
+  {seg:'① 点题',cls:'olqi',quota:'一句',use:'c1'},
+  {seg:'② 极值',cls:'olcheng',quota:'一句',use:'c2'},
+  {seg:'③ 中间',cls:'olcheng',quota:'一句',use:'c3'},
+  {seg:'④ 转折',cls:'olzhuan',quota:'一句',use:'c4'},
+  {seg:'⑤ 归因',cls:'olhe',quota:'两句',use:'c5'},
+  {seg:'⑥ 结论',cls:'olhe',quota:'一句',use:'c6'}
+ ],
+ items:[
+ {name:'三张图 · 六句法', src:'Part B · 150 词 · 15 分',
+  material:'图1 毕业生选城市：就业机会 49.6%／地理位置 38.1%／经济实力 35.4%／文化氛围 27.8%／交通便利 18.3%　图2 短期休闲：城市漫步 53%／展览馆 48%／户外探险 40%／郊区乡村游 23%　图3 终身教育：2.68 亿（2016）→ 12.12 亿（2025）',
+  steps:[
+  {k:'c1',name:'第一句：点题',ask:'第一句该写什么？',right:1,
+   opts:['Nowadays, more and more people choose…（议论开场）','The bar chart illustrates what graduates consider most important when choosing a city to work in.','As we all know, choosing a city is very important.','I think the chart is very interesting.'],
+   why:'B 对：第一句只说「这张图讲什么」，不带观点。A 是议论文开头；C 是常识铺垫；D 是个人感受。',
+   fill:'The bar chart illustrates + 对象 + 时间/范围.',
+   ez:{h:'第一句＝点题，不许有 because。',s:'句式固定：The chart illustrates…',t:'用「Nowadays」开头会写偏成议论文。',p:['图表首句']}},
+  {k:'c2',name:'第二句：极值',ask:'第二句该写什么？',right:0,
+   opts:['Employment opportunities rank first at 49.6%, followed by …','The numbers are 49.6, 38.1, 35.4, 27.8 and 18.3.','Many factors are important.','The highest one is very high.'],
+   why:'A 对：最高项 + 数值 + 次高项。B 是报数；C 是空话；D 没给具体值。',
+   fill:'X ranks first at __%, followed by Y at __%.',
+   ez:{h:'第二句抓极值，用 rank first / come last。',s:'一个句子带两个数据，够用又省词。',t:'把五个数字全列出来＝不会描述。',p:['极值句式']}},
+  {k:'c3',name:'第三句：中间项',ask:'第三句该怎么处理剩下的项？',right:2,
+   opts:['把剩下的每一项都单独写一句','只写平均值','Cultural atmosphere accounts for 27.8%, while convenient transportation comes last at 18.3%.','There are other factors too.'],
+   why:'C 对：用一个 while 把中间项与最低项并起来。A 超字数；B 图表没有平均值；D 等于没说。',
+   fill:'… accounts for __%, while … comes last at __%.',
+   ez:{h:'中间项要合并，不要一句一个。',s:'while 是最省词的连接。',t:'逐项报数会挤掉后面的分析段。',p:['数据合并']}},
+  {k:'c4',name:'第四句：转折',ask:'描述段转到分析段，正确写法是？',right:1,
+   opts:['But the chart is not accurate.','Two points stand out.','In my opinion, this is good.','However, I don\'t like it.'],
+   why:'B 对：用一句「两点值得注意」承上启下，不动声色地进入分析。A 是质疑数据；C 是观点；D 是个人好恶。',
+   fill:'Two points stand out. First, … Second, …',
+   ez:{h:'承上启下句只做一件事：宣告「接下来分析几点」。',s:'Two points stand out 是最好用的过渡句。',t:'在描述段结尾写 In my opinion，会把两段混在一起。',p:['过渡句']}},
+  {k:'c5',name:'第五句：归因',ask:'归因段该怎么写？',right:0,
+   opts:['The dominance of A is easy to explain: both are cheap, close and flexible.','A is good because it is good.','Everyone likes A.','A is popular in China.'],
+   why:'A 对：给出可检验的两条理由（便宜、近、灵活）。B 是循环论证；C 是重复现象；D 是空泛。',
+   fill:'This is easy to explain: on the one hand …; on the other hand …',
+   ez:{h:'归因要给「可检验的理由」，不是重复现象。',s:'两句 on the one hand / on the other hand 足够。',t:'把现象再描述一遍＝没归因。',p:['归因写法']}},
+  {k:'c6',name:'第六句：结论',ask:'最后一句该怎么收？',right:2,
+   opts:['So we should pay attention to it.','In a word, the chart is meaningful.','What the chart reveals is that …; for city planners, the message is clear: …','I hope this helps.'],
+   why:'C 对：「揭示什么 + 对谁有什么启示」，两句收满。A 是空呼吁；B 是评价图表；D 是书信结尾。',
+   fill:'What the chart reveals is a shift in …; for __, the message is clear: …',
+   ez:{h:'结论＝「说明了什么」＋「对谁有用」。',s:'What the chart reveals is… 是标准收尾。',t:'「pay attention to it」没有任何信息。',p:['结论句式']}}
+  ]}
+ ]};
+
+/* ================= 引擎 ================= */
+var KEY='kaoyan.wbreak.v1';
+var S={tab:'arg', cur:{}, res:{}, easy:false};
+try{ var raw=localStorage.getItem(KEY); if(raw){ var o=JSON.parse(raw); S.cur=o.cur||{}; S.res=o.res||{}; S.easy=!!o.easy; } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({cur:S.cur,res:S.res,easy:S.easy})); }catch(e){} }
+function keyOf(item,st){ return item.name+'|'+st.k; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+var view=document.getElementById('view');
+
+function ezBox(st){
+  if(!st.ez) return '';
+  var e=st.ez;
+  return '<div class="ezbox">'+
+   (e.h?'<div class="ez-row ez-key"><b>关键</b><div>'+esc(e.h)+'</div></div>':'')+
+   (e.s?'<div class="ez-row ez-kill"><b>秒杀</b><div>'+esc(e.s)+'</div></div>':'')+
+   (e.t?'<div class="ez-row ez-trap"><b>陷阱</b><div>'+esc(e.t)+'</div></div>':'')+
+   (e.p&&e.p.length?'<div class="ez-row ez-kp"><b>考点</b><div>'+e.p.map(function(x){return '<span class="kptag">'+esc(x)+'</span>';}).join('')+'</div></div>':'')+
+   '</div>';
+}
+
+function renderTrack(t){
+  var tr=D[t], idx=S.cur[t]||0, item=tr.items[idx];
+  var html='<div class="card"><span class="qtag">'+tr.label+'</span>'+
+   '<p class="note" style="margin:8px 0 0">'+esc(tr.intro)+'</p>'+
+   '<div class="bar mini" style="margin:10px 0 0" id="items">'+tr.items.map(function(it,i){
+     var done=it.steps.filter(function(st){return S.res[keyOf(it,st)]===1;}).length;
+     return '<button data-i="'+i+'" class="'+(i===idx?'on':'')+'">'+esc(it.name)+'<br><span class="note">'+done+'/'+it.steps.length+'</span></button>';
+   }).join('')+'</div></div>';
+  html+='<div class="card"><div class="idxline">'+esc(item.src)+'</div>'+
+   '<h2 style="margin:2px 0 8px">'+esc(item.name)+'</h2>'+
+   '<div class="material">'+esc(item.material)+'</div></div>';
+  html+='<div id="steps"></div><div class="card" id="ol"></div>';
+  view.innerHTML=html;
+  [].slice.call(document.querySelectorAll('#items button')).forEach(function(b){
+    b.onclick=function(){ S.cur[t]=+b.dataset.i; save(); renderTrack(t); };
+  });
+  var box=document.getElementById('steps');
+  item.steps.forEach(function(st,si){ box.appendChild(stepEl(item,st,si)); });
+  drawOutline(item);
+}
+
+function stepEl(item,st,si){
+  var k=keyOf(item,st), rec=S.res[k];
+  var answered=(rec!=null);
+  var picked = answered ? (rec>1 ? rec-100 : st.right) : null;
+  var ok = answered && rec===1;
+  var d=document.createElement('div');
+  d.className='step'+(ok?' done':'');
+  var head='<div class="stephd"><span class="stepno">'+(si+1)+'</span><span>'+esc(st.name)+'</span>'+
+    (ok?'<span style="color:var(--ok);font-weight:700">✓ 已答对</span>':(answered?'<span style="color:var(--warn);font-weight:700">✗ 答错过，可重试</span>':''))+'</div>';
+  var body='<div class="stepask">'+esc(st.ask)+'</div>';
+  var ez = S.easy ? ezBox(st) : '';
+  var opts='<div class="opts">'+st.opts.map(function(o,i){
+      var cls='opt';
+      if(answered){ if(i===st.right) cls+=' right'; else if(i===picked) cls+=' wrong'; }
+      return '<button class="'+cls+'" data-i="'+i+'"'+(answered?' disabled':'')+'>'+
+        'ABCD'.charAt(i)+'　'+esc(o)+'</button>';
+    }).join('')+'</div>';
+  var tail='<div class="ans'+(answered?' on':'')+'"></div>';
+  d.innerHTML=head+body+ez+opts+tail;
+  var btns=[].slice.call(d.querySelectorAll('.opt'));
+  var ansEl=d.querySelector('.ans');
+  function paint(){
+    ansEl.innerHTML='<b>'+(ok?'✓ 对':'✗ 错')+'</b>　正确答案：'+'ABCD'.charAt(st.right)+
+      '<br>'+esc(st.why)+
+      (ok?'<br><br><b>已填入骨架：</b>'+esc(st.fill):'');
+    ansEl.classList.add('on');
+    if(!ok){
+      var btn=document.createElement('button'); btn.className='btn'; btn.textContent='再试一次';
+      btn.style.marginTop='10px';
+      btn.onclick=function(){ delete S.res[k]; save(); renderTrack(S.tab); };
+      ansEl.appendChild(btn);
+    }
+  }
+  if(answered){ paint(); }
+  else{
+    btns.forEach(function(b){
+      b.onclick=function(){
+        picked=+b.dataset.i; ok=(picked===st.right);
+        S.res[k]= ok?1:(picked+100);
+        save();
+        btns.forEach(function(x){
+          var i=+x.dataset.i; x.disabled=true;
+          if(i===st.right) x.classList.add('right'); else if(i===picked) x.classList.add('wrong');
+        });
+        d.classList.toggle('done', ok);
+        paint(); drawOutline(item);
+      };
+    });
+  }
+  return d;
+}
+
+function drawOutline(item){
+  var tr=D[S.tab]||D.arg;
+  var rows=item.outline||tr.outline;
+  var html='<span class="qtag">实时骨架</span><div class="note" style="margin:7px 0 10px">每答对一步，对应位置就被填上。全部走完，这就是可以直接抄进作文的骨架。</div>';
+  rows.forEach(function(r){
+    var st=item.steps.filter(function(x){return x.k===r.use;})[0];
+    var rec=st?S.res[keyOf(item,st)]:null;
+    var txt=(st&&rec===1)?'<span class="fill">'+esc(st.fill)+'</span>':'<span class="ph">待定</span>';
+    html+='<div class="olrow"><div><span class="olseg '+r.cls+'">'+esc(r.seg)+'</span></div>'+
+      '<div class="olbody">'+txt+'<span class="quota">'+esc(r.quota)+'</span></div></div>';
+  });
+  var all=item.steps.every(function(st){return S.res[keyOf(item,st)]===1;});
+  html+='<div class="actions">'+
+    (all?'':'<button class="btn primary" id="btnAll">一键填入完整骨架</button>')+
+    '<button class="btn'+(all?' primary':'')+'" id="btnCopy">复制这份骨架</button>'+
+    (all?'<button class="btn" id="btnClear">清空本组，重做</button>':'')+'</div>';
+  var ol=document.getElementById('ol'); ol.innerHTML=html;
+  if(!all){
+    document.getElementById('btnAll').onclick=function(){
+      item.steps.forEach(function(st){ if(S.res[keyOf(item,st)]!==1) S.res[keyOf(item,st)]=1; });
+      save(); renderTrack(S.tab);
+    };
+  }else{
+    document.getElementById('btnClear').onclick=function(){
+      item.steps.forEach(function(st){ delete S.res[keyOf(item,st)]; });
+      save(); renderTrack(S.tab);
+    };
+  }
+  document.getElementById('btnCopy').onclick=function(){
+    var txt=item.name+'\n';
+    rows.forEach(function(r){
+      var st=item.steps.filter(function(x){return x.k===r.use;})[0];
+      txt+=r.seg+'（'+r.quota+'）：'+((st&&S.res[keyOf(item,st)]===1)?st.fill:'（待定）')+'\n';
+    });
+    copyText(txt); this.textContent='已复制 ✓';
+  };
+}
+
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).catch(function(){fb(txt);}); }
+  else fb(txt);
+  function fb(s){
+    var ta=document.createElement('textarea'); ta.value=s; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+
+function setTab(t){
+  S.tab=t;
+  [].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.classList.toggle('on', b.dataset.t===t); });
+  renderTrack(t);
+  window.scrollTo(0,0);
+}
+[].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.onclick=function(){ setTab(b.dataset.t); }; });
+
+var btnEasy=document.getElementById('btnEasy');
+function paintEasy(){
+  btnEasy.setAttribute('aria-pressed',String(!!S.easy));
+  btnEasy.textContent = S.easy ? 'Easy Mode · 开' : 'Easy Mode';
+  btnEasy.classList.toggle('primary', !!S.easy);
+}
+btnEasy.onclick=function(){ S.easy=!S.easy; save(); paintEasy(); renderTrack(S.tab); };
+paintEasy();
+setTab('arg');
+</script>
+</body></html>
