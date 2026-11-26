@@ -61,6 +61,39 @@ code{background:var(--chip);border-radius:5px;padding:1px 5px;font-size:13px}
   .tbl{font-size:12.5px} .tbl th,.tbl td{padding:6px 7px}
   .big{grid-template-columns:1fr}
 }
+
+/* ---------- 拆题步骤 ---------- */
+.material{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:11px 13px;
+  font-size:14.5px;line-height:1.85;margin:9px 0}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin:11px 0;background:var(--bg)}
+.step.done{border-color:var(--accent)}
+.stephd{display:flex;gap:9px;align-items:center;font-size:14px;font-weight:700;flex-wrap:wrap}
+.stepno{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;
+  font:700 12.5px/24px ui-monospace,Consolas,monospace;text-align:center;flex:none}
+.stepask{font-size:14.5px;margin:9px 0 9px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;line-height:1.7;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--accent);background:var(--a);font-weight:700}
+.opt.wrong{border-color:var(--warn);background:var(--c);text-decoration:line-through}
+.ans{display:none;margin-top:10px;font-size:13.5px;line-height:1.8;border-top:1px dashed var(--line);padding-top:9px}
+.ans.on{display:block}
+.ezbox{margin:8px 0 2px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ez-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;
+  padding:7px 11px;font-size:13.5px;line-height:1.7;border-bottom:1px solid var(--line)}
+.ez-row:last-child{border-bottom:0}
+.ez-row b{font-size:12.5px;font-weight:700;opacity:.9;padding-top:1px}
+.ez-key{background:rgba(80,120,200,.14)}
+.ez-kill{background:rgba(199,152,26,.18)}
+.ez-trap{background:rgba(163,63,46,.15)}
+.ez-kp{background:rgba(46,107,79,.15)}
+.ez-kp .kptag{display:inline-block;font-size:12px;border:1px solid var(--line);
+  border-radius:999px;padding:0 8px;margin:2px 5px 0 0;background:var(--card)}
+@media (max-width:620px){
+  .ez-row{grid-template-columns:minmax(0,1fr);gap:2px}
+  .opt{font-size:13.5px;padding:8px 10px}
+}
 </style></head><body><div class="wrap">
 
 <h1>模考档案 · 2A / 3A 两卷统筹</h1>
@@ -72,8 +105,10 @@ code{background:var(--chip);border-radius:5px;padding:1px 5px;font-size:13px}
   <button data-t="math">③ 数学逐题</button>
   <button data-t="lg">④ 分析推理</button>
   <button data-t="cut">⑤ 取舍与分数账</button>
+  <button data-t="drill">⑥ A3 拆题</button>
 </div>
 
+<div class="bar" style="margin-bottom:10px"><button class="btn" type="button" id="btnEasy" aria-pressed="false">Easy Mode</button><span class="note" style="align-self:center">开启后显示「关键 / 秒杀 / 陷阱 / 考点」，不显示答案。</span></div>
 <main id="view"></main>
 
 <p class="note" style="margin-top:22px">
@@ -169,6 +204,310 @@ var LY3=[
 ];
 
 /* 考点两卷合计 */
+/* ===== A3 拆题：A+B 档 19 题，每题 3 步 ===== */
+var DRILL3=[
+ {n:1,kp:'M6 多项式整除',tier:'A',
+  stem:'如果 x²−x−1 是 ax³+bx+1 的一个因式，则 b^a 的值是（　）',
+  opts:['−2','−1','1/2','2','1'],ans:2,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['一元二次方程求根','多项式整除（待定系数）','不等式解集','数列通项'],
+    why:'「是…的因式」＝整除，标准做法是设商式再比对系数。A、C、D 都套不上「因式」这个词。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['设 ax³+bx+1=(x²−x−1)(ax+c)，展开比对系数','用求根公式解 x²−x−1=0','把 x=1 代进去试试','先求导找极值'],
+    why:'A 对：三次式除以二次式，商必是一次式 ax+c，待定系数最快。B 只能得到根；C 代特值只能验不能解；D 与因式无关。'},
+   {name:'出答案',ask:'b^a 等于？',right:2,
+    opts:['−2','−1','1/2','2','1'],
+    why:'展开得 c−a=0、−a−c=b、−c=1 → c=−1, a=−1, b=2 → b^a=2^(−1)=1/2。'}
+  ],
+  ez:{k:'「是…的因式」＝整除，设商式比对系数。',s:'三次÷二次，商是一次式 ax+c。',p:['因式定理','待定系数']}},
+
+ {n:2,kp:'M1 折扣与增长率',tier:'A',
+  stem:'一件商品，先提价 20%，再以 8.5 折出售，现在的价格与调整之前相比（　）',
+  opts:['涨了 2%','降了 2%','降了 4%','涨了 4%','以上答案均不正确'],ans:0,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:0,
+    opts:['增长率与折扣的复合','利润与成本','浓度问题','等差数列'],
+    why:'两次百分比调整，本质是乘数连乘，属于 M1 的增长率题。'},
+   {name:'选动作',ask:'第一步该做什么？',right:1,
+    opts:['设原价为 100 元，分别算出两次后的价格','列方程求原价','用等差公式','画函数图像'],
+    why:'B 对：设原价 100 最省事，也可以直接用乘数 1.2×0.85，不用真的设数。'},
+   {name:'出答案',ask:'现价相对原价？',right:0,
+    opts:['涨了 2%','降了 2%','降了 4%','涨了 4%','不变'],
+    why:'1.2×0.85=1.02，即涨 2%。注意「提价 20% 再打 8.5 折」不是回到原价。'}
+  ],
+  ez:{k:'百分比连续调整＝乘数连乘。',s:'1.2×0.85=1.02，一眼出。',t:'「先涨后降」不等于回到原价，别选「不变」。',p:['增长率','折扣']}},
+
+ {n:3,kp:'M1 浓度与稀释',tier:'B',
+  stem:'一桶纯酒精，倒出 10 升后，用清水填满，再倒出 6 升，再以清水填满，此时测得桶内纯酒精与水之比恰为 3:1，则桶内的容积是（　）升',
+  opts:['42','50','60','72','84'],ans:2,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:2,
+    opts:['工程问题','行程问题','浓度（稀释）问题','排列组合'],
+    why:'倒出再加满，浓度按比例衰减，这是标准稀释题。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['设容积 V，写出剩余纯酒精占比 (V−10)/V×(V−6)/V','先算倒出的总量 16 升','设浓度为 x 再解','用平均速度公式'],
+    why:'A 对：稀释题只盯「溶质还剩多少」，不要算每一步的浓度再相减。'},
+   {name:'出答案',ask:'桶的容积是？',right:2,
+    opts:['42','50','60','72','84'],
+    why:'剩余占比 3/4，即 (V−10)(V−6)/V²=3/4，解得 V=60（V=4 不合题意）。'}
+  ],
+  ez:{k:'稀释题只算溶质剩余量，不算浓度差。',s:'(V−a)(V−b)/V² = 目标浓度。',t:'两次倒出的 10 升和 6 升浓度不同，不能直接相加。',p:['浓度','只算溶质']}},
+
+ {n:4,kp:'M8 二次不等式解集',tier:'A',
+  stem:'关于 x 的不等式 x²−2ax−8a²<0（a>0）的解集为（x₁，x₂），且 x₂−x₁=15，则 a=（　）',
+  opts:['5/2','7/2','15/2','15/4','5/4'],ans:0,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['韦达定理求两根之和','二次不等式解集与根的关系','均值不等式','数列求和'],
+    why:'解集端点就是方程的两根，考的是「根与解集区间」的对应。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['先求两根：x=4a 与 x=−2a，再算间距 6a','直接用韦达定理 x₁+x₂=2a','先配方求最值','代入 x=0 找端点'],
+    why:'A 对：这题需要的是「间距」，用求根公式直接看出两根更快。B 只给和，还得求积。'},
+   {name:'出答案',ask:'a 等于？',right:0,
+    opts:['5/2','7/2','15/2','15/4','5/4'],
+    why:'两根 4a、−2a，间距 6a=15 → a=5/2。'}
+  ],
+  ez:{k:'解集端点＝方程的两根，间距＝两根之差。',s:'先求根（4a、−2a），再做差。',t:'用韦达求「和」会绕远，这题要的是「差」。',p:['二次不等式','根与解集']}},
+
+ {n:5,kp:'M10 对立事件',tier:'A',
+  stem:'一批产品的次品率为 0.2，逐次检测后放回，在连续 3 次检测中，至少有一件是次品的概率为（　）',
+  opts:['0.362','0.376','0.382','0.387','0.488'],ans:4,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:0,
+    opts:['独立重复试验（二项分布）','古典概型','条件概率','几何概型'],
+    why:'有放回、每次独立、固定次数，是标准的 n 次独立重复试验。'},
+   {name:'选动作',ask:'第一步该做什么？',right:1,
+    opts:['把「1 件、2 件、3 件」三种情况相加','用对立事件：1 减去「三次全是正品」','用全概率公式','画树状图逐支乘'],
+    why:'B 对：至少一件＝正难则反，一步出。A 要算三项，容易漏。'},
+   {name:'出答案',ask:'概率约等于？',right:4,
+    opts:['0.362','0.376','0.382','0.387','0.488'],
+    why:'1−0.8³=1−0.512=0.488。'}
+  ],
+  ez:{k:'看到「至少」，先想对立事件。',s:'1 − (1−p)^n。',t:'把 0.2×3=0.6 是错的，事件不互斥不能直加。',p:['对立事件','二项分布']}},
+
+ {n:6,kp:'M9 函数对称配对',tier:'B',
+  stem:'已知 f(x)=x²/(1+x²)，计算 f(1)+f(2)+f(3)+f(4)+f(1/2)+f(1/3)+f(1/4)=（　）',
+  opts:['7/2','7','5/2','5','7/4'],ans:0,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:2,
+    opts:['等差数列求和','对数运算','函数对称性（f(x)+f(1/x)）','三角函数化简'],
+    why:'出现了 x 与 1/x 成对，先看它们的和是不是常数。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['算 f(x)+f(1/x)，看是否为定值','把七项逐一代入硬算','先求导看单调性','通分求和'],
+    why:'A 对：f(x)+f(1/x)=1，三对共 3，再加 f(1)=1/2。硬算七项要五分钟且易错。'},
+   {name:'出答案',ask:'和等于？',right:0,
+    opts:['7/2','7','5/2','5','7/4'],
+    why:'三对 × 1 = 3，加 f(1)=1/2，共 7/2。'}
+  ],
+  ez:{k:'出现 x 与 1/x，先验 f(x)+f(1/x) 是否为定值。',s:'f(x)+f(1/x)=x²/(1+x²)+1/(1+x²)=1。',t:'七项硬算必错，且时间不够。',p:['函数对称','配对求和']}},
+
+ {n:8,kp:'M2 路线计数（标数法）',tier:'B',graph:true,
+  stem:'一条信息可通过如图的网络路由由 A 点往下向各站点传送。例如，信息到 b₂ 点可由经 a₁ 的站点送达，也可由经 a₂ 的站点送达，共有两条途径。则信息由 A 点到达 d₃ 的不同途径共有（　）',
+  opts:['3','4','5','6','12'],ans:-1,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['排列组合建模','路线计数（标数法）','容斥原理','树形图逐支列举'],
+    why:'分层网络、求到达某点的路径数，标准解法是标数法：每点标上「到达它的路径数」。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['从 A 开始逐层标数：每个节点＝上层所有相连节点标数之和','把 3×3×3 乘起来','先算总路径再减去不到 d₃ 的','列举所有路径写下来'],
+    why:'A 对：标数法逐层累加，一次到底。B 假设了每层全连通，图上不成立；C 太绕；D 容易漏。'}
+  ],
+  ez:{k:'分层网络求路径数＝标数法。',s:'每个节点标「到它的路径数」，逐层往下加。',t:'这题依赖图上连边，我无法代你确认——请对照原图逐层标。',p:['标数法','路线计数']}},
+
+ {n:9,kp:'M1 整数不定方程',tier:'A',
+  stem:'某演出门票有 10 元、15 元、20 元三种票价，班长用 500 元买了 30 张门票，其中票价为 20 元的比票价为 10 元的多（　）张',
+  opts:['15','10','8','5','4'],ans:1,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['一元一次方程','整数不定方程（两式相减消元）','排列组合','等差数列'],
+    why:'三个未知数、两个方程，但问的是「差」，正好可以消去中间项。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['设 10 元 x 张、15 元 y 张、20 元 z 张，两式相减消去 y','先猜一个答案代入','用排列组合算','设总价为未知数'],
+    why:'A 对：x+y+z=30 与 10x+15y+20z=500，第一式乘 15 再减第二式，y 消失，直接得 z−x。'},
+   {name:'出答案',ask:'20 元票比 10 元票多几张？',right:1,
+    opts:['15','10','8','5','4'],
+    why:'15×30−500=50=5(z−x) → z−x=10。'}
+  ],
+  ez:{k:'问「差」就消去无关项。',s:'15×(总张数) − 总价 = 5(z−x)。',t:'硬解三元方程会卡住，因为只有一个自由变量。',p:['不定方程','消元']}},
+
+ {n:12,kp:'M6 恒等式 + 直线象限',tier:'B',
+  stem:'若 (a+b)/c=(b+c)/a=(c+a)/b=k，√(m−2)+n²+9=6n，那么直线 y=kx+(m+n) 一定过（　）',
+  opts:['第一、二、三象限','第一、二象限','第二、三象限','第一、四象限','第一、二、四象限'],ans:0,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:2,
+    opts:['解方程组','数列递推','非负性（√ + 平方）与直线象限','三角函数图像'],
+    why:'两个知识点拼起来：连等式求 k，根式加配方求 m、n，最后看直线。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['把三个分式相加，求出 k；再把根式写成 √(m−2)+(n−3)²=0','先画直线','直接代 a=b=c=1 试','求导找斜率'],
+    why:'A 对：三式相加得 2(a+b+c)=k(a+b+c) → k=2；√(m−2)+(n−3)²=0 → m=2,n=3。'},
+   {name:'出答案',ask:'直线 y=2x+5 过哪些象限？',right:0,
+    opts:['第一、二、三象限','第一、二象限','第二、三象限','第一、四象限','第一、二、四象限'],
+    why:'斜率 2>0、截距 5>0，过一、二、三象限。'}
+  ],
+  ez:{k:'连等式：三式相加是标准动作。',s:'2(a+b+c)=k(a+b+c) → k=2。',t:'忘记讨论 a+b+c=0 的情况（本题不影响选项）。',p:['连等式','非负性','直线象限']}},
+
+ {n:13,kp:'M10 分组分配',tier:'B',
+  stem:'有 5 个人，每个人以相同的概率分到甲、乙、丙三个房间，每个房间至少 1 人，则房间恰好有两人的概率为（　）',
+  opts:['1/6','2/5','1/2','3/5','3/4'],ans:3,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['独立重复试验','分组分配 + 古典概型','条件概率','排列'],
+    why:'「每房至少 1 人」是满射计数，「恰好两人」是 2+2+1 型计数。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['先数样本空间（每房非空）150，再数 2+2+1 型 90','直接用 3⁵=243 当分母','先算 1 人房有几种','用容斥算至少一个空房'],
+    why:'A 对：分母必须是「每房至少 1 人」的分配数，不是 3⁵；否则条件概率算错。'},
+   {name:'出答案',ask:'概率等于？',right:3,
+    opts:['1/6','2/5','1/2','3/5','3/4'],
+    why:'2+2+1 型：3×5×C(4,2)=90；3+1+1 型 60；合计 150。90/150=3/5。'}
+  ],
+  ez:{k:'「至少一个」的分母要用满射数，不是总分配数。',s:'3⁵−3·2⁵+3=150。',t:'分母用 243 会算出 90/243，选项里没有，正是提醒。',p:['满射计数','古典概型']}},
+
+ {n:14,kp:'M5 圆上动点最值',tier:'A',
+  stem:'正方形 ABCD 顶点 B 坐标为 (5,0)，顶点 D 在 x²+y²=1 上运动。正方形 ABCD 的面积为 S，则 S 的最大值为（　）',
+  opts:['25','36','49','18','49/2'],ans:3,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:2,
+    opts:['直线与圆的位置关系','圆的切线','圆上动点与最值（转化成长度）','抛物线焦点'],
+    why:'D 在圆上动，B 固定，求面积最大——把面积转成对角线长度。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['用 S=BD²/2，把问题转成「BD 最大是多少」','设 D 的坐标硬算','用正弦定理','求正方形中心轨迹'],
+    why:'A 对：正方形面积＝对角线平方的一半，BD 最大就是圆心到 B 加半径。'},
+   {name:'出答案',ask:'S 的最大值？',right:3,
+    opts:['25','36','49','18','49/2'],
+    why:'BD 最大＝5+1=6，S=36/2=18。注意别选 36（那是 BD²）。'}
+  ],
+  ez:{k:'正方形面积＝对角线²÷2。',s:'把「面积最值」换成「对角线最值」。',t:'BD²=36 不是面积，除以 2 才是。',p:['最值转化','圆上动点']}},
+
+ {n:15,kp:'M1 行程·两次相距',tier:'A',
+  stem:'上午 7:30，客车和货车分别从 A、B 两地出发匀速行驶，相向而行，当天上午 10 点整两车相距 48 千米，相遇后两车继续行驶，当天上午 11 点整，再次相距 48 千米，则 A、B 两地相距（　）千米',
+  opts:['96','192','256','272','288'],ans:4,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['追及问题','相遇问题（两次相距）','流水行船','环形跑道'],
+    why:'相向而行、给两次相距，属于相遇模型的对称用法。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['设速度和 v，列出「相遇前 48」与「相遇后 48」两式再相加','先求各自速度','用平均速度乘时间','画 s-t 图找交点'],
+    why:'A 对：两式相加能直接消去 L，求出 v，再回代求距离。'},
+   {name:'出答案',ask:'A、B 相距多少千米？',right:4,
+    opts:['96','192','256','272','288'],
+    why:'2.5v+48=L，3.5v−48=L → v=96，L=2.5×96+48=288。'}
+  ],
+  ez:{k:'「两次相距相同」＝相遇点两侧对称。',s:'两式相加消 L，先求速度和。',t:'把 7:30 到 10:00 算成 2 小时（其实是 2.5 小时）。',p:['相遇问题','对称性']}},
+
+ {n:16,kp:'M7 数列 Sn 最值',tier:'B',
+  stem:'设等差数列 {aₙ} 的前 n 项和为 Sₙ，S₆ 是 Sₙ（n∈N）的最大值。判断条件是否充分：\n(1) a₁<0，d>0\n(2) a₁=23，d=−4',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:1,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:2,
+    opts:['等差求和公式','等比数列','Sn 最值（通项正负转折）','裂项相消'],
+    why:'Sn 最大 ⇔ 从某项开始 an 变负，要找正负转折点。'},
+   {name:'选动作',ask:'条件(1) 怎么判？',right:0,
+    opts:['a₁<0、d>0 是递增数列，Sn 无最大值，不充分','代 a₁=−1,d=1 验证','直接判充分','先求 S₆ 再比'],
+    why:'A 对：首项负、公差正 → 数列递增，Sn 会一直增大，没有最大值。'},
+   {name:'出答案',ask:'应选哪个选项？',right:1,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'(2) a₁=23,d=−4：a₆=3>0、a₇=−1<0，前 6 项为正，S₆ 最大，充分。'}
+  ],
+  ez:{k:'Sn 最值看通项什么时候变号。',s:'a₁=23,d=−4 → a₇=−1，第 6 项后转负。',t:'条件(1) 递增数列无最大值，别被「等差数列」四个字带偏。',p:['Sn 最值','通项符号']}},
+
+ {n:17,kp:'M5 直线垂直与平行',tier:'A',
+  stem:'判断条件是否充分：k=1 或 4\n(1) 直线 l₁:(k−3)x+(5−k)y+1=0 与 l₂:2(k−3)x−2y+3=0 垂直\n(2) 直线 l₁:(k−3)x+(4−k)y+1=0 与 l₂:2(k−3)x−2y+3=0 平行',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:0,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:0,
+    opts:['直线位置关系（垂直/平行的系数条件）','点到直线距离','圆与直线','斜率与倾斜角'],
+    why:'两直线垂直用 A₁A₂+B₁B₂=0，平行用 A₁B₂−A₂B₁=0。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['把系数代进垂直条件，解出 k','先画两条直线','先求交点','用斜率公式硬算角度'],
+    why:'A 对：垂直条件一步出二次方程，解出 k 再比。'},
+   {name:'出答案',ask:'应选哪个选项？',right:0,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'(1) 垂直 → k²−5k+4=0 → k=1 或 4，充分；(2) 平行 → k=3 或 6，不充分。'}
+  ],
+  ez:{k:'垂直 A₁A₂+B₁B₂=0；平行 A₁B₂−A₂B₁=0。',s:'别用斜率，含参数的斜率要讨论分母为 0。',t:'两条都解出 k 就急着选 D——条件(2) 的 k 不是 1 或 4。',p:['直线垂直','直线平行']}},
+
+ {n:18,kp:'M8 最值（充分性）',tier:'B',
+  stem:'判断条件是否充分：m=9/2\n(1) 若点 (x,y) 位于曲线 y=|x| 与 y=2 所围成的封闭区域，则 2x−y 的最小值为 m\n(2) 已知 a>0，b>0，a+b=2，则 y=1/a+4/b 的最小值为 m',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:1,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['线性规划 + 均值不等式','数列最值','二次函数顶点','绝对值方程'],
+    why:'一个是在区域里找线性式最值，一个是含条件的分式和最值。'},
+   {name:'选动作',ask:'条件(2) 怎么算？',right:0,
+    opts:['用「乘 1 法」：(1/a+4/b)(a+b)/2 再套均值不等式','直接取 a=b=1','求导','画图'],
+    why:'A 对：已知和求倒数和，标准动作是「乘 (a+b)/2」把条件用上。'},
+   {name:'出答案',ask:'应选哪个选项？',right:1,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'(2) 最小值为 9/2（a=4/3,b=2/3），充分；(1) 该区域上 2x−y 最小值为 −6，不是 9/2，不充分。'}
+  ],
+  ez:{k:'已知和求分式和 → 乘「和」再展开用均值。',s:'(1/a+4/b)(a+b) ≥ (1+2)²=9。',t:'条件(1) 是线性规划，和条件(2) 完全不是一个方法，别串。',p:['乘1法','均值不等式','线性规划']}},
+
+ {n:20,kp:'M4 圆柱展开',tier:'A',
+  stem:'判断条件是否充分：圆柱体的侧面展开图是一个正方形，则侧面积与下底面积之比为 4π:1\n(1) 圆柱体的下底面积为 1\n(2) 圆柱体的下底面积为 π',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:3,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:0,
+    opts:['圆柱的展开图与面积比','球的体积','圆锥侧面积','棱柱表面积'],
+    why:'侧面展开是正方形 → 高＝底面周长，这是唯一要用的关系。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['写出比值的表达式，看它是否含 r','先用条件(1) 算出 r 再算面积','设 h=1','求体积比'],
+    why:'A 对：侧面积 2πrh、底面积 πr²，h=2πr 代入后 r 会约掉，比值恒为 4π:1。'},
+   {name:'出答案',ask:'应选哪个选项？',right:3,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'比值与 r 无关，任何底面积条件都能确定，两个条件各自充分 → D。'}
+  ],
+  ez:{k:'先看「结论里的量是否依赖参数」，能约掉就是恒成立。',s:'h=2πr 代进去，r 自己消失。',t:'两个条件都能推出同一结论时，答案常常是 D 而不是 C。',p:['圆柱展开','恒成立']}},
+
+ {n:21,kp:'M1 工程问题',tier:'A',
+  stem:'判断条件是否充分：装修某居室，甲单独干需要 6 天完成\n(1) 甲单独干 3 天后，乙再单独干 2 天可以完成\n(2) 甲单独干 1 天半后，乙再单独干 3 天可以完成',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:3,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['行程问题','工程问题（设总量为 1）','浓度问题','比例问题'],
+    why:'「几天完成」是工程题的标志，总量设 1，效率＝1/天数。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['设乙需 x 天，用「甲做几天 + 乙做几天 = 1」列式','先算总工作量','用两人效率和公式','画线段图'],
+    why:'A 对：条件(1) 3/6+2/x=1，条件(2) 1.5/6+3/x=1，分别解 x。'},
+   {name:'出答案',ask:'应选哪个选项？',right:3,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'两个条件都能解出 x=4，都能确定甲的工期 → D。'}
+  ],
+  ez:{k:'工程题：总量设 1，效率＝1/天数。',s:'「甲做 a 天 + 乙做 b 天 = 1」。',t:'看到两个条件都成立就选 C——本题是 D。',p:['工程问题','设总量1']}},
+
+ {n:22,kp:'M7 等比数列符号',tier:'A',
+  stem:'判断条件是否充分：已知等比数列 {aₙ} 的公比为 q。则 a₁>a₃\n(1) a₅>a₇\n(2) |q|<1',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:0,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:2,
+    opts:['等比求和','等差中项','等比数列的符号与公比','数列极限'],
+    why:'a₁>a₃ ⇔ a₁(1−q²)>0，关键在 a₁ 与 (1−q²) 的符号。'},
+   {name:'选动作',ask:'第一步该做什么？',right:0,
+    opts:['把 a₃、a₅、a₇ 都用 a₁ 和 q 表示','先求公比','代具体数字试','用求和公式'],
+    why:'A 对：全部化成 a₁q^k 的形式，符号问题就一目了然。'},
+   {name:'出答案',ask:'应选哪个选项？',right:0,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'(1) a₅>a₇ → a₁q⁴(1−q²)>0 → 1−q²>0，充分；(2) |q|<1 只给了一半点，a₁ 符号未知，不充分。'}
+  ],
+  ez:{k:'等比题的符号问题，全部化成 a₁q^k。',s:'a₁q⁴(1−q²)>0 中 q⁴>0，直接得 1−q²>0。',t:'条件(2) 少了 a₁ 的符号，最容易误选 D。',p:['等比数列','符号判断']}},
+
+ {n:24,kp:'M10 排列与容斥',tier:'B',
+  stem:'判断条件是否充分：N=78\n(1) 四个不同的小球放入编号为 1、2、3、4 的四个盒中，则恰有一个空盒的放法有 N 种\n(2) 五个人排成一排，规定甲不许排第一，乙不许排第二，不同的排法共有 N 种',
+  opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],ans:1,
+  steps:[
+   {name:'认考点',ask:'这题考的是哪一类？',right:1,
+    opts:['组合数公式','排列与禁位（容斥）','分组分配','概率'],
+    why:'一个是「球入盒恰一空」，一个是「排列中两个禁位」。'},
+   {name:'选动作',ask:'条件(2) 怎么算？',right:0,
+    opts:['5!−2×4!+3!（容斥：减去甲第一、乙第二，加回同时发生）','5!−2','4!−3!','用插空法'],
+    why:'A 对：两个禁位用容斥，最后加回「甲乙同时占禁位」的 3!。'},
+   {name:'出答案',ask:'应选哪个选项？',right:1,
+    opts:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],
+    why:'(2) =120−48+6=78，充分；(1) 恰一空的放法为 144，不是 78，不充分。'}
+  ],
+  ez:{k:'两个禁位用容斥：总数 − 甲违规 − 乙违规 + 两者同时违规。',s:'5!−2·4!+3!=78。',t:'条件(1) 的 144 常被误算成 78（把「恰一空」当成「每盒一个」）。',p:['容斥','禁位排列']}}
+];
+
 var KP=[
  {k:'M1',name:'比例与速率',a:4,b:5,judge:'核心'},
  {k:'M8',name:'不等式与最值',a:5,b:4,judge:'核心'},
@@ -325,10 +664,14 @@ TABS.cut=function(){
 
 /* ---------- 渲染 ---------- */
 function table(list, title){
+ var is3 = (list === A3);
  var h='<h3 style="margin:10px 0 6px">'+title+'</h3>';
- h+='<table class="tbl"><tr><th style="width:6%">题</th><th style="width:24%">考点</th><th style="width:8%">档</th><th style="width:12%">我推</th><th>动作</th></tr>';
+ h+='<table class="tbl"><tr><th style="width:6%">题</th><th style="width:22%">考点</th><th style="width:7%">档</th><th style="width:11%">我推</th><th>动作</th>'+ (is3?'<th style="width:11%">拆解</th>':'') +'</tr>';
  h+=list.map(function(r){
-   return '<tr><td><b>'+r.n+'</b></td><td>'+r.kp+'</td><td><span class="pill t'+r.t+'">'+r.t+'</span></td><td>'+r.ans+'</td><td>'+r.act+'</td></tr>';
+   var has = is3 && DRILL3.some(function(d){return d.n===r.n;});
+   return '<tr><td><b>'+r.n+'</b></td><td>'+r.kp+'</td><td><span class="pill t'+r.t+'">'+r.t+'</span></td><td>'+r.ans+'</td><td>'+r.act+'</td>'+
+     (is3?('<td>'+(has?'<button class="btn" data-drill="'+r.n+'" style="padding:3px 10px;font-size:12.5px">拆</button>':'')+'</td>'):'')+
+     '</tr>';
  }).join('');
  h+='</table>';
  return h;
@@ -345,9 +688,91 @@ function paintMath(){
  [].slice.call(document.querySelectorAll('#pick button')).forEach(function(b){ b.classList.toggle('on', b.dataset.v===mathVer); });
 }
 
+
+var DS={cur:0,res:{},easy:false};
+try{ var d0=localStorage.getItem('kaoyan.mocks.drill'); if(d0){ var o0=JSON.parse(d0); DS.cur=o0.cur||0; DS.res=o0.res||{}; } }catch(e){}
+function saveD(){ try{ localStorage.setItem('kaoyan.mocks.drill', JSON.stringify({cur:DS.cur,res:DS.res})); }catch(e){} }
+
+function ezBox(st){
+  if(!st.ez) return '';
+  var e=st.ez;
+  return '<div class="ezbox">'+
+   (e.k?'<div class="ez-row ez-key"><b>关键</b><div>'+e.k+'</div></div>':'')+
+   (e.s?'<div class="ez-row ez-kill"><b>秒杀</b><div>'+e.s+'</div></div>':'')+
+   (e.t?'<div class="ez-row ez-trap"><b>陷阱</b><div>'+e.t+'</div></div>':'')+
+   (e.p&&e.p.length?'<div class="ez-row ez-kp"><b>考点</b><div>'+e.p.map(function(x){return '<span class="kptag">'+x+'</span>';}).join('')+'</div></div>':'')+
+   '</div>';
+}
+
+TABS.drill=function(){
+  var q=DRILL3[DS.cur]||DRILL3[0];
+  var html='<div class="card"><span class="qtag">A3 拆题</span>'+
+   '<p class="note" style="margin:8px 0 0">A+B 档 19 题，每题三步：<b>认考点 → 选动作 → 出答案</b>。先认出是哪一类，再决定第一步做什么，最后才算。</p>'+
+   '<div class="bar mini" style="margin:10px 0 0" id="dpick">'+DRILL3.map(function(it,i){
+     var done=it.steps.filter(function(st,j){return DS.res['q'+it.n+'-'+j]===1;}).length;
+     return '<button data-i="'+i+'" class="'+(i===DS.cur?'on':'')+'">'+it.n+' 题 · '+it.kp.split(' ')[0]+'<br><span class="note">'+done+'/'+it.steps.length+'</span></button>';
+   }).join('')+'</div></div>';
+  html+='<div class="card"><div class="note">A3 第 '+q.n+' 题 · '+q.kp+' · '+q.tier+' 档</div>'+
+   '<div class="material" style="white-space:pre-wrap;margin-top:8px">'+q.stem+'</div>'+
+   '<div class="note">选项：'+q.opts.map(function(o,i){return 'ABCDE'.charAt(i)+'. '+o;}).join('　')+'</div>'+(DS.easy?ezBox(q):'')+'</div>';
+  html+='<div id="dsteps"></div>';
+  view.innerHTML=html;
+  [].slice.call(document.querySelectorAll('#dpick button')).forEach(function(b){
+    b.onclick=function(){ DS.cur=+b.dataset.i; saveD(); setTab('drill'); };
+  });
+  var box=document.getElementById('dsteps');
+  q.steps.forEach(function(st,j){ box.appendChild(dStep(q,st,j)); });
+};
+
+function dStep(q,st,j){
+  var key='q'+q.n+'-'+j, rec=DS.res[key];
+  var answered=(rec!=null), picked=answered?(rec>1?rec-100:st.right):null, ok=answered&&rec===1;
+  var d=document.createElement('div'); d.className='step'+(ok?' done':'');
+  var head='<div class="stephd"><span class="stepno">'+(j+1)+'</span><span>'+st.name+'</span>'+
+    (ok?'<span style="color:var(--ok);font-weight:700">✓</span>':(answered?'<span style="color:var(--warn);font-weight:700">✗ 可重试</span>':''))+'</div>';
+  var body='<div class="stepask">'+st.ask+'</div>';
+  var ez=DS.easy?ezBox(st):'';
+  var opts='<div class="opts">'+st.opts.map(function(o,i){
+      var cls='opt';
+      if(answered){ if(i===st.right) cls+=' right'; else if(i===picked) cls+=' wrong'; }
+      return '<button class="'+cls+'" data-i="'+i+'"'+(answered?' disabled':'')+'>'+'ABCDE'.charAt(i)+'　'+o+'</button>';
+    }).join('')+'</div>';
+  var tail='<div class="ans'+(answered?' on':'')+'"></div>';
+  d.innerHTML=head+body+ez+opts+tail;
+  var btns=[].slice.call(d.querySelectorAll('.opt')), ansEl=d.querySelector('.ans');
+  function paint(){
+    ansEl.innerHTML='<b>'+(ok?'✓ 对':'✗ 错')+'</b>　正确答案：'+'ABCDE'.charAt(st.right)+'<br>'+st.why;
+    ansEl.classList.add('on');
+    if(!ok){
+      var btn=document.createElement('button'); btn.className='btn'; btn.textContent='再试一次';
+      btn.style.marginTop='10px';
+      btn.onclick=function(){ delete DS.res[key]; saveD(); setTab('drill'); };
+      ansEl.appendChild(btn);
+    }
+  }
+  if(answered){ paint(); }
+  else{
+    btns.forEach(function(b){
+      b.onclick=function(){
+        var i=+b.dataset.i, good=(i===st.right);
+        ok = good;
+        DS.res[key]= good?1:(i+100); saveD();
+        btns.forEach(function(x){ var k=+x.dataset.i; x.disabled=true;
+          if(k===st.right) x.classList.add('right'); else if(k===i) x.classList.add('wrong'); });
+        d.classList.toggle('done', good);
+        paint();
+      };
+    });
+  }
+  return d;
+}
+
 var view=document.getElementById('view');
+var CUR='over';
 function setTab(t){
+ CUR=t;
  [].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.classList.toggle('on', b.dataset.t===t); });
+ if(t==='drill'){ TABS[t](); window.scrollTo(0,0); return; }
  view.innerHTML=TABS[t]();
  if(t==='math'){
    paintMath();
@@ -358,6 +783,27 @@ function setTab(t){
  window.scrollTo(0,0);
 }
 [].slice.call(document.querySelectorAll('#tabs button')).forEach(function(b){ b.onclick=function(){ setTab(b.dataset.t); }; });
+(function(){
+  var be=document.getElementById('btnEasy');
+  be.onclick=function(){
+    DS.easy=!DS.easy;
+    be.setAttribute('aria-pressed',String(!!DS.easy));
+    be.textContent = DS.easy ? 'Easy Mode · 开' : 'Easy Mode';
+    if(CUR==='drill') setTab('drill');
+  };
+})();
+document.addEventListener('click', function(e){
+  var t=e.target;
+  while(t && t!==document){
+    if(t.getAttribute && t.getAttribute('data-drill')){
+      var n=+t.getAttribute('data-drill');
+      DRILL3.forEach(function(d,k){ if(d.n===n) DS.cur=k; });
+      saveD(); setTab('drill');
+      return;
+    }
+    t=t.parentNode;
+  }
+}, true);
 setTab('over');
 </script>
 </body></html>
