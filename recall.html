@@ -25,14 +25,14 @@ body{margin:0;background:var(--bg);color:var(--fg);
   font:16px/1.8 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-text-size-adjust:100%}
 .wrap{max-width:900px;margin:0 auto;padding:20px 14px 90px}
 h1{font-size:23px;margin:0 0 4px}
-.sub{color:var(--mut);font-size:14px;margin:0 0 12px}
+.sub{display:none}
 .bar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
 .bar button{border:1px solid var(--line);background:var(--card);color:var(--fg);
-  border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+  border-radius:999px;padding:7px 14px;font:inherit;font-size:15px;cursor:pointer}
 .bar button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
-.qtag{font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
-.note{font-size:13px;color:var(--mut)}
+.qtag{font-size:14px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}
+.note{font-size:15.5px;color:var(--fg)}
 .stem{font-size:16.5px;line-height:1.9;white-space:pre-wrap;margin:10px 0 12px}
 .ask{font-size:14.5px;font-weight:700;margin:6px 0 10px}
 .opts{display:grid;gap:8px}
@@ -41,31 +41,31 @@ h1{font-size:23px;margin:0 0 4px}
 .opt:hover{border-color:var(--accent)}
 .opt.right{border-color:var(--ok);background:var(--a);font-weight:700}
 .opt.wrong{border-color:var(--warn);text-decoration:line-through;opacity:.75}
-.opt .sid{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--mut);margin-right:6px}
+.opt .sid{font-family:ui-monospace,Consolas,monospace;font-size:15px;color:var(--accent);font-weight:700;margin-right:6px}
 .fb{display:none;margin-top:11px;font-size:14px;line-height:1.85;border-top:1px dashed var(--line);padding-top:10px}
 .fb.on{display:block}
 .fb .ok{color:var(--ok);font-weight:700}
 .fb .no{color:var(--warn);font-weight:700}
 .btn{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;
-  padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer;margin-top:10px}
+  padding:7px 15px;font:inherit;font-size:15px;cursor:pointer;margin-top:10px}
 .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
 .tbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
 .tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .tbl th{background:var(--bg)}
 .ezbox{margin:2px 0 12px;border:1px dashed var(--accent);border-radius:10px;padding:2px 10px;background:var(--chip)}
-.ezrow{display:flex;gap:9px;padding:6px 0;font-size:13.8px;line-height:1.7}
+.ezrow{display:flex;gap:9px;padding:6px 0;font-size:15.5px;line-height:1.75}
 .ezrow+.ezrow{border-top:1px dotted var(--line)}
-.ezk{flex:0 0 34px;color:var(--accent);font-weight:700}
+.ezk{flex:0 0 40px;color:var(--accent);font-weight:800;font-size:15.5px}
 .sop{padding:8px 2px 6px;border-bottom:1px dotted var(--line);margin-bottom:6px}
-.soph{font-size:13px;color:var(--accent);font-weight:700;margin-bottom:4px}
-.sop ol{margin:0;padding-left:22px;font-size:13.8px;line-height:1.85}
+.soph{font-size:15.5px;color:var(--accent);font-weight:800;margin-bottom:4px}
+.sop ol{margin:0;padding-left:22px;font-size:15.5px;line-height:1.8}
 .sop li{margin:2px 0}
-.soph2{font-size:13px;color:var(--accent);font-weight:700;margin:8px 0 3px}
-.sop ul{margin:0;padding-left:20px;font-size:13.8px;line-height:1.8;list-style:none}
+.soph2{font-size:15.5px;color:var(--accent);font-weight:800;margin:10px 0 3px}
+.sop ul{margin:0;padding-left:20px;font-size:15.5px;line-height:1.8;list-style:none}
 .sop ul.win li::before{content:"✓ ";color:var(--ok)}
 .sop ul.cut li::before{content:"✕ ";color:var(--warn)}
 .at{color:var(--accent);font-weight:700}
-.ezbox .ezk{font-size:13px}
+.ezbox .ezk{font-size:15.5px}
 details.sv{margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
 details.sv summary{cursor:pointer;font-size:13.5px;color:var(--accent);font-weight:700;list-style:none}
 details.sv summary::-webkit-details-marker{display:none}
@@ -75,7 +75,7 @@ details.sv summary::before{content:"点开看 · ";font-weight:400}
 details.sv[open] summary::before{content:"已展开 · ";font-weight:400}
 details.sv .svbody{font-size:14px;line-height:1.9;margin-top:6px;white-space:pre-wrap}
 .tog{border:1px solid var(--accent);background:var(--card);color:var(--accent);border-radius:999px;
-  padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+  padding:7px 14px;font:inherit;font-size:15px;cursor:pointer}
 .tog.on{background:var(--accent);color:#fff;font-weight:700}
 .do{margin-top:14px;padding-top:12px;border-top:2px solid var(--line)}
 .do .ask{font-size:14.5px;font-weight:700;margin:4px 0 10px}
@@ -84,7 +84,7 @@ details.sv .svbody{font-size:14px;line-height:1.9;margin-top:6px;white-space:pre
 .choice:hover{border-color:var(--accent)}
 .choice.right{border-color:var(--ok);background:var(--a);font-weight:700}
 .choice.wrong{border-color:var(--warn);text-decoration:line-through;opacity:.75}
-.choice .sid{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--mut);margin-right:6px}
+.choice .sid{font-family:ui-monospace,Consolas,monospace;font-size:15px;color:var(--accent);font-weight:700;margin-right:6px}
 @media (max-width:620px){
   h1{font-size:20px} .card{padding:12px} .stem{font-size:15.5px}
   .tbl{font-size:12.5px}
@@ -103,6 +103,7 @@ details.sv .svbody{font-size:14px;line-height:1.9;margin-top:6px;white-space:pre
   <button data-p="pool">考点池</button>
   <button data-p="wrong" id="wrongTab">错题本</button>
   <button id="ez" class="tog">Easy Mode</button>
+  <button id="reset" class="tog">清空所有记录</button>
 </div>
 
 <main id="view"></main>
@@ -247,7 +248,7 @@ var QB=[
  opts:['M8','M3','M6','M12'],ans:0,key:'B',
  why:'$(2)$长得像平方和：配方成 $(a-b)^2+2(b-c)^2=0$，两个非负数相加为零，各自为零。'},
 {p:'2A',n:23,stem:'甲桶有 A 农药 50 升，乙桶有 40 升，两桶混合可配成浓度 40% 的溶液。\n(1) 甲浓度为 20%，乙浓度为 65%\n(2) 甲浓度为 30%，乙浓度为 52.5%',
-  k:'混合浓度只算溶质。',t:'分母是 90 升。', sv:'$(50\\times 0.2+40\\times 0.65)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 与$(15+21)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，两个条件各自成立 → D。',
+  k:'混合浓度只算溶质。',t:'分母是 90 升。', sv:'$(50\\times 0.2+40\\times 0.65)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 与$(15+21)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，两个条件各自成立 → D。',
  ch:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],chAns:3,
  opts:['M1','M8','M10','M6'],ans:0,key:'D',
  why:'混合浓度只算溶质总量：两桶的溶质相加，除以总升数。'},
@@ -270,7 +271,7 @@ var QB=[
  opts:['M11','M6','M7','M8'],ans:0,key:'C（$\\frac12$）',
  why:'二次式能整除三次式，商一定是一次式，设 $(x^2-x-1)(ax+c)$ 比对系数。'},
 {p:'3A',n:2,stem:'一件商品先提价 20%，再以 8.5 折出售，现在的价格与调整之前相比',
-  sv:'把原价当成 1。提价$20\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 就是乘 1.2；打 8.5 折就是乘 0.85。两次一起乘：$1.2\\times 0.85=1.02$，也就是原价的$102\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，涨了$2\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%。注意它不是回到原价。',
+  sv:'把原价当成 1。提价$20\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 就是乘 1.2；打 8.5 折就是乘 0.85。两次一起乘：$1.2\\times 0.85=1.02$，也就是原价的$102\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，涨了$2\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%。注意它不是回到原价。',
  k:'两次调整＝两个乘数相乘。',t:'「8.5 折」是乘 0.85，不是减 0.85。',
  ch:['涨了 2%','降了 2%','降了 4%','涨了 4%','以上答案均不正确'],chAns:0,
  opts:['M1','M8','M6','M10'],ans:0,key:'A（涨 2%）',
@@ -502,7 +503,7 @@ function render(){
   var list=items(S.paper);
   var done=list.filter(function(q){return S.res[key(q)]===1;}).length;
   var bad=list.filter(isWrong).length;
-  var h='<div class="card"><div class="note">本卷 '+list.length+' 题 · 已认出 '+done+' 题'+
+  var h='<div class="card"><div>本卷 '+list.length+' 题 · 已认出 '+done+' 题'+
     (bad?' · 要重来 '+bad+' 题':'')+
     (done===list.length?'　<span class="ok" style="color:var(--ok);font-weight:700">本卷全部认对</span>':'')+'</div>'+
     '<div style="height:6px;background:var(--chip);border-radius:999px;overflow:hidden;margin:8px 0 0">'+
@@ -515,7 +516,7 @@ function render(){
 
 function renderWrong(){
   var list=QB.filter(isWrong);
-  var h='<div class="card"><div class="note">错题本：认错考点或做错选择的题都在这里，共 '+list.length+' 题。'+
+  var h='<div class="card"><div>错题本：认错考点或做错选择的题都在这里，共 '+list.length+' 题。'+
     (list.length?'　这里只做复习：直接给正确答案和完整解法，看懂之后点「移出错题本」。':'　还没有错题。')+'</div></div>';
   if(!list.length){
     view.innerHTML=h; paintTabs(); return;
@@ -583,8 +584,7 @@ function card(q){
     var cls='opt';
     if(rec!=null){ if(i===q.ans) cls+=' right'; else if(i===rec-100) cls+=' wrong'; }
     return '<button class="'+cls+'" data-i="'+i+'"'+(rec!=null?' disabled':'')+'>'+
-      '<span class="sid">'+id+'</span>'+KPS[id].name+
-      '<div class="note" style="margin-left:44px">'+KPS[id].sign+'</div></button>';
+      '<span class="sid">'+id+'</span>'+KPS[id].name+'　'+KPS[id].sign+'</button>';
   }).join('');
   var fb='';
   if(rec!=null){
@@ -711,6 +711,13 @@ tabs.forEach(function(b){ b.onclick=function(){
   tabs.forEach(function(x){ x.classList.toggle('on', x.dataset.p===S.paper); });
   render(); window.scrollTo(0,0);
 };});
+var rsBtn=document.getElementById('reset');
+rsBtn.onclick=function(){
+  if(!confirm('清空全部作答与错题记录？')) return;
+  S.res={}; S.res2={};
+  try{ localStorage.removeItem('kaoyan.recall.v1'); }catch(e){}
+  save(); render(); window.scrollTo(0,0);
+};
 var ezBtn=document.getElementById('ez');
 function paintEz(){ ezBtn.classList.toggle('on', S.easy); }
 ezBtn.onclick=function(){ S.easy=!S.easy; save(); paintEz(); render(); };
