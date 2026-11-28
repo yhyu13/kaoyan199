@@ -65,6 +65,7 @@ h1{font-size:23px;margin:0 0 4px}
 .sop ul.win li::before{content:"✓ ";color:var(--ok)}
 .sop ul.cut li::before{content:"✕ ";color:var(--warn)}
 .at{color:var(--accent);font-weight:700}
+.winline{color:var(--ok);font-weight:700}
 .ezbox .ezk{font-size:15.5px}
 details.sv{margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
 details.sv summary{cursor:pointer;font-size:13.5px;color:var(--accent);font-weight:700;list-style:none}
@@ -248,7 +249,7 @@ var QB=[
  opts:['M8','M3','M6','M12'],ans:0,key:'B',
  why:'$(2)$长得像平方和：配方成 $(a-b)^2+2(b-c)^2=0$，两个非负数相加为零，各自为零。'},
 {p:'2A',n:23,stem:'甲桶有 A 农药 50 升，乙桶有 40 升，两桶混合可配成浓度 40% 的溶液。\n(1) 甲浓度为 20%，乙浓度为 65%\n(2) 甲浓度为 30%，乙浓度为 52.5%',
-  k:'混合浓度只算溶质。',t:'分母是 90 升。', sv:'$(50\\times 0.2+40\\times 0.65)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 与$(15+21)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，两个条件各自成立 → D。',
+  k:'混合浓度只算溶质。',t:'分母是 90 升。', sv:'$(50\\times 0.2+40\\times 0.65)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 与$(15+21)/90=40\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，两个条件各自成立 → D。',
  ch:['条件(1)充分，条件(2)不充分','条件(2)充分，条件(1)不充分','联合充分','单独都充分','都不充分'],chAns:3,
  opts:['M1','M8','M10','M6'],ans:0,key:'D',
  why:'混合浓度只算溶质总量：两桶的溶质相加，除以总升数。'},
@@ -271,7 +272,7 @@ var QB=[
  opts:['M11','M6','M7','M8'],ans:0,key:'C（$\\frac12$）',
  why:'二次式能整除三次式，商一定是一次式，设 $(x^2-x-1)(ax+c)$ 比对系数。'},
 {p:'3A',n:2,stem:'一件商品先提价 20%，再以 8.5 折出售，现在的价格与调整之前相比',
-  sv:'把原价当成 1。提价$20\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 就是乘 1.2；打 8.5 折就是乘 0.85。两次一起乘：$1.2\\times 0.85=1.02$，也就是原价的$102\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，涨了$2\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%。注意它不是回到原价。',
+  sv:'把原价当成 1。提价$20\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$% 就是乘 1.2；打 8.5 折就是乘 0.85。两次一起乘：$1.2\\times 0.85=1.02$，也就是原价的$102\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%，涨了$2\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$$\\$%。注意它不是回到原价。',
  k:'两次调整＝两个乘数相乘。',t:'「8.5 折」是乘 0.85，不是减 0.85。',
  ch:['涨了 2%','降了 2%','降了 4%','涨了 4%','以上答案均不正确'],chAns:0,
  opts:['M1','M8','M6','M10'],ans:0,key:'A（涨 2%）',
@@ -553,6 +554,12 @@ function reviewCard(q){
     '</div>';
 }
 
+function shortWin(x){
+  var i=x.indexOf('：');
+  var t=(i>0? x.slice(0,i) : x);
+  return t.length>12? t.slice(0,12) : t;
+}
+
 function sopBlock(q){
   var kp=KPS[q.opts[q.ans]]||{};
   var list=(q.sop&&q.sop.length)?q.sop:(kp.sop||[]);
@@ -584,7 +591,8 @@ function card(q){
     var cls='opt';
     if(rec!=null){ if(i===q.ans) cls+=' right'; else if(i===rec-100) cls+=' wrong'; }
     return '<button class="'+cls+'" data-i="'+i+'"'+(rec!=null?' disabled':'')+'>'+
-      '<span class="sid">'+id+'</span>'+KPS[id].name+'　'+KPS[id].sign+'</button>';
+      '<span class="sid">'+id+'</span>'+KPS[id].name+'　'+KPS[id].sign+
+      (KPS[id].win?'<br><span class="winline">选它：'+KPS[id].win.map(shortWin).join('／')+'</span>':'')+'</button>';
   }).join('');
   var fb='';
   if(rec!=null){
@@ -593,7 +601,7 @@ function card(q){
         (q.at?'<span class="at">本题属于：'+h(q.at)+'</span><br>':'')+h(q.why)
       : '<span class="no">✗ 不是它</span>　你选的是 '+KPS[q.opts[rec-100]].name+'；这题的特征更像 <b>'+q.opts[q.ans]+' '+KPS[q.opts[q.ans]].name+'</b>。<br>'+
         '<span class="note">再看一眼：'+h(q.why)+'</span>')+
-      (q.warn?'<br><span class="note">⚠ '+h(q.warn)+'</span>':'')+'</div>';
+      '</div>';
   }
   var ez = S.easy
     ? '<div class="ezbox">'+
